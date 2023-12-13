@@ -1,0 +1,85 @@
+{
+    "Act1": {
+        "name": "Act 1 : Tutorial",
+        "1": {
+            "start_word": "link",
+            "end_word": "pink",
+            "10k_sol": 2,
+            "88k_sol": 2,
+            "375k_sol": 2,
+            "34k_sol": 2
+        },
+        "2": {
+            "start_word": "pink",
+            "end_word": "pin",
+            "10k_sol": 2,
+            "34k_sol": 2,
+            "88k_sol": 2,
+            "375k_sol": 2
+        },
+        "3": {
+            "start_word": "pin",
+            "end_word": "pain",
+            "10k_sol": 2,
+            "34k_sol": 2,
+            "88k_sol": 2,
+            "375k_sol": 2
+        },
+        "4": {
+            "start_word": "pain",
+            "end_word": "brain",
+            "10k_sol": 3,
+            "34k_sol": 3,
+            "88k_sol": 3,
+            "375k_sol": 3
+        },
+        "5": {
+            "start_word": "brain",
+            "end_word": "crane",
+            "10k_sol": null,
+            "34k_sol": 3,
+            "88k_sol": 3,
+            "375k_sol": 3
+        },
+        "6": {
+            "start_word": "crane",
+            "end_word": "chain",
+            "10k_sol": 3,
+            "34k_sol": 3,
+            "88k_sol": 3,
+            "375k_sol": 3
+        },
+        "7": {
+            "start_word": "chain",
+            "end_word": "name",
+            "10k_sol": 4,
+            "34k_sol": 4,
+            "88k_sol": 4,
+            "375k_sol": 4
+        },
+        "8": {
+            "start_word": "name",
+            "end_word": "chance",
+            "10k_sol": 5,
+            "34k_sol": 5,
+            "88k_sol": 4,
+            "375k_sol": 4
+        },
+        "9": {
+            "start_word": "chance",
+            "end_word": "heart",
+            "10k_sol": 4,
+            "34k_sol": 4,
+            "88k_sol": 4,
+            "375k_sol": 4
+        },
+        "10": {
+            "start_word": "heart",
+            "end_word": "tree",
+            "10k_sol": 3,
+            "34k_sol": 3,
+            "88k_sol": 3,
+            "375k_sol": 3
+        }
+    }
+}

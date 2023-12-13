@@ -1,0 +1,24 @@
+{
+    "11/12/2023": {
+        "start_word": "juice",
+        "end_word": "friend",
+        "simplest_solution": [
+            "juice",
+            "julie",
+            "julia",
+            "jail",
+            "dial",
+            "idea",
+            "reid",
+            "fired",
+            "friend"
+        ],
+        "best_solution": [
+            "juice",
+            "cunei",
+            "cerin",
+            "cedrin",
+            "friend"
+        ]
+    }
+}

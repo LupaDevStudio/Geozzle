@@ -1,0 +1,68 @@
+#:kivy 2.2.1
+#:import PATH_IMAGES tools.path.PATH_IMAGES
+
+# <Cursor@Widget>:
+#     color: (0,0,0,1)
+#     canvas:
+#         Color:
+#             rgba: self.color
+#         Rectangle:
+#             pos: self.pos
+#             size: self.size
+
+<BottomBar>:
+
+    canvas.before:
+        # Background
+        Color:
+            rgba: self.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+        # Separation bar
+        Color:
+            rgba: self.separation_color
+        Rectangle:
+            pos: (0,self.height)
+            size: (self.width, self.separation_height)
+
+    Image:
+        id: selected_cursor
+        source: PATH_IMAGES + "cursor.png"
+        pos_hint: root.selected_rect_pos
+        fit_mode: "contain"
+        size_hint: root.selected_rect_size
+        color: root.selected_color
+        
+    # Home button
+    ImageButton:
+        id: home_button
+        source: PATH_IMAGES + "home.png"
+        size_hint: root.button_width, root.button_height
+        pos_hint: {"center_x":0.125, "center_y":0.5}
+        # release_function: root.manager.current = "home"
+
+    # Customization button
+    ImageButton:
+        id: customization_button
+        source: PATH_IMAGES + "customization.png"
+        size_hint: root.button_width, root.button_height
+        pos_hint: {"center_x":0.375, "center_y":0.5}
+        # release_function: root.manager.current = "customization"
+
+    # Profile button
+    ImageButton:
+        id: profile_button
+        source: PATH_IMAGES + "profile.png"
+        size_hint: root.button_width, root.button_height
+        pos_hint: {"center_x":0.625, "center_y":0.5}
+        # release_function: root.manager.current = "customization"
+
+    # Settings button
+    ImageButton:
+        id: settings_button
+        source: PATH_IMAGES + "settings.png"
+        size_hint: root.button_width, root.button_height
+        pos_hint: {"center_x":0.875, "center_y":0.5}
+        # release_function: root.manager.current = "customization"

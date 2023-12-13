@@ -1,0 +1,21 @@
+{
+    "free_mode": {},
+    "daily_mode": {
+        "start_word": "",
+        "end_word": ""
+    },
+    "history": {},
+    "items": {
+        "coins": 0,
+        "unlocked_backgrounds": [],
+        "unlocked_palettes": [],
+        "unlocked_musics": []
+    },
+    "settings": {
+        "sound_volume": 0.5,
+        "music_volume": 0.5,
+        "current_background_theme": "japanese_1",
+        "current_music": "",
+        "current_palette_theme": ""
+    }
+}

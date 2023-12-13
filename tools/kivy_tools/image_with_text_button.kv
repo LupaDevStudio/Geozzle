@@ -1,0 +1,23 @@
+#:kivy 2.1.0
+
+<ImageWithTextButton>:
+    Label:
+        id: text_widget
+        text: root.text
+        size: root.size
+        pos: root.pos
+        shorten: False
+        text_size: (root.width*root.text_filling_ratio,None)
+        color: root.text_color
+        font_name: root.text_font_name
+        font_size: root.text_font_size * root.parent.font_ratio * root.parent.font_size_expand
+        halign: root.text_halign
+        valign: root.text_valign
+        line_height: 1
+    Button:
+        id: button_widget
+        size: root.size
+        pos: root.pos
+        background_color: (0, 0, 0, 0)
+        on_release:
+            root.release_function()

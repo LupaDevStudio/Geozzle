@@ -1,0 +1,300 @@
+#:kivy 1.0
+
+
+########################
+### Colors variables ###
+########################
+
+
+#:set pink_color (229 / 255, 19 / 255, 100 / 255, 1)
+#:set blue_color (70 / 255, 130 / 255, 180 / 255, 1)
+#:set gray_color (100 / 255, 100 / 255, 100 / 255, 1)
+#:set highlight_text_color (229 / 255, 19 / 255, 100 / 255, 0.5)
+#:set black_color (0, 0, 0, 1)
+#:set atlas_prefix "atlas://tools/kivy_tools/images/defaulttheme/"
+
+
+###############
+### Buttons ###
+###############
+
+
+<-Button,-ToggleButton>:
+    
+    # Blue
+    background_normal: atlas_prefix + 'button_blue'
+    # Light pink
+    background_pressed: atlas_prefix + 'button_pink_pressed'
+    # Gray
+    background_disabled: atlas_prefix + 'button_gray_disabled'
+    # Pink
+    background_focus: atlas_prefix + 'button_pink'
+    state_image: (self.background_normal if self.state == 'normal' else self.background_focus) if self.state == 'normal' else self.background_focus
+    disabled_image: self.background_disabled
+	bold: True
+    canvas:
+        Color:
+            rgba: self.background_color
+        BorderImage:
+            border: self.border
+            pos: self.pos
+            size: self.size
+            source: self.disabled_image if self.disabled else self.state_image
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            texture: self.texture
+            size: self.texture_size
+            pos: int(self.center_x - self.texture_size[0] / 2.), int(self.center_y - self.texture_size[1] / 2.)
+
+
+<-FocusableButton>:
+    
+    # Blue
+    background_normal: atlas_prefix + 'button_blue'
+    # Light pink
+    background_pressed: atlas_prefix + 'button_pink_pressed'
+    # Gray
+    background_disabled: atlas_prefix + 'button_gray_disabled'
+    # Pink
+    background_focus: atlas_prefix + 'button_pink'
+    state_image: (self.background_focus if self.focus else self.background_normal) if self.state == 'normal' else self.background_pressed
+    disabled_image: self.background_disabled
+	bold: True
+    canvas:
+        Color:
+            rgba: self.background_color
+        BorderImage:
+            border: self.border
+            pos: self.pos
+            size: self.size
+            source: self.disabled_image if self.disabled else self.state_image
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            texture: self.texture
+            size: self.texture_size
+            pos: int(self.center_x - self.texture_size[0] / 2.), int(self.center_y - self.texture_size[1] / 2.)
+
+
+##################
+### Text Input ###
+##################
+
+
+<TextInput>:
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        BorderImage:
+            border: self.border
+            pos: self.pos
+            size: self.size
+            source: atlas_prefix + 'textinput_active' if self.focus else (atlas_prefix + 'textinput_disabled_active' if self.disabled else atlas_prefix + 'textinput')
+        Color:
+            rgba:   
+				((156/255,0,60/255,1)
+                if self.focus and not self._cursor_blink
+                and int(self.x + self.padding[0]) <= self._cursor_visual_pos[0] <= int(self.x + self.width - self.padding[2])
+                else (0, 0, 0, 0))
+        Rectangle:
+            pos: self._cursor_visual_pos
+            size: root.cursor_width, -self._cursor_visual_height
+        Color:
+            rgba: self.disabled_foreground_color if self.disabled else (self.hint_text_color if not self.text else self.foreground_color)
+
+<Selector>:
+    color: pink_color
+    allow_stretch: True
+
+# <ImprovedMDTextField@MDTextField>:
+#     color_mode: "custom"
+#     mode: "rectangle"
+#     line_color_focus: pink_color
+#     line_color_normal: blue_color if not self.disabled else gray_color
+#     normal_color: blue_color
+#     color_active: pink_color
+#     disabled_color: gray_color
+#     text_color_focus: black_color
+#     text_color_normal: blue_color
+#     hint_text_color_normal: pink_color
+#     hint_text_color_focus: blue_color
+#     selection_color: highlight_text_color
+
+
+###############
+### Spinner ###
+###############
+
+
+<FocusableSpinner>:
+    background_normal: atlas_prefix + 'spinner'
+    background_disabled: atlas_prefix + 'spinner_disabled'
+    background_focus: atlas_prefix + 'spinner_pressed'
+    state_image: self.background_focus if self.focus else self.background_normal
+    disabled_image: self.background_disabled
+	bold: True
+    canvas:
+        Color:
+            rgba: self.background_color
+        BorderImage:
+            border: self.border
+            pos: self.pos
+            size: self.size
+            source: self.disabled_image if self.disabled else self.state_image
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            texture: self.texture
+            size: self.texture_size
+            pos: int(self.center_x - self.texture_size[0] / 2.), int(self.center_y - self.texture_size[1] / 2.)
+
+<Spinner>:
+    background_normal: atlas_prefix + 'spinner'
+    background_disabled_normal: atlas_prefix + 'spinner_disabled'
+    background_down: atlas_prefix + 'spinner_pressed'
+
+
+##############
+### Slider ###
+##############
+
+
+<Slider>:
+    canvas:
+        Color:
+            rgb: 1, 1, 1
+        BorderImage:
+            border: self.border_horizontal if self.orientation == 'horizontal' else self.border_vertical
+            pos: (self.x + self.padding, self.center_y - self.background_width / 2) if self.orientation == 'horizontal' else (self.center_x - self.background_width / 2, self.y + self.padding)
+            size: (self.width - self.padding * 2, self.background_width) if self.orientation == 'horizontal' else (self.background_width, self.height - self.padding * 2)
+            source: (atlas_prefix + 'sliderh_background_disabled' if self.orientation == 'horizontal' else atlas_prefix + 'sliderv_background_disabled') if self.disabled else (atlas_prefix + 'sliderh_background' if self.orientation == 'horizontal' else atlas_prefix + 'sliderv_background')
+        Color:
+            rgba: root.value_track_color if self.value_track and self.orientation == 'horizontal' else [1, 1, 1, 0]
+        Line:
+            width: self.value_track_width
+            points: self.x + self.padding, self.center_y, self.value_pos[0], self.center_y
+        Color:
+            rgba: root.value_track_color if self.value_track and self.orientation == 'vertical' else [1, 1, 1, 0]
+        Line:
+            width: self.value_track_width
+            points: self.center_x, self.y + self.padding, self.center_x, self.value_pos[1]
+        Color:
+            rgb: 1, 1, 1
+    Image:
+        pos: (root.value_pos[0] - root.cursor_width / 2, root.center_y - root.cursor_height / 2) if root.orientation == 'horizontal' else (root.center_x - root.cursor_width / 2, root.value_pos[1] - root.cursor_height / 2)
+        size: root.cursor_size
+        source: atlas_prefix + 'slider_cursor_disabled' if root.disabled else atlas_prefix + 'slider_cursor'
+        allow_stretch: True
+        keep_ratio: False
+
+
+####################
+### Progress bar ###
+####################
+
+
+# <ProgressBar>:
+#     canvas:
+#         Color:
+#             rgb: 1, 1, 1
+#         BorderImage:
+#             border: (12, 12, 12, 12)
+#             pos: self.x, self.center_y - 12
+#             size: self.width, 24
+#             source: atlas_prefix + 'progressbar_background'
+#         BorderImage:
+#             border: [int(min(self.width * (self.value / float(self.max)) if self.max else 0, 12))] * 4
+#             pos: self.x, self.center_y - 12
+#             size: self.width * (self.value / float(self.max)) if self.max else 0, 24
+#             source: atlas_prefix + 'progressbar'
+
+
+##############
+### Switch ###
+##############
+
+
+# <Switch>:
+#     active_norm_pos: max(0., min(1., (int(self.active) + self.touch_distance / sp(41))))
+#     canvas:
+#         Color:
+#             rgb: 1, 1, 1
+#         Rectangle:
+#             source: atlas_prefix + 'switch-background{}'.format('_disabled' if self.disabled else '')
+#             size: sp(83), sp(32)
+#             pos: int(self.center_x - sp(41)), int(self.center_y - sp(16))
+#     canvas.after:
+#         Color:
+#             rgb: 1, 1, 1
+#         Rectangle:
+#             source: atlas_prefix + 'switch-button{}'.format('_disabled' if self.disabled else '')
+#             size: sp(43), sp(32)
+#             pos: int(self.center_x - sp(41) + self.active_norm_pos * sp(41)), int(self.center_y - sp(16))
+
+
+################
+### Checkbox ###
+################
+
+
+# <FocusableCheckBox>:
+#     canvas:
+#         Color:
+#             rgba: self.color
+#         Rectangle:
+#             source: ((atlas_prefix + 'checkbox_radio_focus_on' if self.focus else atlas_prefix + 'checkbox_radio_disabled_on' if self.disabled else atlas_prefix + 'checkbox_radio_on') if self.active else (atlas_prefix + 'checkbox_radio_focus_off' if self.focus else atlas_prefix + 'checkbox_radio_disabled_off' if self.disabled else atlas_prefix + 'checkbox_radio_off')) if self.group else ((atlas_prefix + 'checkbox_focus_on' if self.focus else atlas_prefix + 'checkbox_disabled_on' if self.disabled else atlas_prefix + 'checkbox_on') if self.active else (atlas_prefix + 'checkbox_focus_off' if self.focus else atlas_prefix + 'checkbox_disabled_off' if self.disabled else atlas_prefix + 'checkbox_off'))
+#             size: sp(32), sp(32)
+#             pos: int(self.center_x - sp(16)), int(self.center_y - sp(16))
+
+# <LabelledCheckBox>:
+#     pos_hint: root.pos_hint
+#     FocusableCheckBox:
+#         id: checkbox
+#         pos_hint: {"x":0, "y":0}
+#         size_hint: root.size_hint_cb
+#         group: root.group
+#         disabled: root.disabled_cb
+#         on_active:
+#             root.function_cb
+#     Label:
+#         text: root.text_label
+#         color: root.color_label
+#         size_hint: root.size_hint_label
+#         pos_hint: {"x":0.1, "y":0}
+#         text_size: self.size
+#         halign: "left"
+#         valign: "center"
+
+#############
+### Popup ###
+#############
+
+
+# <ImprovedPopupLayout>:
+#     size: root.size_popup
+#     pos_hint: {"x":0, "y":0}
+
+#     Widget:
+#         canvas:
+#             Color:
+#                 rgba: root.blue_color
+#             Rectangle:
+#                 pos: root.x, root.top
+#                 size: self.width, dp(3)
+
+
+###############
+### Tooltip ###
+###############
+
+
+# <ToolTip>:
+#     size_hint: None, None
+#     size: self.texture_size[0]+5, self.texture_size[1]+5
+#     canvas.before:
+#         Color:
+#             rgb: 0.2, 0.2, 0.2
+#         Rectangle:
+#             size: self.size
+#             pos: self.pos
