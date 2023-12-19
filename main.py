@@ -115,5 +115,5 @@ class MainApp(App, Widget):
 
 # Run the application
 if __name__ == "__main__":
-    Window.size = (480, 854)
+    Window.size = (405, 720)
     MainApp().run()
