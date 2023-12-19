@@ -6,7 +6,10 @@ Package to manage the screens of the application
 ### Imports ###
 ###############
 
-from screens.custom_widgets import CustomButton
+from screens.custom_widgets import (
+    CustomButton,
+    LanguageButton
+)
 
 from screens.home import HomeScreen
 from screens.game_over import GameOverScreen

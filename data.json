@@ -1,3 +1,9 @@
 {
-    "language": "french"
+    "language": "french",
+    "continents": {
+        "europe": {
+            "highscore": 0,
+            "completion_percentage": 0
+        }
+    }
 }

@@ -56,7 +56,11 @@ class OpeningScreen(ImprovedScreen):
 
     def load_kv_files(self, *_):
         from screens import (
-            HomeScreen)
+            HomeScreen,
+            GameOverScreen,
+            GameQuestionScreen,
+            GameSummaryScreen
+        )
 
         screen_files = [file for file in os.listdir(
             "screens") if file.endswith(".kv")]
@@ -69,6 +73,9 @@ class OpeningScreen(ImprovedScreen):
                 f"screens/custom_widgets/{file}", encoding="utf-8")
 
         self.HomeScreen = HomeScreen
+        self.GameOverScreen = GameOverScreen
+        self.GameSummaryScreen = GameSummaryScreen
+        self.GameQuestionScreen = GameQuestionScreen
 
         Clock.schedule_once(self.load_other_screens)
 
@@ -80,20 +87,10 @@ class OpeningScreen(ImprovedScreen):
         ### Load the kv files of the screens ###
         home_screen = self.HomeScreen(name="home")
         self.manager.add_widget(home_screen)
-        # game_screen = self.GameScreen(name="game")
-        # self.manager.add_widget(game_screen)
-        # settings_screen = self.SettingsScreen(name="settings")
-        # self.manager.add_widget(settings_screen)
-        # game_over_screen = self.GameOverScreen(name="game_over")
-        # self.manager.add_widget(game_over_screen)
-        # achievements_screen = self.AchievementsScreen(name="achievements")
-        # self.manager.add_widget(achievements_screen)
-        # tutorial_screen = self.TutorialScreen(name="tutorial")
-        # self.manager.add_widget(tutorial_screen)
-        # help_screen = self.HelpScreen(name="help")
-        # self.manager.add_widget(help_screen)
-        # Preload screens
-        # Clock.schedule_once(self.manager.get_screen("game").preload)
-        # Clock.schedule_once(self.manager.get_screen("game_over").preload)
-        # self.manager.current = "menu"
+        game_summary_screen = self.GameSummaryScreen(name="game_summary")
+        self.manager.add_widget(game_summary_screen)
+        game_question_screen = self.GameQuestionScreen(name="game_question")
+        self.manager.add_widget(game_question_screen)
+        game_over_screen = self.GameOverScreen(name="game_over")
+        self.manager.add_widget(game_over_screen)
         Clock.schedule_once(self.switch_to_menu)

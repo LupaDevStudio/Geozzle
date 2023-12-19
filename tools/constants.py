@@ -26,12 +26,6 @@ from kivy import platform
 
 from tools.path import (
     PATH_USER_DATA,
-    PATH_WORDS_10K,
-    PATH_WORDS_34K,
-    PATH_WORDS_88K,
-    PATH_WORDS_375K,
-    PATH_GAMEPLAY,
-    PATH_THEMES,
     PATH_LANGUAGE
 )
 from tools.basic_tools import (
@@ -146,18 +140,6 @@ class Text():
 
 TEXT = Text(language=USER_DATA.language)
 
-### Colors ###
-
-
-class ColorPalette():
-    """
-    Class to store the colors used in the screens.
-    """
-
-    def __init__(self) -> None:
-        self.PRIMARY = (0, 0, 0, 1)
-        self.SECONDARY = (0, 0, 0, 1)
-
 ### Graphics ###
 
 CUSTOM_BUTTON_BACKGROUND_COLOR = (1, 1, 1, 0.7)
@@ -170,47 +152,39 @@ TITLE_OUTLINE_WIDTH = 2
 TITLE_OUTLINE_COLOR = (1, 1, 1, 1)
 BOTTOM_BAR_HEIGHT = 0.12
 SUBTITLE_FONT_SIZE = 40
-
-### Musics ###
-
-SOUND_LIST = []
-
+SUBTITLE_OUTLINE_WIDTH = 1
+HIGHSCORE_FONT_SIZE = 30
 
 ### Ads code ###
 
 REWARD_INTERSTITIAL = ""
 INTERSTITIAL = ""
 
-### Words loading ###
+### Continents ###
 
-
-with open(PATH_WORDS_10K) as file:
-    ENGLISH_WORDS_10K = []
-    for i, line in enumerate(file):
-        ENGLISH_WORDS_10K.append(line.replace("\n", ""))
-
-with open(PATH_WORDS_34K) as file:
-    ENGLISH_WORDS_34K = []
-    for i, line in enumerate(file):
-        ENGLISH_WORDS_34K.append(line.replace("\n", ""))
-
-with open(PATH_WORDS_88K) as file:
-    ENGLISH_WORDS_88K = []
-    for i, line in enumerate(file):
-        ENGLISH_WORDS_88K.append(line.replace("\n", ""))
-
-with open(PATH_WORDS_375K) as file:
-    ENGLISH_WORDS_375K = []
-    for i, line in enumerate(file):
-        ENGLISH_WORDS_375K.append(line.replace("\n", ""))
-
-ENGLISH_WORDS_DICTS = {
-    "10k": ENGLISH_WORDS_10K,
-    "34k": ENGLISH_WORDS_34K,
-    "88k": ENGLISH_WORDS_88K,
-    "375k": ENGLISH_WORDS_375K
-}
-
-### Levels ###
-
-GAMEPLAY_DICT = load_json_file(PATH_GAMEPLAY)
+LIST_CONTINENTS = [
+    {
+        "name": "Europe",
+        "colors": (2/255,22/255,117/255,1)
+    },
+    {
+        "name": "Asia",
+        "colors": (0,118/255,4/255,1)
+    },
+    {
+        "name": "Africa",
+        "colors": (223/255,13/225,13/255,1)
+    },
+    {
+        "name": "North_America",
+        "colors": (221/255,102/255,15/255,1)
+    },
+    {
+        "name": "South_America",
+        "colors": (26/255,153/255,164/255,1)
+    },
+    {
+        "name": "Oceania",
+        "colors": (149/255,2/255,227/255,1)
+    }
+]

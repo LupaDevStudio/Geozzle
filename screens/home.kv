@@ -3,7 +3,9 @@
 #:import PATH_TITLE_FONT tools.path.PATH_TITLE_FONT
 #:import TITLE_FONT_SIZE tools.constants.TITLE_FONT_SIZE
 #:import SUBTITLE_FONT_SIZE tools.constants.SUBTITLE_FONT_SIZE
+#:import HIGHSCORE_FONT_SIZE tools.constants.HIGHSCORE_FONT_SIZE
 #:import TITLE_OUTLINE_WIDTH tools.constants.TITLE_OUTLINE_WIDTH
+#:import SUBTITLE_OUTLINE_WIDTH tools.constants.SUBTITLE_OUTLINE_WIDTH
 #:import TITLE_OUTLINE_COLOR tools.constants.TITLE_OUTLINE_COLOR
 #:import PATH_TEXT_FONT tools.path.PATH_TEXT_FONT
 #:import TEXT_FONT_COLOR tools.constants.TEXT_FONT_COLOR
@@ -20,22 +22,58 @@
         outline_color: TITLE_OUTLINE_COLOR
         color: TEXT_FONT_COLOR
 
+    # Language button
+    LanguageButton:
+        source: root.language_image
+        pos_hint: {"center_x":0.9, "center_y":0.95}
+        size_hint: (0.1, None)
+        height: self.width
+        release_function: root.change_language
+
+    # Continent logo in the center
+    LanguageButton:
+        source: root.continent_image
+        pos_hint: {"center_x":0.5, "center_y":0.5}
+        size_hint: (0.4, None)
+        height: self.width
+
     Label:
-        text: "Europe"
+        text: root.continent_name
         font_name: PATH_TITLE_FONT
         font_size: SUBTITLE_FONT_SIZE * root.font_ratio
         pos_hint: {"center_x":0.5, "center_y":0.75}
-        outline_width: TITLE_OUTLINE_WIDTH
+        outline_width: SUBTITLE_OUTLINE_WIDTH
         outline_color: TITLE_OUTLINE_COLOR
-        color: TEXT_FONT_COLOR
+        color: root.continent_color
+    
+
 
     CustomButton:
         text: "Play"
         pos_hint: {"center_x":0.5, "center_y":0.2}
-        size_hint: (0.4, 0.1)
+        size_hint: (0.4, 0.075)
         release_function: root.play_game
 
+    Label:
+        text: root.highscore
+        font_name: PATH_TITLE_FONT
+        font_size: HIGHSCORE_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.075}
+        outline_width: SUBTITLE_OUTLINE_WIDTH
+        outline_color: TITLE_OUTLINE_COLOR
+        color: root.continent_color
 
+    Button:
+        text: "tourne"
+        pos_hint: {"center_x":0.9, "center_y":0.5}
+        size_hint: (0.2, 0.075)
+        on_release: root.change_continent("right")
+
+    Button:
+        text: "tourne"
+        pos_hint: {"center_x":0.1, "center_y":0.5}
+        size_hint: (0.2, 0.075)
+        on_release: root.change_continent("left")
 
 
 
