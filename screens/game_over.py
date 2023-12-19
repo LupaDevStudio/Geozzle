@@ -21,7 +21,7 @@ from tools.kivy_tools import ImprovedScreen
 #############
 
 
-class HomeScreen(ImprovedScreen):
+class GameOverScreen(ImprovedScreen):
 
     def __init__(self, **kwargs) -> None:
         current_background_theme = USER_DATA.settings["current_background_theme"]

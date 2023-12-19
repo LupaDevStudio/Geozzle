@@ -1,0 +1,26 @@
+#:kivy 2.2.1
+
+<CustomButton>:
+
+    # Background
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        RoundedRectangle:
+            pos:self.pos
+            size:self.size
+            radius:[self.radius,]
+
+    # Main text
+    Label:
+        text: root.text
+        font_size: root.font_ratio * root.font_size
+        pos: root.pos
+        size: root.size
+        shorten: False
+        text_size: (root.width*root.text_filling_ratio,None)
+        font_name: root.text_font_name
+        halign: "center"
+        valign: "center"
+        line_height: 1
+        color: (0,0,0,1)

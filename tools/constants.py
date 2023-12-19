@@ -31,7 +31,8 @@ from tools.path import (
     PATH_WORDS_88K,
     PATH_WORDS_375K,
     PATH_GAMEPLAY,
-    PATH_THEMES
+    PATH_THEMES,
+    PATH_LANGUAGE
 )
 from tools.basic_tools import (
     load_json_file,
@@ -125,6 +126,51 @@ class UserData():
 
 
 USER_DATA = UserData()
+
+### Language ###
+
+DICT_LANGUAGE_CORRESPONDANCE = {
+    "french": "Français",
+    "english": "English"
+}
+DICT_LANGUAGE_NAME_TO_CODE = {
+    "Français": "french",
+    "English": "english"
+}
+LANGUAGES_LIST = tuple(DICT_LANGUAGE_CORRESPONDANCE.values())
+
+
+class Text():
+    def __init__(self, language) -> None:
+        self.language = language
+        self.change_language(language)
+
+    def change_language(self, language):
+        """
+        Change the language of the text contained in the class.
+
+        Parameters
+        ----------
+        language : str
+            Code of the desired language.
+
+        Returns
+        -------
+        None
+        """
+        # Change the language
+        self.language = language
+
+        # Load the json file
+        data = load_json_file(PATH_LANGUAGE + language + ".json")
+
+        # Split the text contained in the screens
+        self.home = data["home"]
+        self.game_question = data["game_question"]
+        self.game_summary = data["game_summary"]
+        self.game_over = data["game_over"]
+
+TEXT = Text(language=USER_DATA.language)
 
 ### Colors ###
 

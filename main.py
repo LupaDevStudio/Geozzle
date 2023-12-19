@@ -31,8 +31,7 @@ from kivy.clock import Clock
 ### Module imports ###
 
 from tools.path import (
-    PATH_IMAGES,
-    PATH_RESOURCES_FOLDER
+    PATH_IMAGES
 )
 from tools.constants import (
     MOBILE_MODE,

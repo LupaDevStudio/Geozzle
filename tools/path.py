@@ -14,6 +14,7 @@ PATH_USER_DATA = "data.json"
 PATH_SCREENS = "screens/"
 
 # Path for the resources
+PATH_LANGUAGE = PATH_RESOURCES_FOLDER + "languages/"
 PATH_IMAGES = PATH_RESOURCES_FOLDER + "images/"
 PATH_BACKGROUNDS = PATH_IMAGES + "backgrounds/"
 PATH_SOUNDS = PATH_RESOURCES_FOLDER + "sounds/"
