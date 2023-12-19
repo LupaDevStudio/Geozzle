@@ -24,3 +24,6 @@ class HomeScreen(ImprovedScreen):
         super().__init__(
             back_image_path=PATH_BACKGROUNDS + "lake_sunset.jpg",
             **kwargs)
+        
+    def play_game(self):
+        self.manager.current = "game_question"

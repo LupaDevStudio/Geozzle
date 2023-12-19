@@ -2,6 +2,7 @@
 #:import PATH_IMAGES tools.path.PATH_IMAGES
 #:import PATH_TITLE_FONT tools.path.PATH_TITLE_FONT
 #:import TITLE_FONT_SIZE tools.constants.TITLE_FONT_SIZE
+#:import SUBTITLE_FONT_SIZE tools.constants.SUBTITLE_FONT_SIZE
 #:import TITLE_OUTLINE_WIDTH tools.constants.TITLE_OUTLINE_WIDTH
 #:import TITLE_OUTLINE_COLOR tools.constants.TITLE_OUTLINE_COLOR
 #:import PATH_TEXT_FONT tools.path.PATH_TEXT_FONT
@@ -18,3 +19,23 @@
         outline_width: TITLE_OUTLINE_WIDTH
         outline_color: TITLE_OUTLINE_COLOR
         color: TEXT_FONT_COLOR
+
+    Label:
+        text: "Europe"
+        font_name: PATH_TITLE_FONT
+        font_size: SUBTITLE_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.75}
+        outline_width: TITLE_OUTLINE_WIDTH
+        outline_color: TITLE_OUTLINE_COLOR
+        color: TEXT_FONT_COLOR
+
+    CustomButton:
+        text: "Play"
+        pos_hint: {"center_x":0.5, "center_y":0.2}
+        size_hint: (0.4, 0.1)
+        release_function: root.play_game
+
+
+
+
+
