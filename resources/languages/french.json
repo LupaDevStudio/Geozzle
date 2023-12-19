@@ -5,7 +5,9 @@
         "Africa": "Afrique",
         "North_America": "Amérique du Nord",
         "South_America": "Amérique du Sud",
-        "Oceania": "Océanie"
+        "Oceania": "Océanie",
+        "highscore": "Meilleur score : ",
+        "play": "Jouer"
     },
     "game_over": {},
     "game_question": {},

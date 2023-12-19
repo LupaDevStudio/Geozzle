@@ -1,1 +1,15 @@
-{}
+{
+    "home": {
+        "Europe": "Europe",
+        "Asia": "Asia",
+        "Africa": "Afrique",
+        "North_America": "Amérique du Nord",
+        "South_America": "Amérique du Sud",
+        "Oceania": "Oceania",
+        "highscore": "highscore: ",
+        "play": "Play"
+    },
+    "game_over": {},
+    "game_question": {},
+    "game_summary": {}
+}

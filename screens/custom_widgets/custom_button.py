@@ -39,7 +39,7 @@ class CustomButton(ButtonBehavior, Widget):
     text_filling_ratio = NumericProperty()
     font_size = NumericProperty()
     font_ratio = NumericProperty(1)
-    radius = NumericProperty(40)
+    radius = NumericProperty(30)
 
     def __init__(
             self,
