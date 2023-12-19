@@ -60,25 +60,7 @@ BACK_ARROW_SIZE = 0.2
 # Create the user data json if it does not exist
 if not os.path.exists(PATH_USER_DATA):
     default_user_data = {
-        "free_mode": {},
-        "daily_mode": {
-            "start_word": "",
-            "end_word": ""
-        },
-        "history": {},
-        "items": {
-            "coins": 0,
-            "unlocked_backgrounds": [],
-            "unlocked_palettes": [],
-            "unlocked_musics": []
-        },
-        "settings": {
-            "sound_volume": 0.5,
-            "music_volume": 0.5,
-            "current_background": "",
-            "current_music": "",
-            "current_palette": ""
-        }
+        "language":""
     }
     save_json_file(PATH_USER_DATA, default_user_data)
 
@@ -92,11 +74,7 @@ class UserData():
 
     def __init__(self) -> None:
         data = load_json_file(PATH_USER_DATA)
-        self.free_mode = data["free_mode"]
-        self.daily_mode = data["daily_mode"]
-        self.history = data["history"]
-        self.settings = data["settings"]
-        self.items = data["items"]
+        self.language = data["language"]
 
     def save_changes(self) -> None:
         """
@@ -113,11 +91,7 @@ class UserData():
 
         # Create the dictionary of data
         data = {}
-        data["free_mode"] = self.free_mode
-        data["daily_mode"] = self.daily_mode
-        data["history"] = self.history
-        data["settings"] = self.settings
-        data["items"] = self.items
+        data["language"] = self.language
 
         # Save this dictionary
         save_json_file(
@@ -236,7 +210,3 @@ ENGLISH_WORDS_DICTS = {
 ### Levels ###
 
 GAMEPLAY_DICT = load_json_file(PATH_GAMEPLAY)
-
-### Themes ###
-
-THEMES_DICT = load_json_file(PATH_THEMES)
