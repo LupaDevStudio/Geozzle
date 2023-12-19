@@ -6,7 +6,7 @@
         "North_America": "Amérique du Nord",
         "South_America": "Amérique du Sud",
         "Oceania": "Oceania",
-        "highscore": "highscore: ",
+        "highscore": "Highscore: ",
         "play": "Play"
     },
     "game_over": {},

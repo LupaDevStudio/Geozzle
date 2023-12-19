@@ -69,6 +69,7 @@ class UserData():
     def __init__(self) -> None:
         data = load_json_file(PATH_USER_DATA)
         self.language = data["language"]
+        self.continents = data["continents"]
 
     def save_changes(self) -> None:
         """
@@ -86,6 +87,7 @@ class UserData():
         # Create the dictionary of data
         data = {}
         data["language"] = self.language
+        data["continents"] = self.continents
 
         # Save this dictionary
         save_json_file(

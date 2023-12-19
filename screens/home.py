@@ -39,6 +39,7 @@ class HomeScreen(ImprovedScreen):
     counter_continents = 0
     continent_name = StringProperty()
     highscore = StringProperty()
+    completion_percentage = StringProperty()
     continent_color = ObjectProperty(LIST_CONTINENTS[counter_continents]["colors"])
     continent_image = StringProperty(
         PATH_CONTINENTS_IMAGES + LIST_CONTINENTS[counter_continents]["name"] + ".png")
@@ -55,8 +56,9 @@ class HomeScreen(ImprovedScreen):
     def update_labels(self):
         code_continent = LIST_CONTINENTS[self.counter_continents]["name"]
         self.continent_name = TEXT.home[code_continent]
-        self.highscore = TEXT.home["highscore"] # TODO
         self.play_label = TEXT.home["play"]
+        self.highscore = TEXT.home["highscore"] + \
+            str(USER_DATA.continents[code_continent]["highscore"])
 
     def change_continent(self, side):
 
@@ -76,6 +78,11 @@ class HomeScreen(ImprovedScreen):
         self.continent_color = LIST_CONTINENTS[self.counter_continents]["colors"]
         self.continent_image = PATH_CONTINENTS_IMAGES + \
             LIST_CONTINENTS[self.counter_continents]["name"] + ".png"
+        
+        # Change the score and the completion percentage of the user
+        self.highscore = TEXT.home["highscore"] + \
+            str(USER_DATA.continents[code_continent]["highscore"])
+        self.completion_percentage = str(USER_DATA.continents[code_continent]["percentage"]) + " %"
 
     def change_language(self):
         # Change the language in the text
