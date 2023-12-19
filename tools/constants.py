@@ -22,7 +22,7 @@ import os
 
 from kivy import platform
 
-### Module imports ###
+### Local imports ###
 
 from tools.path import (
     PATH_USER_DATA,
@@ -164,29 +164,12 @@ INTERSTITIAL = ""
 
 ### Continents ###
 
-LIST_CONTINENTS = [
-    {
-        "name": "Europe",
-        "colors": (2/255,22/255,117/255,1)
-    },
-    {
-        "name": "Asia",
-        "colors": (0,118/255,4/255,1)
-    },
-    {
-        "name": "Africa",
-        "colors": (223/255,13/225,13/255,1)
-    },
-    {
-        "name": "North_America",
-        "colors": (221/255,102/255,15/255,1)
-    },
-    {
-        "name": "South_America",
-        "colors": (26/255,153/255,164/255,1)
-    },
-    {
-        "name": "Oceania",
-        "colors": (149/255,2/255,227/255,1)
-    }
-]
+LIST_CONTINENTS = ["Europe", "Asia", "Africa", "North_America", "South_America", "Oceania"]
+DICT_CONTINENTS = {
+    "Europe": (2/255,22/255,117/255,1),
+    "Asia": (0,118/255,4/255,1),
+    "Africa": (0,118/255,4/255,1),
+    "North_America": (221/255,102/255,15/255,1),
+    "South_America": (26/255,153/255,164/255,1),
+    "Oceania": (149/255,2/255,227/255,1)
+}

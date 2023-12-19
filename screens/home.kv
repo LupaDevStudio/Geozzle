@@ -46,14 +46,14 @@
         outline_color: TITLE_OUTLINE_COLOR
         color: root.continent_color
     
-
-
+    # Play button
     CustomButton:
         text: root.play_label
         pos_hint: {"center_x":0.5, "center_y":0.2}
         size_hint: (0.4, 0.075)
         release_function: root.play_game
 
+    # Highscore for the label
     Label:
         text: root.highscore
         font_name: PATH_TITLE_FONT
@@ -63,17 +63,18 @@
         outline_color: TITLE_OUTLINE_COLOR
         color: root.continent_color
 
-    Button:
-        text: "tourne"
-        pos_hint: {"center_x":0.9, "center_y":0.5}
-        size_hint: (0.2, 0.075)
-        on_release: root.change_continent("right")
-
-    Button:
-        text: "tourne"
+    # Arrows to navigate between continents
+    RoundedButtonImage:
+        image_path: PATH_IMAGES + "left_arrow.png"
         pos_hint: {"center_x":0.1, "center_y":0.5}
-        size_hint: (0.2, 0.075)
+        size_hint: (0.15, None)
+        height: self.width
+        colors: root.continent_color
         on_release: root.change_continent("left")
-
-
-
+    RoundedButtonImage:
+        image_path: PATH_IMAGES + "right_arrow.png"
+        pos_hint: {"center_x":0.9, "center_y":0.5}
+        size_hint: (0.15, None)
+        height: self.width
+        colors: root.continent_color
+        on_release: root.change_continent("right")

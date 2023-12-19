@@ -18,3 +18,11 @@
         outline_width: TITLE_OUTLINE_WIDTH
         outline_color: TITLE_OUTLINE_COLOR
         color: TEXT_FONT_COLOR
+
+    RoundedButtonImage:
+        image_path: PATH_IMAGES + "left_arrow.png"
+        pos_hint: {"x":0.05, "top":0.975}
+        size_hint: (0.1, None)
+        height: self.width
+        colors: root.continent_color
+        on_release: root.go_back_to_home()

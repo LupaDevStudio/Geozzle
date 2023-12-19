@@ -28,7 +28,7 @@ from kivy.uix.widget import Widget
 from kivy.core.window import Window
 from kivy.clock import Clock
 
-### Module imports ###
+### Local imports ###
 
 from tools.path import (
     PATH_IMAGES
