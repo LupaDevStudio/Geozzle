@@ -22,13 +22,21 @@
         colors: root.continent_color
         on_release: root.go_back_to_home()
 
-    # Play button
+    # Squared non button Text
     CustomButton:
         text: root.text_label
         font_size: MAIN_TEXT_FONT_SIZE * root.font_ratio
         pos_hint: {"center_x":0.5, "center_y":0.8}
         size_hint: (0.75, 0.15)
-        colors: root.continent_color
+        disabled: True
+        # color: root.continent_color
+
+    # ColoredRoundedButton:
+    #     # rgba: root.background_color
+    #     text: "Catégorie 1"
+    #     font_size: MAIN_TEXT_FONT_SIZE * root.font_ratio
+    #     pos_hint: {"center_x":0.5, "center_y":0.6}
+    #     size_hint: (0.75, 0.10)
 
 
     # Arrow to go to game summary screen

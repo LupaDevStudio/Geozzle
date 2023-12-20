@@ -42,6 +42,8 @@ class GameSummaryScreen(ImprovedScreen):
             back_image_path=PATH_BACKGROUNDS + "lake_sunset.jpg",
             **kwargs)
         
+        self.bind(code_continent = self.update_color)
+        
     def update_color(self, base_widget, value):
         """
         Update the code of the continent and its related attributes.
