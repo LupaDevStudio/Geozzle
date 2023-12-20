@@ -10,6 +10,8 @@
         "play": "Jouer"
     },
     "game_over": {},
-    "game_question": {},
+    "game_question": {
+        "Choississez un nouvel indice": "Choose a new clue"
+    },
     "game_summary": {}
 }
