@@ -166,10 +166,10 @@ INTERSTITIAL = ""
 
 LIST_CONTINENTS = ["Europe", "Asia", "Africa", "North_America", "South_America", "Oceania"]
 DICT_CONTINENTS = {
-    "Europe": (2/255,22/255,117/255,1),
-    "Asia": (0,118/255,4/255,1),
-    "Africa": (0,118/255,4/255,1),
-    "North_America": (221/255,102/255,15/255,1),
-    "South_America": (26/255,153/255,164/255,1),
-    "Oceania": (149/255,2/255,227/255,1)
+    "Europe": (2/255, 22/255, 117/255, 1),
+    "Asia": (0, 118/255, 4/255, 1),
+    "Africa": (191/255, 0, 0, 1),
+    "North_America": (221/255, 102/255, 15/255, 1),
+    "South_America": (26/255, 153/255, 164/255, 1),
+    "Oceania": (149/255, 2/255, 227/255, 1)
 }
