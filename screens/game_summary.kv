@@ -28,3 +28,9 @@
         height: self.width
         colors: root.continent_color
         on_release: root.go_back_to_home()
+
+    ThreeLives:
+        continent_color: root.continent_color
+        pos_hint: {"x":0.57, "top":0.98}
+        size_hint: (0.4, 0.075)
+        number_lives_on: root.number_lives_on

@@ -9,9 +9,9 @@ Module to create the game screen with the summary of all clues.
 ### Kivy imports ###
 
 from kivy.properties import (
-    ObjectProperty,
     StringProperty,
-    ColorProperty
+    ColorProperty,
+    NumericProperty
 )
 
 ### Local imports ###
@@ -35,7 +35,7 @@ class GameSummaryScreen(ImprovedScreen):
         
     code_continent = StringProperty(LIST_CONTINENTS[0])
     continent_color = ColorProperty(DICT_CONTINENTS[LIST_CONTINENTS[0]])
-    # continent_color = ObjectProperty((1,0,0,1)) # TODO
+    number_lives_on = NumericProperty(3)
 
     def __init__(self, **kwargs) -> None:
         super().__init__(

@@ -52,7 +52,9 @@ class RoundedButtonImage(ButtonBehavior, RelativeLayout):
         self.always_release = True
 
     def on_press(self):
-        self.opacity = OPACITY_ON_BUTTON_PRESS
+        if not self.disabled:
+            self.opacity = OPACITY_ON_BUTTON_PRESS
 
     def on_release(self):
-        self.opacity = 1
+        if not self.disabled:
+            self.opacity = 1

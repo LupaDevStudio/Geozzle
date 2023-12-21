@@ -10,7 +10,8 @@ Module to create the game screen with the questions to choose.
 
 from kivy.properties import (
     ColorProperty,
-    StringProperty
+    StringProperty,
+    NumericProperty
 )
 
 ### Local imports ###
@@ -37,6 +38,7 @@ class GameQuestionScreen(ImprovedScreen):
     continent_color = ColorProperty(DICT_CONTINENTS[LIST_CONTINENTS[0]])
     background_color = ColorProperty(DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
     text_label = StringProperty()
+    number_lives_on = NumericProperty(3)
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
@@ -69,7 +71,8 @@ class GameQuestionScreen(ImprovedScreen):
         self.manager.current = "home"
 
     def go_to_game_summary(self):
+        self.manager.get_screen("game_summary").code_continent = self.code_continent
         self.manager.current = "game_summary"
 
     def update_labels(self):
-        self.text_label = TEXT.game_question["Choose a new clue"]
+        self.text_label = TEXT.game_question["new_clue"]

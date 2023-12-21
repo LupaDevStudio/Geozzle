@@ -10,7 +10,8 @@ from screens.custom_widgets import (
     CustomButton,
     LanguageButton,
     RoundedButtonImage,
-    ColoredRoundedButton
+    ColoredRoundedButton,
+    ThreeLives
 )
 
 from screens.home import HomeScreen

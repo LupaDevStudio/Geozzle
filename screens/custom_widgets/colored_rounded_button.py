@@ -8,8 +8,6 @@ Module to create custom buttons with round transparent white background.
 
 ### Kivy imports ###
 
-from turtle import back
-from kivy.uix.widget import Widget
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.properties import (
@@ -52,7 +50,6 @@ class ColoredRoundedButton(ButtonBehavior, RelativeLayout):
         self.image_path = image_path
         self.colors = colors
         self.always_release = True
-        # self.background_color = background_color
 
     def on_press(self):
         self.opacity = OPACITY_ON_BUTTON_PRESS

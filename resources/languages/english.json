@@ -11,7 +11,7 @@
     },
     "game_over": {},
     "game_question": {
-        "Choose a new clue": "Choississez un nouvel indice"
+        "new_clue": "Choississez un nouvel indice"
     },
     "game_summary": {}
 }

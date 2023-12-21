@@ -52,8 +52,6 @@ class CustomButton(ButtonBehavior, Widget):
             text_filling_ratio=0.8,
             font_size=MAIN_BUTTON_FONT_SIZE,
             release_function=lambda: 1 + 1,
-            disable_button=False,
-            color_label=(0,0,0,1),
             font_ratio=None,
             **kwargs):
         if font_ratio is not None:
