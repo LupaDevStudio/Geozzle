@@ -11,7 +11,9 @@ from kivy.uix.widget import Widget
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.properties import (
     StringProperty,
-    NumericProperty
+    NumericProperty,
+    BooleanProperty,
+    ColorProperty
 )
 
 ### Local imports ###
@@ -40,6 +42,8 @@ class CustomButton(ButtonBehavior, Widget):
     font_size = NumericProperty()
     font_ratio = NumericProperty(1)
     radius = NumericProperty(30)
+    disable_button = BooleanProperty(False)
+    color_label = ColorProperty((0,0,0,1))
 
     def __init__(
             self,
@@ -48,6 +52,8 @@ class CustomButton(ButtonBehavior, Widget):
             text_filling_ratio=0.8,
             font_size=MAIN_BUTTON_FONT_SIZE,
             release_function=lambda: 1 + 1,
+            disable_button=False,
+            color_label=(0,0,0,1),
             font_ratio=None,
             **kwargs):
         if font_ratio is not None:
@@ -60,10 +66,18 @@ class CustomButton(ButtonBehavior, Widget):
         self.text_filling_ratio = text_filling_ratio
         self.font_size = font_size
 
+        self.bind(disable_button=self.my_function)
+        self.bind(color_label=self.my_function)
+
+    def my_function(self, base_widget, value):
+        pass
+
     def on_press(self):
-        self.opacity = OPACITY_ON_BUTTON_PRESS
+        if not self.disable_button:
+            self.opacity = OPACITY_ON_BUTTON_PRESS
 
     def on_release(self):
-        self.release_function()
-        self.opacity = 1
+        if not self.disable_button:
+            self.release_function()
+            self.opacity = 1
 

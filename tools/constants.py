@@ -145,6 +145,8 @@ TEXT = Text(language=USER_DATA.language)
 ### Graphics ###
 
 CUSTOM_BUTTON_BACKGROUND_COLOR = (1, 1, 1, 0.7)
+
+
 MAIN_BUTTON_FONT_SIZE = 30
 OPACITY_ON_BUTTON_PRESS = 0.8
 
@@ -157,6 +159,8 @@ SUBTITLE_FONT_SIZE = 40
 SUBTITLE_OUTLINE_WIDTH = 1
 HIGHSCORE_FONT_SIZE = 30
 
+MAIN_TEXT_FONT_SIZE = 35
+
 ### Ads code ###
 
 REWARD_INTERSTITIAL = ""
@@ -166,10 +170,20 @@ INTERSTITIAL = ""
 
 LIST_CONTINENTS = ["Europe", "Asia", "Africa", "North_America", "South_America", "Oceania"]
 DICT_CONTINENTS = {
-    "Europe": (2/255, 22/255, 117/255, 1),
-    "Asia": (0, 118/255, 4/255, 1),
-    "Africa": (191/255, 0, 0, 1),
-    "North_America": (221/255, 102/255, 15/255, 1),
-    "South_America": (26/255, 153/255, 164/255, 1),
-    "Oceania": (149/255, 2/255, 227/255, 1)
+    "Europe": (2/255,22/255,117/255,1),
+    "Asia": (0,118/255,4/255,1),
+    "Africa": (177/255,7/255,24/255,1),
+    "North_America": (221/255,102/255,15/255,1),
+    "South_America": (26/255,153/255,164/255,1),
+    "Oceania": (149/255,2/255,227/255,1)
 }
+
+DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED = {
+    "Europe": (209/255, 215/255, 248/255, 1),
+    "Asia": (125/255,245/255,165/255,1),
+    "Africa": (253/255,198/255,203/255,1),
+    "North_America": (243/255,219/255,173/255,1),
+    "South_America": (209/255,243/255,248/255,1),
+    "Oceania": (238/255,207/255,250/255,1)
+}
+
