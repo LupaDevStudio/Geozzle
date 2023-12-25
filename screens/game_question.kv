@@ -4,6 +4,8 @@
 #:import TITLE_FONT_SIZE tools.constants.TITLE_FONT_SIZE
 #:import SUBTITLE_FONT_SIZE tools.constants.SUBTITLE_FONT_SIZE
 #:import MAIN_TEXT_FONT_SIZE tools.constants.MAIN_TEXT_FONT_SIZE
+#:import MAIN_BUTTON_FONT_SIZE tools.constants.MAIN_BUTTON_FONT_SIZE
+#:import SUB_TEXT_FONT_SIZE tools.constants.SUB_TEXT_FONT_SIZE
 #:import TITLE_OUTLINE_WIDTH tools.constants.TITLE_OUTLINE_WIDTH
 #:import TITLE_OUTLINE_COLOR tools.constants.TITLE_OUTLINE_COLOR
 #:import PATH_TEXT_FONT tools.path.PATH_TEXT_FONT
@@ -37,13 +39,39 @@
         disable_button: True
         color_label: root.continent_color
 
-    # ColoredRoundedButton:
-    #     # rgba: root.background_color
-    #     text: "Catégorie 1"
-    #     font_size: MAIN_TEXT_FONT_SIZE * root.font_ratio
-    #     pos_hint: {"center_x":0.5, "center_y":0.6}
-    #     size_hint: (0.75, 0.10)
+    ColoredRoundedButton:
+        background_color: root.background_color
+        text: "Catégorie 1"
+        font_size: MAIN_BUTTON_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.6}
+        size_hint: (0.75, 0.10)
+        color_label: root.continent_color
 
+    ColoredRoundedButton:
+        background_color: root.background_color
+        border: root.continent_color
+        text: "Catégorie 2"
+        font_size: MAIN_BUTTON_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.45}
+        size_hint: (0.75, 0.10)
+        color_label: root.continent_color
+
+    ColoredRoundedButton:
+        background_color: root.background_color
+        text: "Catégorie 3"
+        font_size: MAIN_BUTTON_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.3}
+        size_hint: (0.75, 0.10)
+        color_label: root.continent_color 
+
+    ColoredRoundedButton:
+        background_color: (1, 1, 1, 1)
+        # border: (0,0,0,1)
+        text: "Indice"
+        font_size: MAIN_BUTTON_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.35, "center_y":0.125}
+        size_hint: (0.6, 0.125)
+        color_label: root.continent_color 
 
     # Arrow to go to game summary screen
     RoundedButtonImage:

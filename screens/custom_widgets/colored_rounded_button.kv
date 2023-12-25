@@ -5,16 +5,31 @@
     # Background
     canvas.before:
         Color:
-            rgba: self.background_color
+            rgba: root.color_label
+        Line:
+			width: dp(3)
+			rectangle: (*(0,0), self.width, self.height)
+        Color:
+            rgba: root.background_color
         RoundedRectangle:
             pos:(0,0)
             size:self.size
-            radius:[self.radius,]
+            # radius:[self.radius,]
+            
 
-    # Image
-    Image:
-        fit_mode: "contain"
-        source: root.image_path
-        pos_hint: {"center_x": 0.5, "center_y": 0.5}
-        size_hint: (0.6, 0.6)
-        color: root.colors
+    # Main text
+    Label:
+        text: root.text
+        font_size: root.font_ratio * root.font_size
+        pos: (0,0)
+        size: self.size
+        shorten: False
+        text_size: (root.width*root.text_filling_ratio,None)
+        font_name: root.text_font_name
+        halign: "center"
+        valign: "center"
+        line_height: 1
+        color: root.color_label
+
+
+

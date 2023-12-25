@@ -76,3 +76,4 @@ class GameQuestionScreen(ImprovedScreen):
 
     def update_labels(self):
         self.text_label = TEXT.game_question["new_clue"]
+
