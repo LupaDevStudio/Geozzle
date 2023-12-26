@@ -17,7 +17,8 @@ from kivy.properties import (
 ### Local imports ###
 
 from tools.path import (
-    PATH_BACKGROUNDS
+    PATH_BACKGROUNDS,
+    PATH_TEXT_FONT
 )
 from tools.constants import (
     DICT_CONTINENTS,
@@ -43,6 +44,7 @@ class GameQuestionScreen(ImprovedScreen):
     def __init__(self, **kwargs) -> None:
         super().__init__(
             back_image_path=PATH_BACKGROUNDS + "lake_sunset.jpg",
+            font_name=PATH_TEXT_FONT,
             **kwargs)
 
         # The function is called each time code_continent of the class changes
@@ -71,9 +73,7 @@ class GameQuestionScreen(ImprovedScreen):
         self.manager.current = "home"
 
     def go_to_game_summary(self):
-        self.manager.get_screen("game_summary").code_continent = self.code_continent
         self.manager.current = "game_summary"
 
     def update_labels(self):
         self.text_label = TEXT.game_question["new_clue"]
-

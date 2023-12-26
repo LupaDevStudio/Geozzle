@@ -19,7 +19,8 @@ from kivy.properties import (
 from tools.path import (
     PATH_BACKGROUNDS,
     PATH_CONTINENTS_IMAGES,
-    PATH_LANGUAGES_IMAGES
+    PATH_LANGUAGES_IMAGES,
+    PATH_TEXT_FONT
 )
 from tools.kivy_tools import ImprovedScreen
 from tools.constants import (
@@ -52,6 +53,7 @@ class HomeScreen(ImprovedScreen):
     def __init__(self, **kwargs) -> None:
         super().__init__(
             back_image_path=PATH_BACKGROUNDS + "lake_sunset.jpg",
+            font_name=PATH_TEXT_FONT,
             **kwargs)
         self.update_labels()
     
@@ -101,5 +103,10 @@ class HomeScreen(ImprovedScreen):
         self.language_image = PATH_LANGUAGES_IMAGES + TEXT.language + ".png"
 
     def play_game(self):
+        # Reset the screen of game_summary
+        self.manager.get_screen("game_summary").reset_screen()
         self.manager.get_screen("game_question").code_continent = self.code_continent
+        self.manager.get_screen("game_summary").code_continent = self.code_continent
+
+        # Go to the screen game question
         self.manager.current = "game_question"

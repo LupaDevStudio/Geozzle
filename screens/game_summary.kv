@@ -9,6 +9,7 @@
 #:import PATH_TEXT_FONT tools.path.PATH_TEXT_FONT
 #:import TEXT_FONT_COLOR tools.constants.TEXT_FONT_COLOR
 #:import BOTTOM_BAR_HEIGHT tools.constants.BOTTOM_BAR_HEIGHT
+#:set HEIGHT_HINT_SCROLLVIEW 0.5
 
 
 <GameSummaryScreen>:
@@ -34,3 +35,28 @@
         pos_hint: {"x":0.57, "top":0.98}
         size_hint: (0.4, 0.075)
         number_lives_on: root.number_lives_on
+
+    # Scroll view with all clues
+    ColoredRoundedButton:
+        background_color: (1, 1, 1, 1)
+        font_size: MAIN_BUTTON_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.5}
+        size_hint: (0.8, HEIGHT_HINT_SCROLLVIEW)
+        color_label: root.continent_color
+        disable_button: True
+    ScrollView:
+        id: scrollview
+        pos_hint: {"center_x":0.5, "center_y":0.5}
+        size_hint: (0.78, HEIGHT_HINT_SCROLLVIEW-0.025)
+        do_scroll_x: False
+        scroll_type: ["bars", "content"]
+        bar_width: 10
+        bar_inactive_color: root.background_color
+        bar_color: root.continent_color
+
+        MyScrollViewLayout:
+            id: scrollview_layout
+            cols:1
+            spacing:40
+            height:0.2*root.height * len(root.dict_all_clues)*1.05
+            padding: (0.05*root.width, 10,0.05*root.width,40)

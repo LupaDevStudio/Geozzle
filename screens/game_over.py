@@ -15,7 +15,8 @@ from kivy.properties import (
 ### Local imports ###
 
 from tools.path import (
-    PATH_BACKGROUNDS
+    PATH_BACKGROUNDS,
+    PATH_TEXT_FONT
 )
 from tools.kivy_tools import ImprovedScreen
 
@@ -31,6 +32,7 @@ class GameOverScreen(ImprovedScreen):
     def __init__(self, **kwargs) -> None:
         super().__init__(
             back_image_path=PATH_BACKGROUNDS + "lake_sunset.jpg",
+            font_name=PATH_TEXT_FONT,
             **kwargs)
 
     def go_back_to_home(self):
