@@ -5,17 +5,28 @@
 
     # Background
     canvas.before:
+        # Shadow
+        Color:
+            rgba: 0, 0, 0, 1        
+        BoxShadow:
+            pos: (0, 0)
+            size: self.size
+            offset: 5, -5
+            spread_radius: -10, -10
+            blur_radius: 30
+        # Border
         Color:
             rgba: root.color_label
         RoundedRectangle:
             pos: (-OUTLINE_RECTANGLE//2, -OUTLINE_RECTANGLE//2)
             size: (self.size[0]+OUTLINE_RECTANGLE,self.size[1]+OUTLINE_RECTANGLE)
             radius: [12]
+        # Rounded rectangle
         Color:
             rgba: root.background_color
         RoundedRectangle:
-            pos:(0,0)
-            size:self.size            
+            pos:(0, 0)
+            size:self.size
 
     # Main text
     Label:
