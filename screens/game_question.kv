@@ -66,18 +66,18 @@
 
     ColoredRoundedButton:
         background_color: (1, 1, 1, 1)
-        # border: (0,0,0,1)
         text: "Indice"
         font_size: MAIN_BUTTON_FONT_SIZE * root.font_ratio
         pos_hint: {"center_x":0.35, "center_y":0.125}
         size_hint: (0.6, 0.125)
-        color_label: root.continent_color 
+        color_label: root.continent_color
+        disable_button: True
 
     # Arrow to go to game summary screen
     RoundedButtonImage:
         image_path: PATH_IMAGES + "right_arrow.png"
-        pos_hint: {"x":0.8, "top":0.15}
-        size_hint: (0.1, None)
+        pos_hint: {"center_x":0.85, "center_y":0.125}
+        size_hint: (0.2, None)
         height: self.width
         colors: root.continent_color
         on_release: root.go_to_game_summary()

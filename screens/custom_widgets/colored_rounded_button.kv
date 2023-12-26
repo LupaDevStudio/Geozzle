@@ -1,4 +1,5 @@
 #:kivy 2.2.1
+#:set OUTLINE_RECTANGLE 6
 
 <ColoredRoundedButton>:
 
@@ -6,16 +7,15 @@
     canvas.before:
         Color:
             rgba: root.color_label
-        Line:
-			width: dp(3)
-			rectangle: (*(0,0), self.width, self.height)
+        RoundedRectangle:
+            pos: (-OUTLINE_RECTANGLE//2, -OUTLINE_RECTANGLE//2)
+            size: (self.size[0]+OUTLINE_RECTANGLE,self.size[1]+OUTLINE_RECTANGLE)
+            radius: [12]
         Color:
             rgba: root.background_color
         RoundedRectangle:
             pos:(0,0)
-            size:self.size
-            # radius:[self.radius,]
-            
+            size:self.size            
 
     # Main text
     Label:

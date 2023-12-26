@@ -2,19 +2,9 @@
 Main module of Linconym.
 """
 
-
 ###############
 ### Imports ###
 ###############
-
-
-### Python imports ###
-
-# import os
-# import platform
-# os_name = platform.system()
-# if os_name == "Windows":
-#     os.environ['KIVY_TEXT'] = 'pil'
 
 ### Kivy imports ###
 
@@ -39,7 +29,6 @@ from tools.constants import (
     MSAA_LEVEL
 )
 import screens.opening
-
 
 ###############
 ### General ###
