@@ -26,17 +26,17 @@ from tools.path import (
     PATH_LANGUAGES_IMAGES,
     PATH_TEXT_FONT
 )
-from tools.kivy_tools import ImprovedScreen
+from tools.kivy_tools import (
+    ImprovedScreen
+)
 from tools.constants import (
     LIST_CONTINENTS,
     DICT_CONTINENTS,
     TEXT,
     USER_DATA,
     TIME_CHANGE_BACKGROUND,
-    RATE_CHANGE_OPACITY,
     FPS
 )
-
 
 #############
 ### Class ###
@@ -55,11 +55,10 @@ class HomeScreen(ImprovedScreen):
         PATH_CONTINENTS_IMAGES + LIST_CONTINENTS[counter_continents] + ".png")
     language_image = StringProperty()
     play_label = StringProperty()
-    opacity_state = "main"
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
-            back_image_path=PATH_BACKGROUNDS + "lake_sunset.jpg",
+            back_image_path=PATH_BACKGROUNDS + "lake_sunset.jpg", # TODO to change
             font_name=PATH_TEXT_FONT,
             **kwargs)
         self.update_text()
@@ -89,37 +88,6 @@ class HomeScreen(ImprovedScreen):
 
         # Schedule the change of the opacity to have a smooth transition
         Clock.schedule_interval(self.change_background_opacity, 1/FPS)
-
-    def change_background_opacity(self, *args):
-        """
-        Change the opacity of both background images to change smoothly the background.
-        
-        Parameters
-        ----------
-        None
-        
-        Returns
-        -------
-        None
-        """
-
-        # If we have to display the second background image
-        if self.opacity_state == "main":
-            if self.ids.back_image.opacity >= 0:
-                self.ids.back_image.opacity -= RATE_CHANGE_OPACITY
-                self.ids.second_back_image.opacity += RATE_CHANGE_OPACITY
-            else:
-                Clock.unschedule(self.change_background_opacity, 1/FPS)
-                self.opacity_state = "second"
-
-        # If we have to display the background image
-        elif self.opacity_state == "second":
-            if self.ids.second_back_image.opacity >= 0:
-                self.ids.back_image.opacity += RATE_CHANGE_OPACITY
-                self.ids.second_back_image.opacity -= RATE_CHANGE_OPACITY
-            else:
-                Clock.unschedule(self.change_background_opacity, 1/FPS)
-                self.opacity_state = "main"
 
     def update_text(self):
         """

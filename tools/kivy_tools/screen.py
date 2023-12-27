@@ -26,7 +26,11 @@ from kivy.properties import (
 ### Local imports ###
 
 from tools.basic_tools import get_image_size
-from tools.constants import MOBILE_MODE
+from tools.constants import (
+    MOBILE_MODE,
+    FPS,
+    RATE_CHANGE_OPACITY
+)
 
 ###############
 ### Classes ###
@@ -44,6 +48,7 @@ class ImprovedScreen(Screen):
     back_image_disabled = BooleanProperty(False)
     back_image_path = ObjectProperty("")
     second_back_image_path = ObjectProperty("")
+    opacity_state = "main"
 
     # Create the font_name properties
     font_ratio = NumericProperty(1)
@@ -180,6 +185,14 @@ class ImprovedScreen(Screen):
         # Unbind the resize update
         Window.unbind(on_resize=self.on_resize)
 
+        # Set the correct opacities for the background images
+        if self.opacity_state == "main":
+            self.ids.back_image.opacity = 1
+            self.ids.second_back_image.opacity = 0
+        elif self.opacity_state == "second":
+            self.ids.back_image.opacity = 0
+            self.ids.second_back_image.opacity = 1
+
         return super().on_leave(*args)
 
     def on_resize(self, *args):
@@ -227,3 +240,34 @@ class ImprovedScreen(Screen):
 
     def post_refresh(self, *args):
         self.remove_widget(self.label_widget)
+
+    def change_background_opacity(self, *args):
+        """
+        Change the opacity of both background images to change smoothly the background.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
+
+        # If we have to display the second background image
+        if self.opacity_state == "main":
+            if self.ids.back_image.opacity >= 0:
+                self.ids.back_image.opacity -= RATE_CHANGE_OPACITY
+                self.ids.second_back_image.opacity += RATE_CHANGE_OPACITY
+            else:
+                Clock.unschedule(self.change_background_opacity, 1/FPS)
+                self.opacity_state = "second"
+
+        # If we have to display the background image
+        elif self.opacity_state == "second":
+            if self.ids.second_back_image.opacity >= 0:
+                self.ids.back_image.opacity += RATE_CHANGE_OPACITY
+                self.ids.second_back_image.opacity -= RATE_CHANGE_OPACITY
+            else:
+                Clock.unschedule(self.change_background_opacity, 1/FPS)
+                self.opacity_state = "main"
