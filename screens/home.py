@@ -73,7 +73,6 @@ class HomeScreen(ImprovedScreen):
     def on_pre_leave(self, *args):
         # Unschedule the clock updates
         Clock.unschedule(self.change_background, TIME_CHANGE_BACKGROUND)
-        Clock.unschedule(self.change_background_opacity, 1/FPS)
 
         return super().on_leave(*args)
 
