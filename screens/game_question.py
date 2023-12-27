@@ -50,7 +50,21 @@ class GameQuestionScreen(ImprovedScreen):
         # The function is called each time code_continent of the class changes
         self.bind(code_continent = self.update_color)
         self.update_labels()
+
+    def update_text(self):
+        """
+        Update the labels depending on the language.
         
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
+        pass
+
     def update_color(self, base_widget, value):
         """
         Update the code of the continent and its related attributes.

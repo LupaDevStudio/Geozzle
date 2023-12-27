@@ -1,5 +1,5 @@
 """
-Main module of Linconym.
+Main module of Geozzle.
 """
 
 ###############

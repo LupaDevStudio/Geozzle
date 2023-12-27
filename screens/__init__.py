@@ -8,7 +8,7 @@ Package to manage the screens of the application
 
 from screens.custom_widgets import (
     CustomButton,
-    LanguageButton,
+    CircleIconButton,
     RoundedButtonImage,
     ColoredRoundedButton,
     ThreeLives

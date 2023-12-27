@@ -24,7 +24,7 @@ from tools.constants import (
 #############
 
 
-class LanguageButton(ButtonBehavior, Image):
+class CircleIconButton(ButtonBehavior, Image):
     """
     A custom button with a white round rectangle background.
     """

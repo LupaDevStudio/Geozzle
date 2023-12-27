@@ -43,5 +43,19 @@ class GameOverScreen(ImprovedScreen):
             font_name=PATH_TEXT_FONT,
             **kwargs)
 
+    def update_text(self):
+        """
+        Update the labels depending on the language.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
+        pass
+
     def go_back_to_home(self):
         self.manager.current = "home"

@@ -58,6 +58,17 @@ class GameSummaryScreen(ImprovedScreen):
         return super().on_pre_enter(*args)
 
     def update_text(self):
+        """
+        Update the labels depending on the language.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
         self.text_found_country = TEXT.game_summary["i_found"]
 
     def reset_screen(self):

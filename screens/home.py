@@ -6,6 +6,9 @@ Module to create the home screen.
 ### Imports ###
 ###############
 
+### Python imports ###
+
+import webbrowser
 
 ### Kivy imports ###
 
@@ -58,12 +61,35 @@ class HomeScreen(ImprovedScreen):
         self.update_language_image()
     
     def update_text(self):
+        """
+        Update the labels depending on the language.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
         self.continent_name = TEXT.home[self.code_continent]
         self.play_label = TEXT.home["play"]
         self.highscore = TEXT.home["highscore"] + \
             str(USER_DATA.continents[self.code_continent]["highscore"])
 
-    def change_continent(self, side):
+    def change_continent(self, side: str):
+        """
+        Change the continent displayed on the screen.
+
+        Parameters
+        ----------
+        side : str, can be "left" or "right"
+            String which indicates the rotation side.
+
+        Returns
+        -------
+        None
+        """
 
         # Update the counter
         if side == "left":
@@ -88,12 +114,34 @@ class HomeScreen(ImprovedScreen):
         self.completion_percentage = str(USER_DATA.continents[self.code_continent]["percentage"]) + " %"
 
     def update_language_image(self):
+        """
+        Update the image of the language on the top right hand corner.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
         if TEXT.language == "french":
             self.language_image = PATH_LANGUAGES_IMAGES + "english.png"
         else:
             self.language_image = PATH_LANGUAGES_IMAGES + "french.png"
 
     def change_language(self):
+        """
+        Change the language of the application.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
         # Change the language in the text
         if TEXT.language == "english":
             TEXT.change_language("french")
@@ -109,6 +157,18 @@ class HomeScreen(ImprovedScreen):
         self.update_language_image()
 
     def play_game(self):
+        """
+        Start the game for one continent.
+        It sets the variables of the games for each screen.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
         # Reset the screen of game_summary
         self.manager.get_screen("game_summary").reset_screen()
         self.manager.get_screen("game_question").code_continent = self.code_continent
@@ -117,3 +177,17 @@ class HomeScreen(ImprovedScreen):
 
         # Go to the screen game question
         self.manager.current = "game_question"
+
+    def open_lupa_website(self):
+        """
+        Open LupaDevStudio website.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
+        webbrowser.open("https://lupadevstudio.com", 2)
