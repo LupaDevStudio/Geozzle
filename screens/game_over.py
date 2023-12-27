@@ -9,14 +9,20 @@ Module to create the game over screen.
 ### Kivy imports ###
 
 from kivy.properties import (
-    ObjectProperty
+    StringProperty,
+    ColorProperty
 )
 
 ### Local imports ###
 
 from tools.path import (
     PATH_BACKGROUNDS,
-    PATH_TEXT_FONT
+    PATH_TEXT_FONT,
+)
+from tools.constants import (
+    LIST_CONTINENTS,
+    DICT_CONTINENTS,
+    DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED
 )
 from tools.kivy_tools import ImprovedScreen
 
@@ -27,7 +33,9 @@ from tools.kivy_tools import ImprovedScreen
 
 class GameOverScreen(ImprovedScreen):
 
-    continent_color = ObjectProperty((1,0,0,1)) # TODO
+    code_continent = StringProperty(LIST_CONTINENTS[0])
+    continent_color = ColorProperty(DICT_CONTINENTS[LIST_CONTINENTS[0]])
+    background_color = ColorProperty(DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
 
     def __init__(self, **kwargs) -> None:
         super().__init__(

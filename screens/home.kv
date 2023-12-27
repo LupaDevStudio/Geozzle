@@ -1,7 +1,8 @@
 #:kivy 2.2.1
 #:import PATH_IMAGES tools.path.PATH_IMAGES
+#:import PATH_TITLE_FONT tools.path.PATH_TITLE_FONT
 #:import TITLE_FONT_SIZE tools.constants.TITLE_FONT_SIZE
-#:import SUBTITLE_FONT_SIZE tools.constants.SUBTITLE_FONT_SIZE
+#:import MAIN_TEXT_FONT_SIZE tools.constants.MAIN_TEXT_FONT_SIZE
 #:import HIGHSCORE_FONT_SIZE tools.constants.HIGHSCORE_FONT_SIZE
 #:import TITLE_OUTLINE_WIDTH tools.constants.TITLE_OUTLINE_WIDTH
 #:import SUBTITLE_OUTLINE_WIDTH tools.constants.SUBTITLE_OUTLINE_WIDTH
@@ -14,7 +15,7 @@
 <HomeScreen>:
     Label:
         text: "Geozzle"
-        font_name: root.font_name
+        font_name: PATH_TITLE_FONT
         font_size: TITLE_FONT_SIZE * root.font_ratio
         pos_hint: {"center_x":0.5, "center_y":0.9}
         outline_width: TITLE_OUTLINE_WIDTH
@@ -39,7 +40,7 @@
     Label:
         text: root.continent_name
         font_name: root.font_name
-        font_size: SUBTITLE_FONT_SIZE * root.font_ratio
+        font_size: MAIN_TEXT_FONT_SIZE * root.font_ratio
         pos_hint: {"center_x":0.5, "center_y":0.75}
         outline_width: SUBTITLE_OUTLINE_WIDTH
         outline_color: TITLE_OUTLINE_COLOR

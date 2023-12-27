@@ -42,6 +42,7 @@ class GameSummaryScreen(ImprovedScreen):
     number_lives_on = NumericProperty(3)
     dict_all_clues = {}
     dict_scrollview_widgets = {}
+    text_found_country = StringProperty() 
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
@@ -53,7 +54,11 @@ class GameSummaryScreen(ImprovedScreen):
 
     def on_pre_enter(self, *args):
         self.update_scroll_view()
+        self.update_text()
         return super().on_pre_enter(*args)
+
+    def update_text(self):
+        self.text_found_country = TEXT.game_summary["i_found"]
 
     def reset_screen(self):
         self.ids.scrollview_layout.reset_screen()
@@ -123,6 +128,8 @@ class GameSummaryScreen(ImprovedScreen):
         self.continent_color = DICT_CONTINENTS[self.code_continent]
         self.background_color = DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent]
 
+    def go_to_game_over(self):
+        self.manager.current = "game_over"
 
     def go_back_to_home(self):
         self.manager.current = "home"

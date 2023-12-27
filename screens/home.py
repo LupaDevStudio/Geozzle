@@ -46,8 +46,7 @@ class HomeScreen(ImprovedScreen):
     continent_color = ColorProperty(DICT_CONTINENTS[code_continent])
     continent_image = StringProperty(
         PATH_CONTINENTS_IMAGES + LIST_CONTINENTS[counter_continents] + ".png")
-    language_image = StringProperty(
-        PATH_LANGUAGES_IMAGES + TEXT.language + ".png")
+    language_image = StringProperty()
     play_label = StringProperty()
 
     def __init__(self, **kwargs) -> None:
@@ -55,9 +54,10 @@ class HomeScreen(ImprovedScreen):
             back_image_path=PATH_BACKGROUNDS + "lake_sunset.jpg",
             font_name=PATH_TEXT_FONT,
             **kwargs)
-        self.update_labels()
+        self.update_text()
+        self.update_language_image()
     
-    def update_labels(self):
+    def update_text(self):
         self.continent_name = TEXT.home[self.code_continent]
         self.play_label = TEXT.home["play"]
         self.highscore = TEXT.home["highscore"] + \
@@ -87,26 +87,33 @@ class HomeScreen(ImprovedScreen):
             str(USER_DATA.continents[self.code_continent]["highscore"])
         self.completion_percentage = str(USER_DATA.continents[self.code_continent]["percentage"]) + " %"
 
+    def update_language_image(self):
+        if TEXT.language == "french":
+            self.language_image = PATH_LANGUAGES_IMAGES + "english.png"
+        else:
+            self.language_image = PATH_LANGUAGES_IMAGES + "french.png"
+
     def change_language(self):
         # Change the language in the text
         if TEXT.language == "english":
             TEXT.change_language("french")
         else:
             TEXT.change_language("english")
-        self.update_labels()
+        self.update_text()
         
         # Save the choice of the language
         USER_DATA.language = TEXT.language
         USER_DATA.save_changes()
 
         # Change the language icon
-        self.language_image = PATH_LANGUAGES_IMAGES + TEXT.language + ".png"
+        self.update_language_image()
 
     def play_game(self):
         # Reset the screen of game_summary
         self.manager.get_screen("game_summary").reset_screen()
         self.manager.get_screen("game_question").code_continent = self.code_continent
         self.manager.get_screen("game_summary").code_continent = self.code_continent
+        self.manager.get_screen("game_over").code_continent = self.code_continent
 
         # Go to the screen game question
         self.manager.current = "game_question"

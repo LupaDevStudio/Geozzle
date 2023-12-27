@@ -13,5 +13,7 @@
     "game_question": {
         "new_clue": "Choose a new clue"
     },
-    "game_summary": {}
+    "game_summary": {
+        "i_found": "I've found!"
+    }
 }

@@ -13,5 +13,7 @@
     "game_question": {
         "new_clue": "Choisissez un nouvel indice"
     },
-    "game_summary": {}
+    "game_summary": {
+        "i_found": "J'ai trouvé !"
+    }
 }
