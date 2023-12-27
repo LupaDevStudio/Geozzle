@@ -80,10 +80,16 @@ class HomeScreen(ImprovedScreen):
         # Change the image of the background
         if self.opacity_state == "main":
             # TODO : randomly pick an image which is not back_image_path
-            self.second_back_image_path = PATH_BACKGROUNDS + "pagode.jpg"
+            self.set_back_image_path(
+                back_image_path=PATH_BACKGROUNDS + "pagode.jpg",
+                mode="second"
+            )
         else:
             # TODO : randomly pick an image which is not second_back_image_path
-            self.back_image_path = PATH_BACKGROUNDS + "lake_sunset.jpg"
+            self.set_back_image_path(
+                back_image_path=PATH_BACKGROUNDS + "lake_sunset.jpg",
+                mode="main"
+            )
 
         # Schedule the change of the opacity to have a smooth transition
         Clock.schedule_interval(self.change_background_opacity, 1/FPS)
