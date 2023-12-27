@@ -3,6 +3,18 @@
 <ImprovedScreen>:
 
     Image:
+        id: second_back_image
+        source: root.second_back_image_path
+        size_hint: None,None
+        width: root.back_image_width
+        height: root.back_image_height
+        disabled: root.back_image_disabled
+        opacity: root.second_back_image_opacity
+        pos_hint: {"center_x":0.5,"center_y":0.5}
+        fit_mode: "cover"
+        anim_delay: 0.0166
+
+    Image:
         id: back_image
         source: root.back_image_path
         size_hint: None,None

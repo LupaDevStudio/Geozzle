@@ -12,6 +12,7 @@ import webbrowser
 
 ### Kivy imports ###
 
+from kivy.clock import Clock
 from kivy.properties import (
     StringProperty,
     ColorProperty
@@ -30,7 +31,10 @@ from tools.constants import (
     LIST_CONTINENTS,
     DICT_CONTINENTS,
     TEXT,
-    USER_DATA
+    USER_DATA,
+    TIME_CHANGE_BACKGROUND,
+    RATE_CHANGE_OPACITY,
+    FPS
 )
 
 
@@ -51,6 +55,7 @@ class HomeScreen(ImprovedScreen):
         PATH_CONTINENTS_IMAGES + LIST_CONTINENTS[counter_continents] + ".png")
     language_image = StringProperty()
     play_label = StringProperty()
+    opacity_state = "main"
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
@@ -59,7 +64,63 @@ class HomeScreen(ImprovedScreen):
             **kwargs)
         self.update_text()
         self.update_language_image()
-    
+
+    def on_enter(self, *args):
+        # Schedule the change of background
+        Clock.schedule_interval(self.change_background, TIME_CHANGE_BACKGROUND)
+
+        return super().on_enter(*args)
+
+    def on_pre_leave(self, *args):
+        # Unschedule the clock updates
+        Clock.unschedule(self.change_background, TIME_CHANGE_BACKGROUND)
+        Clock.unschedule(self.change_background_opacity, 1/FPS)
+
+        return super().on_leave(*args)
+
+    def change_background(self, *args):
+        # Change the image of the background
+        if self.opacity_state == "main":
+            # TODO : randomly pick an image which is not back_image_path
+            self.second_back_image_path = PATH_BACKGROUNDS + "pagode.jpg"
+        else:
+            # TODO : randomly pick an image which is not second_back_image_path
+            self.back_image_path = PATH_BACKGROUNDS + "lake_sunset.jpg"
+
+        # Schedule the change of the opacity to have a smooth transition
+        Clock.schedule_interval(self.change_background_opacity, 1/FPS)
+
+    def change_background_opacity(self, *args):
+        """
+        Change the opacity of both background images to change smoothly the background.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
+
+        # If we have to display the second background image
+        if self.opacity_state == "main":
+            if self.ids.back_image.opacity >= 0:
+                self.ids.back_image.opacity -= RATE_CHANGE_OPACITY
+                self.ids.second_back_image.opacity += RATE_CHANGE_OPACITY
+            else:
+                Clock.unschedule(self.change_background_opacity, 1/FPS)
+                self.opacity_state = "second"
+
+        # If we have to display the background image
+        elif self.opacity_state == "second":
+            if self.ids.second_back_image.opacity >= 0:
+                self.ids.back_image.opacity += RATE_CHANGE_OPACITY
+                self.ids.second_back_image.opacity -= RATE_CHANGE_OPACITY
+            else:
+                Clock.unschedule(self.change_background_opacity, 1/FPS)
+                self.opacity_state = "main"
+
     def update_text(self):
         """
         Update the labels depending on the language.

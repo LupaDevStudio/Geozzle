@@ -43,13 +43,14 @@ class ImprovedScreen(Screen):
     back_image_height = NumericProperty(Window.size[1])
     back_image_disabled = BooleanProperty(False)
     back_image_path = ObjectProperty("")
+    second_back_image_path = ObjectProperty("")
 
     # Create the font_name properties
     font_ratio = NumericProperty(1)
     font_name = StringProperty("Roboto")
     font_size_expand = 1
 
-    def __init__(self, font_name="Roboto", back_image_path=None, **kw):
+    def __init__(self, font_name="Roboto", back_image_path=None, second_back_image_path=None, **kw):
 
         # Create a dictionnary to store the positions of hidden widgets
         self.temp_pos = {}
@@ -62,10 +63,12 @@ class ImprovedScreen(Screen):
 
         # Store the back image path
         self.sto_back_image_path = back_image_path
+        self.sto_second_back_image_path = second_back_image_path
 
         # Define all variables
         self.back_image_disabled = False
         self.back_image_opacity = 1
+        self.second_back_image_opacity = 0
         self.back_image_ratio = 1
 
         # Init the kv screen
@@ -90,6 +93,14 @@ class ImprovedScreen(Screen):
             self.back_image_path = ""
             self.back_image_opacity = 0
             self.back_image_disabled = True
+
+        # Set the second background image
+        if self.sto_second_back_image_path is not None:
+            self.second_back_image_path = self.sto_second_back_image_path
+            self.second_back_image_opacity = 0
+        else:
+            self.second_back_image_path = ""
+            self.second_back_image_opacity = 0
 
     def set_back_image_path(self, back_image_path):
         """
