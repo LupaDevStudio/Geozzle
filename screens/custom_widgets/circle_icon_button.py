@@ -29,8 +29,6 @@ class CircleIconButton(ButtonBehavior, Image):
     A custom button with a white round rectangle background.
     """
     
-    radius = NumericProperty(40)
-
     def __init__(
             self,
             release_function=lambda: 1 + 1,
