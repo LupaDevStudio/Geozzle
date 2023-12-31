@@ -40,6 +40,10 @@ class GameQuestionScreen(ImprovedScreen):
     background_color = ColorProperty(DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
     text_label = StringProperty()
     number_lives_on = NumericProperty(3)
+    hint1 = StringProperty()
+    hint2 = StringProperty()
+    hint3 = StringProperty()
+    clue = StringProperty()
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
@@ -63,7 +67,11 @@ class GameQuestionScreen(ImprovedScreen):
         -------
         None
         """
-        pass
+        self.hint1 = TEXT.game_question["hint_1"]
+        self.hint2 = TEXT.game_question["hint_2"]
+        self.hint3 = TEXT.game_question["hint_3"]
+        self.clue = TEXT.game_question["clue"]
+        
 
     def update_color(self, base_widget, value):
         """
@@ -91,3 +99,8 @@ class GameQuestionScreen(ImprovedScreen):
 
     def update_labels(self):
         self.text_label = TEXT.game_question["new_clue"]
+        self.hint1 = TEXT.game_question["hint_1"]
+        self.hint2 = TEXT.game_question["hint_2"]
+        self.hint3 = TEXT.game_question["hint_3"]
+        self.clue = TEXT.game_question["clue"]
+

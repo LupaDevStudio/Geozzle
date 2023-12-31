@@ -40,7 +40,7 @@
 
     ColoredRoundedButton:
         background_color: root.background_color
-        text: "Catégorie 1"
+        text: root.hint1
         font_size: MAIN_BUTTON_FONT_SIZE * root.font_ratio
         pos_hint: {"center_x":0.5, "center_y":0.6}
         size_hint: (0.75, 0.10)
@@ -49,7 +49,7 @@
     ColoredRoundedButton:
         background_color: root.background_color
         border: root.continent_color
-        text: "Catégorie 2"
+        text: root.hint2
         font_size: MAIN_BUTTON_FONT_SIZE * root.font_ratio
         pos_hint: {"center_x":0.5, "center_y":0.45}
         size_hint: (0.75, 0.10)
@@ -57,7 +57,7 @@
 
     ColoredRoundedButton:
         background_color: root.background_color
-        text: "Catégorie 3"
+        text: root.hint3
         font_size: MAIN_BUTTON_FONT_SIZE * root.font_ratio
         pos_hint: {"center_x":0.5, "center_y":0.3}
         size_hint: (0.75, 0.10)
@@ -65,7 +65,7 @@
 
     ColoredRoundedButton:
         background_color: (1, 1, 1, 1)
-        text: "Indice"
+        text: root.clue
         font_size: MAIN_BUTTON_FONT_SIZE * root.font_ratio
         pos_hint: {"center_x":0.35, "center_y":0.125}
         size_hint: (0.6, 0.125)

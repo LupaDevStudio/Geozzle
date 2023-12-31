@@ -11,7 +11,11 @@
     },
     "game_over": {},
     "game_question": {
-        "new_clue": "Choisissez un nouvel indice"
+        "new_clue": "Choisissez un nouvel indice",
+        "hint_1": "Catégorie 1",
+        "hint_2": "Catégorie 2",
+        "hint_3": "Catégorie 3",
+        "clue": "Indice"
     },
     "game_summary": {
         "i_found": "J'ai trouvé !"
