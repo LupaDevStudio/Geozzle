@@ -3,27 +3,27 @@
     "continents": {
         "Europe": {
             "highscore": 0,
-            "percentage": 0
+            "percentage": 20
         },
         "Asia": {
             "highscore": 0,
-            "percentage": 0
+            "percentage": 41
         },
         "Africa": {
             "highscore": 0,
-            "percentage": 0
+            "percentage": 30
         },
         "North_America": {
             "highscore": 10,
-            "percentage": 0
+            "percentage": 75
         },
         "South_America": {
             "highscore": 0,
-            "percentage": 0
+            "percentage": 15
         },
         "Oceania": {
             "highscore": 20,
-            "percentage": 0
+            "percentage": 8
         }
     }
 }

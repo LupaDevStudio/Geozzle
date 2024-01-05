@@ -39,11 +39,14 @@
         release_function: root.change_language
 
     # Continent logo in the center
-    CircleIconButton:
+    CircleProgressBar:
         source: root.continent_image
         pos_hint: {"center_x":0.5, "center_y":0.5}
         size_hint: (0.4, None)
         height: self.width
+        progress: root.completion_value
+        circle_color: root.continent_color
+        font_ratio: root.font_ratio
 
     Label:
         text: root.continent_name
@@ -53,7 +56,7 @@
         outline_width: SUBTITLE_OUTLINE_WIDTH
         outline_color: TITLE_OUTLINE_COLOR
         color: root.continent_color
-    
+
     # Play button
     CustomButton:
         text: root.play_label
@@ -79,7 +82,7 @@
         height: self.width
         colors: root.continent_color
         on_release: root.change_continent("left")
-        
+
     RoundedButtonImage:
         image_path: PATH_IMAGES + "right_arrow.png"
         pos_hint: {"center_x":0.9, "center_y":0.5}

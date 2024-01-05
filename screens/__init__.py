@@ -11,7 +11,8 @@ from screens.custom_widgets import (
     CircleIconButton,
     RoundedButtonImage,
     ColoredRoundedButton,
-    ThreeLives
+    ThreeLives,
+    CircleProgressBar
 )
 
 from screens.home import HomeScreen

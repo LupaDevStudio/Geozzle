@@ -15,7 +15,8 @@ import webbrowser
 from kivy.clock import Clock
 from kivy.properties import (
     StringProperty,
-    ColorProperty
+    ColorProperty,
+    NumericProperty
 )
 
 ### Local imports ###
@@ -49,7 +50,8 @@ class HomeScreen(ImprovedScreen):
     code_continent = LIST_CONTINENTS[counter_continents]
     continent_name = StringProperty()
     highscore = StringProperty()
-    completion_percentage = StringProperty()
+    completion_value = NumericProperty()
+    completion_percentage_text = StringProperty()
     continent_color = ColorProperty(DICT_CONTINENTS[code_continent])
     continent_image = StringProperty(
         PATH_CONTINENTS_IMAGES + LIST_CONTINENTS[counter_continents] + ".png")
@@ -58,11 +60,12 @@ class HomeScreen(ImprovedScreen):
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
-            back_image_path=PATH_BACKGROUNDS + "lake_sunset.jpg", # TODO to change
+            back_image_path=PATH_BACKGROUNDS + "lake_sunset.jpg",  # TODO to change
             font_name=PATH_TEXT_FONT,
             **kwargs)
         self.update_text()
         self.update_language_image()
+        self.load_continent_data()
 
     def on_enter(self, *args):
         # Schedule the change of background
@@ -92,16 +95,16 @@ class HomeScreen(ImprovedScreen):
             )
 
         # Schedule the change of the opacity to have a smooth transition
-        Clock.schedule_interval(self.change_background_opacity, 1/FPS)
+        Clock.schedule_interval(self.change_background_opacity, 1 / FPS)
 
     def update_text(self):
         """
         Update the labels depending on the language.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         None
@@ -135,26 +138,32 @@ class HomeScreen(ImprovedScreen):
             if self.counter_continents >= len(LIST_CONTINENTS):
                 self.counter_continents = 0
 
+        self.load_continent_data()
+
+    def load_continent_data(self):
+
         # Change the colors and the name of the continent
         self.code_continent = LIST_CONTINENTS[self.counter_continents]
         self.continent_name = TEXT.home[self.code_continent]
         self.continent_color = DICT_CONTINENTS[self.code_continent]
         self.continent_image = PATH_CONTINENTS_IMAGES + \
             LIST_CONTINENTS[self.counter_continents] + ".png"
-        
+
         # Change the score and the completion percentage of the user
         self.highscore = TEXT.home["highscore"] + \
             str(USER_DATA.continents[self.code_continent]["highscore"])
-        self.completion_percentage = str(USER_DATA.continents[self.code_continent]["percentage"]) + " %"
+        self.completion_value = USER_DATA.continents[self.code_continent]["percentage"]
+        self.completion_percentage_text = str(
+            USER_DATA.continents[self.code_continent]["percentage"]) + " %"
 
     def update_language_image(self):
         """
         Update the image of the language on the top right hand corner.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         None
@@ -167,11 +176,11 @@ class HomeScreen(ImprovedScreen):
     def change_language(self):
         """
         Change the language of the application.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         None
@@ -182,7 +191,7 @@ class HomeScreen(ImprovedScreen):
         else:
             TEXT.change_language("english")
         self.update_text()
-        
+
         # Save the choice of the language
         USER_DATA.language = TEXT.language
         USER_DATA.save_changes()
@@ -194,20 +203,23 @@ class HomeScreen(ImprovedScreen):
         """
         Start the game for one continent.
         It sets the variables of the games for each screen.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         None
         """
         # Reset the screen of game_summary
         self.manager.get_screen("game_summary").reset_screen()
-        self.manager.get_screen("game_question").code_continent = self.code_continent
-        self.manager.get_screen("game_summary").code_continent = self.code_continent
-        self.manager.get_screen("game_over").code_continent = self.code_continent
+        self.manager.get_screen(
+            "game_question").code_continent = self.code_continent
+        self.manager.get_screen(
+            "game_summary").code_continent = self.code_continent
+        self.manager.get_screen(
+            "game_over").code_continent = self.code_continent
 
         # Go to the screen game question
         self.manager.current = "game_question"
@@ -215,11 +227,11 @@ class HomeScreen(ImprovedScreen):
     def open_lupa_website(self):
         """
         Open LupaDevStudio website.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         None
