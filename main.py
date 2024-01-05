@@ -1,20 +1,10 @@
 """
-Main module of Linconym.
+Main module of Geozzle.
 """
-
 
 ###############
 ### Imports ###
 ###############
-
-
-### Python imports ###
-
-# import os
-# import platform
-# os_name = platform.system()
-# if os_name == "Windows":
-#     os.environ['KIVY_TEXT'] = 'pil'
 
 ### Kivy imports ###
 
@@ -28,7 +18,7 @@ from kivy.uix.widget import Widget
 from kivy.core.window import Window
 from kivy.clock import Clock
 
-### Module imports ###
+### Local imports ###
 
 from tools.path import (
     PATH_IMAGES
@@ -39,7 +29,6 @@ from tools.constants import (
     MSAA_LEVEL
 )
 import screens.opening
-
 
 ###############
 ### General ###

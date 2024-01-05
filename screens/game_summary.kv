@@ -1,20 +1,67 @@
 #:kivy 2.2.1
 #:import PATH_IMAGES tools.path.PATH_IMAGES
 #:import PATH_TITLE_FONT tools.path.PATH_TITLE_FONT
-#:import TITLE_FONT_SIZE tools.constants.TITLE_FONT_SIZE
+#:import MAIN_TEXT_FONT_SIZE tools.constants.MAIN_TEXT_FONT_SIZE
+#:import BUTTON_FONT_SIZE tools.constants.BUTTON_FONT_SIZE
 #:import TITLE_OUTLINE_WIDTH tools.constants.TITLE_OUTLINE_WIDTH
+#:import SUBTITLE_OUTLINE_WIDTH tools.constants.SUBTITLE_OUTLINE_WIDTH
 #:import TITLE_OUTLINE_COLOR tools.constants.TITLE_OUTLINE_COLOR
-#:import PATH_TEXT_FONT tools.path.PATH_TEXT_FONT
-#:import TEXT_FONT_COLOR tools.constants.TEXT_FONT_COLOR
-#:import BOTTOM_BAR_HEIGHT tools.constants.BOTTOM_BAR_HEIGHT
-
+#:set HEIGHT_HINT_SCROLLVIEW 0.5
 
 <GameSummaryScreen>:
     Label:
         text: "Quel pays suis-je ?"
         font_name: PATH_TITLE_FONT
-        font_size: TITLE_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.9}
-        outline_width: TITLE_OUTLINE_WIDTH
+        font_size: MAIN_TEXT_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.85}
+        outline_width: SUBTITLE_OUTLINE_WIDTH
         outline_color: TITLE_OUTLINE_COLOR
-        color: TEXT_FONT_COLOR
+        color: root.continent_color
+
+    RoundedButtonImage:
+        image_path: PATH_IMAGES + "left_arrow.png"
+        pos_hint: {"x":0.05, "top":0.975}
+        size_hint: (0.1, None)
+        height: self.width
+        colors: root.continent_color
+        on_release: root.go_back_to_home()
+
+    ThreeLives:
+        continent_color: root.continent_color
+        pos_hint: {"x":0.57, "top":0.98}
+        size_hint: (0.4, 0.075)
+        number_lives_on: root.number_lives_on
+
+    # Scroll view with all clues
+    ColoredRoundedButton:
+        background_color: (1, 1, 1, 1)
+        pos_hint: {"center_x":0.5, "center_y":0.525}
+        size_hint: (0.8, HEIGHT_HINT_SCROLLVIEW)
+        color_label: root.continent_color
+        disable_button: True
+    ScrollView:
+        id: scrollview
+        pos_hint: {"center_x":0.5, "center_y":0.525}
+        size_hint: (0.78, HEIGHT_HINT_SCROLLVIEW-0.025)
+        do_scroll_x: False
+        scroll_type: ["bars", "content"]
+        bar_width: 10
+        bar_inactive_color: root.background_color
+        bar_color: root.continent_color
+
+        MyScrollViewLayout:
+            id: scrollview_layout
+            cols:1
+            spacing:40
+            height:0.2*root.height * len(root.dict_all_clues)*1.05
+            padding: (0.05*root.width, 10,0.05*root.width,40)
+
+    # Button to go to game over screen
+    ColoredRoundedButton:
+        text: root.text_found_country
+        background_color: root.continent_color
+        font_size: BUTTON_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.75, "center_y":0.075}
+        size_hint: (0.4, 0.075)
+        color_label: root.background_color
+        release_function: root.go_to_game_over

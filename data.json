@@ -1,3 +1,29 @@
 {
-    "language": "french"
+    "language": "french",
+    "continents": {
+        "Europe": {
+            "highscore": 0,
+            "percentage": 0
+        },
+        "Asia": {
+            "highscore": 0,
+            "percentage": 0
+        },
+        "Africa": {
+            "highscore": 0,
+            "percentage": 0
+        },
+        "North_America": {
+            "highscore": 10,
+            "percentage": 0
+        },
+        "South_America": {
+            "highscore": 0,
+            "percentage": 0
+        },
+        "Oceania": {
+            "highscore": 20,
+            "percentage": 0
+        }
+    }
 }

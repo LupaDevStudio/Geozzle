@@ -1,0 +1,20 @@
+#:kivy 2.2.1
+
+<RoundedButtonImage>:
+
+    # Background
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        RoundedRectangle:
+            pos:(0,0)
+            size:self.size
+            radius:[self.radius,]
+
+    # Image
+    Image:
+        fit_mode: "contain"
+        source: root.image_path
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        size_hint: (0.6, 0.6)
+        color: root.colors

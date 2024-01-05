@@ -2,12 +2,15 @@
 #:import PATH_IMAGES tools.path.PATH_IMAGES
 #:import PATH_TITLE_FONT tools.path.PATH_TITLE_FONT
 #:import TITLE_FONT_SIZE tools.constants.TITLE_FONT_SIZE
+#:import MAIN_TEXT_FONT_SIZE tools.constants.MAIN_TEXT_FONT_SIZE
+#:import HIGHSCORE_FONT_SIZE tools.constants.HIGHSCORE_FONT_SIZE
 #:import TITLE_OUTLINE_WIDTH tools.constants.TITLE_OUTLINE_WIDTH
+#:import SUBTITLE_OUTLINE_WIDTH tools.constants.SUBTITLE_OUTLINE_WIDTH
 #:import TITLE_OUTLINE_COLOR tools.constants.TITLE_OUTLINE_COLOR
 #:import PATH_TEXT_FONT tools.path.PATH_TEXT_FONT
 #:import TEXT_FONT_COLOR tools.constants.TEXT_FONT_COLOR
 #:import BOTTOM_BAR_HEIGHT tools.constants.BOTTOM_BAR_HEIGHT
-
+#:set LOGO_SIZE 0.1
 
 <HomeScreen>:
     Label:
@@ -18,3 +21,69 @@
         outline_width: TITLE_OUTLINE_WIDTH
         outline_color: TITLE_OUTLINE_COLOR
         color: TEXT_FONT_COLOR
+
+    # Lupa button
+    CircleIconButton:
+        source: PATH_IMAGES + "lupa_logo.png"
+        pos_hint: {"center_x":0.1, "center_y":0.95}
+        size_hint: (LOGO_SIZE, None)
+        height: self.width
+        release_function: root.open_lupa_website
+
+    # Language button
+    CircleIconButton:
+        source: root.language_image
+        pos_hint: {"center_x":0.9, "center_y":0.95}
+        size_hint: (LOGO_SIZE, None)
+        height: self.width
+        release_function: root.change_language
+
+    # Continent logo in the center
+    CircleIconButton:
+        source: root.continent_image
+        pos_hint: {"center_x":0.5, "center_y":0.5}
+        size_hint: (0.4, None)
+        height: self.width
+
+    Label:
+        text: root.continent_name
+        font_name: root.font_name
+        font_size: MAIN_TEXT_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.75}
+        outline_width: SUBTITLE_OUTLINE_WIDTH
+        outline_color: TITLE_OUTLINE_COLOR
+        color: root.continent_color
+    
+    # Play button
+    CustomButton:
+        text: root.play_label
+        pos_hint: {"center_x":0.5, "center_y":0.2}
+        size_hint: (0.4, 0.075)
+        release_function: root.play_game
+
+    # Highscore for the label
+    Label:
+        text: root.highscore
+        font_name: root.font_name
+        font_size: HIGHSCORE_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.075}
+        outline_width: SUBTITLE_OUTLINE_WIDTH
+        outline_color: TITLE_OUTLINE_COLOR
+        color: root.continent_color
+
+    # Arrows to navigate between continents
+    RoundedButtonImage:
+        image_path: PATH_IMAGES + "left_arrow.png"
+        pos_hint: {"center_x":0.1, "center_y":0.5}
+        size_hint: (0.15, None)
+        height: self.width
+        colors: root.continent_color
+        on_release: root.change_continent("left")
+        
+    RoundedButtonImage:
+        image_path: PATH_IMAGES + "right_arrow.png"
+        pos_hint: {"center_x":0.9, "center_y":0.5}
+        size_hint: (0.15, None)
+        height: self.width
+        colors: root.continent_color
+        on_release: root.change_continent("right")

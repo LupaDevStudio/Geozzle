@@ -22,16 +22,10 @@ import os
 
 from kivy import platform
 
-### Module imports ###
+### Local imports ###
 
 from tools.path import (
     PATH_USER_DATA,
-    PATH_WORDS_10K,
-    PATH_WORDS_34K,
-    PATH_WORDS_88K,
-    PATH_WORDS_375K,
-    PATH_GAMEPLAY,
-    PATH_THEMES,
     PATH_LANGUAGE
 )
 from tools.basic_tools import (
@@ -75,6 +69,7 @@ class UserData():
     def __init__(self) -> None:
         data = load_json_file(PATH_USER_DATA)
         self.language = data["language"]
+        self.continents = data["continents"]
 
     def save_changes(self) -> None:
         """
@@ -92,6 +87,7 @@ class UserData():
         # Create the dictionary of data
         data = {}
         data["language"] = self.language
+        data["continents"] = self.continents
 
         # Save this dictionary
         save_json_file(
@@ -146,67 +142,52 @@ class Text():
 
 TEXT = Text(language=USER_DATA.language)
 
-### Colors ###
-
-
-class ColorPalette():
-    """
-    Class to store the colors used in the screens.
-    """
-
-    def __init__(self) -> None:
-        self.PRIMARY = (0, 0, 0, 1)
-        self.SECONDARY = (0, 0, 0, 1)
-
 ### Graphics ###
 
+CUSTOM_BUTTON_BACKGROUND_COLOR = (1, 1, 1, 0.7)
+
+OPACITY_ON_BUTTON_PRESS = 0.8
 
 TEXT_FONT_COLOR = (0, 0, 0, 1)
-TITLE_FONT_SIZE = 45
 TITLE_OUTLINE_WIDTH = 2
 TITLE_OUTLINE_COLOR = (1, 1, 1, 1)
 BOTTOM_BAR_HEIGHT = 0.12
+SUBTITLE_OUTLINE_WIDTH = 1
+TIME_CHANGE_BACKGROUND = 10 # every 10 seconds, the background changes
+RATE_CHANGE_OPACITY = 0.03
 
-### Musics ###
+### Font sizes ###
 
-SOUND_LIST = []
-
+TITLE_FONT_SIZE = 60
+MAIN_TEXT_FONT_SIZE = 35
+MAIN_BUTTON_FONT_SIZE = 30
+HIGHSCORE_FONT_SIZE = 30
+BUTTON_FONT_SIZE = 20
+SUB_TEXT_FONT_SIZE = 20
 
 ### Ads code ###
 
 REWARD_INTERSTITIAL = ""
 INTERSTITIAL = ""
 
-### Words loading ###
+### Continents ###
 
-
-with open(PATH_WORDS_10K) as file:
-    ENGLISH_WORDS_10K = []
-    for i, line in enumerate(file):
-        ENGLISH_WORDS_10K.append(line.replace("\n", ""))
-
-with open(PATH_WORDS_34K) as file:
-    ENGLISH_WORDS_34K = []
-    for i, line in enumerate(file):
-        ENGLISH_WORDS_34K.append(line.replace("\n", ""))
-
-with open(PATH_WORDS_88K) as file:
-    ENGLISH_WORDS_88K = []
-    for i, line in enumerate(file):
-        ENGLISH_WORDS_88K.append(line.replace("\n", ""))
-
-with open(PATH_WORDS_375K) as file:
-    ENGLISH_WORDS_375K = []
-    for i, line in enumerate(file):
-        ENGLISH_WORDS_375K.append(line.replace("\n", ""))
-
-ENGLISH_WORDS_DICTS = {
-    "10k": ENGLISH_WORDS_10K,
-    "34k": ENGLISH_WORDS_34K,
-    "88k": ENGLISH_WORDS_88K,
-    "375k": ENGLISH_WORDS_375K
+LIST_CONTINENTS = ["Europe", "Asia", "Africa", "North_America", "South_America", "Oceania"]
+DICT_CONTINENTS = {
+    "Europe": (2/255,22/255,117/255,1),
+    "Asia": (0,61/255,4/255,1),
+    "Africa": (177/255,7/255,24/255,1),
+    "North_America": (219/255,63/255,0/255,1),
+    "South_America": (0/255,130/255,194/255,1),
+    "Oceania": (74/255,0/255,149/255,1)
 }
 
-### Levels ###
+DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED = {
+    "Europe": (209/255, 215/255, 248/255, 1),
+    "Asia": (193/255,241/255,195/255,1),
+    "Africa": (255/255,215/255,215/255,1),
+    "North_America": (253/255,239/255,194/255,1),
+    "South_America": (189/255,250/255,246/255,1),
+    "Oceania": (226/255,189/255,255/255,1)
+}
 
-GAMEPLAY_DICT = load_json_file(PATH_GAMEPLAY)

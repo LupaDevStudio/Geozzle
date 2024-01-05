@@ -1,1 +1,24 @@
-{}
+{
+    "home": {
+        "Europe": "Europe",
+        "Asia": "Asia",
+        "Africa": "Africa",
+        "North_America": "North America",
+        "South_America": "South America",
+        "Oceania": "Oceania",
+        "highscore": "Highscore: ",
+        "play": "Play"
+    },
+    "game_over": {},
+    "game_question": {
+        "new_clue": "Choose a new clue",
+        "hint_1": "Hint 1",
+        "hint_2": "Hint 2",
+        "hint_3": "Hint 3",
+        "clue": "Clue"
+
+    },
+    "game_summary": {
+        "i_found": "I've found!"
+    }
+}

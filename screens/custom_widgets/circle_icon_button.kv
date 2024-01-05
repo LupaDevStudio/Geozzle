@@ -1,0 +1,25 @@
+#:kivy 2.2.1
+
+<-CircleIconButton>:
+
+    fit_mode: "cover" # the image will be cropped at the right spot
+
+    canvas:
+        Color:
+            rgba: self.color
+        StencilPush
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [100]
+        StencilUse
+        Rectangle:
+            texture: self.texture
+            size: self.norm_image_size
+            pos: self.center_x - self.norm_image_size[0] / 2., self.center_y - self.norm_image_size[1] / 2.
+        StencilUnUse
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [100]
+        StencilPop
