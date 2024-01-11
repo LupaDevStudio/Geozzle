@@ -22,7 +22,8 @@ from tools.path import (
 from tools.constants import (
     LIST_CONTINENTS,
     DICT_CONTINENTS,
-    DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED
+    DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
+    TEXT
 )
 from tools.kivy_tools import ImprovedScreen
 
@@ -36,12 +37,17 @@ class GameOverScreen(ImprovedScreen):
     code_continent = StringProperty(LIST_CONTINENTS[0])
     continent_color = ColorProperty(DICT_CONTINENTS[LIST_CONTINENTS[0]])
     background_color = ColorProperty(DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
+    title_label = StringProperty()
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
             back_image_path=PATH_BACKGROUNDS + "lake_sunset.jpg",
             font_name=PATH_TEXT_FONT,
             **kwargs)
+        
+        self.bind(code_continent = self.update_color)
+        self.update_text()
+        
 
     def update_text(self):
         """
@@ -55,7 +61,27 @@ class GameOverScreen(ImprovedScreen):
         -------
         None
         """
-        pass
+        self.title_label = TEXT.game_over["title"]
+        
+
+    def update_color(self, base_widget, value):
+        """
+        Update the code of the continent and its related attributes.
+
+        Parameters
+        ----------
+        base_widget : kivy.uix.widget
+            Self
+        value : string
+            Value of code_continent
+
+        Returns
+        -------
+        None
+        """
+        self.continent_color = DICT_CONTINENTS[self.code_continent]
+        self.background_color = DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent]
+
 
     def go_back_to_home(self):
         self.manager.current = "home"

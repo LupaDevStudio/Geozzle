@@ -9,7 +9,9 @@
         "highscore": "Highscore: ",
         "play": "Play"
     },
-    "game_over": {},
+    "game_over": {
+        "title": "Which country am I ?"
+    },
     "game_question": {
         "new_clue": "Choose a new clue",
         "hint_1": "Hint 1",
@@ -19,6 +21,8 @@
 
     },
     "game_summary": {
-        "i_found": "I've found!"
+        "i_found": "I've found!",
+        "new_hint": "New hint",
+        "title": "Which country am I ?"
     }
 }

@@ -3,27 +3,58 @@
     "continents": {
         "Europe": {
             "highscore": 0,
-            "percentage": 20
+            "percentage": 20,
+            "countries_unlocked": [],
+            "current_country" : {
+                "country": "",
+                "clues": []
+            }
+
         },
         "Asia": {
             "highscore": 0,
-            "percentage": 41
+            "percentage": 41,
+            "countries_unlocked": [],
+            "current_country" : {
+                "country": "",
+                "clues": []
+            }
         },
         "Africa": {
             "highscore": 0,
-            "percentage": 30
+            "percentage": 30,
+            "countries_unlocked": [],
+            "current_country" : {
+                "country": "",
+                "clues": []
+            }
         },
         "North_America": {
             "highscore": 10,
-            "percentage": 75
+            "percentage": 75,
+            "countries_unlocked": [],
+            "current_country" : {
+                "country": "",
+                "clues": []
+            }
         },
         "South_America": {
             "highscore": 0,
-            "percentage": 15
+            "percentage": 15,
+            "countries_unlocked": [],
+            "current_country" : {
+                "country": "",
+                "clues": []
+            }
         },
         "Oceania": {
             "highscore": 20,
-            "percentage": 8
+            "percentage": 8,
+            "countries_unlocked": [],
+            "current_country" : {
+                "country": "",
+                "clues": []
+            }
         }
     }
 }

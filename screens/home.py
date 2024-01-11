@@ -8,6 +8,8 @@ Module to create the home screen.
 
 ### Python imports ###
 
+import os
+import random
 import webbrowser
 
 ### Kivy imports ###
@@ -60,7 +62,7 @@ class HomeScreen(ImprovedScreen):
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
-            back_image_path=PATH_BACKGROUNDS + "lake_sunset.jpg",  # TODO to change
+            back_image_path=PATH_BACKGROUNDS + self.code_continent + "/" + os.listdir(PATH_BACKGROUNDS + self.code_continent)[0],
             font_name=PATH_TEXT_FONT,
             **kwargs)
         self.update_text()
@@ -82,15 +84,28 @@ class HomeScreen(ImprovedScreen):
     def change_background(self, *args):
         # Change the image of the background
         if self.opacity_state == "main":
-            # TODO : randomly pick an image which is not back_image_path
+            idx_to_pick = random.randint(0, len(os.listdir(PATH_BACKGROUNDS+self.code_continent))-1)
+            image = os.listdir(PATH_BACKGROUNDS+self.code_continent)[idx_to_pick]
+
+            while image == self.back_image_path.split("/")[-1]: # verify that the new image is not the same as the current one
+                idx_to_pick = random.randint(0, len(os.listdir(PATH_BACKGROUNDS+self.code_continent))-1)
+                image = os.listdir(PATH_BACKGROUNDS+self.code_continent)[idx_to_pick]
+
             self.set_back_image_path(
-                back_image_path=PATH_BACKGROUNDS + "pagode.jpg",
+                back_image_path=PATH_BACKGROUNDS + self.code_continent + "/" + image,
                 mode="second"
             )
+
         else:
-            # TODO : randomly pick an image which is not second_back_image_path
+            idx_to_pick = random.randint(0, len(os.listdir(PATH_BACKGROUNDS+self.code_continent))-1)
+            image = os.listdir(PATH_BACKGROUNDS+self.code_continent)[idx_to_pick]
+
+            while image == self.second_back_image_path.split("/")[-1]: # verify that the new image is not the same as the current one
+                idx_to_pick = random.randint(0, len(os.listdir(PATH_BACKGROUNDS+self.code_continent))-1)
+                image = os.listdir(PATH_BACKGROUNDS+self.code_continent)[idx_to_pick]
+
             self.set_back_image_path(
-                back_image_path=PATH_BACKGROUNDS + "lake_sunset.jpg",
+                back_image_path=PATH_BACKGROUNDS + self.code_continent + "/" + image,
                 mode="main"
             )
 
@@ -139,6 +154,9 @@ class HomeScreen(ImprovedScreen):
                 self.counter_continents = 0
 
         self.load_continent_data()
+        Clock.unschedule(self.change_background, TIME_CHANGE_BACKGROUND)
+        Clock.schedule_interval(self.change_background, TIME_CHANGE_BACKGROUND)
+        self.change_background()
 
     def load_continent_data(self):
 

@@ -54,7 +54,64 @@ BACK_ARROW_SIZE = 0.2
 # Create the user data json if it does not exist
 if not os.path.exists(PATH_USER_DATA):
     default_user_data = {
-        "language": ""
+        "language": "english",
+        "continents": {
+            "Europe": {
+                "highscore": 0,
+                "percentage": 0,
+                "countries_unlocked": [],
+                "current_country" : {
+                    "country": "",
+                    "clues": []
+                }
+
+            },
+            "Asia": {
+                "highscore": 0,
+                "percentage": 0,
+                "countries_unlocked": [],
+                "current_country" : {
+                    "country": "",
+                    "clues": []
+                }
+            },
+            "Africa": {
+                "highscore": 0,
+                "percentage": 0,
+                "countries_unlocked": [],
+                "current_country" : {
+                    "country": "",
+                    "clues": []
+                }
+            },
+            "North_America": {
+                "highscore": 0,
+                "percentage": 0,
+                "countries_unlocked": [],
+                "current_country" : {
+                    "country": "",
+                    "clues": []
+                }
+            },
+            "South_America": {
+                "highscore": 0,
+                "percentage": 0,
+                "countries_unlocked": [],
+                "current_country" : {
+                    "country": "",
+                    "clues": []
+                }
+            },
+            "Oceania": {
+                "highscore": 0,
+                "percentage": 0,
+                "countries_unlocked": [],
+                "current_country" : {
+                    "country": "",
+                    "clues": []
+                }
+            }
+        }
     }
     save_json_file(PATH_USER_DATA, default_user_data)
 

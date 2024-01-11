@@ -43,6 +43,9 @@ class GameSummaryScreen(ImprovedScreen):
     dict_all_clues = {}
     dict_scrollview_widgets = {}
     text_found_country = StringProperty() 
+    get_new_hint = StringProperty()
+    title_label = StringProperty()
+
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
@@ -51,6 +54,7 @@ class GameSummaryScreen(ImprovedScreen):
             **kwargs)
         
         self.bind(code_continent = self.update_color)
+        self.update_text()
 
     def on_pre_enter(self, *args):
         self.update_scroll_view()
@@ -70,6 +74,8 @@ class GameSummaryScreen(ImprovedScreen):
         None
         """
         self.text_found_country = TEXT.game_summary["i_found"]
+        self.get_new_hint = TEXT.game_summary["new_hint"]
+        self.title_label = TEXT.game_summary["title"]
 
     def reset_screen(self):
         self.ids.scrollview_layout.reset_screen()
@@ -141,6 +147,9 @@ class GameSummaryScreen(ImprovedScreen):
 
     def go_to_game_over(self):
         self.manager.current = "game_over"
+
+    def go_to_game_question(self):
+        self.manager.current = "game_question"
 
     def go_back_to_home(self):
         self.manager.current = "home"

@@ -9,7 +9,9 @@
         "highscore": "Meilleur score : ",
         "play": "Jouer"
     },
-    "game_over": {},
+    "game_over": {
+        "title": "Quel pays suis-je ?"
+    },
     "game_question": {
         "new_clue": "Choisissez un nouvel indice",
         "hint_1": "Catégorie 1",
@@ -18,6 +20,9 @@
         "clue": "Indice"
     },
     "game_summary": {
-        "i_found": "J'ai trouvé !"
+        "i_found": "J'ai trouvé !",
+        "new_hint": "Nouvel indice",
+        "title": "Quel pays suis-je ?"
+
     }
 }
