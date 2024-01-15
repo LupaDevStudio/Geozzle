@@ -1,0 +1,79 @@
+#:kivy 2.2.1
+#:import PATH_TEXT_FONT tools.path.PATH_TEXT_FONT
+#:import MAIN_BUTTON_FONT_SIZE tools.constants.MAIN_BUTTON_FONT_SIZE
+#:import BUTTON_FONT_SIZE tools.constants.BUTTON_FONT_SIZE
+#:set TRIANGLE_REL_WIDTH 0.07
+#:set TRIANGLE_REL_OFFSET 0.85
+
+<CustomSpinnerOption>:
+    size_hint_y: None
+    height: "48dp"
+    font_name: PATH_TEXT_FONT
+    font_size: BUTTON_FONT_SIZE
+    color: self.parent.parent.text_color if self.parent is not None else (0,0,0,1)
+
+<CustomDropDown>:
+
+    border_color: self.attach_to.border_color if self.attach_to is not None else (0, 0, 0, 1)
+    background_color: self.attach_to.background_color if self.attach_to is not None else (1,1,1,1)
+    text_color: self.attach_to.text_color if self.attach_to is not None else (0, 0, 0, 1)
+
+    # Background
+    canvas:
+        # Border
+        Color:
+            rgba: root.border_color
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [12]
+        # Rounded rectangle
+        Color:
+            rgba: root.background_color
+        RoundedRectangle:
+            pos: (self.x +OUTLINE_RECTANGLE//2, self.y+OUTLINE_RECTANGLE//2)
+            size: (self.size[0]-OUTLINE_RECTANGLE,self.size[1]-OUTLINE_RECTANGLE)
+
+<CustomSpinner>:
+    # Background
+    canvas:
+        # Shadow
+        Color:
+            rgba: 0, 0, 0, 1        
+        BoxShadow:
+            pos: self.pos
+            size: self.size
+            offset: 5, -5
+            spread_radius: -10, -10
+            blur_radius: 30
+        # Border
+        Color:
+            rgba: root.border_color
+        RoundedRectangle:
+            pos: (self.x -OUTLINE_RECTANGLE//2, self.y-OUTLINE_RECTANGLE//2)
+            size: (self.size[0]+OUTLINE_RECTANGLE,self.size[1]+OUTLINE_RECTANGLE)
+            radius: [12]
+        # Rounded rectangle
+        Color:
+            rgba: root.background_color
+        RoundedRectangle:
+            pos:self.pos
+            size:self.size
+        # Triangle
+        Color:
+            rgba: root.border_color
+        Triangle:
+            points: [self.x + self.width*TRIANGLE_REL_OFFSET,self.y + self.height*0.5 + self.width*TRIANGLE_REL_WIDTH/2, self.x + self.width*(TRIANGLE_REL_OFFSET+TRIANGLE_REL_WIDTH),self.y + self.height*0.5 + self.width*TRIANGLE_REL_WIDTH/2, self.x + self.width*(TRIANGLE_REL_OFFSET+TRIANGLE_REL_WIDTH/2),self.y + self.height*0.5 - self.width*TRIANGLE_REL_WIDTH/2]
+    Label:
+        pos: root.pos
+        size: root.size
+        font_size: root.font_ratio * MAIN_BUTTON_FONT_SIZE
+        shorten: False
+        text: root.text
+        text_size: (root.size[0]*0.8,root.size[1])
+        font_name: PATH_TEXT_FONT
+        halign: "left"
+        valign: "center"
+        line_height: 1
+        color: root.text_color
+

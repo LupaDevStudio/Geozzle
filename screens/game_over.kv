@@ -26,3 +26,12 @@
         height: self.width
         colors: root.continent_color
         on_release: root.go_back_to_home()
+    
+    CustomSpinner:
+        pos_hint: {"center_x":0.5, "center_y":0.7}
+        size_hint: (0.8,0.1)
+        text: 'Home'
+        values: 'Home', 'Work', 'Other', 'Custom'
+        font_ratio: root.font_ratio
+        border_color: root.continent_color
+        text_color: root.continent_color

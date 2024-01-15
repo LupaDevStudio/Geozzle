@@ -27,9 +27,6 @@ PATH_KIVY_FOLDER = "tools/kivy_tools/"
 
 ### Kv files ###
 
-# Build the kv file for the custom style
-Builder.load_file(PATH_KIVY_FOLDER + "extended_style.kv", encoding="utf-8")
-
 # Build the kv file for screen
 Builder.load_file(PATH_KIVY_FOLDER + "screen.kv", encoding="utf-8")
 
