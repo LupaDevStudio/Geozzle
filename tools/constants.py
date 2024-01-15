@@ -60,7 +60,7 @@ if not os.path.exists(PATH_USER_DATA):
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
-                "current_country" : {
+                "current_country": {
                     "country": "",
                     "clues": []
                 }
@@ -70,7 +70,7 @@ if not os.path.exists(PATH_USER_DATA):
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
-                "current_country" : {
+                "current_country": {
                     "country": "",
                     "clues": []
                 }
@@ -79,7 +79,7 @@ if not os.path.exists(PATH_USER_DATA):
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
-                "current_country" : {
+                "current_country": {
                     "country": "",
                     "clues": []
                 }
@@ -88,7 +88,7 @@ if not os.path.exists(PATH_USER_DATA):
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
-                "current_country" : {
+                "current_country": {
                     "country": "",
                     "clues": []
                 }
@@ -97,7 +97,7 @@ if not os.path.exists(PATH_USER_DATA):
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
-                "current_country" : {
+                "current_country": {
                     "country": "",
                     "clues": []
                 }
@@ -106,7 +106,7 @@ if not os.path.exists(PATH_USER_DATA):
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
-                "current_country" : {
+                "current_country": {
                     "country": "",
                     "clues": []
                 }
@@ -251,3 +251,9 @@ DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED = {
     "South_America": (189 / 255, 250 / 255, 246 / 255, 1),
     "Oceania": (226 / 255, 189 / 255, 255 / 255, 1)
 }
+
+### Musics ###
+
+MUSIC_VOLUME = 0.5
+SOUND_VOLUME = 0.5
+MAIN_MUSIC_NAME = "world_travel"

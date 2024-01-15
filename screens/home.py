@@ -38,7 +38,11 @@ from tools.constants import (
     TEXT,
     USER_DATA,
     TIME_CHANGE_BACKGROUND,
-    FPS
+    FPS,
+    MAIN_MUSIC_NAME
+)
+from tools import (
+    music_mixer
 )
 
 #############
@@ -62,7 +66,8 @@ class HomeScreen(ImprovedScreen):
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
-            back_image_path=PATH_BACKGROUNDS + self.code_continent + "/" + os.listdir(PATH_BACKGROUNDS + self.code_continent)[0],
+            back_image_path=PATH_BACKGROUNDS + self.code_continent + "/" +
+            os.listdir(PATH_BACKGROUNDS + self.code_continent)[0],
             font_name=PATH_TEXT_FONT,
             **kwargs)
         self.update_text()
@@ -70,6 +75,8 @@ class HomeScreen(ImprovedScreen):
         self.load_continent_data()
 
     def on_enter(self, *args):
+        if music_mixer.musics[MAIN_MUSIC_NAME].state == "stop":
+            music_mixer.play(MAIN_MUSIC_NAME, loop=True)
         # Schedule the change of background
         Clock.schedule_interval(self.change_background, TIME_CHANGE_BACKGROUND)
 
@@ -84,12 +91,17 @@ class HomeScreen(ImprovedScreen):
     def change_background(self, *args):
         # Change the image of the background
         if self.opacity_state == "main":
-            idx_to_pick = random.randint(0, len(os.listdir(PATH_BACKGROUNDS+self.code_continent))-1)
-            image = os.listdir(PATH_BACKGROUNDS+self.code_continent)[idx_to_pick]
+            idx_to_pick = random.randint(
+                0, len(os.listdir(PATH_BACKGROUNDS + self.code_continent)) - 1)
+            image = os.listdir(PATH_BACKGROUNDS +
+                               self.code_continent)[idx_to_pick]
 
-            while image == self.back_image_path.split("/")[-1]: # verify that the new image is not the same as the current one
-                idx_to_pick = random.randint(0, len(os.listdir(PATH_BACKGROUNDS+self.code_continent))-1)
-                image = os.listdir(PATH_BACKGROUNDS+self.code_continent)[idx_to_pick]
+            # verify that the new image is not the same as the current one
+            while image == self.back_image_path.split("/")[-1]:
+                idx_to_pick = random.randint(
+                    0, len(os.listdir(PATH_BACKGROUNDS + self.code_continent)) - 1)
+                image = os.listdir(PATH_BACKGROUNDS +
+                                   self.code_continent)[idx_to_pick]
 
             self.set_back_image_path(
                 back_image_path=PATH_BACKGROUNDS + self.code_continent + "/" + image,
@@ -97,12 +109,17 @@ class HomeScreen(ImprovedScreen):
             )
 
         else:
-            idx_to_pick = random.randint(0, len(os.listdir(PATH_BACKGROUNDS+self.code_continent))-1)
-            image = os.listdir(PATH_BACKGROUNDS+self.code_continent)[idx_to_pick]
+            idx_to_pick = random.randint(
+                0, len(os.listdir(PATH_BACKGROUNDS + self.code_continent)) - 1)
+            image = os.listdir(PATH_BACKGROUNDS +
+                               self.code_continent)[idx_to_pick]
 
-            while image == self.second_back_image_path.split("/")[-1]: # verify that the new image is not the same as the current one
-                idx_to_pick = random.randint(0, len(os.listdir(PATH_BACKGROUNDS+self.code_continent))-1)
-                image = os.listdir(PATH_BACKGROUNDS+self.code_continent)[idx_to_pick]
+            # verify that the new image is not the same as the current one
+            while image == self.second_back_image_path.split("/")[-1]:
+                idx_to_pick = random.randint(
+                    0, len(os.listdir(PATH_BACKGROUNDS + self.code_continent)) - 1)
+                image = os.listdir(PATH_BACKGROUNDS +
+                                   self.code_continent)[idx_to_pick]
 
             self.set_back_image_path(
                 back_image_path=PATH_BACKGROUNDS + self.code_continent + "/" + image,
