@@ -9,9 +9,8 @@ Module to create the home screen.
 ### Python imports ###
 
 import os
-import random
 import webbrowser
-from functools import partial
+import random as rd
 
 ### Kivy imports ###
 
@@ -30,21 +29,20 @@ from tools.path import (
     PATH_LANGUAGES_IMAGES,
     PATH_TEXT_FONT
 )
+
 from tools.kivy_tools import (
     ImprovedScreen
 )
-from tools.kivy_tools.tools_kivy import (
-    change_background
-)
+
 from tools.constants import (
     LIST_CONTINENTS,
     DICT_CONTINENTS,
     TEXT,
     USER_DATA,
     TIME_CHANGE_BACKGROUND,
-    FPS,
     MAIN_MUSIC_NAME
 )
+
 from tools import (
     music_mixer
 )
@@ -71,7 +69,7 @@ class HomeScreen(ImprovedScreen):
     def __init__(self, **kwargs) -> None:
         super().__init__(
             back_image_path=PATH_BACKGROUNDS + self.code_continent + "/" +
-            os.listdir(PATH_BACKGROUNDS + self.code_continent)[0],
+            rd.choice(os.listdir(PATH_BACKGROUNDS + self.code_continent)),
             font_name=PATH_TEXT_FONT,
             **kwargs)
         self.update_text()
@@ -81,14 +79,16 @@ class HomeScreen(ImprovedScreen):
     def on_enter(self, *args):
         if music_mixer.musics[MAIN_MUSIC_NAME].state == "stop":
             music_mixer.play(MAIN_MUSIC_NAME, loop=True)
+
         # Schedule the change of background
-        Clock.schedule_interval(partial(change_background, self), TIME_CHANGE_BACKGROUND)
+        Clock.schedule_interval(self.manager.change_background, TIME_CHANGE_BACKGROUND)
 
         return super().on_enter(*args)
 
     def on_pre_leave(self, *args):
+
         # Unschedule the clock updates
-        Clock.unschedule(partial(change_background, self), TIME_CHANGE_BACKGROUND)
+        Clock.unschedule(self.manager.change_background, TIME_CHANGE_BACKGROUND)
 
         return super().on_leave(*args)
 
@@ -134,9 +134,9 @@ class HomeScreen(ImprovedScreen):
                 self.counter_continents = 0
 
         self.load_continent_data()
-        Clock.unschedule(partial(change_background,self), TIME_CHANGE_BACKGROUND)
-        Clock.schedule_interval(partial(change_background, self), TIME_CHANGE_BACKGROUND)
-        change_background(self)
+        Clock.unschedule(self.manager.change_background, TIME_CHANGE_BACKGROUND)
+        Clock.schedule_interval(self.manager.change_background, TIME_CHANGE_BACKGROUND)
+        self.manager.change_background()
 
     def load_continent_data(self):
 
@@ -210,10 +210,15 @@ class HomeScreen(ImprovedScreen):
         -------
         None
         """
+        print(self.back_image_opacity, self.back_image_path)
+        print(self.second_back_image_opacity, self.second_back_image_path)
+        print("plus home")
         # Reset the screen of game_summary
         self.manager.get_screen("game_summary").reset_screen()
         self.manager.get_screen(
             "game_question").code_continent = self.code_continent
+        self.manager.get_screen(
+            "game_question").previous_screen_name = "home"
         self.manager.get_screen(
             "game_summary").code_continent = self.code_continent
         self.manager.get_screen(

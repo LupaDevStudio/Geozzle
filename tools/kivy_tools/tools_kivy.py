@@ -6,13 +6,6 @@ Module for general Kivy widgets and functions.
 ### Imports ###
 ###############
 
-import os
-import random
-from tools.constants import (
-    FPS)
-from tools.path import (
-    PATH_BACKGROUNDS
-)
 ### Kivy imports ###
 
 from kivy.metrics import dp
@@ -69,50 +62,6 @@ def get_window_ratio():
     Return the ratio of the current window.
     """
     return Window.size[0] / Window.size[1]
-
-
-
-
-def change_background(screen, *args):
-    # Change the image of the background
-    if screen.opacity_state == "main":
-        idx_to_pick = random.randint(
-            0, len(os.listdir(PATH_BACKGROUNDS + screen.code_continent)) - 1)
-        image = os.listdir(PATH_BACKGROUNDS +
-                            screen.code_continent)[idx_to_pick]
-
-        # verify that the new image is not the same as the current one
-        while image == screen.back_image_path.split("/")[-1]:
-            idx_to_pick = random.randint(
-                0, len(os.listdir(PATH_BACKGROUNDS + screen.code_continent)) - 1)
-            image = os.listdir(PATH_BACKGROUNDS +
-                                screen.code_continent)[idx_to_pick]
-
-        screen.set_back_image_path(
-            back_image_path=PATH_BACKGROUNDS + screen.code_continent + "/" + image,
-            mode="second"
-        )
-
-    else:
-        idx_to_pick = random.randint(
-            0, len(os.listdir(PATH_BACKGROUNDS + screen.code_continent)) - 1)
-        image = os.listdir(PATH_BACKGROUNDS +
-                            screen.code_continent)[idx_to_pick]
-
-        # verify that the new image is not the same as the current one
-        while image == screen.second_back_image_path.split("/")[-1]:
-            idx_to_pick = random.randint(
-                0, len(os.listdir(PATH_BACKGROUNDS + screen.code_continent)) - 1)
-            image = os.listdir(PATH_BACKGROUNDS +
-                                screen.code_continent)[idx_to_pick]
-
-        screen.set_back_image_path(
-            back_image_path=PATH_BACKGROUNDS + screen.code_continent + "/" + image,
-            mode="main"
-        )
-
-    # Schedule the change of the opacity to have a smooth transition
-    Clock.schedule_interval(screen.change_background_opacity, 1 / FPS)
 
 
 #####################

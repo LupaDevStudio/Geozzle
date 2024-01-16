@@ -6,8 +6,14 @@ Module to create the game screen with the summary of all clues.
 ### Imports ###
 ###############
 
+### Python imports ###
+
+import os
+import random as rd
+
 ### Kivy imports ###
 
+from kivy.clock import Clock
 from kivy.properties import (
     StringProperty,
     ColorProperty,
@@ -25,6 +31,7 @@ from tools.constants import (
     DICT_CONTINENTS,
     LIST_CONTINENTS,
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
+    TIME_CHANGE_BACKGROUND,
     TEXT
 )
 from tools.kivy_tools import ImprovedScreen
@@ -49,7 +56,8 @@ class GameSummaryScreen(ImprovedScreen):
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
-            back_image_path=PATH_BACKGROUNDS + "lake_sunset.jpg",
+            back_image_path=PATH_BACKGROUNDS + self.code_continent + "/" +
+            rd.choice(os.listdir(PATH_BACKGROUNDS + self.code_continent)),
             font_name=PATH_TEXT_FONT,
             **kwargs)
         
@@ -60,6 +68,20 @@ class GameSummaryScreen(ImprovedScreen):
         self.update_scroll_view()
         self.update_text()
         return super().on_pre_enter(*args)
+
+    def on_enter(self, *args):
+
+        # Schedule the change of background
+        Clock.schedule_interval(self.manager.change_background, TIME_CHANGE_BACKGROUND)
+
+        return super().on_enter(*args)
+
+    def on_pre_leave(self, *args):
+
+        # Unschedule the clock updates
+        Clock.unschedule(self.manager.change_background, TIME_CHANGE_BACKGROUND)
+
+        return super().on_leave(*args)
 
     def update_text(self):
         """

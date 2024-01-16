@@ -6,6 +6,11 @@ Main module of Geozzle.
 ### Imports ###
 ###############
 
+### Python imports ###
+
+import os
+import random as rd
+
 ### Kivy imports ###
 
 # Disable back arrow
@@ -21,7 +26,8 @@ from kivy.clock import Clock
 ### Local imports ###
 
 from tools.path import (
-    PATH_IMAGES
+    PATH_IMAGES,
+    PATH_BACKGROUNDS
 )
 from tools.constants import (
     MOBILE_MODE,
@@ -47,6 +53,37 @@ class WindowManager(ScreenManager):
         current_screen = Screen(name="temp")
         self.add_widget(current_screen)
         self.current = "temp"
+
+    def change_background(self, *args):
+        # Get current screen to change its background
+        current_screen = self.get_screen(self.current)
+
+        # Change the image of the background
+        if current_screen.opacity_state == "main":
+            image = rd.choice(os.listdir(PATH_BACKGROUNDS + current_screen.code_continent))
+            # verify that the new image is not the same as the current one
+            while image == current_screen.back_image_path.split("/")[-1]:
+                image = rd.choice(os.listdir(PATH_BACKGROUNDS + current_screen.code_continent))
+
+            current_screen.set_back_image_path(
+                back_image_path=PATH_BACKGROUNDS + current_screen.code_continent + "/" + image,
+                mode="second"
+            )
+
+        else:
+            image = rd.choice(os.listdir(PATH_BACKGROUNDS + current_screen.code_continent))
+
+            # verify that the new image is not the same as the current one
+            while image == current_screen.second_back_image_path.split("/")[-1]:
+                image = rd.choice(os.listdir(PATH_BACKGROUNDS + current_screen.code_continent))
+
+            current_screen.set_back_image_path(
+                back_image_path=PATH_BACKGROUNDS + current_screen.code_continent + "/" + image,
+                mode="main"
+            )
+
+        # Schedule the change of the opacity to have a smooth transition
+        Clock.schedule_interval(current_screen.change_background_opacity, 1 / FPS)
 
 
 class MainApp(App, Widget):

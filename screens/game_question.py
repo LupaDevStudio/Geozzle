@@ -6,8 +6,14 @@ Module to create the game screen with the questions to choose.
 ### Imports ###
 ###############
 
+### Python imports ###
+
+import os
+import random as rd
+
 ### Kivy imports ###
 
+from kivy.clock import Clock
 from kivy.properties import (
     ColorProperty,
     StringProperty,
@@ -24,6 +30,7 @@ from tools.constants import (
     DICT_CONTINENTS,
     LIST_CONTINENTS,
     TEXT,
+    TIME_CHANGE_BACKGROUND,
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED
 )
 from tools.kivy_tools import ImprovedScreen
@@ -35,6 +42,7 @@ from tools.kivy_tools import ImprovedScreen
 
 class GameQuestionScreen(ImprovedScreen):
 
+    previous_screen_name = StringProperty()
     code_continent = StringProperty(LIST_CONTINENTS[0])
     continent_color = ColorProperty(DICT_CONTINENTS[LIST_CONTINENTS[0]])
     background_color = ColorProperty(DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
@@ -47,13 +55,47 @@ class GameQuestionScreen(ImprovedScreen):
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
-            back_image_path=PATH_BACKGROUNDS + "lake_sunset.jpg",
+            back_image_path=PATH_BACKGROUNDS + self.code_continent + "/" +
+            rd.choice(os.listdir(PATH_BACKGROUNDS + self.code_continent)),
             font_name=PATH_TEXT_FONT,
             **kwargs)
-
+        
         # The function is called each time code_continent of the class changes
         self.bind(code_continent = self.update_color)
+        self.bind(previous_screen_name = self.bind_function)
         self.update_labels()
+
+    def bind_function(self, *args):
+        pass
+
+    def on_enter(self, *args):
+        # Keep the same background as the previous screen
+        previous_screen = self.manager.get_screen(self.previous_screen_name)
+
+        if self.back_image_opacity > 0.5:
+            if previous_screen.back_image_opacity > 0.5:
+                print(previous_screen.back_image_opacity, previous_screen.back_image_path)
+                print(previous_screen.second_back_image_opacity, previous_screen.second_back_image_path)
+                self.set_back_image_path(previous_screen.back_image_path)
+            else:
+                self.set_back_image_path(previous_screen.second_back_image_path)
+        else:
+            if previous_screen.back_image_opacity > 0.5:
+                self.set_back_image_path(previous_screen.back_image_path, "second")
+            else:
+                self.set_back_image_path(previous_screen.second_back_image_path, "second")
+
+        # Schedule the change of background
+        Clock.schedule_interval(self.manager.change_background, TIME_CHANGE_BACKGROUND)
+
+        return super().on_enter(*args)
+
+    def on_pre_leave(self, *args):
+
+        # Unschedule the clock updates
+        Clock.unschedule(self.manager.change_background, TIME_CHANGE_BACKGROUND)
+
+        return super().on_leave(*args)
 
     def update_text(self):
         """
