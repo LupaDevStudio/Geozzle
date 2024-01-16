@@ -54,6 +54,7 @@ from tools import (
 
 class HomeScreen(ImprovedScreen):
 
+    previous_screen_name = StringProperty()
     counter_continents = 0
     code_continent = LIST_CONTINENTS[counter_continents]
     continent_name = StringProperty()
@@ -79,6 +80,9 @@ class HomeScreen(ImprovedScreen):
     def on_enter(self, *args):
         if music_mixer.musics[MAIN_MUSIC_NAME].state == "stop":
             music_mixer.play(MAIN_MUSIC_NAME, loop=True)
+
+        if self.previous_screen_name != "":
+            self.manager.set_right_background_with_previous()
 
         # Schedule the change of background
         Clock.schedule_interval(self.manager.change_background, TIME_CHANGE_BACKGROUND)

@@ -41,6 +41,7 @@ from tools.kivy_tools import ImprovedScreen
 
 class GameOverScreen(ImprovedScreen):
 
+    previous_screen_name = StringProperty()
     code_continent = StringProperty(LIST_CONTINENTS[0])
     continent_color = ColorProperty(DICT_CONTINENTS[LIST_CONTINENTS[0]])
     background_color = ColorProperty(DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
@@ -57,6 +58,8 @@ class GameOverScreen(ImprovedScreen):
         self.update_text()
 
     def on_enter(self, *args):
+
+        self.manager.set_right_background_with_previous()
 
         # Schedule the change of background
         Clock.schedule_interval(self.manager.change_background, TIME_CHANGE_BACKGROUND)
@@ -103,6 +106,7 @@ class GameOverScreen(ImprovedScreen):
         self.continent_color = DICT_CONTINENTS[self.code_continent]
         self.background_color = DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent]
 
-
     def go_back_to_home(self):
+        self.manager.get_screen(
+            "home").previous_screen_name = "game_over"
         self.manager.current = "home"

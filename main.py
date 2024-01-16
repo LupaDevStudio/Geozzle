@@ -54,6 +54,23 @@ class WindowManager(ScreenManager):
         self.add_widget(current_screen)
         self.current = "temp"
 
+    def set_right_background_with_previous(self):
+        current_screen = self.get_screen(self.current)
+        previous_screen = self.get_screen(current_screen.previous_screen_name)
+
+        if current_screen.opacity_state == "main":
+            if (previous_screen.opacity_state == "main" and not previous_screen.is_transition) or (
+                previous_screen.opacity_state == "second" and previous_screen.is_transition):
+                current_screen.set_back_image_path(previous_screen.back_image_path)
+            else:
+                current_screen.set_back_image_path(previous_screen.second_back_image_path)
+        else:
+            if (previous_screen.opacity_state == "main" and not previous_screen.is_transition) or (
+                previous_screen.opacity_state == "second" and previous_screen.is_transition):
+                current_screen.set_back_image_path(previous_screen.back_image_path, "second")
+            else:
+                current_screen.set_back_image_path(previous_screen.second_back_image_path, "second")
+
     def change_background(self, *args):
         # Get current screen to change its background
         current_screen = self.get_screen(self.current)

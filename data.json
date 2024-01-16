@@ -1,21 +1,20 @@
 {
-    "language": "french",
+    "language": "english",
     "continents": {
         "Europe": {
             "highscore": 0,
             "percentage": 20,
             "countries_unlocked": [],
-            "current_country" : {
+            "current_country": {
                 "country": "",
                 "clues": []
             }
-
         },
         "Asia": {
             "highscore": 0,
             "percentage": 41,
             "countries_unlocked": [],
-            "current_country" : {
+            "current_country": {
                 "country": "",
                 "clues": []
             }
@@ -24,7 +23,7 @@
             "highscore": 0,
             "percentage": 30,
             "countries_unlocked": [],
-            "current_country" : {
+            "current_country": {
                 "country": "",
                 "clues": []
             }
@@ -33,7 +32,7 @@
             "highscore": 10,
             "percentage": 75,
             "countries_unlocked": [],
-            "current_country" : {
+            "current_country": {
                 "country": "",
                 "clues": []
             }
@@ -42,7 +41,7 @@
             "highscore": 0,
             "percentage": 15,
             "countries_unlocked": [],
-            "current_country" : {
+            "current_country": {
                 "country": "",
                 "clues": []
             }
@@ -51,7 +50,7 @@
             "highscore": 20,
             "percentage": 8,
             "countries_unlocked": [],
-            "current_country" : {
+            "current_country": {
                 "country": "",
                 "clues": []
             }

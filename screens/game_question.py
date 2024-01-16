@@ -69,21 +69,8 @@ class GameQuestionScreen(ImprovedScreen):
         pass
 
     def on_enter(self, *args):
-        # Keep the same background as the previous screen
-        previous_screen = self.manager.get_screen(self.previous_screen_name)
 
-        if self.opacity_state == "main":
-            if (previous_screen.opacity_state == "main" and not previous_screen.is_transition) or (
-                previous_screen.opacity_state == "second" and previous_screen.is_transition):
-                self.set_back_image_path(previous_screen.back_image_path)
-            else:
-                self.set_back_image_path(previous_screen.second_back_image_path)
-        else:
-            if (previous_screen.opacity_state == "main" and not previous_screen.is_transition) or (
-                previous_screen.opacity_state == "second" and previous_screen.is_transition):
-                self.set_back_image_path(previous_screen.back_image_path, "second")
-            else:
-                self.set_back_image_path(previous_screen.second_back_image_path, "second")
+        self.manager.set_right_background_with_previous()
 
         # Schedule the change of background
         Clock.schedule_interval(self.manager.change_background, TIME_CHANGE_BACKGROUND)
@@ -134,9 +121,13 @@ class GameQuestionScreen(ImprovedScreen):
         self.background_color = DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent]
 
     def go_back_to_home(self):
+        self.manager.get_screen(
+            "home").previous_screen_name = "game_question"
         self.manager.current = "home"
 
     def go_to_game_summary(self):
+        self.manager.get_screen(
+            "game_summary").previous_screen_name = "game_question"
         self.manager.current = "game_summary"
 
     def update_labels(self):
