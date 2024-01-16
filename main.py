@@ -61,6 +61,7 @@ class WindowManager(ScreenManager):
         # Change the image of the background
         if current_screen.opacity_state == "main":
             image = rd.choice(os.listdir(PATH_BACKGROUNDS + current_screen.code_continent))
+
             # verify that the new image is not the same as the current one
             while image == current_screen.back_image_path.split("/")[-1]:
                 image = rd.choice(os.listdir(PATH_BACKGROUNDS + current_screen.code_continent))

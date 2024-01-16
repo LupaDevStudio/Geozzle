@@ -72,15 +72,15 @@ class GameQuestionScreen(ImprovedScreen):
         # Keep the same background as the previous screen
         previous_screen = self.manager.get_screen(self.previous_screen_name)
 
-        if self.back_image_opacity > 0.5:
-            if previous_screen.back_image_opacity > 0.5:
-                print(previous_screen.back_image_opacity, previous_screen.back_image_path)
-                print(previous_screen.second_back_image_opacity, previous_screen.second_back_image_path)
+        if self.opacity_state == "main":
+            if (previous_screen.opacity_state == "main" and not previous_screen.is_transition) or (
+                previous_screen.opacity_state == "second" and previous_screen.is_transition):
                 self.set_back_image_path(previous_screen.back_image_path)
             else:
                 self.set_back_image_path(previous_screen.second_back_image_path)
         else:
-            if previous_screen.back_image_opacity > 0.5:
+            if (previous_screen.opacity_state == "main" and not previous_screen.is_transition) or (
+                previous_screen.opacity_state == "second" and previous_screen.is_transition):
                 self.set_back_image_path(previous_screen.back_image_path, "second")
             else:
                 self.set_back_image_path(previous_screen.second_back_image_path, "second")

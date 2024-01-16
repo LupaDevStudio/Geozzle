@@ -122,7 +122,6 @@ class HomeScreen(ImprovedScreen):
         -------
         None
         """
-
         # Update the counter
         if side == "left":
             self.counter_continents -= 1
@@ -210,9 +209,7 @@ class HomeScreen(ImprovedScreen):
         -------
         None
         """
-        print(self.back_image_opacity, self.back_image_path)
-        print(self.second_back_image_opacity, self.second_back_image_path)
-        print("plus home")
+
         # Reset the screen of game_summary
         self.manager.get_screen("game_summary").reset_screen()
         self.manager.get_screen(

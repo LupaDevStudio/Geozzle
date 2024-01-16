@@ -52,6 +52,7 @@ class ImprovedScreen(Screen):
     second_back_image_disabled = BooleanProperty(False)
     second_back_image_path = ObjectProperty("")
     opacity_state = "main"
+    is_transition = False
 
     # Create the font_name properties
     font_ratio = NumericProperty(1)
@@ -307,6 +308,8 @@ class ImprovedScreen(Screen):
         None
         """
 
+        self.is_transition = True
+
         # If we have to display the second background image
         if self.opacity_state == "main":
             if self.ids.back_image.opacity >= 0:
@@ -314,7 +317,10 @@ class ImprovedScreen(Screen):
                 self.ids.second_back_image.opacity += RATE_CHANGE_OPACITY
             else:
                 Clock.unschedule(self.change_background_opacity, 1/FPS)
+                self.ids.back_image.opacity = 0
+                self.ids.second_back_image.opacity = 1
                 self.opacity_state = "second"
+                self.is_transition = False
 
         # If we have to display the background image
         elif self.opacity_state == "second":
@@ -323,4 +329,7 @@ class ImprovedScreen(Screen):
                 self.ids.second_back_image.opacity -= RATE_CHANGE_OPACITY
             else:
                 Clock.unschedule(self.change_background_opacity, 1/FPS)
+                self.ids.back_image.opacity = 1
+                self.ids.second_back_image.opacity = 0
                 self.opacity_state = "main"
+                self.is_transition = False
