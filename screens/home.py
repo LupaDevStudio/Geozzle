@@ -11,6 +11,7 @@ Module to create the home screen.
 import os
 import random
 import webbrowser
+from functools import partial
 
 ### Kivy imports ###
 
@@ -31,6 +32,9 @@ from tools.path import (
 )
 from tools.kivy_tools import (
     ImprovedScreen
+)
+from tools.kivy_tools.tools_kivy import (
+    change_background
 )
 from tools.constants import (
     LIST_CONTINENTS,
@@ -78,56 +82,15 @@ class HomeScreen(ImprovedScreen):
         if music_mixer.musics[MAIN_MUSIC_NAME].state == "stop":
             music_mixer.play(MAIN_MUSIC_NAME, loop=True)
         # Schedule the change of background
-        Clock.schedule_interval(self.change_background, TIME_CHANGE_BACKGROUND)
+        Clock.schedule_interval(partial(change_background, self), TIME_CHANGE_BACKGROUND)
 
         return super().on_enter(*args)
 
     def on_pre_leave(self, *args):
         # Unschedule the clock updates
-        Clock.unschedule(self.change_background, TIME_CHANGE_BACKGROUND)
+        Clock.unschedule(partial(change_background, self), TIME_CHANGE_BACKGROUND)
 
         return super().on_leave(*args)
-
-    def change_background(self, *args):
-        # Change the image of the background
-        if self.opacity_state == "main":
-            idx_to_pick = random.randint(
-                0, len(os.listdir(PATH_BACKGROUNDS + self.code_continent)) - 1)
-            image = os.listdir(PATH_BACKGROUNDS +
-                               self.code_continent)[idx_to_pick]
-
-            # verify that the new image is not the same as the current one
-            while image == self.back_image_path.split("/")[-1]:
-                idx_to_pick = random.randint(
-                    0, len(os.listdir(PATH_BACKGROUNDS + self.code_continent)) - 1)
-                image = os.listdir(PATH_BACKGROUNDS +
-                                   self.code_continent)[idx_to_pick]
-
-            self.set_back_image_path(
-                back_image_path=PATH_BACKGROUNDS + self.code_continent + "/" + image,
-                mode="second"
-            )
-
-        else:
-            idx_to_pick = random.randint(
-                0, len(os.listdir(PATH_BACKGROUNDS + self.code_continent)) - 1)
-            image = os.listdir(PATH_BACKGROUNDS +
-                               self.code_continent)[idx_to_pick]
-
-            # verify that the new image is not the same as the current one
-            while image == self.second_back_image_path.split("/")[-1]:
-                idx_to_pick = random.randint(
-                    0, len(os.listdir(PATH_BACKGROUNDS + self.code_continent)) - 1)
-                image = os.listdir(PATH_BACKGROUNDS +
-                                   self.code_continent)[idx_to_pick]
-
-            self.set_back_image_path(
-                back_image_path=PATH_BACKGROUNDS + self.code_continent + "/" + image,
-                mode="main"
-            )
-
-        # Schedule the change of the opacity to have a smooth transition
-        Clock.schedule_interval(self.change_background_opacity, 1 / FPS)
 
     def update_text(self):
         """
@@ -171,9 +134,9 @@ class HomeScreen(ImprovedScreen):
                 self.counter_continents = 0
 
         self.load_continent_data()
-        Clock.unschedule(self.change_background, TIME_CHANGE_BACKGROUND)
-        Clock.schedule_interval(self.change_background, TIME_CHANGE_BACKGROUND)
-        self.change_background()
+        Clock.unschedule(partial(change_background,self), TIME_CHANGE_BACKGROUND)
+        Clock.schedule_interval(partial(change_background, self), TIME_CHANGE_BACKGROUND)
+        change_background(self)
 
     def load_continent_data(self):
 
