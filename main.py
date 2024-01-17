@@ -57,10 +57,10 @@ class WindowManager(ScreenManager):
     def propagate_background_on_other_screens(self):
 
         current_screen = self.get_screen(self.current)
-        print(f"current screen is {self.current_screen}")
+        # print(f"current screen is {self.current_screen}")
 
         for screen_name in self.screen_names:
-            print(screen_name)
+            # print(screen_name)
             screen = self.get_screen(screen_name)
 
             if screen_name in (self.current, "opening", "temp"):
@@ -71,34 +71,34 @@ class WindowManager(ScreenManager):
 
             if screen.opacity_state == "main":
                 if (current_screen.opacity_state == "main" and not current_screen.is_transition) or (current_screen.opacity_state == "second" and current_screen.is_transition):
-                    print("c1")
-                    print("current screen value",
-                          current_screen.back_image_path)
+                    # print("c1")
+                    # print("current screen value",
+                    #       current_screen.back_image_path)
                     screen.set_back_image_path(
                         current_screen.back_image_path, "main")
                     screen.set_back_image_path(
                         current_screen.back_image_path, "second")
                 else:
-                    print("c2")
-                    print("current screen value",
-                          current_screen.second_back_image_path)
+                    # print("c2")
+                    # print("current screen value",
+                    #       current_screen.second_back_image_path)
                     screen.set_back_image_path(
                         current_screen.second_back_image_path, "main")
                     screen.set_back_image_path(
                         current_screen.second_back_image_path, "second")
             else:
                 if (current_screen.opacity_state == "main" and not current_screen.is_transition) or (current_screen.opacity_state == "second" and current_screen.is_transition):
-                    print("c3")
-                    print("current screen value",
-                          current_screen.back_image_path)
+                    # print("c3")
+                    # print("current screen value",
+                    #       current_screen.back_image_path)
                     screen.set_back_image_path(
                         current_screen.back_image_path, "main")
                     screen.set_back_image_path(
                         current_screen.back_image_path, "second")
                 else:
-                    print("c4")
-                    print("current screen value",
-                          current_screen.second_back_image_path)
+                    # print("c4")
+                    # print("current screen value",
+                    #       current_screen.second_back_image_path)
                     screen.set_back_image_path(
                         current_screen.second_back_image_path, "main")
                     screen.set_back_image_path(
