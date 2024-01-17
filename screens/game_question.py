@@ -75,8 +75,6 @@ class GameQuestionScreen(ImprovedScreen):
 
     def on_enter(self, *args):
 
-        self.manager.set_right_background_with_previous()
-
         # Schedule the change of background
         Clock.schedule_interval(
             self.manager.change_background, TIME_CHANGE_BACKGROUND)

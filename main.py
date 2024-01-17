@@ -54,28 +54,60 @@ class WindowManager(ScreenManager):
         self.add_widget(current_screen)
         self.current = "temp"
 
-    def set_right_background_with_previous(self):
-        current_screen = self.get_screen(self.current)
-        previous_screen = self.get_screen(current_screen.previous_screen_name)
+    def propagate_background_on_other_screens(self):
 
-        if current_screen.opacity_state == "main":
-            if (previous_screen.opacity_state == "main" and not previous_screen.is_transition) or (
-                    previous_screen.opacity_state == "second" and previous_screen.is_transition):
-                current_screen.set_back_image_path(
-                    previous_screen.back_image_path)
+        current_screen = self.get_screen(self.current)
+        print(f"current screen is {self.current_screen}")
+
+        for screen_name in self.screen_names:
+            print(screen_name)
+            screen = self.get_screen(screen_name)
+
+            if screen_name in (self.current, "opening", "temp"):
+                continue
+
+            if not screen.is_loaded:
+                screen.preload()
+
+            if screen.opacity_state == "main":
+                if (current_screen.opacity_state == "main" and not current_screen.is_transition) or (current_screen.opacity_state == "second" and current_screen.is_transition):
+                    print("c1")
+                    print("current screen value",
+                          current_screen.back_image_path)
+                    screen.set_back_image_path(
+                        current_screen.back_image_path, "main")
+                    screen.set_back_image_path(
+                        current_screen.back_image_path, "second")
+                else:
+                    print("c2")
+                    print("current screen value",
+                          current_screen.second_back_image_path)
+                    screen.set_back_image_path(
+                        current_screen.second_back_image_path, "main")
+                    screen.set_back_image_path(
+                        current_screen.second_back_image_path, "second")
             else:
-                current_screen.set_back_image_path(
-                    previous_screen.second_back_image_path)
-        else:
-            if (previous_screen.opacity_state == "main" and not previous_screen.is_transition) or (
-                    previous_screen.opacity_state == "second" and previous_screen.is_transition):
-                current_screen.set_back_image_path(
-                    previous_screen.back_image_path, "second")
-            else:
-                current_screen.set_back_image_path(
-                    previous_screen.second_back_image_path, "second")
+                if (current_screen.opacity_state == "main" and not current_screen.is_transition) or (current_screen.opacity_state == "second" and current_screen.is_transition):
+                    print("c3")
+                    print("current screen value",
+                          current_screen.back_image_path)
+                    screen.set_back_image_path(
+                        current_screen.back_image_path, "main")
+                    screen.set_back_image_path(
+                        current_screen.back_image_path, "second")
+                else:
+                    print("c4")
+                    print("current screen value",
+                          current_screen.second_back_image_path)
+                    screen.set_back_image_path(
+                        current_screen.second_back_image_path, "main")
+                    screen.set_back_image_path(
+                        current_screen.second_back_image_path, "second")
+            # print(screen.back_image_path)
+            # print(screen.second_back_image_path)
 
     def change_background(self, *args):
+        # print("change current background")
         # Get current screen to change its background
         current_screen = self.get_screen(self.current)
 
@@ -111,6 +143,9 @@ class WindowManager(ScreenManager):
         # Schedule the change of the opacity to have a smooth transition
         Clock.schedule_interval(
             current_screen.change_background_opacity, 1 / FPS)
+        current_screen.is_transition = True
+
+        self.propagate_background_on_other_screens()
 
 
 class MainApp(App, Widget):

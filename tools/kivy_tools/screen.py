@@ -129,6 +129,8 @@ class ImprovedScreen(Screen):
         None
         """
 
+        # print(f"set back image {back_image_path} for screen {self.name}")
+
         # Compute the ratio to use for size computations
         width, height = get_image_size(back_image_path)
 
@@ -198,9 +200,11 @@ class ImprovedScreen(Screen):
         if mode in ["second", "both"]:
             if window_ratio > self.second_back_image_ratio:
                 self.second_back_image_width = Window.size[0]
-                self.second_back_image_height = Window.size[0] / self.second_back_image_ratio
+                self.second_back_image_height = Window.size[0] / \
+                    self.second_back_image_ratio
             else:
-                self.second_back_image_width = Window.size[1] * self.second_back_image_ratio
+                self.second_back_image_width = Window.size[1] * \
+                    self.second_back_image_ratio
                 self.second_back_image_height = Window.size[1]
 
     def on_pre_enter(self, *args):
@@ -298,11 +302,11 @@ class ImprovedScreen(Screen):
     def change_background_opacity(self, *args):
         """
         Change the opacity of both background images to change smoothly the background.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         None
@@ -316,7 +320,7 @@ class ImprovedScreen(Screen):
                 self.ids.back_image.opacity -= RATE_CHANGE_OPACITY
                 self.ids.second_back_image.opacity += RATE_CHANGE_OPACITY
             else:
-                Clock.unschedule(self.change_background_opacity, 1/FPS)
+                Clock.unschedule(self.change_background_opacity, 1 / FPS)
                 self.ids.back_image.opacity = 0
                 self.ids.second_back_image.opacity = 1
                 self.opacity_state = "second"
@@ -328,7 +332,7 @@ class ImprovedScreen(Screen):
                 self.ids.back_image.opacity += RATE_CHANGE_OPACITY
                 self.ids.second_back_image.opacity -= RATE_CHANGE_OPACITY
             else:
-                Clock.unschedule(self.change_background_opacity, 1/FPS)
+                Clock.unschedule(self.change_background_opacity, 1 / FPS)
                 self.ids.back_image.opacity = 1
                 self.ids.second_back_image.opacity = 0
                 self.opacity_state = "main"

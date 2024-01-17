@@ -82,8 +82,8 @@ class HomeScreen(ImprovedScreen):
         return super().on_pre_enter(*args)
 
     def on_enter(self, *args):
-        if self.previous_screen_name != "":
-            self.manager.set_right_background_with_previous()
+        if self.previous_screen_name == "":
+            self.manager.propagate_background_on_other_screens()
 
         if music_mixer.musics[MAIN_MUSIC_NAME].state == "stop":
             music_mixer.play(MAIN_MUSIC_NAME, loop=True)
