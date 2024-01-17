@@ -63,7 +63,7 @@ class HomeScreen(ImprovedScreen):
     completion_percentage_text = StringProperty()
     continent_color = ColorProperty(DICT_CONTINENTS[code_continent])
     continent_image = StringProperty(
-        PATH_CONTINENTS_IMAGES + LIST_CONTINENTS[counter_continents] + ".png")
+        PATH_CONTINENTS_IMAGES + LIST_CONTINENTS[counter_continents] + ".jpg")
     language_image = StringProperty()
     play_label = StringProperty()
 
@@ -156,7 +156,7 @@ class HomeScreen(ImprovedScreen):
         self.continent_name = TEXT.home[self.code_continent]
         self.continent_color = DICT_CONTINENTS[self.code_continent]
         self.continent_image = PATH_CONTINENTS_IMAGES + \
-            LIST_CONTINENTS[self.counter_continents] + ".png"
+            LIST_CONTINENTS[self.counter_continents] + ".jpg"
 
         # Change the score and the completion percentage of the user
         self.highscore = TEXT.home["highscore"] + \
