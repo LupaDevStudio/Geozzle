@@ -60,16 +60,20 @@ class WindowManager(ScreenManager):
 
         if current_screen.opacity_state == "main":
             if (previous_screen.opacity_state == "main" and not previous_screen.is_transition) or (
-                previous_screen.opacity_state == "second" and previous_screen.is_transition):
-                current_screen.set_back_image_path(previous_screen.back_image_path)
+                    previous_screen.opacity_state == "second" and previous_screen.is_transition):
+                current_screen.set_back_image_path(
+                    previous_screen.back_image_path)
             else:
-                current_screen.set_back_image_path(previous_screen.second_back_image_path)
+                current_screen.set_back_image_path(
+                    previous_screen.second_back_image_path)
         else:
             if (previous_screen.opacity_state == "main" and not previous_screen.is_transition) or (
-                previous_screen.opacity_state == "second" and previous_screen.is_transition):
-                current_screen.set_back_image_path(previous_screen.back_image_path, "second")
+                    previous_screen.opacity_state == "second" and previous_screen.is_transition):
+                current_screen.set_back_image_path(
+                    previous_screen.back_image_path, "second")
             else:
-                current_screen.set_back_image_path(previous_screen.second_back_image_path, "second")
+                current_screen.set_back_image_path(
+                    previous_screen.second_back_image_path, "second")
 
     def change_background(self, *args):
         # Get current screen to change its background
@@ -77,11 +81,13 @@ class WindowManager(ScreenManager):
 
         # Change the image of the background
         if current_screen.opacity_state == "main":
-            image = rd.choice(os.listdir(PATH_BACKGROUNDS + current_screen.code_continent))
+            image = rd.choice(os.listdir(PATH_BACKGROUNDS +
+                              current_screen.code_continent))
 
             # verify that the new image is not the same as the current one
             while image == current_screen.back_image_path.split("/")[-1]:
-                image = rd.choice(os.listdir(PATH_BACKGROUNDS + current_screen.code_continent))
+                image = rd.choice(os.listdir(
+                    PATH_BACKGROUNDS + current_screen.code_continent))
 
             current_screen.set_back_image_path(
                 back_image_path=PATH_BACKGROUNDS + current_screen.code_continent + "/" + image,
@@ -89,11 +95,13 @@ class WindowManager(ScreenManager):
             )
 
         else:
-            image = rd.choice(os.listdir(PATH_BACKGROUNDS + current_screen.code_continent))
+            image = rd.choice(os.listdir(PATH_BACKGROUNDS +
+                              current_screen.code_continent))
 
             # verify that the new image is not the same as the current one
             while image == current_screen.second_back_image_path.split("/")[-1]:
-                image = rd.choice(os.listdir(PATH_BACKGROUNDS + current_screen.code_continent))
+                image = rd.choice(os.listdir(
+                    PATH_BACKGROUNDS + current_screen.code_continent))
 
             current_screen.set_back_image_path(
                 back_image_path=PATH_BACKGROUNDS + current_screen.code_continent + "/" + image,
@@ -101,7 +109,8 @@ class WindowManager(ScreenManager):
             )
 
         # Schedule the change of the opacity to have a smooth transition
-        Clock.schedule_interval(current_screen.change_background_opacity, 1 / FPS)
+        Clock.schedule_interval(
+            current_screen.change_background_opacity, 1 / FPS)
 
 
 class MainApp(App, Widget):

@@ -42,18 +42,18 @@ from tools.kivy_tools import ImprovedScreen
 
 
 class GameSummaryScreen(ImprovedScreen):
-        
+
     previous_screen_name = StringProperty()
     code_continent = StringProperty(LIST_CONTINENTS[0])
     continent_color = ColorProperty(DICT_CONTINENTS[LIST_CONTINENTS[0]])
-    background_color = ColorProperty(DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
+    background_color = ColorProperty(
+        DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
     number_lives_on = NumericProperty(3)
     dict_all_clues = {}
     dict_scrollview_widgets = {}
-    text_found_country = StringProperty() 
+    text_found_country = StringProperty()
     get_new_hint = StringProperty()
     title_label = StringProperty()
-
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
@@ -61,13 +61,14 @@ class GameSummaryScreen(ImprovedScreen):
             rd.choice(os.listdir(PATH_BACKGROUNDS + self.code_continent)),
             font_name=PATH_TEXT_FONT,
             **kwargs)
-        
-        self.bind(code_continent = self.update_color)
+
+        self.bind(code_continent=self.update_color)
         self.update_text()
 
     def on_pre_enter(self, *args):
         self.update_scroll_view()
         self.update_text()
+
         return super().on_pre_enter(*args)
 
     def on_enter(self, *args):
@@ -75,25 +76,27 @@ class GameSummaryScreen(ImprovedScreen):
         self.manager.set_right_background_with_previous()
 
         # Schedule the change of background
-        Clock.schedule_interval(self.manager.change_background, TIME_CHANGE_BACKGROUND)
+        Clock.schedule_interval(
+            self.manager.change_background, TIME_CHANGE_BACKGROUND)
 
         return super().on_enter(*args)
 
     def on_pre_leave(self, *args):
 
         # Unschedule the clock updates
-        Clock.unschedule(self.manager.change_background, TIME_CHANGE_BACKGROUND)
+        Clock.unschedule(self.manager.change_background,
+                         TIME_CHANGE_BACKGROUND)
 
         return super().on_leave(*args)
 
     def update_text(self):
         """
         Update the labels depending on the language.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         None
@@ -140,7 +143,7 @@ class GameSummaryScreen(ImprovedScreen):
                     text="– " + self.dict_all_clues[key],
                     color=self.continent_color,
                     font_name=self.font_name,
-                    font_size=20*self.font_ratio,
+                    font_size=20 * self.font_ratio,
                     halign="left",
                     valign="middle",
                     shorten=False,
@@ -168,7 +171,8 @@ class GameSummaryScreen(ImprovedScreen):
         None
         """
         self.continent_color = DICT_CONTINENTS[self.code_continent]
-        self.background_color = DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent]
+        self.background_color = DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+            self.code_continent]
 
     def go_to_game_over(self):
         self.manager.get_screen(

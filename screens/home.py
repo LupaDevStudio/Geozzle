@@ -77,22 +77,28 @@ class HomeScreen(ImprovedScreen):
         self.update_language_image()
         self.load_continent_data()
 
-    def on_enter(self, *args):
-        if music_mixer.musics[MAIN_MUSIC_NAME].state == "stop":
-            music_mixer.play(MAIN_MUSIC_NAME, loop=True)
+    def on_pre_enter(self, *args):
 
+        return super().on_pre_enter(*args)
+
+    def on_enter(self, *args):
         if self.previous_screen_name != "":
             self.manager.set_right_background_with_previous()
 
+        if music_mixer.musics[MAIN_MUSIC_NAME].state == "stop":
+            music_mixer.play(MAIN_MUSIC_NAME, loop=True)
+
         # Schedule the change of background
-        Clock.schedule_interval(self.manager.change_background, TIME_CHANGE_BACKGROUND)
+        Clock.schedule_interval(
+            self.manager.change_background, TIME_CHANGE_BACKGROUND)
 
         return super().on_enter(*args)
 
     def on_pre_leave(self, *args):
 
         # Unschedule the clock updates
-        Clock.unschedule(self.manager.change_background, TIME_CHANGE_BACKGROUND)
+        Clock.unschedule(self.manager.change_background,
+                         TIME_CHANGE_BACKGROUND)
 
         return super().on_leave(*args)
 
@@ -137,8 +143,10 @@ class HomeScreen(ImprovedScreen):
                 self.counter_continents = 0
 
         self.load_continent_data()
-        Clock.unschedule(self.manager.change_background, TIME_CHANGE_BACKGROUND)
-        Clock.schedule_interval(self.manager.change_background, TIME_CHANGE_BACKGROUND)
+        Clock.unschedule(self.manager.change_background,
+                         TIME_CHANGE_BACKGROUND)
+        Clock.schedule_interval(
+            self.manager.change_background, TIME_CHANGE_BACKGROUND)
         self.manager.change_background()
 
     def load_continent_data(self):
