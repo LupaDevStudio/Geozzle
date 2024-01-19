@@ -8,6 +8,11 @@
 #:import TITLE_OUTLINE_COLOR tools.constants.TITLE_OUTLINE_COLOR
 #:set HEIGHT_HINT_SCROLLVIEW 0.5
 
+<ScrollViewLabel>:
+    size_hint_y: None
+    text_size: self.width, None
+    height: self.texture_size[1]
+
 <GameSummaryScreen>:
     Label:
         text: root.title_label
@@ -58,7 +63,7 @@
         MyScrollViewLayout:
             id: scrollview_layout
             cols:1
-            spacing:40
+            spacing:20*root.font_ratio
             height:0.2*root.height * len(root.dict_all_clues)*1.05
             padding: (0.05*root.width, 10,0.05*root.width,40)
 

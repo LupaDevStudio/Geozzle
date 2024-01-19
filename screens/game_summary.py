@@ -40,6 +40,8 @@ from tools.kivy_tools import ImprovedScreen
 ### Class ###
 #############
 
+class ScrollViewLabel(Label):
+    pass
 
 class GameSummaryScreen(ImprovedScreen):
 
@@ -155,7 +157,7 @@ class GameSummaryScreen(ImprovedScreen):
 
             # Add the labels which are not already in the scrollview
             if not key in self.dict_scrollview_widgets:
-                label_clue = Label(
+                label_clue = ScrollViewLabel(
                     text="– " + self.dict_all_clues[key],
                     color=self.continent_color,
                     font_name=self.font_name,
@@ -165,8 +167,8 @@ class GameSummaryScreen(ImprovedScreen):
                     shorten=False,
                     line_height=1,
                 )
-                label_clue.bind(texture_size=label_clue.setter('size'))
-                label_clue.bind(size=label_clue.setter('text_size'))
+                # label_clue.bind(texture_size=label_clue.setter('size'))
+                # label_clue.bind(size=label_clue.setter('text_size'))
                 self.ids.scrollview_layout.add_widget(label_clue)
 
                 self.dict_scrollview_widgets[key] = label_clue
