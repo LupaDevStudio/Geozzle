@@ -39,7 +39,6 @@ class RoundedButtonImage(ButtonBehavior, RelativeLayout):
     image_path = StringProperty()
     colors = ObjectProperty()
     radius = NumericProperty(20)
-    font_ratio = NumericProperty(1)
 
     def __init__(
             self,
@@ -51,7 +50,6 @@ class RoundedButtonImage(ButtonBehavior, RelativeLayout):
         self.image_path = image_path
         self.colors = colors
         self.always_release = True
-        self.bind(font_ratio=self.bind_function)
 
     def bind_function(self, base_widget, value):
         pass
