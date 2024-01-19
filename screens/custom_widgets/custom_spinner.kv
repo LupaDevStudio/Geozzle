@@ -20,8 +20,8 @@
         Color:
             rgba: self.select_color
         Line:
-            points: [0+self.font_ratio*OUTLINE_RECTANGLE/2,self.y,self.width-self.font_ratio*OUTLINE_RECTANGLE/2,self.y]
-            width: self.font_ratio
+            points: [0+OUTLINE_RECTANGLE/2,self.y,self.width-OUTLINE_RECTANGLE/2,self.y]
+            width: 1
 
 <CustomDropDown>:
 
@@ -44,8 +44,8 @@
         Color:
             rgba: root.background_color
         RoundedRectangle:
-            pos: (self.x +self.font_ratio*OUTLINE_RECTANGLE//2, self.y+self.font_ratio*OUTLINE_RECTANGLE//2)
-            size: (self.size[0]-self.font_ratio*OUTLINE_RECTANGLE,self.size[1]-self.font_ratio*OUTLINE_RECTANGLE)
+            pos: (self.x +OUTLINE_RECTANGLE//2, self.y+OUTLINE_RECTANGLE//2)
+            size: (self.size[0]-OUTLINE_RECTANGLE,self.size[1]-OUTLINE_RECTANGLE)
             radius: [12*self.font_ratio]
 
 <CustomSpinner>:
@@ -53,7 +53,7 @@
     canvas:
         # Shadow
         Color:
-            rgba: 0, 0, 0, 1        
+            rgba: 0, 0, 0, 1
         BoxShadow:
             pos: self.pos
             size: self.size
@@ -64,8 +64,8 @@
         Color:
             rgba: root.border_color
         RoundedRectangle:
-            pos: (self.x -OUTLINE_RECTANGLE//2, self.y-OUTLINE_RECTANGLE//2)
-            size: (self.size[0]+OUTLINE_RECTANGLE,self.size[1]+OUTLINE_RECTANGLE)
+            pos: (self.x -self.font_ratio*OUTLINE_RECTANGLE//2, self.y-self.font_ratio*OUTLINE_RECTANGLE//2)
+            size: (self.size[0]+self.font_ratio*OUTLINE_RECTANGLE,self.size[1]+self.font_ratio*OUTLINE_RECTANGLE)
             radius: [12*self.font_ratio]
         # Rounded rectangle
         Color:
