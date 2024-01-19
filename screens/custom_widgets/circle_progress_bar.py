@@ -30,7 +30,7 @@ class CircleProgressBar(Image):
     A custom progress bar with a circle and 
     """
 
-    progress = NumericProperty()
+    progress = NumericProperty(-1)
     progress_angle = NumericProperty()
     circle_color = ColorProperty()
     font_ratio = NumericProperty(1)

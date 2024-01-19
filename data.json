@@ -3,7 +3,7 @@
     "continents": {
         "Europe": {
             "highscore": 0,
-            "percentage": 20,
+            "percentage": 0,
             "countries_unlocked": [],
             "current_country": {
                 "country": "",
@@ -12,7 +12,7 @@
         },
         "Asia": {
             "highscore": 0,
-            "percentage": 41,
+            "percentage": 20,
             "countries_unlocked": [],
             "current_country": {
                 "country": "",
@@ -29,8 +29,8 @@
             }
         },
         "North_America": {
-            "highscore": 10,
-            "percentage": 75,
+            "highscore": 0,
+            "percentage": 40,
             "countries_unlocked": [],
             "current_country": {
                 "country": "",
@@ -39,7 +39,7 @@
         },
         "South_America": {
             "highscore": 0,
-            "percentage": 15,
+            "percentage": 50,
             "countries_unlocked": [],
             "current_country": {
                 "country": "",
@@ -47,8 +47,8 @@
             }
         },
         "Oceania": {
-            "highscore": 20,
-            "percentage": 8,
+            "highscore": 0,
+            "percentage": 60,
             "countries_unlocked": [],
             "current_country": {
                 "country": "",

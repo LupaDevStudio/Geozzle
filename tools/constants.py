@@ -68,7 +68,7 @@ if not os.path.exists(PATH_USER_DATA):
             },
             "Asia": {
                 "highscore": 0,
-                "percentage": 0,
+                "percentage": 20,
                 "countries_unlocked": [],
                 "current_country": {
                     "country": "",
@@ -77,7 +77,7 @@ if not os.path.exists(PATH_USER_DATA):
             },
             "Africa": {
                 "highscore": 0,
-                "percentage": 0,
+                "percentage": 30,
                 "countries_unlocked": [],
                 "current_country": {
                     "country": "",
@@ -86,7 +86,7 @@ if not os.path.exists(PATH_USER_DATA):
             },
             "North_America": {
                 "highscore": 0,
-                "percentage": 0,
+                "percentage": 40,
                 "countries_unlocked": [],
                 "current_country": {
                     "country": "",
@@ -95,7 +95,7 @@ if not os.path.exists(PATH_USER_DATA):
             },
             "South_America": {
                 "highscore": 0,
-                "percentage": 0,
+                "percentage": 50,
                 "countries_unlocked": [],
                 "current_country": {
                     "country": "",
@@ -104,7 +104,7 @@ if not os.path.exists(PATH_USER_DATA):
             },
             "Oceania": {
                 "highscore": 0,
-                "percentage": 0,
+                "percentage": 60,
                 "countries_unlocked": [],
                 "current_country": {
                     "country": "",
