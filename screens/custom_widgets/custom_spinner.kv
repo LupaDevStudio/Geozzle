@@ -20,8 +20,8 @@
         Color:
             rgba: self.select_color
         Line:
-            points: [0+OUTLINE_RECTANGLE/2,self.y,self.width-OUTLINE_RECTANGLE/2,self.y]
-            width: 1
+            points: [0+self.font_ratio*OUTLINE_RECTANGLE/2,self.y,self.width-self.font_ratio*OUTLINE_RECTANGLE/2,self.y]
+            width: self.font_ratio
 
 <CustomDropDown>:
 
@@ -44,8 +44,9 @@
         Color:
             rgba: root.background_color
         RoundedRectangle:
-            pos: (self.x +OUTLINE_RECTANGLE//2, self.y+OUTLINE_RECTANGLE//2)
-            size: (self.size[0]-OUTLINE_RECTANGLE,self.size[1]-OUTLINE_RECTANGLE)
+            pos: (self.x +self.font_ratio*OUTLINE_RECTANGLE//2, self.y+self.font_ratio*OUTLINE_RECTANGLE//2)
+            size: (self.size[0]-self.font_ratio*OUTLINE_RECTANGLE,self.size[1]-self.font_ratio*OUTLINE_RECTANGLE)
+            radius: [12*self.font_ratio]
 
 <CustomSpinner>:
     # Background
@@ -72,6 +73,7 @@
         RoundedRectangle:
             pos:self.pos
             size:self.size
+            radius: [12*self.font_ratio]
         # Triangle
         Color:
             rgba: root.border_color
