@@ -29,14 +29,15 @@
         size_hint: (0.4, 0.075)
         number_lives_on: root.number_lives_on
 
-    # Squared non button Text
-    CustomButton:
-        text: root.text_label
+    # Title of the screen
+    Label:
+        text: root.title_label
+        font_name: PATH_TITLE_FONT
         font_size: MAIN_TEXT_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.8}
-        size_hint: (0.75, 0.15)
-        disable_button: True
-        color_label: root.continent_color
+        pos_hint: {"center_x":0.5, "center_y":0.85}
+        outline_width: SUBTITLE_OUTLINE_WIDTH
+        outline_color: TITLE_OUTLINE_COLOR
+        color: root.continent_color
 
     ColoredRoundedButton:
         background_color: root.background_color

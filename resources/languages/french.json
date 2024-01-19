@@ -10,10 +10,10 @@
         "play": "Jouer"
     },
     "game_over": {
-        "title": "Quel pays suis-je ?"
+        "title": "Quel pays est-ce ?"
     },
     "game_question": {
-        "new_clue": "Choisissez un nouvel indice",
+        "title": "Choisissez un indice",
         "hint_1": "Catégorie 1",
         "hint_2": "Catégorie 2",
         "hint_3": "Catégorie 3",
@@ -22,7 +22,7 @@
     "game_summary": {
         "i_found": "J'ai trouvé !",
         "new_hint": "Nouvel indice",
-        "title": "Quel pays suis-je ?"
+        "title": "Quel pays est-ce ?"
 
     }
 }
