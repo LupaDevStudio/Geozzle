@@ -17,6 +17,12 @@
         outline_width: SUBTITLE_OUTLINE_WIDTH
         outline_color: TITLE_OUTLINE_COLOR
         color: root.continent_color
+        size: self.size
+        text_size: (root.width*0.9,None)
+        shorten: False
+        halign: "center"
+        valign: "center"
+        line_height: 1
 
     RoundedButtonImage:
         image_path: PATH_IMAGES + "left_arrow.png"
@@ -24,6 +30,7 @@
         size_hint: (0.1, None)
         height: self.width
         colors: root.continent_color
+        font_ratio: root.font_ratio
         on_release: root.go_back_to_home()
 
     ThreeLives:
@@ -31,6 +38,7 @@
         pos_hint: {"x":0.57, "top":0.98}
         size_hint: (0.4, 0.075)
         number_lives_on: root.number_lives_on
+        font_ratio: root.font_ratio
 
     # Scroll view with all clues
     ColoredRoundedButton:
@@ -71,7 +79,7 @@
         text: root.text_found_country
         background_color: root.continent_color
         font_size: BUTTON_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.75, "center_y":0.075}
-        size_hint: (0.4, 0.075)
+        pos_hint: {"center_x":0.725, "center_y":0.075}
+        size_hint: (0.45, 0.075)
         color_label: root.background_color
         release_function: root.go_to_game_over

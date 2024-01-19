@@ -29,14 +29,21 @@
         size_hint: (0.4, 0.075)
         number_lives_on: root.number_lives_on
 
-    # Squared non button Text
-    CustomButton:
-        text: root.text_label
+    # Title of the screen
+    Label:
+        text: root.title_label
+        font_name: PATH_TITLE_FONT
         font_size: MAIN_TEXT_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.8}
-        size_hint: (0.75, 0.15)
-        disable_button: True
-        color_label: root.continent_color
+        pos_hint: {"center_x":0.5, "center_y":0.775}
+        outline_width: SUBTITLE_OUTLINE_WIDTH
+        outline_color: TITLE_OUTLINE_COLOR
+        color: root.continent_color
+        size: self.size
+        text_size: (root.width*0.9,None)
+        shorten: False
+        halign: "center"
+        valign: "center"
+        line_height: 1
 
     ColoredRoundedButton:
         background_color: root.background_color
@@ -45,38 +52,41 @@
         pos_hint: {"center_x":0.5, "center_y":0.6}
         size_hint: (0.75, 0.10)
         color_label: root.continent_color
+        on_release: root.go_to_game_summary(root.hint1)
 
     ColoredRoundedButton:
         background_color: root.background_color
         border: root.continent_color
         text: root.hint2
         font_size: MAIN_BUTTON_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.45}
+        pos_hint: {"center_x":0.5, "center_y":0.4}
         size_hint: (0.75, 0.10)
         color_label: root.continent_color
+        on_release: root.go_to_game_summary(root.hint2)
 
     ColoredRoundedButton:
         background_color: root.background_color
         text: root.hint3
         font_size: MAIN_BUTTON_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.3}
+        pos_hint: {"center_x":0.5, "center_y":0.2}
         size_hint: (0.75, 0.10)
-        color_label: root.continent_color 
-
-    ColoredRoundedButton:
-        background_color: (1, 1, 1, 1)
-        text: root.clue
-        font_size: MAIN_BUTTON_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.35, "center_y":0.125}
-        size_hint: (0.6, 0.125)
         color_label: root.continent_color
-        disable_button: True
+        on_release: root.go_to_game_summary(root.hint3)
 
-    # Arrow to go to game summary screen
-    RoundedButtonImage:
-        image_path: PATH_IMAGES + "right_arrow.png"
-        pos_hint: {"center_x":0.85, "center_y":0.125}
-        size_hint: (0.2, None)
-        height: self.width
-        colors: root.continent_color
-        on_release: root.go_to_game_summary()
+    # ColoredRoundedButton:
+    #     background_color: (1, 1, 1, 1)
+    #     text: root.clue
+    #     font_size: MAIN_BUTTON_FONT_SIZE * root.font_ratio
+    #     pos_hint: {"center_x":0.35, "center_y":0.125}
+    #     size_hint: (0.6, 0.125)
+    #     color_label: root.continent_color
+    #     disable_button: True
+
+    # # Arrow to go to game summary screen
+    # RoundedButtonImage:
+    #     image_path: PATH_IMAGES + "right_arrow.png"
+    #     pos_hint: {"center_x":0.85, "center_y":0.125}
+    #     size_hint: (0.2, None)
+    #     height: self.width
+    #     colors: root.continent_color
+    #     on_release: root.go_to_game_summary()

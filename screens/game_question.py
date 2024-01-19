@@ -47,7 +47,7 @@ class GameQuestionScreen(ImprovedScreen):
     continent_color = ColorProperty(DICT_CONTINENTS[LIST_CONTINENTS[0]])
     background_color = ColorProperty(
         DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
-    text_label = StringProperty()
+    title_label = StringProperty()
     number_lives_on = NumericProperty(3)
     hint1 = StringProperty()
     hint2 = StringProperty()
@@ -71,6 +71,9 @@ class GameQuestionScreen(ImprovedScreen):
 
     def on_pre_enter(self, *args):
 
+        # Change the labels
+        self.update_labels()
+
         return super().on_pre_enter(*args)
 
     def on_enter(self, *args):
@@ -88,23 +91,6 @@ class GameQuestionScreen(ImprovedScreen):
                          TIME_CHANGE_BACKGROUND)
 
         return super().on_leave(*args)
-
-    def update_text(self):
-        """
-        Update the labels depending on the language.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        self.hint1 = TEXT.game_question["hint_1"]
-        self.hint2 = TEXT.game_question["hint_2"]
-        self.hint3 = TEXT.game_question["hint_3"]
-        self.clue = TEXT.game_question["clue"]
 
     def update_color(self, base_widget, value):
         """
@@ -130,13 +116,26 @@ class GameQuestionScreen(ImprovedScreen):
             "home").previous_screen_name = "game_question"
         self.manager.current = "home"
 
-    def go_to_game_summary(self):
+    def go_to_game_summary(self, hint):
         self.manager.get_screen(
             "game_summary").previous_screen_name = "game_question"
+        self.manager.get_screen(
+            "game_summary").current_hint = hint
         self.manager.current = "game_summary"
 
     def update_labels(self):
-        self.text_label = TEXT.game_question["new_clue"]
+        """
+        Update the labels depending on the language.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        self.title_label = TEXT.game_question["title"]
         self.hint1 = TEXT.game_question["hint_1"]
         self.hint2 = TEXT.game_question["hint_2"]
         self.hint3 = TEXT.game_question["hint_3"]

@@ -52,6 +52,7 @@ class GameSummaryScreen(ImprovedScreen):
     dict_all_clues = {}
     dict_scrollview_widgets = {}
     text_found_country = StringProperty()
+    current_hint = StringProperty() # the name of the new hint
     get_new_hint = StringProperty()
     title_label = StringProperty()
 
@@ -63,6 +64,7 @@ class GameSummaryScreen(ImprovedScreen):
             **kwargs)
 
         self.bind(code_continent=self.update_color)
+        self.bind(current_hint=self.bind_function)
         self.update_text()
 
     def on_pre_enter(self, *args):
@@ -86,6 +88,9 @@ class GameSummaryScreen(ImprovedScreen):
                          TIME_CHANGE_BACKGROUND)
 
         return super().on_leave(*args)
+
+    def bind_function(self, base_widget, value):
+        pass
 
     def update_text(self):
         """

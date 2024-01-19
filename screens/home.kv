@@ -17,7 +17,7 @@
         text: "Geozzle"
         font_name: PATH_TITLE_FONT
         font_size: TITLE_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.9}
+        pos_hint: {"center_x":0.5, "center_y":0.85}
         outline_width: TITLE_OUTLINE_WIDTH
         outline_color: TITLE_OUTLINE_COLOR
         color: TEXT_FONT_COLOR
@@ -48,11 +48,12 @@
         circle_color: root.continent_color
         font_ratio: root.font_ratio
 
+    # Label with the name of the continent
     Label:
         text: root.continent_name
         font_name: root.font_name
         font_size: MAIN_TEXT_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.75}
+        pos_hint: {"center_x":0.5, "center_y":0.7}
         outline_width: SUBTITLE_OUTLINE_WIDTH
         outline_color: TITLE_OUTLINE_COLOR
         color: root.continent_color
@@ -63,6 +64,7 @@
         pos_hint: {"center_x":0.5, "center_y":0.2}
         size_hint: (0.4, 0.075)
         release_function: root.play_game
+        font_ratio: root.font_ratio
 
     # Highscore for the label
     Label:
@@ -81,6 +83,7 @@
         size_hint: (0.15, None)
         height: self.width
         colors: root.continent_color
+        font_ratio: root.font_ratio
         on_release: root.change_continent("left")
 
     RoundedButtonImage:
@@ -89,4 +92,5 @@
         size_hint: (0.15, None)
         height: self.width
         colors: root.continent_color
+        font_ratio: root.font_ratio
         on_release: root.change_continent("right")

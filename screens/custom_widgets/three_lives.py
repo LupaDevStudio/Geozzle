@@ -33,6 +33,7 @@ class ThreeLives(RelativeLayout):
 
     continent_color = ColorProperty((0,0,0,1))
     number_lives_on = NumericProperty(3)
+    font_ratio = NumericProperty(1)
     image_path_1 = StringProperty(PATH_IMAGES + "life_on.png")
     image_path_2 = StringProperty(PATH_IMAGES + "life_on.png")
     image_path_3 = StringProperty(PATH_IMAGES + "life_on.png")
@@ -43,9 +44,10 @@ class ThreeLives(RelativeLayout):
         super().__init__(**kwargs)
 
         self.bind(number_lives_on=self.update_lives)
-        self.bind(continent_color=self.update_colors)
+        self.bind(continent_color=self.bind_function)
+        self.bind(font_ratio=self.bind_function)
 
-    def update_colors(self, base_widget, value):
+    def bind_function(self, base_widget, value):
         pass
 
     def update_lives(self, base_widget, value):

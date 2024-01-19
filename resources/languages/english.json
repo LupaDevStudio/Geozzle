@@ -10,10 +10,10 @@
         "play": "Play"
     },
     "game_over": {
-        "title": "Which country am I ?"
+        "title": "Which country is it?"
     },
     "game_question": {
-        "new_clue": "Choose a new clue",
+        "title": "Choisissez un indice parmi ceux proposés",
         "hint_1": "Hint 1",
         "hint_2": "Hint 2",
         "hint_3": "Hint 3",
@@ -23,6 +23,6 @@
     "game_summary": {
         "i_found": "I've found!",
         "new_hint": "New hint",
-        "title": "Which country am I ?"
+        "title": "Which country is it?"
     }
 }
