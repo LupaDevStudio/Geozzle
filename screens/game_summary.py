@@ -165,10 +165,8 @@ class GameSummaryScreen(ImprovedScreen):
                     halign="left",
                     valign="middle",
                     shorten=False,
-                    line_height=1,
+                    line_height=1
                 )
-                # label_clue.bind(texture_size=label_clue.setter('size'))
-                # label_clue.bind(size=label_clue.setter('text_size'))
                 self.ids.scrollview_layout.add_widget(label_clue)
 
                 self.dict_scrollview_widgets[key] = label_clue
