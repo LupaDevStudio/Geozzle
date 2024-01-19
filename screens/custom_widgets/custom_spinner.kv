@@ -6,12 +6,15 @@
 #:set TRIANGLE_REL_OFFSET 0.85
 
 <CustomSpinnerOption>:
+
+    font_ratio: self.parent.parent.font_ratio if self.parent is not None else 1
+    color: self.parent.parent.text_color if self.parent is not None else (0,0,0,1)
+    select_color: self.parent.parent.select_color if self.parent is not None else (0.5,0.5,0.5,1)
+
     size_hint_y: None
     height: "48dp"
     font_name: PATH_TEXT_FONT
-    font_size: BUTTON_FONT_SIZE
-    color: self.parent.parent.text_color if self.parent is not None else (0,0,0,1)
-    select_color: self.parent.parent.select_color if self.parent is not None else (0.5,0.5,0.5,1)
+    font_size: BUTTON_FONT_SIZE * self.font_ratio
 
     canvas:
         Color:
@@ -26,6 +29,7 @@
     background_color: self.attach_to.background_color if self.attach_to is not None else (1,1,1,1)
     text_color: self.attach_to.text_color if self.attach_to is not None else (0, 0, 0, 1)
     select_color: self.attach_to.select_color if self.attach_to is not None else (0.5, 0.5, 0.5, 1)
+    font_ratio: self.attach_to.font_ratio if self.attach_to is not None else 1
 
     # Background
     canvas:
@@ -35,7 +39,7 @@
         RoundedRectangle:
             pos: self.pos
             size: self.size
-            radius: [12]
+            radius: [12*self.font_ratio]
         # Rounded rectangle
         Color:
             rgba: root.background_color
@@ -61,7 +65,7 @@
         RoundedRectangle:
             pos: (self.x -OUTLINE_RECTANGLE//2, self.y-OUTLINE_RECTANGLE//2)
             size: (self.size[0]+OUTLINE_RECTANGLE,self.size[1]+OUTLINE_RECTANGLE)
-            radius: [12]
+            radius: [12*self.font_ratio]
         # Rounded rectangle
         Color:
             rgba: root.background_color

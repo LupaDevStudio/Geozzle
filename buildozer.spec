@@ -1,10 +1,10 @@
 [app]
 
 # (str) Title of your application
-title = Linconym
+title = Geozzle
 
 # (str) Package name
-package.name = linconym
+package.name = geozzle
 
 # (str) Package domain (needed for android/ios packaging)
 package.domain = lupadevstudio.com
@@ -22,7 +22,7 @@ source.include_exts = py,png,jpg,kv,atlas,json,txt,ttf,wav,ico,ogg,otf,mp3
 #source.exclude_exts = spec
 
 # (list) List of directory to exclude (let empty to not exclude anything)
-source.exclude_dirs = test, bin, .buildozer, data/collection, data/collection_copy, venv, PlayStore, reports
+source.exclude_dirs = test, bin, .buildozer, venv, PlayStore, reports
 
 # (list) List of exclusions using pattern matching
 # Do not prefix with './'
@@ -47,7 +47,7 @@ requirements = python3, kivy, androidstorage4kivy
 #presplash.filename = ./resources/logo_collector_1024.png
 
 # (str) Icon of the application
-icon.filename = ./resources/logo.png
+icon.filename = ./resources/images/logo.png
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 orientation = portrait

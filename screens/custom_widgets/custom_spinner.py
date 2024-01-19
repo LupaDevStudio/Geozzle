@@ -23,6 +23,7 @@ from kivy.properties import (
 
 class CustomSpinnerOption(ButtonBehavior, Label):
 
+    font_ratio = NumericProperty(1)
     select_color = ColorProperty((0.5, 0.5, 0.5, 1))
 
     def __init__(self, **kwargs):
@@ -39,6 +40,8 @@ class CustomSpinnerOption(ButtonBehavior, Label):
 
 
 class CustomDropDown(DropDown):
+
+    font_ratio = NumericProperty(1)
     border_color = ColorProperty((0, 0, 0, 1))
     background_color = ColorProperty((1, 1, 1, 1))
     text_color = ColorProperty((0, 0, 0, 1))

@@ -52,7 +52,7 @@ class GameSummaryScreen(ImprovedScreen):
     dict_all_clues = {}
     dict_scrollview_widgets = {}
     text_found_country = StringProperty()
-    current_hint = StringProperty() # the name of the new hint
+    current_hint = StringProperty()  # the name of the new hint
     get_new_hint = StringProperty()
     title_label = StringProperty()
 
@@ -124,7 +124,19 @@ class GameSummaryScreen(ImprovedScreen):
             "toGG cx43G4o": "Superficie : 400km²",
             "tofzfzeveqze a Gjfg": "Population : 1,000,000",
             "toGG43f ezG4o": "Superficie : 400km²",
-            "tofzfza f efeGjfg": "Population : 1,000,000"
+            "1": "Population : 1,000,000",
+            "2": "Population : 1,000,000",
+            "3": "Population : 1,000,000",
+            "4": "Population : 1,000,000",
+            "5": "Population : 1,000,000",
+            "6": "Population : 1,000,000",
+            "7": "Population : 1,000,000",
+            "8": "Population : 1,000,000",
+            "9": "Population : 1,000,000",
+            "10": "Population : 1,000,000",
+            "11": "Population : 1,000,000",
+            "12": "Population : 1,000,000",
+            "13": "Population : 1,000,000",
         }
 
     def update_scroll_view(self):
