@@ -60,6 +60,9 @@ class GameOverScreen(ImprovedScreen):
 
     def on_pre_enter(self, *args):
 
+        # Change the labels
+        self.update_text()
+
         return super().on_pre_enter(*args)
 
     def on_enter(self, *args):
