@@ -37,7 +37,7 @@
         font_name: PATH_TITLE_FONT
         font_size: MAIN_TEXT_FONT_SIZE * root.font_ratio
         pos_hint: {"center_x":0.5, "center_y":0.775}
-        outline_width: SUBTITLE_OUTLINE_WIDTH
+        outline_width: max(SUBTITLE_OUTLINE_WIDTH * root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
         color: root.continent_color
         size: self.size

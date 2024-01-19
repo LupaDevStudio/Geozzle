@@ -51,6 +51,6 @@
         center_y: root.center_y
         font_size: HIGHSCORE_FONT_SIZE * root.font_ratio*1.5
         font_name: PATH_TITLE_FONT
-        outline_width: SUBTITLE_OUTLINE_WIDTH
+        outline_width: max(SUBTITLE_OUTLINE_WIDTH*root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
         color: root.circle_color
