@@ -116,9 +116,11 @@ class GameQuestionScreen(ImprovedScreen):
             "home").previous_screen_name = "game_question"
         self.manager.current = "home"
 
-    def go_to_game_summary(self):
+    def go_to_game_summary(self, hint):
         self.manager.get_screen(
             "game_summary").previous_screen_name = "game_question"
+        self.manager.get_screen(
+            "game_summary").current_hint = hint
         self.manager.current = "game_summary"
 
     def update_labels(self):

@@ -13,7 +13,7 @@
         "title": "Quel pays est-ce ?"
     },
     "game_question": {
-        "title": "Choisissez un indice",
+        "title": "Choisissez un nouvel indice parmi ceux proposés",
         "hint_1": "Catégorie 1",
         "hint_2": "Catégorie 2",
         "hint_3": "Catégorie 3",

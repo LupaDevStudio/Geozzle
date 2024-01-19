@@ -13,7 +13,7 @@
         "title": "Which country is it?"
     },
     "game_question": {
-        "title": "Choose a clue",
+        "title": "Choisissez un indice parmi ceux proposés",
         "hint_1": "Hint 1",
         "hint_2": "Hint 2",
         "hint_3": "Hint 3",
