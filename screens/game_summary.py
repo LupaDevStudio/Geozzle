@@ -68,6 +68,7 @@ class GameSummaryScreen(ImprovedScreen):
         self.update_text()
 
     def on_pre_enter(self, *args):
+        self.update_font_ratio()
         self.update_scroll_view()
         self.update_text()
 
@@ -162,7 +163,7 @@ class GameSummaryScreen(ImprovedScreen):
                     halign="left",
                     valign="middle",
                     shorten=False,
-                    line_height=1
+                    line_height=1,
                 )
                 label_clue.bind(texture_size=label_clue.setter('size'))
                 label_clue.bind(size=label_clue.setter('text_size'))
