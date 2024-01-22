@@ -7,6 +7,7 @@
 #:import PATH_TEXT_FONT tools.path.PATH_TEXT_FONT
 #:import TEXT_FONT_COLOR tools.constants.TEXT_FONT_COLOR
 #:import BOTTOM_BAR_HEIGHT tools.constants.BOTTOM_BAR_HEIGHT
+#:import HIGHSCORE_FONT_SIZE tools.constants.HIGHSCORE_FONT_SIZE
 
 
 <GameOverScreen>:
@@ -31,7 +32,7 @@
         size_hint: (0.1, None)
         height: self.width
         colors: root.continent_color
-        on_release: root.go_back_to_home()
+        on_release: root.go_back_to_summary()
     
     CustomSpinner:
         pos_hint: {"center_x":0.5, "center_y":0.7}
@@ -42,3 +43,45 @@
         border_color: root.continent_color
         text_color: root.continent_color
         select_color: root.background_color
+
+    # Congratulation or defeat message
+    Label:
+        text: root.congrats_defeat_message
+        font_name: PATH_TITLE_FONT
+        font_size: HIGHSCORE_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.55}
+        outline_width: max(SUBTITLE_OUTLINE_WIDTH * root.font_ratio,1)
+        outline_color: TITLE_OUTLINE_COLOR
+        color: root.continent_color
+        size: self.size
+        text_size: (root.width*0.9,None)
+        shorten: False
+        halign: "center"
+        valign: "center"
+        line_height: 1
+
+    ThreeLives:
+        continent_color: root.continent_color
+        pos_hint: {"center_x":0.5, "center_y":0.45}
+        size_hint: (0.5, 0.15)
+        number_lives_on: root.number_lives_on
+
+    # Continue game button
+    ColoredRoundedButton:
+        background_color: root.background_color
+        text: root.continue_game_label
+        font_size: MAIN_BUTTON_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.25}
+        size_hint: (0.45, 0.075)
+        color_label: root.continent_color
+        release_function: root.go_to_next_screen
+
+    # Validate button
+    ColoredRoundedButton:
+        text: root.validate_label
+        background_color: root.continent_color
+        font_size: BUTTON_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.1}
+        size_hint: (0.45, 0.075)
+        color_label: root.background_color
+        release_function: root.submit_country

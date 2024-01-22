@@ -62,7 +62,9 @@ if not os.path.exists(PATH_USER_DATA):
                 "countries_unlocked": [],
                 "current_country": {
                     "country": "",
-                    "clues": []
+                    "clues": {},
+                    "nb_lives": 3,
+                    "nb_ads": 2
                 }
 
             },
@@ -72,7 +74,9 @@ if not os.path.exists(PATH_USER_DATA):
                 "countries_unlocked": [],
                 "current_country": {
                     "country": "",
-                    "clues": []
+                    "clues": {},
+                    "nb_lives": 3,
+                    "nb_ads": 2
                 }
             },
             "Africa": {
@@ -81,7 +85,9 @@ if not os.path.exists(PATH_USER_DATA):
                 "countries_unlocked": [],
                 "current_country": {
                     "country": "",
-                    "clues": []
+                    "clues": {},
+                    "nb_lives": 3,
+                    "nb_ads": 2
                 }
             },
             "North_America": {
@@ -90,7 +96,9 @@ if not os.path.exists(PATH_USER_DATA):
                 "countries_unlocked": [],
                 "current_country": {
                     "country": "",
-                    "clues": []
+                    "clues": {},
+                    "nb_lives": 3,
+                    "nb_ads": 2
                 }
             },
             "South_America": {
@@ -99,7 +107,9 @@ if not os.path.exists(PATH_USER_DATA):
                 "countries_unlocked": [],
                 "current_country": {
                     "country": "",
-                    "clues": []
+                    "clues": {},
+                    "nb_lives": 3,
+                    "nb_ads": 2
                 }
             },
             "Oceania": {
@@ -108,7 +118,9 @@ if not os.path.exists(PATH_USER_DATA):
                 "countries_unlocked": [],
                 "current_country": {
                     "country": "",
-                    "clues": []
+                    "clues": {},
+                    "nb_lives": 3,
+                    "nb_ads": 2
                 }
             }
         }
@@ -251,6 +263,10 @@ DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED = {
     "South_America": (189 / 255, 250 / 255, 246 / 255, 1),
     "Oceania": (226 / 255, 189 / 255, 255 / 255, 1)
 }
+
+### Gameplay ###
+
+MAX_HIGHSCORE = 10000
 
 ### Musics ###
 

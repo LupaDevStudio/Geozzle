@@ -16,7 +16,8 @@ import os
 from kivy.clock import Clock
 from kivy.properties import (
     StringProperty,
-    ColorProperty
+    ColorProperty,
+    NumericProperty
 )
 
 ### Local imports ###
@@ -47,6 +48,10 @@ class GameOverScreen(ImprovedScreen):
     background_color = ColorProperty(
         DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
     title_label = StringProperty()
+    congrats_defeat_message = StringProperty()
+    validate_label = StringProperty()
+    continue_game_label = StringProperty()
+    number_lives_on = NumericProperty(3)
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
@@ -94,6 +99,9 @@ class GameOverScreen(ImprovedScreen):
         None
         """
         self.title_label = TEXT.game_over["title"]
+        self.congrats_defeat_message = TEXT.game_over["congrats"]
+        self.validate_label = TEXT.game_over["validate"]
+        self.continue_game_label = TEXT.game_over["continue"]
 
     def update_color(self, base_widget, value):
         """
@@ -114,7 +122,13 @@ class GameOverScreen(ImprovedScreen):
         self.background_color = DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
             self.code_continent]
 
-    def go_back_to_home(self):
+    def go_back_to_summary(self):
         self.manager.get_screen(
-            "home").previous_screen_name = "game_over"
-        self.manager.current = "home"
+            "game_summary").previous_screen_name = "game_over"
+        self.manager.current = "game_summary"
+
+    def go_to_next_screen(self):
+        print("go to next screen depending on the continue game label")
+
+    def submit_country(self):
+        print("Submit country")

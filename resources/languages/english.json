@@ -10,7 +10,13 @@
         "play": "Play"
     },
     "game_over": {
-        "title": "Which country is it?"
+        "title": "Which country is it?",
+        "congrats": "Félicitations !",
+        "defeat": "Mauvais choix !",
+        "game_over": "Défaite...",
+        "continue": "Continuer",
+        "next_country": "Prochain pays",
+        "finish": "Fin du continent"
     },
     "game_question": {
         "title": "Choisissez un indice parmi ceux proposés",
