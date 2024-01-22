@@ -40,8 +40,10 @@ from tools.kivy_tools import ImprovedScreen
 ### Class ###
 #############
 
+
 class ScrollViewLabel(Label):
     pass
+
 
 class GameSummaryScreen(ImprovedScreen):
 
@@ -161,7 +163,7 @@ class GameSummaryScreen(ImprovedScreen):
                     text="– " + self.dict_all_clues[key],
                     color=self.continent_color,
                     font_name=self.font_name,
-                    font_size=20 * self.font_ratio,
+                    font_size=17 * self.font_ratio,
                     halign="left",
                     valign="middle",
                     shorten=False,
