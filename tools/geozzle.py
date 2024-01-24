@@ -9,13 +9,16 @@ from tools.constants import (
     MAX_HIGHSCORE
 )
 
+def choose_three_clues():
+    pass
+
 def calculate_highscore_clues(part_highscore, nb_clues):
     # If the user guesses with less than three clues, he has all points
     if nb_clues <= 4:
         return part_highscore
 
     # Lose points after
-    lost_points = part_highscore * (1-nb_clues/12)
+    lost_points = part_highscore * (1-nb_clues/6)
     part_highscore -= lost_points
     if part_highscore <= 0:
         return 0
@@ -53,7 +56,7 @@ class Game():
 
     def add_clue(self, type_clue):
         # TODO il faut ajouter au dictionnaire des indices avec la valeur associée, tout en faisant une requête Wikidata pour avoir la valeur associée (grâce au champ pays)
-        pass
+        self.clues[type_clue] = "1 m²"
 
     def check_country(self, guessed_country:str):
         if self.country == guessed_country:

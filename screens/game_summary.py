@@ -35,6 +35,7 @@ from tools.constants import (
     TEXT
 )
 from tools.kivy_tools import ImprovedScreen
+from tools.geozzle import Game
 
 #############
 ### Class ###
@@ -53,12 +54,12 @@ class GameSummaryScreen(ImprovedScreen):
     background_color = ColorProperty(
         DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
     number_lives_on = NumericProperty(3)
-    dict_all_clues = {}
     dict_scrollview_widgets = {}
     text_found_country = StringProperty()
     current_hint = StringProperty()  # the name of the new hint
     get_new_hint = StringProperty()
     title_label = StringProperty()
+    game = Game()
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
@@ -116,32 +117,6 @@ class GameSummaryScreen(ImprovedScreen):
     def reset_screen(self):
         self.ids.scrollview_layout.reset_screen()
         self.dict_scrollview_widgets = {}
-        self.dict_all_clues = {
-            "toGG4 erazqg'3G4o": "Superficie : 400km²",
-            "tofzfzfe za Gjfg": "Population : 1,000,000",
-            "toGG4dzdz3G4o": "Superficie : 400km²",
-            "tofzfzdzdza Gjfg": "Population : 1,000,000",
-            "toGGdzdz43G4o": "Superficie : 400km²",
-            "tofzcqcfza Gjfg": "Population : 1,000,000",
-            "toGGvdvd43G4o": "Superficie : 400km²",
-            "tofzfzvdsva Gjfg": "Population : 1,000,000",
-            "toGG cx43G4o": "Superficie : 400km²",
-            "tofzfzeveqze a Gjfg": "Population : 1,000,000",
-            "toGG43f ezG4o": "Superficie : 400km²",
-            "1": "Population : 1,000,000",
-            "2": "Population : 1,000,000",
-            "3": "Population : 1,000,000",
-            "4": "Population : 1,000,000",
-            "5": "Population : 1,000,000",
-            "6": "Population : 1,000,000",
-            "7": "Population : 1,000,000",
-            "8": "Population : 1,000,000",
-            "9": "Population : 1,000,000",
-            "10": "Population : 1,000,000",
-            "11": "Population : 1,000,000",
-            "12": "Population : 1,000,000",
-            "13": "Population : 1,000,000",
-        }
 
     def update_scroll_view(self):
         """
@@ -155,12 +130,12 @@ class GameSummaryScreen(ImprovedScreen):
         -------
         None
         """
-        for key in self.dict_all_clues:
+        for key in self.game.clues:
 
             # Add the labels which are not already in the scrollview
             if not key in self.dict_scrollview_widgets:
                 label_clue = ScrollViewLabel(
-                    text="– " + self.dict_all_clues[key],
+                    text="– " + self.game.clues[key],
                     color=self.continent_color,
                     font_name=self.font_name,
                     font_size=17 * self.font_ratio,

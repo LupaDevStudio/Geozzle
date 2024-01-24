@@ -17,7 +17,8 @@
         "validate": "Valider",
         "continue": "Continuer",
         "next_country": "Prochain pays",
-        "finish": "Fin du continent"
+        "finish": "Fin du continent",
+        "button_game_over": "Recommencer"
     },
     "game_question": {
         "title": "Choisissez un nouvel indice parmi ceux proposés",
