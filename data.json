@@ -7,7 +7,9 @@
             "countries_unlocked": [],
             "current_country": {
                 "country": "",
-                "clues": []
+                "clues": {},
+                "nb_lives": 3,
+                "nb_ads": 2
             }
         },
         "Asia": {
@@ -16,7 +18,9 @@
             "countries_unlocked": [],
             "current_country": {
                 "country": "",
-                "clues": []
+                "clues": {},
+                "nb_lives": 3,
+                "nb_ads": 2
             }
         },
         "Africa": {
@@ -25,7 +29,9 @@
             "countries_unlocked": [],
             "current_country": {
                 "country": "",
-                "clues": []
+                "clues": {},
+                "nb_lives": 3,
+                "nb_ads": 2
             }
         },
         "North_America": {
@@ -34,7 +40,9 @@
             "countries_unlocked": [],
             "current_country": {
                 "country": "",
-                "clues": []
+                "clues": {},
+                "nb_lives": 3,
+                "nb_ads": 2
             }
         },
         "South_America": {
@@ -43,7 +51,9 @@
             "countries_unlocked": [],
             "current_country": {
                 "country": "",
-                "clues": []
+                "clues": {},
+                "nb_lives": 3,
+                "nb_ads": 2
             }
         },
         "Oceania": {
@@ -52,7 +62,9 @@
             "countries_unlocked": [],
             "current_country": {
                 "country": "",
-                "clues": []
+                "clues": {},
+                "nb_lives": 3,
+                "nb_ads": 2
             }
         }
     }

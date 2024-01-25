@@ -34,6 +34,7 @@ from tools.constants import (
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED
 )
 from tools.kivy_tools import ImprovedScreen
+from tools.geozzle import Game
 
 #############
 ### Class ###
@@ -53,6 +54,7 @@ class GameQuestionScreen(ImprovedScreen):
     hint2 = StringProperty()
     hint3 = StringProperty()
     clue = StringProperty()
+    game: Game
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
@@ -115,6 +117,13 @@ class GameQuestionScreen(ImprovedScreen):
         self.manager.get_screen(
             "home").previous_screen_name = "game_question"
         self.manager.current = "home"
+
+    def add_clue(self, hint):
+        # Add the clue in the class
+        self.game.add_clue(hint)
+
+        # Change screen
+        self.go_to_game_summary(hint)
 
     def go_to_game_summary(self, hint):
         self.manager.get_screen(

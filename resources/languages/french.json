@@ -10,7 +10,15 @@
         "play": "Jouer"
     },
     "game_over": {
-        "title": "Quel pays est-ce ?"
+        "title": "Quel pays est-ce ?",
+        "congrats": "Félicitations !",
+        "defeat": "Mauvais choix !",
+        "game_over": "Défaite...",
+        "validate": "Valider",
+        "continue": "Continuer",
+        "next_country": "Prochain pays",
+        "finish": "Fin du continent",
+        "button_game_over": "Recommencer"
     },
     "game_question": {
         "title": "Choisissez un nouvel indice parmi ceux proposés",
@@ -23,6 +31,5 @@
         "i_found": "J'ai trouvé !",
         "new_hint": "Nouvel indice",
         "title": "Quel pays est-ce ?"
-
     }
 }
