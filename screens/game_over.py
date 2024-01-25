@@ -34,7 +34,9 @@ from tools.constants import (
     TEXT
 )
 from tools.kivy_tools import ImprovedScreen
-from tools.geozzle import Game
+from tools import (
+    game
+)
 
 #############
 ### Class ###
@@ -52,8 +54,7 @@ class GameOverScreen(ImprovedScreen):
     congrats_defeat_message = StringProperty()
     validate_label = StringProperty()
     continue_game_label = StringProperty()
-    number_lives_on = NumericProperty(3)
-    game: Game
+    number_lives_on = NumericProperty()
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
@@ -79,6 +80,13 @@ class GameOverScreen(ImprovedScreen):
         # Schedule the change of background
         Clock.schedule_interval(
             self.manager.change_background, TIME_CHANGE_BACKGROUND)
+
+        self.number_lives_on = game.number_lives
+        self.congrats_defeat_message = ""
+        self.ids.continue_button.opacity = 0
+        self.ids.continue_button.disable_button = True
+        self.ids.validate_button.disable_button = False
+        self.ids.validate_button.background_color[-1] = 1
 
         return super().on_enter(*args)
 
@@ -132,22 +140,46 @@ class GameOverScreen(ImprovedScreen):
         self.manager.current = "game_summary"
 
     def go_to_next_screen(self):
-        print("go to next screen depending on the continue game label")
+        if self.continue_game_label in [TEXT.game_over["finish"], TEXT.game_over["button_game_over"]]:
+            self.manager.get_screen(
+                "home").previous_screen_name = "game_over"
+            self.manager.get_screen(
+                "home").code_continent = self.code_continent
+            self.manager.current = "home"
+
+        elif self.continue_game_label == TEXT.game_over["next_country"]:
+            self.manager.get_screen(
+                "game_question").previous_screen_name = "game_over"
+            self.manager.get_screen(
+                "game_question").code_continent = self.code_continent
+            # Create a new game
+            game.set_continent(self.code_continent)
+
+        elif self.continue_game_label == TEXT.game_over["continue"]:
+            self.manager.get_screen(
+                "game_question").previous_screen_name = "game_over"
+            self.manager.get_screen(
+                "game_question").code_continent = self.code_continent
+            self.manager.current = "game_question"
 
     def submit_country(self):
         self.ids.continue_button.opacity = 1
-        if self.game.check_country(self.ids.country_spinner.text):
+        self.ids.continue_button.disable_button = False
+        self.ids.validate_button.disable_button = True
+        self.ids.validate_button.background_color[-1] = 0.5
+
+        if game.check_country(self.ids.country_spinner.text):
             # If the continent is finished
-            if self.game.list_countries_left == []:
+            if game.list_countries_left == []:
                 self.continue_game_label = TEXT.game_over["finish"]
             else:
                 self.continue_game_label = TEXT.game_over["next_country"]
             self.congrats_defeat_message = TEXT.game_over["congrats"]
-            self.game.update_highscore()
-            self.game.update_percentage()
+            game.update_highscore()
+            game.update_percentage()
         else:
-            self.number_lives_on = self.game.number_lives
-            if self.game.check_game_over():
+            self.number_lives_on = game.number_lives
+            if game.check_game_over():
                 self.continue_game_label = TEXT.game_over["button_game_over"]
                 self.congrats_defeat_message = TEXT.game_over["game_over"]
             else:

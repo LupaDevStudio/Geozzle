@@ -34,7 +34,9 @@ from tools.constants import (
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED
 )
 from tools.kivy_tools import ImprovedScreen
-from tools.geozzle import Game
+from tools import (
+    game
+)
 
 #############
 ### Class ###
@@ -49,12 +51,11 @@ class GameQuestionScreen(ImprovedScreen):
     background_color = ColorProperty(
         DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
     title_label = StringProperty()
-    number_lives_on = NumericProperty(3)
+    number_lives_on = NumericProperty()
     hint1 = StringProperty()
     hint2 = StringProperty()
     hint3 = StringProperty()
     clue = StringProperty()
-    game: Game
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
@@ -83,6 +84,8 @@ class GameQuestionScreen(ImprovedScreen):
         # Schedule the change of background
         Clock.schedule_interval(
             self.manager.change_background, TIME_CHANGE_BACKGROUND)
+
+        self.number_lives_on = game.number_lives
 
         return super().on_enter(*args)
 
@@ -120,7 +123,7 @@ class GameQuestionScreen(ImprovedScreen):
 
     def add_clue(self, hint):
         # Add the clue in the class
-        self.game.add_clue(hint)
+        game.add_clue(hint)
 
         # Change screen
         self.go_to_game_summary(hint)

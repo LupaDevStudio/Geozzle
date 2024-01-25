@@ -34,7 +34,10 @@ class Game():
     list_all_countries: list
     list_countries_left: list # the countries left to guess
 
-    def __init__(self, continent="Europe") -> None:
+    def __init__(self):
+        pass
+
+    def set_continent(self, continent="Europe"):
         self.continent = continent
         self.load_data()
 

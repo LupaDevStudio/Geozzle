@@ -44,10 +44,8 @@ from tools.constants import (
 )
 
 from tools import (
-    music_mixer
-)
-from tools.geozzle import (
-    Game
+    music_mixer,
+    game
 )
 
 #############
@@ -235,13 +233,7 @@ class HomeScreen(ImprovedScreen):
             "game_summary").code_continent = self.code_continent
         self.manager.get_screen(
             "game_over").code_continent = self.code_continent
-        game = Game(self.code_continent)
-        self.manager.get_screen(
-            "game_question").game = game
-        self.manager.get_screen(
-            "game_summary").game = game
-        self.manager.get_screen(
-            "game_over").game = game
+        game.set_continent(self.code_continent)
 
         # Go to the screen game question
         self.manager.current = "game_question"

@@ -35,7 +35,9 @@ from tools.constants import (
     TEXT
 )
 from tools.kivy_tools import ImprovedScreen
-from tools.geozzle import Game
+from tools import (
+    game
+)
 
 #############
 ### Class ###
@@ -53,13 +55,13 @@ class GameSummaryScreen(ImprovedScreen):
     continent_color = ColorProperty(DICT_CONTINENTS[LIST_CONTINENTS[0]])
     background_color = ColorProperty(
         DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
-    number_lives_on = NumericProperty(3)
+    number_lives_on = NumericProperty()
+    number_clues = NumericProperty(0)
     dict_scrollview_widgets = {}
     text_found_country = StringProperty()
     current_hint = StringProperty()  # the name of the new hint
     get_new_hint = StringProperty()
     title_label = StringProperty()
-    game = Game()
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
@@ -84,6 +86,9 @@ class GameSummaryScreen(ImprovedScreen):
         # Schedule the change of background
         Clock.schedule_interval(
             self.manager.change_background, TIME_CHANGE_BACKGROUND)
+
+        self.number_lives_on = game.number_lives
+        self.number_clues = len(game.clues)
 
         return super().on_enter(*args)
 
@@ -130,12 +135,12 @@ class GameSummaryScreen(ImprovedScreen):
         -------
         None
         """
-        for key in self.game.clues:
+        for key in game.clues:
 
             # Add the labels which are not already in the scrollview
             if not key in self.dict_scrollview_widgets:
                 label_clue = ScrollViewLabel(
-                    text="– " + self.game.clues[key],
+                    text="– " + game.clues[key],
                     color=self.continent_color,
                     font_name=self.font_name,
                     font_size=17 * self.font_ratio,

@@ -24,9 +24,13 @@ from tools.game_tools import (
     SoundMixer,
     load_sounds
 )
+from tools.geozzle import (
+    Game
+)
 
 MUSIC_DICT = load_sounds([MAIN_MUSIC_NAME + ".mp3"], PATH_MUSICS, MUSIC_VOLUME)
 
 # Create the mixer
 music_mixer = DynamicMusicMixer(MUSIC_DICT, MUSIC_VOLUME)
 sound_mixer = DynamicMusicMixer({}, SOUND_VOLUME)
+game = Game()
