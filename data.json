@@ -3,7 +3,7 @@
     "continents": {
         "Europe": {
             "highscore": 0,
-            "percentage": 0,
+            "percentage": 20,
             "countries_unlocked": [],
             "current_country": {
                 "country": "",
