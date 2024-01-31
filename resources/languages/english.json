@@ -14,6 +14,7 @@
         "congrats": "Félicitations !",
         "defeat": "Mauvais choix !",
         "game_over": "Défaite...",
+        "validate": "Valider",
         "continue": "Continuer",
         "next_country": "Prochain pays",
         "finish": "Fin du continent",
@@ -25,7 +26,6 @@
         "hint_2": "Hint 2",
         "hint_3": "Hint 3",
         "clue": "Clue"
-
     },
     "game_summary": {
         "i_found": "I've found!",
