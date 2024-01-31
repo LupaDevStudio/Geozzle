@@ -1,0 +1,19 @@
+SELECT ?country ?countryLabel (COUNT(DISTINCT ?language) as ?languageCount)
+WHERE {
+  ?country wdt:P31/wdt:P279* wd:Q6256.  # Instance of `country` or any of its subclasses (recurssively)
+  ?country wdt:P31/wdt:P279* wd:Q7275.  # Instance of `state` or any of its subclasses (recurssively)
+
+  ?country wdt:P37 ?language.
+
+  MINUS {
+    ?country wdt:P31/wdt:P279* wd:Q3024240.  # Not an historical country or any of its subclasses (recurssively)
+  }
+
+  MINUS {
+    ?language wdt:P31/wdt:P279* wd:Q34228.  # Not an instance of sign language or any of its subclasses
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?country ?countryLabel
+HAVING (?languageCount >= 4)

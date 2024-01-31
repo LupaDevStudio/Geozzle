@@ -1,0 +1,15 @@
+# Replace Q_country
+
+# Countries with 4 or more official languages: Afghanistan, Taiwan, Mali, Singapore, Mexico, Zimbabwe, Switzerland,
+# Poland, Bolivia, Rwanda, South Africa, Norway, Senegal
+
+SELECT DISTINCT ?language ?languageLabel
+WHERE {
+  wd:Q258 wdt:P37 ?language.
+
+  MINUS {
+    ?language wdt:P31/wdt:P279* wd:Q34228.  # Not an instance of sign language or any of its subclasses
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

@@ -1,0 +1,17 @@
+# Replace Q_country
+
+# Does not work for: Denmark, Grenada, Antigua and Barbuda, Mexico, Germany, Belize
+
+SELECT DISTINCT ?anthem ?anthemLabel
+WHERE {
+  wd:Q_country p:P85 ?statement.
+  ?statement ps:P85 ?anthem.
+
+  OPTIONAL {
+    ?statement pq:P582 ?endtime.
+  }
+
+  FILTER(!bound(?endtime))
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}

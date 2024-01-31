@@ -1,0 +1,22 @@
+SELECT ?country ?countryLabel (COUNT(DISTINCT ?anthem) as ?anthemCount)
+WHERE {
+  ?country wdt:P31/wdt:P279* wd:Q6256.  # Instance of `country` or any of its subclasses (recurssively)
+  ?country wdt:P31/wdt:P279* wd:Q7275.  # Instance of `state` or any of its subclasses (recurssively)
+
+  ?country p:P85 ?statement.
+
+  ?statement ps:P85 ?anthem.
+
+  OPTIONAL {
+    ?statement pq:P582 ?endtime.
+  }
+  FILTER(!bound(?endtime))
+
+  MINUS {
+    ?country wdt:P31/wdt:P279* wd:Q3024240.  # Not an historical country or any of its subclasses (recurssively)
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+GROUP BY ?country ?countryLabel
+HAVING (?anthemCount >= 2)

@@ -1,0 +1,36 @@
+# Replace Q_continent
+
+# Some manual processing is needed:
+# - Denmark vs. Kingdom of Denmark
+# - China not in the results (contested by Taiwan)
+# - Medo-persia (missing classification as historical state)
+# - ...
+
+# Africa: Q15
+# Asia: Q48
+# Europe: Q46
+# North America: Q49
+# Oceania: Q55643
+# South America: Q18
+
+SELECT DISTINCT ?country ?countryLabel
+WHERE {
+  ?country wdt:P30/wdt:P361* wd:Q_continent.  # `continent` is the desired continent or part of it (recurssively)
+  ?country wdt:P31/wdt:P279* wd:Q6256.  # Instance of `country` or any of its subclasses (recurssively)
+  ?country wdt:P31/wdt:P279* wd:Q7275.  # Instance of `state` or any of its subclasses (recurssively)
+
+  MINUS {
+    ?country wdt:P31/wdt:P279* wd:Q1145276.  # Not instance `fictional country` or any of its subclasses (recurssively)
+  }
+  MINUS {
+    ?country wdt:P31/wdt:P279* wd:Q108762074.  # Not an a fictional state or any of its subclasses (recurssively)
+  }
+  MINUS {
+    ?country wdt:P31/wdt:P279* wd:Q3024240.  # Not an historical country or any of its subclasses (recurssively)
+  }
+  MINUS {
+    ?country wdt:P31/wdt:P279* wd:Q15239622.  # Not a disputed country or any of its subclasses (recurssively)
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
