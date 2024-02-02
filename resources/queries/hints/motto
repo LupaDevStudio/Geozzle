@@ -1,0 +1,8 @@
+# Replace Q_country
+
+SELECT DISTINCT ?mottoLabel
+WHERE {
+  wd:Q_country wdt:P1546 ?motto.
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
