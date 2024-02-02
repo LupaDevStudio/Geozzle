@@ -74,7 +74,12 @@ class Game():
         self.clues[code_clue] = value_clue
 
     def check_country(self, guessed_country:str):
-        if self.wikidata_code_country == guessed_country:
+        for wikidata_code_country in DICT_COUNTRIES[USER_DATA.language][self.code_continent]:
+            if DICT_COUNTRIES[USER_DATA.language][self.code_continent][wikidata_code_country] == guessed_country:
+                break
+        print(self.wikidata_code_country)
+        print(wikidata_code_country)
+        if self.wikidata_code_country == wikidata_code_country:
             return True
         
         # Reduce the number of lives if the user has made a mistake

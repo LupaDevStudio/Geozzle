@@ -1,13 +1,15 @@
 {
-    "language": "english",
+    "language": "french",
     "continents": {
         "Europe": {
-            "highscore": 0,
-            "percentage": 20,
+            "highscore": 392.15686274509807,
+            "percentage": 20.03921568627451,
             "countries_unlocked": [],
             "current_country": {
                 "country": "",
-                "clues": {},
+                "clues": {
+                    "official_language": "Allemand, Fran\u00e7ais, N\u00e9erlandais"
+                },
                 "nb_lives": 3,
                 "nb_ads": 2
             }
@@ -18,7 +20,9 @@
             "countries_unlocked": [],
             "current_country": {
                 "country": "",
-                "clues": {},
+                "clues": {
+                    "official_language": "Tamoul, Singhalais"
+                },
                 "nb_lives": 3,
                 "nb_ads": 2
             }
@@ -29,7 +33,9 @@
             "countries_unlocked": [],
             "current_country": {
                 "country": "",
-                "clues": {},
+                "clues": {
+                    "official_language": "Portugais, Fran\u00e7ais, Espagnol"
+                },
                 "nb_lives": 3,
                 "nb_ads": 2
             }
@@ -46,12 +52,14 @@
             }
         },
         "South_America": {
-            "highscore": 0,
-            "percentage": 50,
+            "highscore": 595.2380952380953,
+            "percentage": 50.07142857142857,
             "countries_unlocked": [],
             "current_country": {
                 "country": "",
-                "clues": {},
+                "clues": {
+                    "official_language": "Espagnol"
+                },
                 "nb_lives": 3,
                 "nb_ads": 2
             }

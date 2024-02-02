@@ -31,7 +31,7 @@ from tools.path import (
 ### Constants ###
 #################
 
-BOOL_CREATE_DICT_CONTINENTS = False
+BOOL_CREATE_DICT_CONTINENTS = True
 
 #################
 ### Functions ###
@@ -66,6 +66,7 @@ def request_countries_continent(code_continent, language:Literal["en", "fr"]="en
 
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],%s". }
         }
+        ORDER BY (?countryLabel)
         """%(wikidata_code_continent, language)
 
     data = make_request(query)
@@ -74,7 +75,8 @@ def request_countries_continent(code_continent, language:Literal["en", "fr"]="en
     for country in data:
         wikidata_code_country = country["country"]["value"].split("/")[-1]
         name_country = country["countryLabel"]["value"]
-        dict_results[wikidata_code_country] = name_country
+        if name_country != wikidata_code_country:
+            dict_results[wikidata_code_country] = name_country
 
     save_json_file(
         file_path=PATH_QUERIES_CONTINENT+code_continent+"_"+language+".json",
@@ -98,7 +100,8 @@ def request_official_language(wikidata_code_country, language:Literal["en", "fr"
 
     list_languages = []
     for language in data:
-        list_languages.append(language["languageLabel"]["value"])
+        language_name = language["languageLabel"]["value"]
+        list_languages.append(language_name.capitalize())
     return list_languages
 
 def format_list_string(list_data):
@@ -134,5 +137,5 @@ def request_clues(code_clue, wikidata_code_country):
 if __name__ == "__main__":
     if BOOL_CREATE_DICT_CONTINENTS:
         for code_continent in DICT_WIKIDATA_CONTINENTS:
-            request_countries_continent(code_continent=code_continent, language="fr")
+            request_countries_continent(code_continent=code_continent, language="en")
     print(request_clues("official_language", "Q258"))

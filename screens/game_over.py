@@ -17,7 +17,8 @@ from kivy.clock import Clock
 from kivy.properties import (
     StringProperty,
     ColorProperty,
-    NumericProperty
+    NumericProperty,
+    ListProperty
 )
 
 ### Local imports ###
@@ -31,7 +32,9 @@ from tools.constants import (
     DICT_CONTINENTS,
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
     TIME_CHANGE_BACKGROUND,
-    TEXT
+    TEXT,
+    DICT_COUNTRIES,
+    USER_DATA
 )
 from tools.kivy_tools import ImprovedScreen
 from tools import (
@@ -55,6 +58,7 @@ class GameOverScreen(ImprovedScreen):
     validate_label = StringProperty()
     continue_game_label = StringProperty()
     number_lives_on = NumericProperty()
+    list_countries = ListProperty([""])
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
@@ -76,6 +80,9 @@ class GameOverScreen(ImprovedScreen):
         return super().on_pre_enter(*args)
 
     def on_enter(self, *args):
+
+        # Update the list of countries
+        self.update_countries()
 
         # Schedule the change of background
         Clock.schedule_interval(
@@ -114,6 +121,12 @@ class GameOverScreen(ImprovedScreen):
         self.congrats_defeat_message = TEXT.game_over["congrats"]
         self.validate_label = TEXT.game_over["validate"]
         self.continue_game_label = TEXT.game_over["continue"]
+
+    def update_countries(self):
+        self.list_countries = [""]
+        for wikidata_code_country in game.list_countries_left:
+            self.list_countries.append(DICT_COUNTRIES[USER_DATA.language][self.code_continent][wikidata_code_country])
+        self.list_countries.pop(0)
 
     def update_color(self, base_widget, value):
         """
@@ -163,25 +176,26 @@ class GameOverScreen(ImprovedScreen):
             self.manager.current = "game_question"
 
     def submit_country(self):
-        self.ids.continue_button.opacity = 1
-        self.ids.continue_button.disable_button = False
-        self.ids.validate_button.disable_button = True
-        self.ids.validate_button.background_color[-1] = 0.5
+        if self.ids.country_spinner.text != "":
+            self.ids.continue_button.opacity = 1
+            self.ids.continue_button.disable_button = False
+            self.ids.validate_button.disable_button = True
+            self.ids.validate_button.background_color[-1] = 0.5
 
-        if game.check_country(self.ids.country_spinner.text):
-            # If the continent is finished
-            if game.list_countries_left == []:
-                self.continue_game_label = TEXT.game_over["finish"]
+            if game.check_country(self.ids.country_spinner.text):
+                # If the continent is finished
+                if game.list_countries_left == []:
+                    self.continue_game_label = TEXT.game_over["finish"]
+                else:
+                    self.continue_game_label = TEXT.game_over["next_country"]
+                self.congrats_defeat_message = TEXT.game_over["congrats"]
+                game.update_highscore()
+                game.update_percentage()
             else:
-                self.continue_game_label = TEXT.game_over["next_country"]
-            self.congrats_defeat_message = TEXT.game_over["congrats"]
-            game.update_highscore()
-            game.update_percentage()
-        else:
-            self.number_lives_on = game.number_lives
-            if game.check_game_over():
-                self.continue_game_label = TEXT.game_over["button_game_over"]
-                self.congrats_defeat_message = TEXT.game_over["game_over"]
-            else:
-                self.continue_game_label = TEXT.game_over["continue"]
-                self.congrats_defeat_message = TEXT.game_over["defeat"]
+                self.number_lives_on = game.number_lives
+                if game.check_game_over():
+                    self.continue_game_label = TEXT.game_over["button_game_over"]
+                    self.congrats_defeat_message = TEXT.game_over["game_over"]
+                else:
+                    self.continue_game_label = TEXT.game_over["continue"]
+                    self.congrats_defeat_message = TEXT.game_over["defeat"]
