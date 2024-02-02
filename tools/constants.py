@@ -51,6 +51,8 @@ BACK_ARROW_SIZE = 0.2
 
 ### Data loading ###
 
+URL_WIKIDATA = 'https://query.wikidata.org/sparql'
+
 # Create the user data json if it does not exist
 if not os.path.exists(PATH_USER_DATA):
     default_user_data = {
@@ -262,6 +264,15 @@ DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED = {
     "North_America": (253 / 255, 239 / 255, 194 / 255, 1),
     "South_America": (189 / 255, 250 / 255, 246 / 255, 1),
     "Oceania": (226 / 255, 189 / 255, 255 / 255, 1)
+}
+
+DICT_WIKIDATA_CONTINENTS = {
+    "Europe": "Q46",
+    "Asia": "Q48",
+    "Africa": "Q15",
+    "North_America": "Q49",
+    "South_America": "Q18",
+    "Oceania": "Q55643"
 }
 
 ### Gameplay ###
