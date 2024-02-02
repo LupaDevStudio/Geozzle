@@ -1,0 +1,133 @@
+{
+    "head": {
+        "vars": [
+            "language",
+            "languageLabel"
+        ]
+    },
+    "results": {
+        "bindings": [
+            {
+                "language": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q1860"
+                },
+                "languageLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "English"
+                }
+            },
+            {
+                "language": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q34014"
+                },
+                "languageLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Swazi"
+                }
+            },
+            {
+                "language": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q10179"
+                },
+                "languageLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Zulu"
+                }
+            },
+            {
+                "language": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q13218"
+                },
+                "languageLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Xhosa"
+                }
+            },
+            {
+                "language": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q34137"
+                },
+                "languageLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Tswana"
+                }
+            },
+            {
+                "language": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q36785"
+                },
+                "languageLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Southern Ndebele"
+                }
+            },
+            {
+                "language": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q14196"
+                },
+                "languageLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Afrikaans"
+                }
+            },
+            {
+                "language": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q34327"
+                },
+                "languageLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Tsonga"
+                }
+            },
+            {
+                "language": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q32704"
+                },
+                "languageLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Venda"
+                }
+            },
+            {
+                "language": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q33890"
+                },
+                "languageLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Northern Sotho"
+                }
+            },
+            {
+                "language": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q34340"
+                },
+                "languageLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Sesotho"
+                }
+            }
+        ]
+    }
+}

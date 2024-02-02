@@ -6,8 +6,15 @@ import random as rd
 
 from tools.constants import (
     USER_DATA,
-    MAX_HIGHSCORE
+    MAX_HIGHSCORE,
+    TEXT,
+    DICT_COUNTRIES
 )
+
+from tools.sparql import (
+    request_clues
+)
+
 
 def choose_three_clues():
     pass
@@ -28,41 +35,46 @@ def calculate_highscore_clues(part_highscore, nb_clues):
 class Game():
     number_lives: int
     number_ads: int
-    continent: str
-    country: str
+    code_continent: str
+    wikidata_code_country: str
     clues: dict
-    list_all_countries: list
+    list_all_countries: list # the list of the wikidata code countries
     list_countries_left: list # the countries left to guess
 
     def __init__(self):
         pass
 
     def set_continent(self, continent="Europe"):
-        self.continent = continent
+        self.code_continent = continent
         self.load_data()
 
     def load_data(self):
-        user_data_continent = USER_DATA.continents[self.continent]
+        user_data_continent = USER_DATA.continents[self.code_continent]
         self.clues = user_data_continent["current_country"]["clues"]
         self.number_lives = user_data_continent["current_country"]["nb_lives"]
         self.number_ads = user_data_continent["current_country"]["nb_ads"]
 
-        # TODO mettre la bonne liste de pays avec les requêtes Wikidata (tous les pays d'un continent)
-        self.list_all_countries = ["France", "England"]
+        self.list_all_countries = list(DICT_COUNTRIES[USER_DATA.language][self.code_continent].keys())
         self.list_countries_left = [country for country in self.list_all_countries if not country in user_data_continent["countries_unlocked"]]
 
         last_country = user_data_continent["current_country"]["country"]
         if user_data_continent["current_country"]["country"] != "":
-            self.country = last_country
+            self.wikidata_code_country = last_country
         else:
-            self.country = rd.choice(self.list_countries_left)
+            self.wikidata_code_country = rd.choice(self.list_countries_left)
 
-    def add_clue(self, type_clue):
-        # TODO il faut ajouter au dictionnaire des indices avec la valeur associée, tout en faisant une requête Wikidata pour avoir la valeur associée (grâce au champ pays)
-        self.clues[type_clue] = "1 m²"
+    def add_clue(self, name_clue):
+        
+        # Get the code of the clue with its name
+        for code_clue in TEXT.clues:
+            if code_clue == name_clue:
+                break
+
+        value_clue = request_clues(code_clue, self.wikidata_code_country)
+        self.clues[code_clue] = value_clue
 
     def check_country(self, guessed_country:str):
-        if self.country == guessed_country:
+        if self.wikidata_code_country == guessed_country:
             return True
         
         # Reduce the number of lives if the user has made a mistake
@@ -75,15 +87,15 @@ class Game():
         return False
 
     def update_percentage(self):
-        percentage = USER_DATA.continents[self.continent]["percentage"]
+        percentage = USER_DATA.continents[self.code_continent]["percentage"]
         percentage += 1/len(self.list_all_countries)
 
         # Save the changes in the USER_DATA
-        USER_DATA.continents[self.continent]["percentage"] = percentage
+        USER_DATA.continents[self.code_continent]["percentage"] = percentage
         USER_DATA.save_changes()
 
     def update_highscore(self):
-        highscore = USER_DATA.continents[self.continent]["highscore"]
+        highscore = USER_DATA.continents[self.code_continent]["highscore"]
         part_highscore = MAX_HIGHSCORE / len(self.list_all_countries)
 
         # Depending on the number of lives => half the score
@@ -96,5 +108,5 @@ class Game():
         )
         
         # Save the changes in the USER_DATA
-        USER_DATA.continents[self.continent]["highscore"] = highscore
+        USER_DATA.continents[self.code_continent]["highscore"] = highscore
         USER_DATA.save_changes()

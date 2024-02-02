@@ -148,7 +148,8 @@ class GameQuestionScreen(ImprovedScreen):
         None
         """
         self.title_label = TEXT.game_question["title"]
-        self.hint1 = TEXT.game_question["hint_1"]
-        self.hint2 = TEXT.game_question["hint_2"]
-        self.hint3 = TEXT.game_question["hint_3"]
+        # TODO pick randomly 3 indices with their probabilities
+        self.hint1 = TEXT.clues["official_language"]
+        self.hint2 = TEXT.clues["official_language"]
+        self.hint3 = TEXT.clues["official_language"]
         self.clue = TEXT.game_question["clue"]

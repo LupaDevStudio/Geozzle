@@ -22,14 +22,14 @@
     },
     "game_question": {
         "title": "Choisissez un indice parmi ceux proposés",
-        "hint_1": "Hint 1",
-        "hint_2": "Hint 2",
-        "hint_3": "Hint 3",
         "clue": "Clue"
     },
     "game_summary": {
         "i_found": "I've found!",
         "new_hint": "New hint",
         "title": "Which country is it?"
+    },
+    "clues": {
+        "official_language": "Official language"
     }
 }

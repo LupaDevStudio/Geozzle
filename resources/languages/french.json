@@ -22,14 +22,14 @@
     },
     "game_question": {
         "title": "Choisissez un nouvel indice parmi ceux proposés",
-        "hint_1": "Catégorie 1",
-        "hint_2": "Catégorie 2",
-        "hint_3": "Catégorie 3",
         "clue": "Indice"
     },
     "game_summary": {
         "i_found": "J'ai trouvé !",
         "new_hint": "Nouvel indice",
         "title": "Quel pays est-ce ?"
+    },
+    "clues": {
+        "official_language": "Langue officielle"
     }
 }

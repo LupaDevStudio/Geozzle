@@ -136,11 +136,12 @@ class GameSummaryScreen(ImprovedScreen):
         None
         """
         for key in game.clues:
+            name_key = TEXT.clues[key]
 
             # Add the labels which are not already in the scrollview
             if not key in self.dict_scrollview_widgets:
                 label_clue = ScrollViewLabel(
-                    text="– " + game.clues[key],
+                    text="– " + name_key + " : " + game.clues[key],
                     color=self.continent_color,
                     font_name=self.font_name,
                     font_size=17 * self.font_ratio,

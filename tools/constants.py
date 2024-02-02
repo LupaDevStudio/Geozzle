@@ -26,7 +26,8 @@ from kivy import platform
 
 from tools.path import (
     PATH_USER_DATA,
-    PATH_LANGUAGE
+    PATH_LANGUAGE,
+    PATH_QUERIES_CONTINENT
 )
 from tools.basic_tools import (
     load_json_file,
@@ -210,6 +211,7 @@ class Text():
         self.game_question = data["game_question"]
         self.game_summary = data["game_summary"]
         self.game_over = data["game_over"]
+        self.clues = data["clues"]
 
 
 TEXT = Text(language=USER_DATA.language)
@@ -273,6 +275,30 @@ DICT_WIKIDATA_CONTINENTS = {
     "North_America": "Q49",
     "South_America": "Q18",
     "Oceania": "Q55643"
+}
+
+DICT_WIKIDATA_LANGUAGE = {
+    "english": "en",
+    "french": "fr"
+}
+
+DICT_COUNTRIES = {
+    "english": {
+        "Europe": load_json_file(PATH_QUERIES_CONTINENT + "Europe_en.json"),
+        "Asia": load_json_file(PATH_QUERIES_CONTINENT + "Asia_en.json"),
+        "Africa": load_json_file(PATH_QUERIES_CONTINENT + "Africa_en.json"),
+        "North_America": load_json_file(PATH_QUERIES_CONTINENT + "North_America_en.json"),
+        "South_America": load_json_file(PATH_QUERIES_CONTINENT + "South_America_en.json"),
+        "Oceania": load_json_file(PATH_QUERIES_CONTINENT + "Oceania_en.json")
+    },
+    "french": {
+        "Europe": load_json_file(PATH_QUERIES_CONTINENT + "Europe_fr.json"),
+        "Asia": load_json_file(PATH_QUERIES_CONTINENT + "Asia_fr.json"),
+        "Africa": load_json_file(PATH_QUERIES_CONTINENT + "Africa_fr.json"),
+        "North_America": load_json_file(PATH_QUERIES_CONTINENT + "North_America_fr.json"),
+        "South_America": load_json_file(PATH_QUERIES_CONTINENT + "South_America_fr.json"),
+        "Oceania": load_json_file(PATH_QUERIES_CONTINENT + "Oceania_fr.json")
+    }
 }
 
 ### Gameplay ###
