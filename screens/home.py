@@ -68,6 +68,7 @@ class HomeScreen(ImprovedScreen):
         PATH_CONTINENTS_IMAGES + LIST_CONTINENTS[counter_continents] + ".jpg")
     language_image = StringProperty()
     play_label = StringProperty()
+    number_lives_on = NumericProperty(3)
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
@@ -166,6 +167,8 @@ class HomeScreen(ImprovedScreen):
         self.completion_value = USER_DATA.continents[self.code_continent]["percentage"]
         self.completion_percentage_text = str(
             USER_DATA.continents[self.code_continent]["percentage"]) + " %"
+
+        # self.number_lives_on = USER_DATA.continents[self.code_continent][""]
 
     def update_language_image(self):
         """

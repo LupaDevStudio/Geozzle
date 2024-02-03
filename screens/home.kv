@@ -36,6 +36,12 @@
         progress: root.completion_value
         circle_color: root.continent_color
         font_ratio: root.font_ratio
+    
+    ThreeLives:
+        continent_color: root.continent_color
+        pos_hint: {"center_x":0.5, "center_y":0.325}
+        size_hint: (0.35, 0.1)
+        number_lives_on: root.number_lives_on
 
     # Label with the name of the continent
     Label:

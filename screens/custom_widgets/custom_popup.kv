@@ -1,18 +1,25 @@
 #:kivy 2.2.1
+#:set POPUP_EXP 0
+#:set POPUP_RADIUS 20
 
 <CustomPopup>:
     
     size_hint: (0.8,0.5)
     separator_color: root.primary_color
-    background_color: (1,1,1,1)
+    background_color: (1,1,1,0)
     background: ""
     title_color: (0,0,0,1)
     title_align: "center"
     title_font: PATH_TEXT_FONT
-    title_size: "20sp"
+    title_size: MAIN_BUTTON_FONT_SIZE * self.font_ratio
     auto_dismiss: False
+    overlay_color: (0,0,0,0)
 
     canvas.before:
+        Color:
+            rgba: (0,0,0,0.5)
+        Rectangle:
+            size: self._window.size if self._window else (0, 0)
         Color:
             rgba: (0,0,0,1)
         BoxShadow:
@@ -20,10 +27,17 @@
             size: self.size
             spread_radius: -10, -10
             blur_radius: 30
+            border_radius: [POPUP_RADIUS*self.font_ratio,POPUP_RADIUS*self.font_ratio,POPUP_RADIUS*self.font_ratio,POPUP_RADIUS*self.font_ratio]
+        Color:
+            rgba: (1,1,1,1)
+        RoundedRectangle:
+            pos: (self.pos[0]-POPUP_EXP//2, self.pos[1]-POPUP_EXP//2)
+            size: (self.size[0]+POPUP_EXP, self.size[1]+POPUP_EXP)
+            radius: [POPUP_RADIUS*self.font_ratio]
 
     canvas.after:
         Color:
             rgba: root.primary_color
         Line:
             width: 2
-            rectangle: (self.x, self.y, self.width, self.height)
+            rounded_rectangle: (self.x, self.y, self.width, self.height,POPUP_RADIUS*self.font_ratio)
