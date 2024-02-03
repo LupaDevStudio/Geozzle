@@ -13,3 +13,4 @@ from screens.custom_widgets.rounded_button_image import RoundedButtonImage
 from screens.custom_widgets.colored_rounded_button import ColoredRoundedButton
 from screens.custom_widgets.three_lives import ThreeLives
 from screens.custom_widgets.circle_progress_bar import CircleProgressBar
+from screens.custom_widgets.custom_popup import CustomPopup

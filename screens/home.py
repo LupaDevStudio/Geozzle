@@ -47,6 +47,7 @@ from tools import (
     music_mixer,
     game
 )
+from screens.custom_widgets import CustomPopup
 
 #############
 ### Class ###

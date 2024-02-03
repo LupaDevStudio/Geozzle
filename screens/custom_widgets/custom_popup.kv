@@ -1,0 +1,29 @@
+#:kivy 2.2.1
+
+<CustomPopup>:
+    
+    size_hint: (0.8,0.5)
+    separator_color: root.primary_color
+    background_color: (1,1,1,1)
+    background: ""
+    title_color: (0,0,0,1)
+    title_align: "center"
+    title_font: PATH_TEXT_FONT
+    title_size: "20sp"
+    auto_dismiss: False
+
+    canvas.before:
+        Color:
+            rgba: (0,0,0,1)
+        BoxShadow:
+            pos: self.pos
+            size: self.size
+            spread_radius: -10, -10
+            blur_radius: 30
+
+    canvas.after:
+        Color:
+            rgba: root.primary_color
+        Line:
+            width: 2
+            rectangle: (self.x, self.y, self.width, self.height)
