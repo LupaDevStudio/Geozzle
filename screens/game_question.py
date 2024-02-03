@@ -52,9 +52,9 @@ class GameQuestionScreen(ImprovedScreen):
         DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
     title_label = StringProperty()
     number_lives_on = NumericProperty()
-    hint1 = StringProperty()
-    hint2 = StringProperty()
-    hint3 = StringProperty()
+    hint_1 = StringProperty()
+    hint_2 = StringProperty()
+    hint_3 = StringProperty()
     clue = StringProperty()
 
     def __init__(self, **kwargs) -> None:
@@ -67,19 +67,13 @@ class GameQuestionScreen(ImprovedScreen):
         # The function is called each time code_continent of the class changes
         self.bind(code_continent=self.update_color)
         self.bind(previous_screen_name=self.bind_function)
-        self.update_labels()
 
     def bind_function(self, *args):
         pass
 
-    def on_pre_enter(self, *args):
-
+    def on_enter(self, *args):
         # Change the labels
         self.update_labels()
-
-        return super().on_pre_enter(*args)
-
-    def on_enter(self, *args):
 
         # Schedule the change of background
         Clock.schedule_interval(
@@ -148,8 +142,26 @@ class GameQuestionScreen(ImprovedScreen):
         None
         """
         self.title_label = TEXT.game_question["title"]
-        # TODO pick randomly 3 indices with their probabilities
-        self.hint1 = TEXT.clues["official_language"]
-        self.hint2 = TEXT.clues["official_language"]
-        self.hint3 = TEXT.clues["official_language"]
+
+        # Pick randomly three clues
+        hint_1, hint_2, hint_3 = game.choose_three_clues()
+
+        # Display the first clue if it exists
+        if not hint_1 is None:
+            self.hint_1 = TEXT.clues[hint_1]
+        else:
+            self.ids.hint_1_button.disabled = True
+
+        # Display the second clue if it exists
+        if not hint_2 is None:
+            self.hint_2 = TEXT.clues[hint_2]
+        else:
+            self.ids.hint_2_button.disabled = True
+        
+        # Display the third clue if it exists
+        if not hint_3 is None:
+            self.hint_3 = TEXT.clues[hint_3]
+        else:
+            self.ids.hint_3_button.disabled = True
+
         self.clue = TEXT.game_question["clue"]

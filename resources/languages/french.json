@@ -30,6 +30,8 @@
         "title": "Quel pays est-ce ?"
     },
     "clues": {
-        "official_language": "Langue officielle"
+        "official_language": "Langue officielle",
+        "motto": "Devise",
+        "anthem": "Hymne"
     }
 }

@@ -1,0 +1,14 @@
+{
+    "official_language": {
+        "probability": 1,
+        "exceptions": []
+    },
+    "motto": {
+        "probability": 2,
+        "exceptions": []
+    },
+    "anthem": {
+        "probability": 0.5,
+        "exceptions": []
+    }
+}

@@ -8,17 +8,13 @@ from tools.constants import (
     USER_DATA,
     MAX_HIGHSCORE,
     TEXT,
-    DICT_COUNTRIES
+    DICT_COUNTRIES,
+    DICT_HINTS_INFORMATION
 )
 
 from tools.sparql import (
     request_clues
 )
-
-
-def choose_three_clues():
-    pass
-
 
 def calculate_highscore_clues(part_highscore, nb_clues):
     # If the user guesses with less than three clues, he has all points
@@ -40,7 +36,7 @@ class Game():
     wikidata_code_country: str
     clues: dict
     list_all_countries: list  # the list of the wikidata code countries
-    list_countries_left: list  # the countries left to guess
+    list_countries_left: list  # the countries left to guess (wikidata code countries)
 
     def __init__(self):
         pass
@@ -70,7 +66,7 @@ class Game():
 
         # Get the code of the clue with its name
         for code_clue in TEXT.clues:
-            if code_clue == name_clue:
+            if TEXT.clues[code_clue] == name_clue:
                 break
 
         value_clue = request_clues(code_clue, self.wikidata_code_country)
@@ -80,8 +76,6 @@ class Game():
         for wikidata_code_country in DICT_COUNTRIES[USER_DATA.language][self.code_continent]:
             if DICT_COUNTRIES[USER_DATA.language][self.code_continent][wikidata_code_country] == guessed_country:
                 break
-        print(self.wikidata_code_country)
-        print(wikidata_code_country)
         if self.wikidata_code_country == wikidata_code_country:
             return True
 
@@ -118,3 +112,73 @@ class Game():
         # Save the changes in the USER_DATA
         USER_DATA.continents[self.code_continent]["highscore"] = highscore
         USER_DATA.save_changes()
+
+    def choose_three_clues(self):
+        """
+        Choose three new clues given their probability to appear.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        (str, str, str)
+            Tuple of the three types of clues.
+        """
+        dict_probabilities = {}
+        hint_1 = None
+        hint_2 = None
+        hint_3 = None
+        for type_clue in DICT_HINTS_INFORMATION:
+            # Check if the clue has not already been selected
+            if not type_clue in self.clues:
+
+                # Check if the clue has a value for the current country
+                if not self.wikidata_code_country in DICT_HINTS_INFORMATION[type_clue]["exceptions"]:
+                    dict_probabilities[type_clue] = DICT_HINTS_INFORMATION[type_clue]["probability"]
+        
+        if dict_probabilities != {}:
+            # Sum all probabilities
+            total = sum(dict_probabilities.values())
+
+            for type_clue in dict_probabilities:
+                dict_probabilities[type_clue] /= total
+
+            hint_1 = self.select_clue(dict_probabilities)
+
+            # Choose a second distinct clue
+            if len(dict_probabilities) != 1:
+                hint_2 = hint_1
+                while hint_2 == hint_1:
+                    hint_2 = self.select_clue(dict_probabilities)
+
+                # Choose a third distinct clue
+                if len(dict_probabilities) != 2:
+                    hint_3 = hint_1
+                    while hint_3 == hint_1 or hint_3 == hint_2:
+                        hint_3 = self.select_clue(dict_probabilities)           
+            
+        return hint_1, hint_2, hint_3
+
+    def select_clue(self, dict_probabilities):
+        """
+        Select randomly a clue given the probabilities of the clues.
+        
+        Parameters
+        ----------
+        dict_probabilities : dict
+            Dictionary of clues with their associated probability.
+        
+        Returns
+        -------
+        str
+            Name of the randomly choosen clue.
+        """
+        probability = rd.random()
+        sum_probabilities = 0
+        for key in dict_probabilities:
+            value_probability = dict_probabilities[key]
+            if probability <= value_probability + sum_probabilities:
+                return key
+            sum_probabilities += value_probability

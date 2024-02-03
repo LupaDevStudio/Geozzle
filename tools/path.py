@@ -40,6 +40,7 @@ PATH_MAIN_MUSIC = PATH_MUSICS + "world_travel.mp3"
 PATH_FONTS = PATH_RESOURCES_FOLDER + "fonts/"
 PATH_QUERIES = PATH_RESOURCES_FOLDER + "queries/"
 PATH_QUERIES_CONTINENT = PATH_QUERIES + "continents/"
+PATH_DICT_HINTS_INFORMATION = PATH_RESOURCES_FOLDER + "hints_information.json"
 
 # Path for the fonts
 PATH_TEXT_FONT = PATH_FONTS + "Oxanium-Bold.ttf"
