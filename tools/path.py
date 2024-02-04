@@ -41,6 +41,7 @@ PATH_FONTS = PATH_RESOURCES_FOLDER + "fonts/"
 PATH_QUERIES = PATH_RESOURCES_FOLDER + "queries/"
 PATH_QUERIES_CONTINENT = PATH_QUERIES + "continents/"
 PATH_DICT_HINTS_INFORMATION = PATH_RESOURCES_FOLDER + "hints_information.json"
+PATH_TEMP_IMAGE = PATH_APP_FOLDER + "temp_image.svg"
 
 # Path for the fonts
 PATH_TEXT_FONT = PATH_FONTS + "Oxanium-Bold.ttf"

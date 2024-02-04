@@ -2,7 +2,7 @@
     "language": "english",
     "continents": {
         "Europe": {
-            "highscore": 584.1538461538462,
+            "highscore": 584,
             "percentage": 20.01923076923077,
             "countries_unlocked": [
                 "Q215"
@@ -11,9 +11,7 @@
             "lost_live_date": null,
             "current_country": {
                 "country": "",
-                "clues": {
-                    "official_language": "Slovene"
-                },
+                "clues": {},
                 "nb_ads": 2
             }
         },
@@ -25,7 +23,9 @@
             "lost_live_date": null,
             "current_country": {
                 "country": "",
-                "clues": {},
+                "clues": {
+                    "official_language": "Khmer"
+                },
                 "nb_ads": 2
             }
         },
