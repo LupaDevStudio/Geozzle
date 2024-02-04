@@ -2,15 +2,17 @@
     "language": "english",
     "continents": {
         "Europe": {
-            "highscore": 392,
-            "percentage": 20,
-            "countries_unlocked": [],
-            "nb_lives": 0,
-            "lost_live_date": 1707008961.3151374,
+            "highscore": 584.1538461538462,
+            "percentage": 20.01923076923077,
+            "countries_unlocked": [
+                "Q215"
+            ],
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "",
                 "clues": {
-                    "official_language": "Modern greek, Greek, Demotic greek"
+                    "official_language": "Slovene"
                 },
                 "nb_ads": 2
             }
