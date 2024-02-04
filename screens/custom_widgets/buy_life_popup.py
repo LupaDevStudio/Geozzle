@@ -41,4 +41,5 @@ class BuyLifePopup(CustomPopup):
         self.title = "Vies épuisées"
 
     def watch_ad(self):
+        print("WATCH AD")
         pass

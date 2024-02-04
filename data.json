@@ -5,8 +5,8 @@
             "highscore": 392,
             "percentage": 20,
             "countries_unlocked": [],
-            "nb_lives": 3,
-            "lost_live_date": null,
+            "nb_lives": 0,
+            "lost_live_date": 1707046114.3254826,
             "current_country": {
                 "country": "",
                 "clues": {
@@ -19,8 +19,8 @@
             "highscore": 0,
             "percentage": 20,
             "countries_unlocked": [],
-            "nb_lives": 3,
-            "lost_live_date": null,
+            "nb_lives": 1,
+            "lost_live_date": 1707045976.6380982,
             "current_country": {
                 "country": "",
                 "clues": {
@@ -34,7 +34,7 @@
             "percentage": 30,
             "countries_unlocked": [],
             "nb_lives": 3,
-            "lost_live_date": null,
+            "lost_live_date": 1707045134.7284718,
             "current_country": {
                 "country": "",
                 "clues": {},
@@ -45,8 +45,8 @@
             "highscore": 0,
             "percentage": 40,
             "countries_unlocked": [],
-            "nb_lives": 3,
-            "lost_live_date": null,
+            "nb_lives": 0,
+            "lost_live_date": 1707046433.1201942,
             "current_country": {
                 "country": "",
                 "clues": {},
@@ -57,8 +57,8 @@
             "highscore": 595,
             "percentage": 50.07142857142857,
             "countries_unlocked": [],
-            "nb_lives": 3,
-            "lost_live_date": null,
+            "nb_lives": 1,
+            "lost_live_date": 1707046261.406385,
             "current_country": {
                 "country": "",
                 "clues": {},
@@ -69,8 +69,8 @@
             "highscore": 0,
             "percentage": 60,
             "countries_unlocked": [],
-            "nb_lives": 3,
-            "lost_live_date": null,
+            "nb_lives": 1,
+            "lost_live_date": 1707046091.5580335,
             "current_country": {
                 "country": "",
                 "clues": {},

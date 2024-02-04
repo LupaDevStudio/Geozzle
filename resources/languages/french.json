@@ -20,8 +20,11 @@
         "validate": "Valider",
         "continue": "Continuer",
         "next_country": "Prochain pays",
-        "finish": "Fin du continent",
-        "button_game_over": "Recommencer"
+        "finish_continent": "Vous avez réussi à deviner tous les pays du continent, félicitations !",
+        "button_game_over": "Recommencer",
+        "go_to_home": "Revenir au menu",
+        "select_country_title": "Erreur dans le choix",
+        "select_country_content": "Vous devez sélectionner un pays dans le menu déroulant."
     },
     "game_question": {
         "title": "Choisissez un nouvel indice parmi ceux proposés",

@@ -1,0 +1,33 @@
+#:kivy 2.2.1
+
+
+<MessagePopup>:
+    
+    RelativeLayout:
+        id: popup_layout
+       
+        ColoredRoundedButton:
+            id: ok_button
+            size_hint: (0.4,0.15)
+            pos_hint: {"center_x":0.5,"center_y":0.12}
+            font_ratio: root.font_ratio
+            font_size: SMALL_BUTTON_FONT_SIZE
+            text: root.ok_button_label
+            text_font_name: PATH_TEXT_FONT
+            background_color: root.secondary_color
+            color_label: root.primary_color
+            release_function: root.release_function
+        
+        Label:
+            id: center_label
+            size_hint: (0.8,0.7)
+            pos_hint: {"center_x":0.5,"top":0.95}
+            font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
+            font_name: PATH_TEXT_FONT
+            text: root.center_label_text
+            size: self.size
+            shorten: False
+            text_size: (self.width,None)
+            color: (0,0,0,1)
+            halign: "center"
+            valign: "middle"

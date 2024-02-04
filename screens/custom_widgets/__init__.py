@@ -16,3 +16,4 @@ from screens.custom_widgets.circle_progress_bar import CircleProgressBar
 from screens.custom_widgets.custom_popup import CustomPopup
 from screens.custom_widgets.tutorial_popup import TutorialPopup
 from screens.custom_widgets.buy_life_popup import BuyLifePopup
+from screens.custom_widgets.message_popup import MessagePopup

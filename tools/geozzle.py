@@ -115,8 +115,13 @@ class Game():
         return False
 
     def update_percentage(self):
-        percentage = USER_DATA.continents[self.code_continent]["percentage"]
-        percentage += 1 / len(self.list_all_countries)
+        # 100% of completion when the continent is over
+        if self.list_countries_left == []:
+            percentage = 100
+        
+        else:
+            percentage = USER_DATA.continents[self.code_continent]["percentage"]
+            percentage += 100 / len(self.list_all_countries)
 
         # Save the changes in the USER_DATA
         USER_DATA.continents[self.code_continent]["percentage"] = percentage
