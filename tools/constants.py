@@ -212,6 +212,7 @@ class Text():
         self.game_summary = data["game_summary"]
         self.game_over = data["game_over"]
         self.clues = data["clues"]
+        self.tutorial = data["tutorial"]
 
 
 TEXT = Text(language=USER_DATA.language)
@@ -238,6 +239,7 @@ MAIN_BUTTON_FONT_SIZE = 25
 HIGHSCORE_FONT_SIZE = 25
 BUTTON_FONT_SIZE = 20
 SUB_TEXT_FONT_SIZE = 20
+SMALL_BUTTON_FONT_SIZE = 18
 
 ### Ads code ###
 

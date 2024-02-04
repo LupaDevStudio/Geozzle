@@ -76,5 +76,5 @@ class ColoredRoundedButton(ButtonBehavior, RelativeLayout):
 
     def on_release(self):
         if not self.disable_button:
-            self.release_function()
             self.opacity = 1
+            self.release_function()

@@ -40,14 +40,15 @@ from tools.constants import (
     TEXT,
     USER_DATA,
     TIME_CHANGE_BACKGROUND,
-    MAIN_MUSIC_NAME
+    MAIN_MUSIC_NAME,
+    DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED
 )
 
 from tools import (
     music_mixer,
     game
 )
-from screens.custom_widgets import CustomPopup
+from screens.custom_widgets import TutorialPopup
 
 #############
 ### Class ###
@@ -254,4 +255,11 @@ class HomeScreen(ImprovedScreen):
         -------
         None
         """
-        webbrowser.open("https://lupadevstudio.com", 2)
+        popup = TutorialPopup(
+            title="Tutorial",
+            primary_color=self.continent_color,
+            secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+            tutorial_content=TEXT.tutorial["tutorial_content"])
+        popup.open()
+
+        # webbrowser.open("https://lupadevstudio.com", 2)

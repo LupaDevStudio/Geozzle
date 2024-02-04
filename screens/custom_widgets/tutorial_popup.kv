@@ -5,8 +5,65 @@
     RelativeLayout:
         id: popup_layout
 
-        Button:
+        ColoredRoundedButton:
             id: next_button
+            size_hint: (0.4,0.15)
+            pos_hint: {"center_x":0.75,"center_y":0.12}
+            font_ratio: root.font_ratio
+            font_size: SMALL_BUTTON_FONT_SIZE
             text: root.next_button_label
-            size_hint: (0.3,0.1)
+            text_font_name: PATH_TEXT_FONT
+            background_color: root.secondary_color
+            color_label: root.primary_color
+            release_function: root.go_to_next_page
+            opacity: 1 if root.next_button_disabled is False else 0
+            # disabled: root.next_button_disabled
+        
+        ColoredRoundedButton:
+            id: previous_button
+            size_hint: (0.4,0.15)
+            pos_hint: {"center_x":0.25,"center_y":0.12}
+            font_ratio: root.font_ratio
+            font_size: SMALL_BUTTON_FONT_SIZE
+            text: root.previous_button_label
+            text_font_name: PATH_TEXT_FONT
+            background_color: root.secondary_color
+            color_label: root.primary_color
+            release_function: root.go_to_previous_page
+            disabled: root.previous_button_disabled
+        
+        Label:
+            id: center_label
+            size_hint: (0.8,0.7)
+            pos_hint: {"center_x":0.5,"top":0.95}
+            font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
             font_name: PATH_TEXT_FONT
+            text: root.center_label_text
+            size: self.size
+            shorten: False
+            text_size: (self.width,None)
+            color: (0,0,0,1)
+            halign: "center"
+            valign: "middle"
+
+        Label:
+            id: side_label
+            size_hint: (0.4,0.7)
+            pos_hint: {"center_x":0.25,"top":0.95}
+            font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
+            font_name: PATH_TEXT_FONT
+            text: root.side_label_text
+            size: self.size
+            shorten: False
+            text_size: (self.width,None)
+            color: (0,0,0,1)
+            halign: "center"
+            valign: "middle"
+        
+        Image:
+            id: side_image
+            source: root.side_image_source
+            size_hint: (0.4,0.7)
+            pos_hint: {"center_x":0.75,"top":0.95}
+            fit_mode: "contain"
+            opacity: 1 if root.side_image_disabled is False else 0
