@@ -5,12 +5,13 @@
             "highscore": 392,
             "percentage": 20,
             "countries_unlocked": [],
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "",
                 "clues": {
-                    "official_language": "Allemand, Fran\u00e7ais, N\u00e9erlandais"
+                    "official_language": "Portuguese, Mirandese"
                 },
-                "nb_lives": 3,
                 "nb_ads": 2
             }
         },
@@ -18,12 +19,11 @@
             "highscore": 0,
             "percentage": 20,
             "countries_unlocked": [],
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "",
-                "clues": {
-                    "official_language": "Tamoul, Singhalais"
-                },
-                "nb_lives": 3,
+                "clues": {},
                 "nb_ads": 2
             }
         },
@@ -31,12 +31,11 @@
             "highscore": 0,
             "percentage": 30,
             "countries_unlocked": [],
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "",
-                "clues": {
-                    "official_language": "Portugais, Fran\u00e7ais, Espagnol"
-                },
-                "nb_lives": 3,
+                "clues": {},
                 "nb_ads": 2
             }
         },
@@ -44,23 +43,23 @@
             "highscore": 0,
             "percentage": 40,
             "countries_unlocked": [],
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "",
                 "clues": {},
-                "nb_lives": 3,
                 "nb_ads": 2
             }
         },
         "South_America": {
-            "highscore": 595.2380952380953,
+            "highscore": 595,
             "percentage": 50.07142857142857,
             "countries_unlocked": [],
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "",
-                "clues": {
-                    "official_language": "Espagnol"
-                },
-                "nb_lives": 3,
+                "clues": {},
                 "nb_ads": 2
             }
         },
@@ -68,10 +67,11 @@
             "highscore": 0,
             "percentage": 60,
             "countries_unlocked": [],
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "",
                 "clues": {},
-                "nb_lives": 3,
                 "nb_ads": 2
             }
         }

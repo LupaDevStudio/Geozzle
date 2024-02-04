@@ -64,66 +64,73 @@ if not os.path.exists(PATH_USER_DATA):
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
+                "nb_lives": 3,
                 "current_country": {
                     "country": "",
-                    "clues": {},
-                    "nb_lives": 3,
+                    "clues": {
+                        "official_language": "Allemand, Fran\u00e7ais, N\u00e9erlandais"
+                    },
                     "nb_ads": 2
                 }
-
             },
             "Asia": {
                 "highscore": 0,
-                "percentage": 20,
+                "percentage": 0,
                 "countries_unlocked": [],
+                "nb_lives": 3,
                 "current_country": {
                     "country": "",
-                    "clues": {},
-                    "nb_lives": 3,
+                    "clues": {
+                        "official_language": "Tamoul, Singhalais"
+                    },
                     "nb_ads": 2
                 }
             },
             "Africa": {
                 "highscore": 0,
-                "percentage": 30,
+                "percentage": 0,
                 "countries_unlocked": [],
+                "nb_lives": 3,
                 "current_country": {
                     "country": "",
-                    "clues": {},
-                    "nb_lives": 3,
+                    "clues": {
+                        "official_language": "Portugais, Fran\u00e7ais, Espagnol"
+                    },
                     "nb_ads": 2
                 }
             },
             "North_America": {
                 "highscore": 0,
-                "percentage": 40,
+                "percentage": 0,
                 "countries_unlocked": [],
+                "nb_lives": 3,
                 "current_country": {
                     "country": "",
                     "clues": {},
-                    "nb_lives": 3,
                     "nb_ads": 2
                 }
             },
             "South_America": {
                 "highscore": 0,
-                "percentage": 50,
+                "percentage": 0,
                 "countries_unlocked": [],
+                "nb_lives": 3,
                 "current_country": {
                     "country": "",
-                    "clues": {},
-                    "nb_lives": 3,
+                    "clues": {
+                        "official_language": "Espagnol"
+                    },
                     "nb_ads": 2
                 }
             },
             "Oceania": {
                 "highscore": 0,
-                "percentage": 60,
+                "percentage": 0,
                 "countries_unlocked": [],
+                "nb_lives": 3,
                 "current_country": {
                     "country": "",
                     "clues": {},
-                    "nb_lives": 3,
                     "nb_ads": 2
                 }
             }
@@ -309,6 +316,7 @@ DICT_HINTS_INFORMATION = load_json_file(file_path=PATH_DICT_HINTS_INFORMATION)
 ### Gameplay ###
 
 MAX_HIGHSCORE = 10000
+LIFE_RELOAD_TIME = 15
 
 ### Musics ###
 

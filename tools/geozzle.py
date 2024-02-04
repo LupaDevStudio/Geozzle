@@ -2,7 +2,16 @@
 Module of the main backend of Geozzle.
 """
 
+###############
+### Imports ###
+###############
+
+### Python imports ###
+
 import random as rd
+import time
+
+### Local imports ###
 
 from tools.constants import (
     USER_DATA,
@@ -15,6 +24,11 @@ from tools.constants import (
 from tools.sparql import (
     request_clues
 )
+
+#################
+### Functions ###
+#################
+
 
 def calculate_highscore_clues(part_highscore, nb_clues):
     # If the user guesses with less than three clues, he has all points
@@ -29,6 +43,10 @@ def calculate_highscore_clues(part_highscore, nb_clues):
     return int(part_highscore)
 
 
+#############
+### Class ###
+#############
+
 class Game():
     number_lives: int
     number_ads: int
@@ -36,7 +54,8 @@ class Game():
     wikidata_code_country: str
     clues: dict
     list_all_countries: list  # the list of the wikidata code countries
-    list_countries_left: list  # the countries left to guess (wikidata code countries)
+    # the countries left to guess (wikidata code countries)
+    list_countries_left: list
 
     def __init__(self):
         pass
@@ -48,7 +67,7 @@ class Game():
     def load_data(self):
         user_data_continent = USER_DATA.continents[self.code_continent]
         self.clues = user_data_continent["current_country"]["clues"]
-        self.number_lives = user_data_continent["current_country"]["nb_lives"]
+        self.number_lives = user_data_continent["nb_lives"]
         self.number_ads = user_data_continent["current_country"]["nb_ads"]
 
         self.list_all_countries = list(
@@ -81,6 +100,11 @@ class Game():
 
         # Reduce the number of lives if the user has made a mistake
         self.number_lives -= 1
+        USER_DATA.continents[self.code_continent]["nb_lives"] = self.number_lives
+        if USER_DATA.continents[self.code_continent]["lost_live_date"] is None:
+            USER_DATA.continents[self.code_continent]["lost_live_date"] = time.time(
+            )
+        USER_DATA.save_changes()
         return False
 
     def check_game_over(self):
@@ -116,11 +140,11 @@ class Game():
     def choose_three_clues(self):
         """
         Choose three new clues given their probability to appear.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         (str, str, str)
@@ -137,7 +161,7 @@ class Game():
                 # Check if the clue has a value for the current country
                 if not self.wikidata_code_country in DICT_HINTS_INFORMATION[type_clue]["exceptions"]:
                     dict_probabilities[type_clue] = DICT_HINTS_INFORMATION[type_clue]["probability"]
-        
+
         if dict_probabilities != {}:
             # Sum all probabilities
             total = sum(dict_probabilities.values())
@@ -157,19 +181,19 @@ class Game():
                 if len(dict_probabilities) != 2:
                     hint_3 = hint_1
                     while hint_3 == hint_1 or hint_3 == hint_2:
-                        hint_3 = self.select_clue(dict_probabilities)           
-            
+                        hint_3 = self.select_clue(dict_probabilities)
+
         return hint_1, hint_2, hint_3
 
     def select_clue(self, dict_probabilities):
         """
         Select randomly a clue given the probabilities of the clues.
-        
+
         Parameters
         ----------
         dict_probabilities : dict
             Dictionary of clues with their associated probability.
-        
+
         Returns
         -------
         str

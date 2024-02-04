@@ -11,6 +11,7 @@ Module to create the home screen.
 import os
 import webbrowser
 import random as rd
+import time
 
 ### Kivy imports ###
 
@@ -41,7 +42,8 @@ from tools.constants import (
     USER_DATA,
     TIME_CHANGE_BACKGROUND,
     MAIN_MUSIC_NAME,
-    DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED
+    DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
+    LIFE_RELOAD_TIME
 )
 
 from tools import (
@@ -82,6 +84,8 @@ class HomeScreen(ImprovedScreen):
         self.load_continent_data()
 
     def on_pre_enter(self, *args):
+        self.regenerate_lives()
+        self.load_continent_data()
 
         return super().on_pre_enter(*args)
 
@@ -97,6 +101,26 @@ class HomeScreen(ImprovedScreen):
             self.manager.change_background, TIME_CHANGE_BACKGROUND)
 
         return super().on_enter(*args)
+
+    def regenerate_lives(self):
+        for code_continent in LIST_CONTINENTS:
+            current_continent_data = USER_DATA.continents[code_continent]
+            if current_continent_data["nb_lives"] < 3:
+                current_time = time.time()
+                diff_time = int(
+                    current_time - current_continent_data["lost_live_date"])
+                diff_minutes = diff_time // 60
+                max_nb_lives_to_regenerate = diff_minutes // LIFE_RELOAD_TIME
+                max_nb_lives_to_regenerate = min(
+                    3 - current_continent_data["nb_lives"], max_nb_lives_to_regenerate)
+                current_continent_data["nb_lives"] += max_nb_lives_to_regenerate
+                if current_continent_data["nb_lives"] == 3:
+                    current_continent_data["lost_live_date"] = None
+                else:
+                    current_continent_data["lost_live_date"] = current_continent_data["lost_live_date"] + \
+                        LIFE_RELOAD_TIME * 60 * max_nb_lives_to_regenerate
+        USER_DATA.save_changes()
+        self.number_lives_on = USER_DATA.continents[self.code_continent]["nb_lives"]
 
     def on_pre_leave(self, *args):
 
@@ -169,7 +193,7 @@ class HomeScreen(ImprovedScreen):
         self.completion_percentage_text = str(
             USER_DATA.continents[self.code_continent]["percentage"]) + " %"
 
-        # self.number_lives_on = USER_DATA.continents[self.code_continent][""]
+        self.number_lives_on = USER_DATA.continents[self.code_continent]["nb_lives"]
 
     def update_language_image(self):
         """
