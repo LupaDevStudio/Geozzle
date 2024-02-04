@@ -17,8 +17,11 @@ from kivy.properties import (
 ### Local imports ###
 
 from screens.custom_widgets.custom_popup import CustomPopup
+from tools import (
+    game
+)
 from tools.constants import (
-    TEXT,
+    TEXT
 )
 
 #############
@@ -26,27 +29,27 @@ from tools.constants import (
 #############
 
 
-class BuyLifePopup(CustomPopup):
+class TwoButtonsPopup(CustomPopup):
 
-    buy_button_label = StringProperty(TEXT.home["watch_ad"])
-    cancel_button_label = StringProperty(TEXT.home["cancel"])
-    center_label_text = StringProperty(TEXT.home["buy_life_message"])
-    title = StringProperty(TEXT.home["buy_life_title"])
-    release_function = ObjectProperty()
+    title = StringProperty()
+    left_button_label = StringProperty()
+    left_release_function = ObjectProperty()
+    right_button_label = StringProperty(TEXT.home["cancel"])
+    right_release_function = ObjectProperty()
+    center_label_text = StringProperty()
 
     def __init__(self, **kwargs):
-        if not "release_function" in kwargs:
-            super().__init__(release_function=self.dismiss, **kwargs)
+        if not "right_release_function" in kwargs:
+            super().__init__(right_release_function=self.dismiss, **kwargs)
         else:
             super().__init__(**kwargs)
 
-        self.bind(cancel_button_label=self.bind_function)
-        self.bind(release_function=self.bind_function)
+        self.bind(left_button_label=self.bind_function)
+        self.bind(left_release_function=self.bind_function)
+        self.bind(right_button_label=self.bind_function)
+        self.bind(right_release_function=self.bind_function)
+        self.bind(center_label_text=self.bind_function)
         self.bind(title=self.bind_function)
 
     def bind_function(self, *args):
-        pass
-
-    def watch_ad(self):
-        print("WATCH AD")
         pass

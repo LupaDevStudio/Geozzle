@@ -12,6 +12,7 @@ import os
 import webbrowser
 import random as rd
 import time
+from functools import partial
 
 ### Kivy imports ###
 
@@ -50,7 +51,7 @@ from tools import (
     music_mixer,
     game
 )
-from screens.custom_widgets import TutorialPopup, BuyLifePopup
+from screens.custom_widgets import TutorialPopup, TwoButtonsPopup
 
 #############
 ### Class ###
@@ -270,10 +271,21 @@ class HomeScreen(ImprovedScreen):
             self.manager.current = "game_question"
 
         else:
-            popup = BuyLifePopup(
+            popup = TwoButtonsPopup(
                 primary_color=self.continent_color,
-                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent])
+                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                left_button_label=TEXT.home["watch_ad"],
+                title=TEXT.home["buy_life_title"],
+                center_label_text=TEXT.home["buy_life_message"]
+            )
+            popup.left_release_function=partial(self.watch_ad, popup)
             popup.open()
+
+    def watch_ad(self, popup: TwoButtonsPopup):
+        self.number_lives_on += 1
+        USER_DATA.continents[self.code_continent]["nb_lives"] += 1
+        USER_DATA.save_changes()
+        popup.dismiss()
 
     def open_lupa_website(self):
         """

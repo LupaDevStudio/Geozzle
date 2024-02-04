@@ -1,34 +1,34 @@
 #:kivy 2.2.1
 
 
-<BuyLifePopup>:
+<TwoButtonsPopup>:
     
     RelativeLayout:
         id: popup_layout
 
         ColoredRoundedButton:
-            id: buy_button
-            size_hint: (0.4,0.15)
-            pos_hint: {"center_x":0.75,"center_y":0.12}
-            font_ratio: root.font_ratio
-            font_size: SMALL_BUTTON_FONT_SIZE
-            text: root.buy_button_label
-            text_font_name: PATH_TEXT_FONT
-            background_color: root.secondary_color
-            color_label: root.primary_color
-            release_function: root.watch_ad
-        
-        ColoredRoundedButton:
-            id: cancel_button
+            id: left_button
             size_hint: (0.4,0.15)
             pos_hint: {"center_x":0.25,"center_y":0.12}
             font_ratio: root.font_ratio
             font_size: SMALL_BUTTON_FONT_SIZE
-            text: root.cancel_button_label
+            text: root.left_button_label
             text_font_name: PATH_TEXT_FONT
             background_color: root.secondary_color
             color_label: root.primary_color
-            release_function: root.release_function
+            release_function: root.left_release_function
+
+        ColoredRoundedButton:
+            id: right_button
+            size_hint: (0.4,0.15)
+            pos_hint: {"center_x":0.75,"center_y":0.12}
+            font_ratio: root.font_ratio
+            font_size: SMALL_BUTTON_FONT_SIZE
+            text: root.right_button_label
+            text_font_name: PATH_TEXT_FONT
+            background_color: root.secondary_color
+            color_label: root.primary_color
+            release_function: root.right_release_function
         
         Label:
             id: center_label

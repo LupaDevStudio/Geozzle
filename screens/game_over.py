@@ -42,7 +42,7 @@ from tools import (
     game
 )
 from screens.custom_widgets import (
-    BuyLifePopup,
+    TwoButtonsPopup,
     MessagePopup
 )
 
@@ -81,24 +81,24 @@ class GameOverScreen(ImprovedScreen):
         self.update_text()
 
         self.ids.continue_button.opacity = 0
-
-        return super().on_pre_enter(*args)
-
-    def on_enter(self, *args):
-
-        # Update the list of countries
-        self.update_countries()
-
-        # Schedule the change of background
-        Clock.schedule_interval(
-            self.manager.change_background, TIME_CHANGE_BACKGROUND)
-
         self.number_lives_on = game.number_lives
         self.congrats_defeat_message = ""
         self.ids.continue_button.opacity = 0
         self.ids.continue_button.disable_button = True
         self.ids.validate_button.disable_button = False
         self.ids.validate_button.background_color[-1] = 1
+        self.list_countries = [""]
+
+        return super().on_pre_enter(*args)
+
+    def on_enter(self, *args):
+
+        # Schedule the change of background
+        Clock.schedule_interval(
+            self.manager.change_background, TIME_CHANGE_BACKGROUND)
+
+        # Update the list of countries
+        self.update_countries()
 
         return super().on_enter(*args)
 
@@ -131,7 +131,6 @@ class GameOverScreen(ImprovedScreen):
         self.list_countries = [""]
         for wikidata_code_country in game.list_countries_left:
             self.list_countries.append(DICT_COUNTRIES[USER_DATA.language][self.code_continent][wikidata_code_country])
-        self.list_countries.pop(0)
 
     def update_color(self, base_widget, value):
         """
@@ -222,22 +221,24 @@ class GameOverScreen(ImprovedScreen):
             # The country is not correct
             else:
                 self.number_lives_on = game.number_lives
+                self.continue_game_label = TEXT.game_over["continue"]
+                self.congrats_defeat_message = TEXT.game_over["defeat"]
 
                 # The user has no more lives
                 if game.check_game_over():
                     self.ids.continue_button.opacity = 0
 
-                    popup = BuyLifePopup(
+                    popup = TwoButtonsPopup(
                         primary_color=self.continent_color,
                         secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
-                        cancel_button_label=TEXT.game_over["go_to_home"]
+                        left_button_label=TEXT.home["watch_ad"],
+                        right_button_label=TEXT.game_over["go_to_home"],
+                        title=TEXT.home["buy_life_title"],
+                        center_label_text=TEXT.home["buy_life_message"]
                     )
-                    popup.release_function=partial(self.go_to_home_and_dismiss, popup)
+                    popup.left_release_function=partial(self.watch_ad, popup)
+                    popup.right_release_function=partial(self.go_to_home_and_dismiss, popup)
                     popup.open()
-
-                else:
-                    self.continue_game_label = TEXT.game_over["continue"]
-                    self.congrats_defeat_message = TEXT.game_over["defeat"]
 
         # Popup to ask the user to select a country
         else:
@@ -248,3 +249,9 @@ class GameOverScreen(ImprovedScreen):
                 center_label_text=TEXT.game_over["select_country_message"]
                 )
             popup.open()
+
+    def watch_ad(self, popup: TwoButtonsPopup):
+        game.add_life()
+        self.number_lives_on = game.number_lives
+        self.ids.continue_button.opacity = 1
+        popup.dismiss()
