@@ -50,7 +50,7 @@ from tools import (
     music_mixer,
     game
 )
-from screens.custom_widgets import TutorialPopup
+from screens.custom_widgets import TutorialPopup, BuyLifePopup
 
 #############
 ### Class ###
@@ -252,20 +252,28 @@ class HomeScreen(ImprovedScreen):
         None
         """
 
-        # Reset the screen of game_summary
-        self.manager.get_screen("game_summary").reset_screen()
-        self.manager.get_screen(
-            "game_question").code_continent = self.code_continent
-        self.manager.get_screen(
-            "game_question").previous_screen_name = "home"
-        self.manager.get_screen(
-            "game_summary").code_continent = self.code_continent
-        self.manager.get_screen(
-            "game_over").code_continent = self.code_continent
-        game.set_continent(self.code_continent)
+        if self.number_lives_on > 0:
 
-        # Go to the screen game question
-        self.manager.current = "game_question"
+            # Reset the screen of game_summary
+            self.manager.get_screen("game_summary").reset_screen()
+            self.manager.get_screen(
+                "game_question").code_continent = self.code_continent
+            self.manager.get_screen(
+                "game_question").previous_screen_name = "home"
+            self.manager.get_screen(
+                "game_summary").code_continent = self.code_continent
+            self.manager.get_screen(
+                "game_over").code_continent = self.code_continent
+            game.set_continent(self.code_continent)
+
+            # Go to the screen game question
+            self.manager.current = "game_question"
+
+        else:
+            popup = BuyLifePopup(
+                primary_color=self.continent_color,
+                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent])
+            popup.open()
 
     def open_lupa_website(self):
         """

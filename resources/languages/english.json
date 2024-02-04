@@ -7,7 +7,10 @@
         "South_America": "South America",
         "Oceania": "Oceania",
         "highscore": "Highscore: ",
-        "play": "Play"
+        "play": "Play",
+        "watch_ad": "Regarder",
+        "cancel": "Annuler",
+        "buy_life_message": "Vous n'avez plus de vies pour l'instant, souhaitez-vous regarder une publicité pour continuer à jouer ?"
     },
     "game_over": {
         "title": "Which country is it?",

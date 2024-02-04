@@ -5,12 +5,12 @@
             "highscore": 392,
             "percentage": 20,
             "countries_unlocked": [],
-            "nb_lives": 3,
-            "lost_live_date": null,
+            "nb_lives": 0,
+            "lost_live_date": 1707008961.3151374,
             "current_country": {
                 "country": "",
                 "clues": {
-                    "official_language": "Portuguese, Mirandese"
+                    "official_language": "Modern greek, Greek, Demotic greek"
                 },
                 "nb_ads": 2
             }

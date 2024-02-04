@@ -1,5 +1,5 @@
 """
-Module to create a popup with a custom style.
+Module to create a tutorial popup.
 """
 
 ###############
@@ -29,7 +29,6 @@ from tools.constants import (
 class TutorialPopup(CustomPopup):
 
     page_id = NumericProperty()
-    include_image = BooleanProperty()
     next_button_label = StringProperty()
     previous_button_label = StringProperty()
     next_button_disabled = BooleanProperty(False)
