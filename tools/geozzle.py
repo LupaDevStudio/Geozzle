@@ -96,6 +96,8 @@ class Game():
             if DICT_COUNTRIES[USER_DATA.language][self.code_continent][wikidata_code_country] == guessed_country:
                 break
         if self.wikidata_code_country == wikidata_code_country:
+            USER_DATA.continents[self.code_continent]["countries_unlocked"].append(
+                wikidata_code_country)
             return True
 
         # Reduce the number of lives if the user has made a mistake
