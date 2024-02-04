@@ -22,7 +22,7 @@
         "continue": "Continuer",
         "next_country": "Prochain pays",
         "finish_continent": "Vous avez réussi à deviner tous les pays du continent, félicitations !",
-        "button_game_over": "Recommencer",
+        "button_back": "Back",
         "go_to_home": "Revenir au menu",
         "select_country_title": "Erreur dans le choix",
         "select_country_message": "Vous devez sélectionner un pays dans le menu déroulant."

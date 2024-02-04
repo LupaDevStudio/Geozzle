@@ -80,11 +80,8 @@ class GameOverScreen(ImprovedScreen):
         # Change the labels
         self.update_text()
 
-        self.ids.continue_button.opacity = 0
         self.number_lives_on = game.number_lives
         self.congrats_defeat_message = ""
-        self.ids.continue_button.opacity = 0
-        self.ids.continue_button.disable_button = True
         self.ids.validate_button.disable_button = False
         self.ids.validate_button.background_color[-1] = 1
         self.list_countries = [""]
@@ -125,7 +122,7 @@ class GameOverScreen(ImprovedScreen):
         self.title_label = TEXT.game_over["title"]
         self.congrats_defeat_message = TEXT.game_over["congrats"]
         self.validate_label = TEXT.game_over["validate"]
-        self.continue_game_label = TEXT.game_over["continue"]
+        self.continue_game_label = TEXT.game_over["button_back"]
 
     def update_countries(self):
         self.list_countries = [""]
@@ -168,10 +165,7 @@ class GameOverScreen(ImprovedScreen):
         self.manager.current = "home"
 
     def go_to_next_screen(self):
-        if self.continue_game_label == TEXT.game_over["button_game_over"]:
-            self.go_to_home()
-
-        elif self.continue_game_label == TEXT.game_over["next_country"]:
+        if self.continue_game_label == TEXT.game_over["next_country"]:
             self.manager.get_screen(
                 "game_question").previous_screen_name = "game_over"
             self.manager.get_screen(
@@ -179,12 +173,12 @@ class GameOverScreen(ImprovedScreen):
             # Create a new game
             game.set_continent(self.code_continent)
 
-        elif self.continue_game_label == TEXT.game_over["continue"]:
+        elif self.continue_game_label in [TEXT.game_over["continue"], TEXT.game_over["button_back"]]:
             self.manager.get_screen(
-                "game_question").previous_screen_name = "game_over"
+                "game_summary").previous_screen_name = "game_over"
             self.manager.get_screen(
-                "game_question").code_continent = self.code_continent
-            self.manager.current = "game_question"
+                "game_summary").code_continent = self.code_continent
+            self.manager.current = "game_summary"
 
     def disable_validate_button(self):
         self.ids.validate_button.disable_button = True
@@ -192,16 +186,14 @@ class GameOverScreen(ImprovedScreen):
 
     def submit_country(self):
         if self.ids.country_spinner.text != "":
-            self.ids.continue_button.opacity = 1
-            self.ids.continue_button.disable_button = False
 
             # The selected country is correct
             if game.check_country(self.ids.country_spinner.text):
-                self.ids.continue_button.opacity = 0
                 self.disable_validate_button()
 
                 # If the continent is finished
                 if game.list_countries_left == []:
+                    self.ids.continue_button.opacity = 0
                     popup = MessagePopup(
                         primary_color=self.continent_color,
                         secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],

@@ -5,8 +5,8 @@
             "highscore": 392,
             "percentage": 20,
             "countries_unlocked": [],
-            "nb_lives": 0,
-            "lost_live_date": 1707051451.4239717,
+            "nb_lives": 2,
+            "lost_live_date": 1707066534.1121757,
             "current_country": {
                 "country": "",
                 "clues": {
@@ -18,8 +18,8 @@
             "highscore": 0,
             "percentage": 20,
             "countries_unlocked": [],
-            "nb_lives": 0,
-            "lost_live_date": 1707052039.573365,
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "",
                 "clues": {
@@ -33,8 +33,8 @@
             "countries_unlocked": [
                 "Q262"
             ],
-            "nb_lives": 0,
-            "lost_live_date": 1707052050.1086304,
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "",
                 "clues": {}
@@ -55,8 +55,8 @@
             "highscore": 595,
             "percentage": 50.07142857142857,
             "countries_unlocked": [],
-            "nb_lives": 0,
-            "lost_live_date": 1707052118.752296,
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "",
                 "clues": {}
@@ -66,8 +66,8 @@
             "highscore": 0,
             "percentage": 60,
             "countries_unlocked": [],
-            "nb_lives": 0,
-            "lost_live_date": 1707051487.5505407,
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "",
                 "clues": {

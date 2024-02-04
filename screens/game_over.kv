@@ -18,12 +18,12 @@
         line_height: 1
 
     RoundedButtonImage:
-        image_path: PATH_IMAGES + "left_arrow.png"
+        image_path: PATH_IMAGES + "home.png"
         pos_hint: {"x":0.05, "top":0.975}
         size_hint: (0.1, None)
         height: self.width
         colors: root.continent_color
-        on_release: root.go_back_to_summary()
+        on_release: root.go_to_home()
     
     CustomSpinner:
         id: country_spinner
@@ -79,4 +79,3 @@
         size_hint: (0.45, 0.075)
         color_label: root.continent_color
         release_function: root.go_to_next_screen
-        opacity: 0
