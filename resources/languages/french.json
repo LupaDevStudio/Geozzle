@@ -30,6 +30,7 @@
         "title": "Quel pays est-ce ?"
     },
     "clues": {
+<<<<<<< HEAD
         "official_language": "Langue officielle"
     },
     "tutorial": {
@@ -48,5 +49,10 @@
                 "Goodbye"
             ]
         ]
+=======
+        "official_language": "Langue officielle",
+        "motto": "Devise",
+        "anthem": "Hymne"
+>>>>>>> 7b17a3764dbe918084fdccf9148f0df236a82907
     }
 }

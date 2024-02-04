@@ -27,7 +27,8 @@ from kivy import platform
 from tools.path import (
     PATH_USER_DATA,
     PATH_LANGUAGE,
-    PATH_QUERIES_CONTINENT
+    PATH_QUERIES_CONTINENT,
+    PATH_DICT_HINTS_INFORMATION
 )
 from tools.basic_tools import (
     load_json_file,
@@ -302,6 +303,8 @@ DICT_COUNTRIES = {
         "Oceania": load_json_file(PATH_QUERIES_CONTINENT + "Oceania_fr.json")
     }
 }
+
+DICT_HINTS_INFORMATION = load_json_file(file_path=PATH_DICT_HINTS_INFORMATION)
 
 ### Gameplay ###
 

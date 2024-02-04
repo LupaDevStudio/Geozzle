@@ -1,9 +1,9 @@
 {
-    "language": "french",
+    "language": "english",
     "continents": {
         "Europe": {
-            "highscore": 392.15686274509807,
-            "percentage": 20.03921568627451,
+            "highscore": 392,
+            "percentage": 20,
             "countries_unlocked": [],
             "current_country": {
                 "country": "",
