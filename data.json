@@ -2,11 +2,9 @@
     "language": "english",
     "continents": {
         "Europe": {
-            "highscore": 584,
-            "percentage": 20.01923076923077,
-            "countries_unlocked": [
-                "Q215"
-            ],
+            "highscore": 392,
+            "percentage": 20,
+            "countries_unlocked": [],
             "nb_lives": 3,
             "lost_live_date": null,
             "current_country": {
@@ -24,7 +22,7 @@
             "current_country": {
                 "country": "",
                 "clues": {
-                    "official_language": "Khmer"
+                    "official_language": "Azerbaijani"
                 },
                 "nb_ads": 2
             }

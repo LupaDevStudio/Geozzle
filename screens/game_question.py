@@ -125,8 +125,9 @@ class GameQuestionScreen(ImprovedScreen):
     def go_to_game_summary(self, hint):
         self.manager.get_screen(
             "game_summary").previous_screen_name = "game_question"
-        self.manager.get_screen(
-            "game_summary").current_hint = hint
+        if not hint is None:
+            self.manager.get_screen(
+                "game_summary").current_hint = hint
         self.manager.current = "game_summary"
 
     def update_labels(self):
@@ -151,17 +152,20 @@ class GameQuestionScreen(ImprovedScreen):
             self.hint_1 = TEXT.clues[hint_1]
         else:
             self.ids.hint_1_button.disabled = True
+            self.hint_1 = ""
 
         # Display the second clue if it exists
         if not hint_2 is None:
             self.hint_2 = TEXT.clues[hint_2]
         else:
             self.ids.hint_2_button.disabled = True
+            self.hint_2 = ""
         
         # Display the third clue if it exists
         if not hint_3 is None:
             self.hint_3 = TEXT.clues[hint_3]
         else:
             self.ids.hint_3_button.disabled = True
+            self.hint_3 = ""
 
         self.clue = TEXT.game_question["clue"]
