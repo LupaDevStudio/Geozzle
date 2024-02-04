@@ -10,6 +10,7 @@ Module to create the game over screen.
 
 import random as rd
 import os
+from functools import partial
 
 ### Kivy imports ###
 
@@ -155,6 +156,10 @@ class GameOverScreen(ImprovedScreen):
         self.manager.get_screen(
             "game_summary").previous_screen_name = "game_over"
         self.manager.current = "game_summary"
+    
+    def go_to_home_and_dismiss(self, popup):
+        popup.dismiss()
+        self.go_to_home()
 
     def go_to_home(self):
         self.manager.get_screen(
@@ -193,6 +198,7 @@ class GameOverScreen(ImprovedScreen):
 
             # The selected country is correct
             if game.check_country(self.ids.country_spinner.text):
+                self.ids.continue_button.opacity = 0
                 self.disable_validate_button()
 
                 # If the continent is finished
@@ -203,8 +209,8 @@ class GameOverScreen(ImprovedScreen):
                         title=TEXT.game_over["congrats"],
                         ok_button_label=TEXT.game_over["go_to_home"],
                         center_label_text=TEXT.game_over["finish_continent"],
-                        release_function=self.go_to_home
-                        )
+                    )
+                    popup.release_function=partial(self.go_to_home_and_dismiss, popup)
                     popup.open()
                 else:
                     self.continue_game_label = TEXT.game_over["next_country"]
@@ -219,22 +225,26 @@ class GameOverScreen(ImprovedScreen):
 
                 # The user has no more lives
                 if game.check_game_over():
-                    # TODO mettre une popup qui lui propose de regarder une pub ou de retourner au menu home (dans le deuxième cas, il perd tous ses indices et le pays change)
-                    print("METTRE POPUP")
+                    self.ids.continue_button.opacity = 0
+
                     popup = BuyLifePopup(
                         primary_color=self.continent_color,
-                        secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent])
+                        secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                        cancel_button_label=TEXT.game_over["go_to_home"]
+                    )
+                    popup.release_function=partial(self.go_to_home_and_dismiss, popup)
                     popup.open()
 
                 else:
                     self.continue_game_label = TEXT.game_over["continue"]
                     self.congrats_defeat_message = TEXT.game_over["defeat"]
 
+        # Popup to ask the user to select a country
         else:
             popup = MessagePopup(
                 primary_color=self.continent_color,
                 secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
                 title=TEXT.game_over["select_country_title"],
-                center_label_text=TEXT.game_over["select_country_content"]
+                center_label_text=TEXT.game_over["select_country_message"]
                 )
             popup.open()

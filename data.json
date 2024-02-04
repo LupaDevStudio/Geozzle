@@ -17,7 +17,7 @@
             "highscore": 0,
             "percentage": 20,
             "countries_unlocked": [],
-            "nb_lives": 1,
+            "nb_lives": 3,
             "lost_live_date": 1707045976.6380982,
             "current_country": {
                 "country": "",
@@ -28,11 +28,13 @@
             }
         },
         "Africa": {
-            "highscore": 0,
-            "percentage": 30,
-            "countries_unlocked": [],
-            "nb_lives": 3,
-            "lost_live_date": 1707045134.7284718,
+            "highscore": 178,
+            "percentage": 31.785714285714285,
+            "countries_unlocked": [
+                "Q262"
+            ],
+            "nb_lives": 2,
+            "lost_live_date": 1707046934.7284718,
             "current_country": {
                 "country": "",
                 "clues": {},
