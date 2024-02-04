@@ -33,7 +33,7 @@ from tools.sparql import (
 def calculate_highscore_clues(part_highscore, nb_clues):
     # If the user guesses with less than three clues, he has all points
     if nb_clues <= 4:
-        return part_highscore
+        return int(part_highscore)
 
     # Lose points after
     lost_points = part_highscore * (1 - nb_clues / 6)

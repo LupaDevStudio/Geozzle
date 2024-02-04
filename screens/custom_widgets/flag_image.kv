@@ -1,0 +1,34 @@
+<FlagImage>:
+
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            pos:self.pos
+            size:self.size
+    
+    canvas.after:
+        Color:
+            rgba: self.primary_color
+        Line:
+            width:2
+            rectangle: [self.x,self.y,self.width,self.height]
+    # canvas:
+    #     Color:
+    #         rgba: self.color
+    #     StencilPush
+    #     RoundedRectangle:
+    #         pos: self.pos
+    #         size: self.size
+    #         radius: [100]
+    #     StencilUse
+    #     Rectangle:
+    #         texture: self.texture
+    #         size: self.norm_image_size
+    #         pos: self.center_x - self.norm_image_size[0] / 2., self.center_y - self.norm_image_size[1] / 2.
+    #     StencilUnUse
+    #     RoundedRectangle:
+    #         pos: self.pos
+    #         size: self.size
+    #         radius: [100]
+    #     StencilPop
