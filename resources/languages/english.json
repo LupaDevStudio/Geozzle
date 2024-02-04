@@ -33,5 +33,22 @@
         "official_language": "Official language",
         "motto": "Motto",
         "anthem": "Anthem"
+    },
+    "tutorial": {
+        "next": "Suivant",
+        "previous": "Précédent",
+        "close": "Fermer",
+        "tutorial_content": [
+            [
+                "Lorem ipsum sit dolor dkksd dskdmq dslqmd ozqds qklsd sqldsq dsq"
+            ],
+            [
+                "Lorem ipsum sit dolor",
+                "resources/images/lupa_logo.png"
+            ],
+            [
+                "Goodbye"
+            ]
+        ]
     }
 }
