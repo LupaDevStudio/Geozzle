@@ -88,3 +88,12 @@
         height: self.width
         colors: root.continent_color
         on_release: root.change_continent("right")
+
+    # Tutorial button
+    RoundedButtonImage:
+        image_path: PATH_IMAGES + "tutorial.png"
+        pos_hint: {"x":0.05, "y":0.025}
+        size_hint: (0.1, None)
+        height: self.width
+        colors: root.continent_color
+        on_release: root.launch_tutorial()

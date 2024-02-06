@@ -37,6 +37,9 @@ from tools.kivy_tools import ImprovedScreen
 from tools import (
     game
 )
+from screens.custom_widgets import (
+    MessagePopup
+)
 
 #############
 ### Class ###
@@ -117,7 +120,16 @@ class GameQuestionScreen(ImprovedScreen):
 
     def add_clue(self, hint):
         # Add the clue in the class
-        game.add_clue(hint)
+        value_hint = game.add_clue(hint)
+        if value_hint is None:
+            popup = MessagePopup(
+                primary_color=self.continent_color,
+                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                title=TEXT.game_question["no_connexion_title"],
+                center_label_text=TEXT.game_question["no_connexion_message"]
+                )
+            popup.open()
+            return
 
         # Change screen
         self.go_to_game_summary(hint)

@@ -31,7 +31,6 @@
     "Q843": "Pakistan",
     "Q928": "Philippines",
     "Q846": "Qatar",
-    "Q159": "Russie",
     "Q334": "Singapour",
     "Q854": "Sri Lanka",
     "Q858": "Syrie",
@@ -42,6 +41,9 @@
     "Q43": "Turquie",
     "Q881": "Vi\u00eat Nam",
     "Q805": "Y\u00e9men",
-    "Q79": "\u00c9gypte",
-    "Q878": "\u00c9mirats arabes unis"
+    "Q878": "\u00c9mirats arabes unis",
+    "Q148": "Chine",
+    "Q865": "Ta\u00efwan",
+    "Q801": "Isra\u00ebl",
+    "Q1246": "Kosovo"
 }

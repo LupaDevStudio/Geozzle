@@ -2,76 +2,77 @@
     "language": "english",
     "continents": {
         "Europe": {
-            "highscore": 392,
-            "percentage": 20,
+            "highscore": 0,
+            "percentage": 0,
             "countries_unlocked": [],
-            "nb_lives": 2,
-            "lost_live_date": 1707066534.1121757,
+            "nb_lives": 3,
+            "lost_live_date": 1707227595.2713683,
             "current_country": {
                 "country": "",
-                "clues": {
-                    "official_language": "Bokm\u00e5l, Norwegian, Nynorsk, S\u00e1mi"
-                }
+                "clues": {}
             }
         },
         "Asia": {
             "highscore": 0,
-            "percentage": 20,
+            "percentage": 0,
             "countries_unlocked": [],
             "nb_lives": 3,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q851",
                 "clues": {
-                    "official_language": "Azerbaijani"
+                    "flag": false
                 }
             }
         },
         "Africa": {
             "highscore": 178,
-            "percentage": 31.785714285714285,
+            "percentage": 0,
             "countries_unlocked": [
                 "Q262"
             ],
             "nb_lives": 3,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q1028",
                 "clues": {}
             }
         },
         "North_America": {
             "highscore": 0,
-            "percentage": 40,
+            "percentage": 0,
             "countries_unlocked": [],
             "nb_lives": 3,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
-                "clues": {}
+                "country": "Q784",
+                "clues": {
+                    "flag": true,
+                    "official_language": "English"
+                }
             }
         },
         "South_America": {
             "highscore": 595,
-            "percentage": 50.07142857142857,
+            "percentage": 0,
             "countries_unlocked": [],
             "nb_lives": 3,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q733",
                 "clues": {}
             }
         },
         "Oceania": {
             "highscore": 0,
-            "percentage": 60,
+            "percentage": 0,
             "countries_unlocked": [],
             "nb_lives": 3,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q712",
                 "clues": {
-                    "official_language": "English, M\u0101ori"
+                    "flag": true
                 }
             }
         }

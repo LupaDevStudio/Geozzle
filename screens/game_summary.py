@@ -25,7 +25,9 @@ from kivy.uix.label import Label
 
 from tools.path import (
     PATH_BACKGROUNDS,
-    PATH_TEXT_FONT
+    PATH_TEXT_FONT,
+    PATH_IMAGES_FLAG,
+    PATH_IMAGES_FLAG_UNKNOWN
 )
 from tools.constants import (
     DICT_CONTINENTS,
@@ -77,6 +79,8 @@ class GameSummaryScreen(ImprovedScreen):
     def on_pre_enter(self, *args):
         self.update_font_ratio()
         self.update_scroll_view()
+        if "flag" in game.clues:
+            self.update_flag_image()
         self.update_text()
 
         return super().on_pre_enter(*args)
@@ -123,6 +127,27 @@ class GameSummaryScreen(ImprovedScreen):
         self.ids.scrollview_layout.reset_screen()
         self.dict_scrollview_widgets = {}
 
+    def update_flag_image(self):
+        if "flag" in game.clues:
+            self.ids.flag_image.source = PATH_IMAGES_FLAG
+        else:
+            self.ids.flag_image.source = PATH_IMAGES_FLAG_UNKNOWN
+        
+    def reset_scroll_view(self):
+        """
+        Remove all the labels in the scrollview.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        self.ids.scrollview_layout.reset_screen()
+        self.dict_scrollview_widgets = {}
+
     def update_scroll_view(self):
         """
         Add the labels of clues in the scrollview.
@@ -136,23 +161,27 @@ class GameSummaryScreen(ImprovedScreen):
         None
         """
         for key in game.clues:
-            name_key = TEXT.clues[key]
+            if key != "flag":
+                name_key = TEXT.clues[key]
 
-            # Add the labels which are not already in the scrollview
-            if not key in self.dict_scrollview_widgets:
-                label_clue = ScrollViewLabel(
-                    text="– " + name_key + " : " + game.clues[key],
-                    color=self.continent_color,
-                    font_name=self.font_name,
-                    font_size=17 * self.font_ratio,
-                    halign="left",
-                    valign="middle",
-                    shorten=False,
-                    line_height=1
-                )
-                self.ids.scrollview_layout.add_widget(label_clue)
+                # Add the labels which are not already in the scrollview
+                if not key in self.dict_scrollview_widgets:
+                    label_clue = ScrollViewLabel(
+                        text="– " + name_key + " : " + game.clues[key],
+                        color=self.continent_color,
+                        font_name=self.font_name,
+                        font_size=17 * self.font_ratio,
+                        halign="left",
+                        valign="middle",
+                        shorten=False,
+                        line_height=1
+                    )
+                    self.ids.scrollview_layout.add_widget(label_clue)
 
-                self.dict_scrollview_widgets[key] = label_clue
+                    self.dict_scrollview_widgets[key] = label_clue
+
+            else:
+                self.update_flag_image()
 
     def update_color(self, base_widget, value):
         """

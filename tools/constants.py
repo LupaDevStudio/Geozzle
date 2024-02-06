@@ -54,7 +54,10 @@ BACK_ARROW_SIZE = 0.2
 ### Data loading ###
 
 URL_WIKIDATA = 'https://query.wikidata.org/sparql'
-
+CURRENT_COUNTRY_INIT = {
+    "country": "",
+    "clues": {}
+}
 # Create the user data json if it does not exist
 if not os.path.exists(PATH_USER_DATA):
     default_user_data = {
@@ -65,60 +68,42 @@ if not os.path.exists(PATH_USER_DATA):
                 "percentage": 0,
                 "countries_unlocked": [],
                 "nb_lives": 3,
-                "current_country": {
-                    "country": "",
-                    "clues": {}
-                }
+                "current_country": CURRENT_COUNTRY_INIT
             },
             "Asia": {
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
                 "nb_lives": 3,
-                "current_country": {
-                    "country": "",
-                    "clues": {}
-                }
+                "current_country": CURRENT_COUNTRY_INIT
             },
             "Africa": {
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
                 "nb_lives": 3,
-                "current_country": {
-                    "country": "",
-                    "clues": {}
-                }
+                "current_country": CURRENT_COUNTRY_INIT
             },
             "North_America": {
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
                 "nb_lives": 3,
-                "current_country": {
-                    "country": "",
-                    "clues": {}
-                }
+                "current_country": CURRENT_COUNTRY_INIT
             },
             "South_America": {
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
                 "nb_lives": 3,
-                "current_country": {
-                    "country": "",
-                    "clues": {}
-                }
+                "current_country": CURRENT_COUNTRY_INIT
             },
             "Oceania": {
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
                 "nb_lives": 3,
-                "current_country": {
-                    "country": "",
-                    "clues": {}
-                }
+                "current_country": CURRENT_COUNTRY_INIT
             }
         }
     }

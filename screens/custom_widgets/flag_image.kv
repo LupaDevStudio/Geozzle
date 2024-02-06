@@ -1,3 +1,5 @@
+#:kivy 2.2.1
+
 <FlagImage>:
 
     canvas.before:
@@ -7,12 +9,12 @@
             pos:self.pos
             size:self.size
     
-    canvas.after:
-        Color:
-            rgba: self.primary_color
-        Line:
-            width:2
-            rectangle: [self.x,self.y,self.width,self.height]
+    # canvas.after:
+    #     Color:
+    #         rgba: self.primary_color
+    #     Line:
+    #         width:2
+    #         rectangle: [self.x,self.y,self.width,self.height]
     # canvas:
     #     Color:
     #         rgba: self.color

@@ -10,5 +10,9 @@
     "anthem": {
         "probability": 0.5,
         "exceptions": []
+    },
+    "flag": {
+        "probability": 1,
+        "exceptions": []
     }
 }
