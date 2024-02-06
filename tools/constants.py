@@ -68,6 +68,7 @@ if not os.path.exists(PATH_USER_DATA):
                 "percentage": 0,
                 "countries_unlocked": [],
                 "nb_lives": 3,
+                "lost_live_date": None,
                 "current_country": CURRENT_COUNTRY_INIT
             },
             "Asia": {
@@ -75,6 +76,7 @@ if not os.path.exists(PATH_USER_DATA):
                 "percentage": 0,
                 "countries_unlocked": [],
                 "nb_lives": 3,
+                "lost_live_date": None,
                 "current_country": CURRENT_COUNTRY_INIT
             },
             "Africa": {
@@ -82,6 +84,7 @@ if not os.path.exists(PATH_USER_DATA):
                 "percentage": 0,
                 "countries_unlocked": [],
                 "nb_lives": 3,
+                "lost_live_date": None,
                 "current_country": CURRENT_COUNTRY_INIT
             },
             "North_America": {
@@ -89,6 +92,7 @@ if not os.path.exists(PATH_USER_DATA):
                 "percentage": 0,
                 "countries_unlocked": [],
                 "nb_lives": 3,
+                "lost_live_date": None,
                 "current_country": CURRENT_COUNTRY_INIT
             },
             "South_America": {
@@ -96,6 +100,7 @@ if not os.path.exists(PATH_USER_DATA):
                 "percentage": 0,
                 "countries_unlocked": [],
                 "nb_lives": 3,
+                "lost_live_date": None,
                 "current_country": CURRENT_COUNTRY_INIT
             },
             "Oceania": {
@@ -103,6 +108,7 @@ if not os.path.exists(PATH_USER_DATA):
                 "percentage": 0,
                 "countries_unlocked": [],
                 "nb_lives": 3,
+                "lost_live_date": None,
                 "current_country": CURRENT_COUNTRY_INIT
             }
         }

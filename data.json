@@ -30,7 +30,8 @@
                 "country": "Q884",
                 "clues": {
                     "motto": "",
-                    "anthem": "Aegukga"
+                    "anthem": "Aegukga",
+                    "flag": true
                 }
             }
         },
