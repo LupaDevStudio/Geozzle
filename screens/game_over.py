@@ -172,6 +172,9 @@ class GameOverScreen(ImprovedScreen):
                 "game_question").code_continent = self.code_continent
             # Create a new game
             game.set_continent(self.code_continent)
+            self.manager.get_screen(
+                "game_summary").reset_scroll_view()
+            self.manager.current = "game_question"
 
         elif self.continue_game_label in [TEXT.game_over["continue"], TEXT.game_over["button_back"]]:
             self.manager.get_screen(

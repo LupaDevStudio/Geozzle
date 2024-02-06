@@ -41,7 +41,8 @@
     "clues": {
         "official_language": "Langue officielle",
         "motto": "Devise",
-        "anthem": "Hymne"
+        "anthem": "Hymne",
+        "flag": "Drapeau"
     },
     "tutorial": {
         "next": "Suivant",

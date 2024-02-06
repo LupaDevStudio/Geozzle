@@ -18,7 +18,8 @@ from tools.constants import (
     MAX_HIGHSCORE,
     TEXT,
     DICT_COUNTRIES,
-    DICT_HINTS_INFORMATION
+    DICT_HINTS_INFORMATION,
+    CURRENT_COUNTRY_INIT
 )
 
 from tools.sparql import (
@@ -79,6 +80,8 @@ class Game():
             self.wikidata_code_country = last_country
         else:
             self.wikidata_code_country = rd.choice(self.list_countries_left)
+            USER_DATA.continents[self.code_continent]["current_country"]["country"] = self.wikidata_code_country 
+            USER_DATA.save_changes()
 
     def add_clue(self, name_clue):
 
@@ -91,6 +94,8 @@ class Game():
         if value_clue is None:
             return
         self.clues[code_clue] = value_clue
+        USER_DATA.continents[self.code_continent]["current_country"]["clues"][code_clue] = value_clue
+        USER_DATA.save_changes()
         return value_clue
 
     def check_country(self, guessed_country: str):
@@ -100,6 +105,8 @@ class Game():
         if self.wikidata_code_country == wikidata_code_country:
             USER_DATA.continents[self.code_continent]["countries_unlocked"].append(
                 wikidata_code_country)
+            USER_DATA.continents[self.code_continent]["current_country"] = CURRENT_COUNTRY_INIT
+            USER_DATA.save_changes()
             return True
 
         # Reduce the number of lives if the user has made a mistake

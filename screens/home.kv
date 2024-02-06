@@ -88,3 +88,9 @@
         height: self.width
         colors: root.continent_color
         on_release: root.change_continent("right")
+
+    FlagImage:
+        id: flag_image
+        size_hint: (None,0.1)
+        pos_hint: {"center_x":0.25,"center_y":0.075}
+        primary_color: root.continent_color

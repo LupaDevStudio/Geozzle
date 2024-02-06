@@ -41,7 +41,8 @@
     "clues": {
         "official_language": "Official language",
         "motto": "Motto",
-        "anthem": "Anthem"
+        "anthem": "Anthem",
+        "flag": "Flag"
     },
     "tutorial": {
         "next": "Suivant",

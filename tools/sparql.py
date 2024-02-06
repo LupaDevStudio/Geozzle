@@ -13,7 +13,8 @@ from typing import Literal
 ### Local imports ###
 
 from tools.basic_tools.json import (
-    save_json_file
+    save_json_file,
+    load_json_file
 )
 
 from tools.constants import (
@@ -24,7 +25,8 @@ from tools.constants import (
 )
 
 from tools.path import (
-    PATH_QUERIES_CONTINENT
+    PATH_QUERIES_CONTINENT,
+    PATH_DICT_EXCEPTIONS_COUNTRIES
 )
 
 #################
@@ -87,6 +89,17 @@ def request_countries_continent(code_continent, language:Literal["en", "fr"]="en
         if name_country != wikidata_code_country:
             dict_results[wikidata_code_country] = name_country
 
+    # Correct the list of countries
+    dict_exception = load_json_file(PATH_DICT_EXCEPTIONS_COUNTRIES)
+    for country in dict_exception["to_remove"][code_continent]:
+        if country in dict_results:
+            del dict_results[country]
+    for country in dict_exception["to_add"][code_continent]:
+        if language == "en":
+            dict_results[country[0]] = country[1]
+        else:
+            dict_results[country[0]] = country[2]
+
     save_json_file(
         file_path=PATH_QUERIES_CONTINENT+code_continent+"_"+language+".json",
         dict_to_save=dict_results
@@ -121,20 +134,31 @@ def request_official_language(wikidata_code_country, language:Literal["en", "fr"
 
 def request_country_flag(wikidata_code_country, language:Literal["en", "fr"]):
     query = """
-    SELECT DISTINCT ?unicodeCharacter
+    SELECT DISTINCT ?flag
     WHERE {
-        wd:%s wdt:P163 ?flag.
-        ?flag wdt:P487 ?unicodeCharacter.
+        wd:%s wdt:P41 ?flag.
 
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],%s". }
     }
     """%(wikidata_code_country, language)
 
     data = make_request(query)
+
+    # Try a second time the request
+    if data is None:
+        data = make_request(query)
+        if data is None:
+            return
+    
     list_flags = []
     for flag in data:
-        unicode_character = flag["unicodeCharacter"]["value"]
-        list_flags.append(unicode_character)
+        url = flag["flag"]["value"]
+        try:
+            svg = requests.get(url).text
+            list_flags.append(svg)
+        except:
+            return
+
     return list_flags
 
 def request_motto(wikidata_code_country, language:Literal["en", "fr"]):
@@ -143,10 +167,17 @@ def request_motto(wikidata_code_country, language:Literal["en", "fr"]):
     WHERE {
         wd:%s wdt:P1546 ?motto.
 
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],%s". }
     }"""%(wikidata_code_country, language)
 
     data = make_request(query)
+
+    # Try a second time the request
+    if data is None:
+        data = make_request(query)
+        if data is None:
+            return
+        
     list_mottos = []
     for motto in data:
         motto_name = motto["mottoLabel"]["value"]
@@ -164,10 +195,17 @@ def request_anthem(wikidata_code_country, language:Literal["en", "fr"]):
             ?statement pq:P582 ?endtime.
         }
     FILTER(!bound(?endtime))
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],%s". }
     }"""%(wikidata_code_country, language)
 
     data = make_request(query)
+
+    # Try a second time the request
+    if data is None:
+        data = make_request(query)
+        if data is None:
+            return
+        
     list_anthems = []
     for anthem in data:
         anthem_name = anthem["anthemLabel"]["value"]
@@ -188,6 +226,8 @@ def format_list_string(list_data):
     str
         String containing the elements of the list separated by comas.
     """
+    if len(list_data) >= 5:
+        list_data = list_data[:5]
     string_data = ""
     for data in list_data:
         string_data += data + ", "
@@ -196,13 +236,16 @@ def format_list_string(list_data):
 
 def request_clues(code_clue, wikidata_code_country):
     wikidata_language = DICT_WIKIDATA_LANGUAGE[USER_DATA.language]
+    list_data = []
 
     if code_clue == "official_language":
         list_data = request_official_language(wikidata_code_country, wikidata_language)
     if code_clue == "flag":
         list_data = request_country_flag(wikidata_code_country, wikidata_language)
+        print(list_data)
     if code_clue == "motto":
         list_data = request_motto(wikidata_code_country, wikidata_language)
+        # print(list_data)
     if code_clue == "anthem":
         list_data = request_anthem(wikidata_code_country, wikidata_language)
     # TODO mettre les autres requêtes ici pour les autres indices
@@ -215,7 +258,7 @@ def request_clues(code_clue, wikidata_code_country):
     return string_data
 
 if __name__ == "__main__":
-    # if BOOL_CREATE_DICT_CONTINENTS:
-    #     for code_continent in DICT_WIKIDATA_CONTINENTS:
-    #         request_countries_continent(code_continent=code_continent, language="en")
-    print(request_clues("official_language", "Q258"))
+    if BOOL_CREATE_DICT_CONTINENTS:
+        for code_continent in DICT_WIKIDATA_CONTINENTS:
+            request_countries_continent(code_continent=code_continent, language="fr")
+    # print(request_clues("official_language", "Q865"))

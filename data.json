@@ -2,15 +2,18 @@
     "language": "english",
     "continents": {
         "Europe": {
-            "highscore": 392,
-            "percentage": 20,
-            "countries_unlocked": [],
-            "nb_lives": 3,
-            "lost_live_date": null,
+            "highscore": 1097,
+            "percentage": 30.638297872340416,
+            "countries_unlocked": [
+                "Q225",
+                "Q213"
+            ],
+            "nb_lives": 1,
+            "lost_live_date": 1707216692.2224243,
             "current_country": {
-                "country": "",
+                "country": "Q29",
                 "clues": {
-                    "official_language": "Bokm\u00e5l, Norwegian, Nynorsk, S\u00e1mi"
+                    "official_language": "Spanish"
                 }
             }
         },
@@ -22,9 +25,7 @@
             "lost_live_date": null,
             "current_country": {
                 "country": "",
-                "clues": {
-                    "official_language": "Azerbaijani"
-                }
+                "clues": {}
             }
         },
         "Africa": {

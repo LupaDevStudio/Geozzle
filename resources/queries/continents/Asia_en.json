@@ -8,7 +8,6 @@
     "Q921": "Brunei",
     "Q424": "Cambodia",
     "Q574": "East Timor",
-    "Q79": "Egypt",
     "Q668": "India",
     "Q252": "Indonesia",
     "Q794": "Iran",
@@ -22,7 +21,6 @@
     "Q822": "Lebanon",
     "Q833": "Malaysia",
     "Q826": "Maldives",
-    "Q124003554": "Medo-persia",
     "Q711": "Mongolia",
     "Q836": "Myanmar",
     "Q837": "Nepal",
@@ -31,7 +29,6 @@
     "Q843": "Pakistan",
     "Q928": "Philippines",
     "Q846": "Qatar",
-    "Q159": "Russia",
     "Q851": "Saudi Arabia",
     "Q334": "Singapore",
     "Q884": "South Korea",
@@ -44,5 +41,9 @@
     "Q878": "United Arab Emirates",
     "Q265": "Uzbekistan",
     "Q881": "Vietnam",
-    "Q805": "Yemen"
+    "Q805": "Yemen",
+    "Q148": "People's Republic of China",
+    "Q865": "Taiwan",
+    "Q801": "Israel",
+    "Q1246": "Kosovo"
 }
