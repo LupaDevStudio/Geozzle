@@ -6,6 +6,7 @@
 
 import requests
 import sys
+import shutil
 sys.path.append("../")
 sys.path.append("./")
 from typing import Literal
@@ -26,7 +27,8 @@ from tools.constants import (
 
 from tools.path import (
     PATH_QUERIES_CONTINENT,
-    PATH_DICT_EXCEPTIONS_COUNTRIES
+    PATH_DICT_EXCEPTIONS_COUNTRIES,
+    PATH_IMAGES_FLAG
 )
 
 #################
@@ -132,6 +134,43 @@ def request_official_language(wikidata_code_country, language:Literal["en", "fr"
         list_languages.append(language_name.capitalize())
     return list_languages
 
+def download_png_from_svg_url(svg_url: str):
+    try:
+        print("URL", svg_url)
+        svg_url = svg_url.replace("Special:FilePath/", "File:")
+        response = requests.get(
+            url=svg_url,
+            timeout=5)
+        data = response.text
+        extracted_data = data
+        end_mark = data.find("Original file</a>") + len("Original file</a>")
+        cut_data = data[:end_mark]
+        begin_mark = cut_data.rfind("<a")
+        extracted_data = data[begin_mark:end_mark]
+
+        segments = extracted_data.split(" ")
+        for segment in segments:
+            if "href" in segment:
+                result = segment[:-1].replace('href="', "")
+                break
+
+        name = result.split("/")[-1]
+
+        png_url = result + f"/512px-{name}.png"
+
+        png_url = png_url.replace("https://upload.wikimedia.org/wikipedia/commons/",
+                                  "https://upload.wikimedia.org/wikipedia/commons/thumb/")
+
+        url = png_url
+        response = requests.get(url, stream=True)
+        with open(PATH_IMAGES_FLAG, 'wb') as out_file:
+            shutil.copyfileobj(response.raw, out_file)
+        del response
+        return True
+    except:
+        print("No connection")
+        return False
+
 def request_country_flag(wikidata_code_country, language:Literal["en", "fr"]):
     query = """
     SELECT DISTINCT ?flag
@@ -150,16 +189,12 @@ def request_country_flag(wikidata_code_country, language:Literal["en", "fr"]):
         if data is None:
             return
     
-    list_flags = []
-    for flag in data:
-        url = flag["flag"]["value"]
-        try:
-            svg = requests.get(url).text
-            list_flags.append(svg)
-        except:
-            return
-
-    return list_flags
+    try:
+        url = data[0]["flag"]["value"]
+        has_success = download_png_from_svg_url(url)
+        return has_success
+    except:
+        return False
 
 def request_motto(wikidata_code_country, language:Literal["en", "fr"]):
     query = """
@@ -241,8 +276,8 @@ def request_clues(code_clue, wikidata_code_country):
     if code_clue == "official_language":
         list_data = request_official_language(wikidata_code_country, wikidata_language)
     if code_clue == "flag":
-        list_data = request_country_flag(wikidata_code_country, wikidata_language)
-        print(list_data)
+        has_success = request_country_flag(wikidata_code_country, wikidata_language)
+        return has_success
     if code_clue == "motto":
         list_data = request_motto(wikidata_code_country, wikidata_language)
         # print(list_data)

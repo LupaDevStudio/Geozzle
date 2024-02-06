@@ -13,3 +13,4 @@ The following list includes all the references of the assets used by this applic
 - <a href="https://www.flaticon.com/free-icons/puzzle" title="puzzle icons">Puzzle icons created by Google - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/interrogation-mark" title="interrogation mark icons">Interrogation mark icons created by Freepik - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/home-button" title="home button icons">Home button icons created by Freepik - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/info" title="info icons">Info icons created by Chanut - Flaticon</a>
