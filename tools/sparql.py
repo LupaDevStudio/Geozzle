@@ -134,8 +134,8 @@ def request_clues(code_clue, wikidata_code_country):
     string_data = format_list_string(list_data=list_data)
     return string_data
 
-if __name__ == "__main__":
-    if BOOL_CREATE_DICT_CONTINENTS:
-        for code_continent in DICT_WIKIDATA_CONTINENTS:
-            request_countries_continent(code_continent=code_continent, language="en")
-    print(request_clues("official_language", "Q258"))
+#if __name__ == "__main__":
+    #if BOOL_CREATE_DICT_CONTINENTS:
+    #    for code_continent in DICT_WIKIDATA_CONTINENTS:
+    #        request_countries_continent(code_continent=code_continent, language="en")
+    #print(request_clues("official_language", "Q258"))

@@ -1,3 +1,6 @@
+# Ignore IOS compilation folder
+geozzle-ios
+
 # Ignore Xara files
 *.xar
 
