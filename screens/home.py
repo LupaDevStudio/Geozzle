@@ -287,6 +287,14 @@ class HomeScreen(ImprovedScreen):
         USER_DATA.save_changes()
         popup.dismiss()
 
+    def launch_tutorial(self):
+        popup = TutorialPopup(
+            title="Tutorial",
+            primary_color=self.continent_color,
+            secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+            tutorial_content=TEXT.tutorial["tutorial_content"])
+        popup.open()
+
     def open_lupa_website(self):
         """
         Open LupaDevStudio website.
@@ -299,11 +307,4 @@ class HomeScreen(ImprovedScreen):
         -------
         None
         """
-        popup = TutorialPopup(
-            title="Tutorial",
-            primary_color=self.continent_color,
-            secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
-            tutorial_content=TEXT.tutorial["tutorial_content"])
-        popup.open()
-
-        # webbrowser.open("https://lupadevstudio.com", 2)
+        webbrowser.open("https://lupadevstudio.com", 2)

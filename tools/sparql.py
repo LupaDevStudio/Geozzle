@@ -160,12 +160,19 @@ def download_png_from_svg_url(svg_url: str):
 
         png_url = png_url.replace("https://upload.wikimedia.org/wikipedia/commons/",
                                   "https://upload.wikimedia.org/wikipedia/commons/thumb/")
+        # print(png_url)
 
         url = png_url
-        response = requests.get(url, stream=True)
+
+        headers = {
+            'User-Agent': 'Geozzle/1.0 (https://lupadevstudio.com; lupa.dev.studio@gmail.com) python-requests/2.28.2'}
+
+        response = requests.get(url, headers=headers, stream=True)
+        # print(response.status_code)
+        # print(response.text)
         with open(PATH_IMAGES_FLAG, 'wb') as out_file:
             shutil.copyfileobj(response.raw, out_file)
-        del response
+        # del response
         return True
     except:
         print("No connection")

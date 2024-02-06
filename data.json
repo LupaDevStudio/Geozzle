@@ -52,7 +52,8 @@
             "current_country": {
                 "country": "Q784",
                 "clues": {
-                    "flag": true
+                    "flag": true,
+                    "official_language": "English"
                 }
             }
         },
@@ -75,7 +76,9 @@
             "lost_live_date": null,
             "current_country": {
                 "country": "Q712",
-                "clues": {}
+                "clues": {
+                    "flag": true
+                }
             }
         }
     }
