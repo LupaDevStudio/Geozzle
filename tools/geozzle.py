@@ -49,12 +49,12 @@ def calculate_highscore_clues(part_highscore, nb_clues):
 
 class Game():
     number_lives: int
-    number_ads: int
     code_continent: str
     wikidata_code_country: str
     clues: dict
-    list_all_countries: list  # the list of the wikidata code countries
-    # the countries left to guess (wikidata code countries)
+    # The list of the wikidata code countries
+    list_all_countries: list
+    # The countries left to guess (wikidata code countries)
     list_countries_left: list
 
     def __init__(self):
@@ -68,7 +68,6 @@ class Game():
         user_data_continent = USER_DATA.continents[self.code_continent]
         self.clues = user_data_continent["current_country"]["clues"]
         self.number_lives = user_data_continent["nb_lives"]
-        self.number_ads = user_data_continent["current_country"]["nb_ads"]
 
         self.list_all_countries = list(
             DICT_COUNTRIES[USER_DATA.language][self.code_continent].keys())
@@ -89,7 +88,10 @@ class Game():
                 break
 
         value_clue = request_clues(code_clue, self.wikidata_code_country)
+        if value_clue is None:
+            return
         self.clues[code_clue] = value_clue
+        return value_clue
 
     def check_country(self, guessed_country: str):
         for wikidata_code_country in DICT_COUNTRIES[USER_DATA.language][self.code_continent]:
@@ -115,8 +117,13 @@ class Game():
         return False
 
     def update_percentage(self):
-        percentage = USER_DATA.continents[self.code_continent]["percentage"]
-        percentage += 1 / len(self.list_all_countries)
+        # 100% of completion when the continent is over
+        if self.list_countries_left == []:
+            percentage = 100
+        
+        else:
+            percentage = USER_DATA.continents[self.code_continent]["percentage"]
+            percentage += 100 / len(self.list_all_countries)
 
         # Save the changes in the USER_DATA
         USER_DATA.continents[self.code_continent]["percentage"] = percentage
@@ -208,3 +215,6 @@ class Game():
             if probability <= value_probability + sum_probabilities:
                 return key
             sum_probabilities += value_probability
+
+    def add_life(self):
+        self.number_lives += 1

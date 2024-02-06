@@ -10,7 +10,8 @@
         "play": "Jouer",
         "watch_ad": "Regarder",
         "cancel": "Annuler",
-        "buy_life_message": "Vous n'avez plus de vies pour l'instant, souhaitez-vous regarder une publicité pour continuer à jouer ?"
+        "buy_life_message": "Vous n'avez plus de vies pour l'instant, souhaitez-vous regarder une publicité pour continuer à jouer ?",
+        "buy_life_title": "Vies épuisées"
     },
     "game_over": {
         "title": "Quel pays est-ce ?",
@@ -20,12 +21,17 @@
         "validate": "Valider",
         "continue": "Continuer",
         "next_country": "Prochain pays",
-        "finish": "Fin du continent",
-        "button_game_over": "Recommencer"
+        "finish_continent": "Vous avez réussi à deviner tous les pays du continent, félicitations !",
+        "go_to_home": "Revenir au menu",
+        "button_back": "Retour",
+        "select_country_title": "Erreur dans le choix",
+        "select_country_message": "Vous devez sélectionner un pays dans le menu déroulant."
     },
     "game_question": {
         "title": "Choisissez un nouvel indice parmi ceux proposés",
-        "clue": "Indice"
+        "clue": "Indice",
+        "no_connexion_title": "Erreur dans la requête",
+        "no_connexion_message": "La requête a échoué, veuillez vérifier votre connexion puis réessayer."
     },
     "game_summary": {
         "i_found": "J'ai trouvé !",

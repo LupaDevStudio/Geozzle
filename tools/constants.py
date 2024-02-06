@@ -67,10 +67,7 @@ if not os.path.exists(PATH_USER_DATA):
                 "nb_lives": 3,
                 "current_country": {
                     "country": "",
-                    "clues": {
-                        "official_language": "Allemand, Fran\u00e7ais, N\u00e9erlandais"
-                    },
-                    "nb_ads": 2
+                    "clues": {}
                 }
             },
             "Asia": {
@@ -80,10 +77,7 @@ if not os.path.exists(PATH_USER_DATA):
                 "nb_lives": 3,
                 "current_country": {
                     "country": "",
-                    "clues": {
-                        "official_language": "Tamoul, Singhalais"
-                    },
-                    "nb_ads": 2
+                    "clues": {}
                 }
             },
             "Africa": {
@@ -93,10 +87,7 @@ if not os.path.exists(PATH_USER_DATA):
                 "nb_lives": 3,
                 "current_country": {
                     "country": "",
-                    "clues": {
-                        "official_language": "Portugais, Fran\u00e7ais, Espagnol"
-                    },
-                    "nb_ads": 2
+                    "clues": {}
                 }
             },
             "North_America": {
@@ -106,8 +97,7 @@ if not os.path.exists(PATH_USER_DATA):
                 "nb_lives": 3,
                 "current_country": {
                     "country": "",
-                    "clues": {},
-                    "nb_ads": 2
+                    "clues": {}
                 }
             },
             "South_America": {
@@ -117,10 +107,7 @@ if not os.path.exists(PATH_USER_DATA):
                 "nb_lives": 3,
                 "current_country": {
                     "country": "",
-                    "clues": {
-                        "official_language": "Espagnol"
-                    },
-                    "nb_ads": 2
+                    "clues": {}
                 }
             },
             "Oceania": {
@@ -130,8 +117,7 @@ if not os.path.exists(PATH_USER_DATA):
                 "nb_lives": 3,
                 "current_country": {
                     "country": "",
-                    "clues": {},
-                    "nb_ads": 2
+                    "clues": {}
                 }
             }
         }

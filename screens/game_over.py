@@ -10,6 +10,7 @@ Module to create the game over screen.
 
 import random as rd
 import os
+from functools import partial
 
 ### Kivy imports ###
 
@@ -25,7 +26,7 @@ from kivy.properties import (
 
 from tools.path import (
     PATH_BACKGROUNDS,
-    PATH_TEXT_FONT,
+    PATH_TEXT_FONT
 )
 from tools.constants import (
     LIST_CONTINENTS,
@@ -39,6 +40,10 @@ from tools.constants import (
 from tools.kivy_tools import ImprovedScreen
 from tools import (
     game
+)
+from screens.custom_widgets import (
+    TwoButtonsPopup,
+    MessagePopup
 )
 
 #############
@@ -75,25 +80,22 @@ class GameOverScreen(ImprovedScreen):
         # Change the labels
         self.update_text()
 
-        self.ids.continue_button.opacity = 0
+        self.number_lives_on = game.number_lives
+        self.congrats_defeat_message = ""
+        self.ids.validate_button.disable_button = False
+        self.ids.validate_button.background_color[-1] = 1
+        self.list_countries = [""]
 
         return super().on_pre_enter(*args)
 
     def on_enter(self, *args):
 
-        # Update the list of countries
-        self.update_countries()
-
         # Schedule the change of background
         Clock.schedule_interval(
             self.manager.change_background, TIME_CHANGE_BACKGROUND)
 
-        self.number_lives_on = game.number_lives
-        self.congrats_defeat_message = ""
-        self.ids.continue_button.opacity = 0
-        self.ids.continue_button.disable_button = True
-        self.ids.validate_button.disable_button = False
-        self.ids.validate_button.background_color[-1] = 1
+        # Update the list of countries
+        self.update_countries()
 
         return super().on_enter(*args)
 
@@ -120,13 +122,12 @@ class GameOverScreen(ImprovedScreen):
         self.title_label = TEXT.game_over["title"]
         self.congrats_defeat_message = TEXT.game_over["congrats"]
         self.validate_label = TEXT.game_over["validate"]
-        self.continue_game_label = TEXT.game_over["continue"]
+        self.continue_game_label = TEXT.game_over["button_back"]
 
     def update_countries(self):
         self.list_countries = [""]
         for wikidata_code_country in game.list_countries_left:
             self.list_countries.append(DICT_COUNTRIES[USER_DATA.language][self.code_continent][wikidata_code_country])
-        self.list_countries.pop(0)
 
     def update_color(self, base_widget, value):
         """
@@ -151,16 +152,20 @@ class GameOverScreen(ImprovedScreen):
         self.manager.get_screen(
             "game_summary").previous_screen_name = "game_over"
         self.manager.current = "game_summary"
+    
+    def go_to_home_and_dismiss(self, popup):
+        popup.dismiss()
+        self.go_to_home()
+
+    def go_to_home(self):
+        self.manager.get_screen(
+            "home").previous_screen_name = "game_over"
+        self.manager.get_screen(
+            "home").code_continent = self.code_continent
+        self.manager.current = "home"
 
     def go_to_next_screen(self):
-        if self.continue_game_label in [TEXT.game_over["finish"], TEXT.game_over["button_game_over"]]:
-            self.manager.get_screen(
-                "home").previous_screen_name = "game_over"
-            self.manager.get_screen(
-                "home").code_continent = self.code_continent
-            self.manager.current = "home"
-
-        elif self.continue_game_label == TEXT.game_over["next_country"]:
+        if self.continue_game_label == TEXT.game_over["next_country"]:
             self.manager.get_screen(
                 "game_question").previous_screen_name = "game_over"
             self.manager.get_screen(
@@ -168,34 +173,77 @@ class GameOverScreen(ImprovedScreen):
             # Create a new game
             game.set_continent(self.code_continent)
 
-        elif self.continue_game_label == TEXT.game_over["continue"]:
+        elif self.continue_game_label in [TEXT.game_over["continue"], TEXT.game_over["button_back"]]:
             self.manager.get_screen(
-                "game_question").previous_screen_name = "game_over"
+                "game_summary").previous_screen_name = "game_over"
             self.manager.get_screen(
-                "game_question").code_continent = self.code_continent
-            self.manager.current = "game_question"
+                "game_summary").code_continent = self.code_continent
+            self.manager.current = "game_summary"
+
+    def disable_validate_button(self):
+        self.ids.validate_button.disable_button = True
+        self.ids.validate_button.background_color[-1] = 0.5
 
     def submit_country(self):
         if self.ids.country_spinner.text != "":
-            self.ids.continue_button.opacity = 1
-            self.ids.continue_button.disable_button = False
-            self.ids.validate_button.disable_button = True
-            self.ids.validate_button.background_color[-1] = 0.5
 
+            # The selected country is correct
             if game.check_country(self.ids.country_spinner.text):
+                self.disable_validate_button()
+
                 # If the continent is finished
                 if game.list_countries_left == []:
-                    self.continue_game_label = TEXT.game_over["finish"]
+                    self.ids.continue_button.opacity = 0
+                    popup = MessagePopup(
+                        primary_color=self.continent_color,
+                        secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                        title=TEXT.game_over["congrats"],
+                        ok_button_label=TEXT.game_over["go_to_home"],
+                        center_label_text=TEXT.game_over["finish_continent"],
+                    )
+                    popup.release_function=partial(self.go_to_home_and_dismiss, popup)
+                    popup.open()
                 else:
                     self.continue_game_label = TEXT.game_over["next_country"]
+
                 self.congrats_defeat_message = TEXT.game_over["congrats"]
                 game.update_highscore()
                 game.update_percentage()
+
+            # The country is not correct
             else:
                 self.number_lives_on = game.number_lives
+                self.continue_game_label = TEXT.game_over["continue"]
+                self.congrats_defeat_message = TEXT.game_over["defeat"]
+
+                # The user has no more lives
                 if game.check_game_over():
-                    self.continue_game_label = TEXT.game_over["button_game_over"]
-                    self.congrats_defeat_message = TEXT.game_over["game_over"]
-                else:
-                    self.continue_game_label = TEXT.game_over["continue"]
-                    self.congrats_defeat_message = TEXT.game_over["defeat"]
+                    self.ids.continue_button.opacity = 0
+
+                    popup = TwoButtonsPopup(
+                        primary_color=self.continent_color,
+                        secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                        left_button_label=TEXT.home["watch_ad"],
+                        right_button_label=TEXT.game_over["go_to_home"],
+                        title=TEXT.home["buy_life_title"],
+                        center_label_text=TEXT.home["buy_life_message"]
+                    )
+                    popup.left_release_function=partial(self.watch_ad, popup)
+                    popup.right_release_function=partial(self.go_to_home_and_dismiss, popup)
+                    popup.open()
+
+        # Popup to ask the user to select a country
+        else:
+            popup = MessagePopup(
+                primary_color=self.continent_color,
+                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                title=TEXT.game_over["select_country_title"],
+                center_label_text=TEXT.game_over["select_country_message"]
+                )
+            popup.open()
+
+    def watch_ad(self, popup: TwoButtonsPopup):
+        game.add_life()
+        self.number_lives_on = game.number_lives
+        self.ids.continue_button.opacity = 1
+        popup.dismiss()
