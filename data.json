@@ -5,14 +5,15 @@
             "highscore": 0,
             "percentage": 0,
             "countries_unlocked": [],
-            "nb_lives": 1,
-            "lost_live_date": 1707232881.0088909,
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "Q221",
                 "clues": {
                     "flag": true,
                     "official_language": "Macedonian, Albanian",
-                    "motto": ""
+                    "motto": "",
+                    "anthem": "Denes nad Makedonija"
                 }
             }
         },
@@ -43,7 +44,9 @@
             "lost_live_date": null,
             "current_country": {
                 "country": "Q1028",
-                "clues": {}
+                "clues": {
+                    "motto": ""
+                }
             }
         },
         "North_America": {

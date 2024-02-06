@@ -24,6 +24,7 @@ from tools.constants import (
     CUSTOM_BUTTON_BACKGROUND_COLOR,
     OPACITY_ON_BUTTON_PRESS
 )
+from tools import sound_mixer
 
 #############
 ### Class ###
@@ -42,7 +43,7 @@ class RoundedButtonImage(ButtonBehavior, RelativeLayout):
 
     def __init__(
             self,
-            image_path:str="",
+            image_path: str = "",
             colors=(0, 0, 0, 1),
             **kwargs):
         super().__init__(**kwargs)
@@ -57,6 +58,7 @@ class RoundedButtonImage(ButtonBehavior, RelativeLayout):
     def on_press(self):
         if not self.disabled:
             self.opacity = OPACITY_ON_BUTTON_PRESS
+            sound_mixer.play("click")
 
     def on_release(self):
         if not self.disabled:

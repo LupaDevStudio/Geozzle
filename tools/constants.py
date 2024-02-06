@@ -292,5 +292,5 @@ LIFE_RELOAD_TIME = 15
 ### Musics ###
 
 MUSIC_VOLUME = 0.5
-SOUND_VOLUME = 0.5
+SOUND_VOLUME = 1
 MAIN_MUSIC_NAME = "world_travel"
