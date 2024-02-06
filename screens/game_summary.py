@@ -129,7 +129,7 @@ class GameSummaryScreen(ImprovedScreen):
 
     def update_flag_image(self):
         if "flag" in game.clues:
-            self.ids.flag_image.source = PATH_IMAGES_FLAG
+            self.ids.flag_image.source = PATH_IMAGES_FLAG + self.code_continent.lower() + ".png"
         else:
             self.ids.flag_image.source = PATH_IMAGES_FLAG_UNKNOWN
         

@@ -5,23 +5,31 @@
             "highscore": 0,
             "percentage": 0,
             "countries_unlocked": [],
-            "nb_lives": 3,
-            "lost_live_date": 1707227595.2713683,
+            "nb_lives": 1,
+            "lost_live_date": 1707232881.0088909,
             "current_country": {
-                "country": "",
-                "clues": {}
+                "country": "Q221",
+                "clues": {
+                    "flag": true,
+                    "official_language": "Macedonian, Albanian",
+                    "motto": ""
+                }
             }
         },
         "Asia": {
-            "highscore": 0,
-            "percentage": 0,
-            "countries_unlocked": [],
+            "highscore": 424,
+            "percentage": 4.25531914893617,
+            "countries_unlocked": [
+                "Q851",
+                "Q837"
+            ],
             "nb_lives": 3,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q851",
+                "country": "Q884",
                 "clues": {
-                    "flag": false
+                    "motto": "",
+                    "anthem": "Aegukga"
                 }
             }
         },
@@ -46,10 +54,7 @@
             "lost_live_date": null,
             "current_country": {
                 "country": "Q784",
-                "clues": {
-                    "flag": true,
-                    "official_language": "English"
-                }
+                "clues": {}
             }
         },
         "South_America": {
@@ -71,9 +76,7 @@
             "lost_live_date": null,
             "current_country": {
                 "country": "Q712",
-                "clues": {
-                    "flag": true
-                }
+                "clues": {}
             }
         }
     }
