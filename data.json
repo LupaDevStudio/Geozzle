@@ -46,7 +46,8 @@
             "current_country": {
                 "country": "Q1028",
                 "clues": {
-                    "motto": ""
+                    "motto": "",
+                    "flag": true
                 }
             }
         },
