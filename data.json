@@ -5,8 +5,8 @@
             "highscore": 392,
             "percentage": 20,
             "countries_unlocked": [],
-            "nb_lives": 2,
-            "lost_live_date": 1707066534.1121757,
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "",
                 "clues": {

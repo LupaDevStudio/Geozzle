@@ -104,6 +104,61 @@ def request_official_language(wikidata_code_country, language:Literal["en", "fr"
         list_languages.append(language_name.capitalize())
     return list_languages
 
+def request_country_flag(wikidata_code_country, language:Literal["en", "fr"]):
+    query = """
+    SELECT DISTINCT ?unicodeCharacter
+    WHERE {
+        wd:%s wdt:P163 ?flag.
+        ?flag wdt:P487 ?unicodeCharacter.
+
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+    }
+    """%(wikidata_code_country, language)
+
+    data = make_request(query)
+    list_flags = []
+    for flag in data:
+        unicode_character = flag["unicodeCharacter"]["value"]
+        list_flags.append(unicode_character)
+    return list_flags
+
+def request_motto(wikidata_code_country, language:Literal["en", "fr"]):
+    query = """
+    SELECT DISTINCT ?mottoLabel
+    WHERE {
+        wd:%s wdt:P1546 ?motto.
+
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+    }"""%(wikidata_code_country, language)
+
+    data = make_request(query)
+    list_mottos = []
+    for motto in data:
+        motto_name = motto["mottoLabel"]["value"]
+        list_mottos.append(motto_name)
+    return list_mottos
+
+def request_anthem(wikidata_code_country, language:Literal["en", "fr"]):
+    query = """
+    SELECT DISTINCT ?anthem ?anthemLabel
+    WHERE {
+        wd:%s p:P85 ?statement.
+        ?statement ps:P85 ?anthem.
+
+        OPTIONAL {
+            ?statement pq:P582 ?endtime.
+        }
+    FILTER(!bound(?endtime))
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+    }"""%(wikidata_code_country, language)
+
+    data = make_request(query)
+    list_anthems = []
+    for anthem in data:
+        anthem_name = anthem["anthemLabel"]["value"]
+        list_anthems.append(anthem_name)
+    return list_anthems
+
 def format_list_string(list_data):
     """
     Format a list of strings into a string with coma
@@ -129,6 +184,12 @@ def request_clues(code_clue, wikidata_code_country):
 
     if code_clue == "official_language":
         list_data = request_official_language(wikidata_code_country, wikidata_language)
+    if code_clue == "flag":
+        list_data = request_country_flag(wikidata_code_country, wikidata_language)
+    if code_clue == "motto":
+        list_data = request_motto(wikidata_code_country, wikidata_language)
+    if code_clue == "anthem":
+        list_data = request_anthem(wikidata_code_country, wikidata_language)
     # TODO mettre les autres requêtes ici pour les autres indices
 
     string_data = format_list_string(list_data=list_data)
