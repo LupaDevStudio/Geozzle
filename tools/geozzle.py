@@ -88,7 +88,10 @@ class Game():
                 break
 
         value_clue = request_clues(code_clue, self.wikidata_code_country)
+        if value_clue is None:
+            return
         self.clues[code_clue] = value_clue
+        return value_clue
 
     def check_country(self, guessed_country: str):
         for wikidata_code_country in DICT_COUNTRIES[USER_DATA.language][self.code_continent]:
