@@ -50,14 +50,45 @@
         "close": "Fermer",
         "tutorial_content": [
             [
-                "Lorem ipsum sit dolor dkksd dskdmq dslqmd ozqds qklsd sqldsq dsq"
+                "Bienvenue dans le tutoriel de Geozzle ! \n \n Ce tutoriel vous guidera à travers les fonctionnalités du jeu. \n \n Cliquez sur 'Suivant' pour continuer."                
             ],
             [
-                "Lorem ipsum sit dolor",
-                "resources/images/lupa_logo.png"
+                "Le but du jeu est de collecter des indices et de tenter de deviner chaque pays dans le continent sélectionné ! \n \n Attention, plus vous utilisez d'indices, moins vous gagnerez de points !"                
             ],
             [
-                "Goodbye"
+                "Sur l'écran d'accueil, vous pouvez sélectionner le continent dans lequel vous souhaitez jouer en utilisant les flèches sur les côtés de l'écran. \n \n Cliquez sur 'Jouer' pour commencer le jeu !",
+                "resources/images/tuto/home_screen_fr.png"
+            ],
+            [
+                "Choisissez un indice parmi les trois propositions présentées. \n \n Ne vous inquiétez pas, vous pourrez obtenir un nouvel indice si vous ne connaissez pas la réponse.",
+                "resources/images/tuto/game_question_fr.png"
+            ],
+            [
+                "Utilisez tous les indices collectés pour deviner le pays en cliquant sur 'J'ai trouvé !'. \n \n Si vous ne connaissez pas le pays, vous pouvez cliquer sur 'Nouvel indice' pour en obtenir un nouveau.",
+                "resources/images/tuto/game_summary_fr.png"
+            ],
+            [
+                "Choisissez le bon pays dans le menu déroulant et cliquez sur 'Valider'. \n \n Cliquez sur 'Retour' pour revenir à votre liste d'indices.",
+                "resources/images/tuto/game_over_fr.png"
+            ],
+            [
+                "Si vous vous trompez, vous pouvez soumettre une nouvelle proposition ou cliquer sur 'Continuer' pour obtenir un nouvel indice.",
+                "resources/images/tuto/defeat_fr.png"
+            ],
+            [
+                "Vous perdrez une vie pour chaque mauvaise réponse. \n \n Ne vous inquiétez pas, vos vies se rechargeront avec le temps !",
+                "resources/images/tuto/defeat_fr.png"
+            ],
+            [
+                "Vous disposez de 3 vies au début du jeu.\n \n Si vous manquez de vies, vous pouvez regarder une publicité pour en obtenir une nouvelle.",
+                "resources/images/tuto/defeat_fr.png"
+            ],
+            [
+                "Retournez à l'écran d'accueil pour voir votre dernier meilleur score et le pourcentage de pays devinés pour chaque continent.",
+                "resources/images/tuto/home_score_update_fr.png"
+            ],
+            [
+                "Profitez du jeu ! \n \n L'équipe LupaDevStudio "
             ]
         ]
     }
