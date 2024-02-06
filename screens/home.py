@@ -276,9 +276,10 @@ class HomeScreen(ImprovedScreen):
                 secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
                 left_button_label=TEXT.home["watch_ad"],
                 title=TEXT.home["buy_life_title"],
-                center_label_text=TEXT.home["buy_life_message"]
+                center_label_text=TEXT.home["buy_life_message"],
+                font_ratio=self.font_ratio
             )
-            popup.left_release_function=partial(self.watch_ad, popup)
+            popup.left_release_function = partial(self.watch_ad, popup)
             popup.open()
 
     def watch_ad(self, popup: TwoButtonsPopup):
@@ -292,7 +293,8 @@ class HomeScreen(ImprovedScreen):
             title="Tutorial",
             primary_color=self.continent_color,
             secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
-            tutorial_content=TEXT.tutorial["tutorial_content"])
+            tutorial_content=TEXT.tutorial["tutorial_content"],
+            font_ratio=self.font_ratio)
         popup.open()
 
     def open_lupa_website(self):
