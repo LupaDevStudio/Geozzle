@@ -29,7 +29,9 @@
     },
     "game_question": {
         "title": "Choisissez un indice parmi ceux proposés",
-        "clue": "Clue"
+        "clue": "Clue",
+        "no_connexion_title": "Erreur dans la requête",
+        "no_connexion_message": "La requête a échoué, veuillez vous connecter à Internet puis réessayer."
     },
     "game_summary": {
         "i_found": "I've found!",

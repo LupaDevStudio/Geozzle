@@ -38,9 +38,16 @@ BOOL_CREATE_DICT_CONTINENTS = True
 #################
 
 def make_request(query):
-    response = requests.get(url=URL_WIKIDATA, params= {'format': 'json', 'query': query})
-    data = response.json()
-    return data["results"]["bindings"]
+    try:
+        response = requests.get(
+            url=URL_WIKIDATA,
+            params= {'format': 'json', 'query': query},
+            timeout=5)
+        data = response.json()
+        return data["results"]["bindings"]
+    except:
+        print("No connection")
+        return
 
 def request_countries_continent(code_continent, language:Literal["en", "fr"]="en"):
     wikidata_code_continent = DICT_WIKIDATA_CONTINENTS[code_continent]
@@ -68,8 +75,10 @@ def request_countries_continent(code_continent, language:Literal["en", "fr"]="en
         }
         ORDER BY (?countryLabel)
         """%(wikidata_code_continent, language)
-
+ 
     data = make_request(query)
+    if data is None:
+        return
 
     dict_results = {}
     for country in data:
@@ -97,6 +106,12 @@ def request_official_language(wikidata_code_country, language:Literal["en", "fr"
         }    
     """%(wikidata_code_country, language)
     data = make_request(query)
+
+    # Try a second time the request
+    if data is None:
+        data = make_request(query)
+        if data is None:
+            return
 
     list_languages = []
     for language in data:
@@ -192,11 +207,15 @@ def request_clues(code_clue, wikidata_code_country):
         list_data = request_anthem(wikidata_code_country, wikidata_language)
     # TODO mettre les autres requêtes ici pour les autres indices
 
+    # If the request fails
+    if list_data is None:
+        return
+
     string_data = format_list_string(list_data=list_data)
     return string_data
 
 if __name__ == "__main__":
-    if BOOL_CREATE_DICT_CONTINENTS:
-        for code_continent in DICT_WIKIDATA_CONTINENTS:
-            request_countries_continent(code_continent=code_continent, language="en")
+    # if BOOL_CREATE_DICT_CONTINENTS:
+    #     for code_continent in DICT_WIKIDATA_CONTINENTS:
+    #         request_countries_continent(code_continent=code_continent, language="en")
     print(request_clues("official_language", "Q258"))
