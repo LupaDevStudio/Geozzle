@@ -1,25 +1,20 @@
 {
-    "language": "english",
+    "language": "french",
     "continents": {
         "Europe": {
-            "highscore": 1097,
-            "percentage": 30.638297872340416,
-            "countries_unlocked": [
-                "Q225",
-                "Q213"
-            ],
-            "nb_lives": 1,
-            "lost_live_date": 1707216692.2224243,
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
+            "nb_lives": 3,
+            "lost_live_date": 1707227595.2713683,
             "current_country": {
-                "country": "Q29",
-                "clues": {
-                    "official_language": "Spanish"
-                }
+                "country": "",
+                "clues": {}
             }
         },
         "Asia": {
             "highscore": 0,
-            "percentage": 20,
+            "percentage": 0,
             "countries_unlocked": [],
             "nb_lives": 3,
             "lost_live_date": null,
@@ -30,7 +25,7 @@
         },
         "Africa": {
             "highscore": 178,
-            "percentage": 31.785714285714285,
+            "percentage": 0,
             "countries_unlocked": [
                 "Q262"
             ],
@@ -43,7 +38,7 @@
         },
         "North_America": {
             "highscore": 0,
-            "percentage": 40,
+            "percentage": 0,
             "countries_unlocked": [],
             "nb_lives": 3,
             "lost_live_date": null,
@@ -54,7 +49,7 @@
         },
         "South_America": {
             "highscore": 595,
-            "percentage": 50.07142857142857,
+            "percentage": 0,
             "countries_unlocked": [],
             "nb_lives": 3,
             "lost_live_date": null,
@@ -65,7 +60,7 @@
         },
         "Oceania": {
             "highscore": 0,
-            "percentage": 60,
+            "percentage": 0,
             "countries_unlocked": [],
             "nb_lives": 3,
             "lost_live_date": null,
