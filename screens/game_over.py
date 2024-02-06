@@ -174,6 +174,8 @@ class GameOverScreen(ImprovedScreen):
             game.set_continent(self.code_continent)
             self.manager.get_screen(
                 "game_summary").reset_scroll_view()
+            self.manager.get_screen(
+                "game_summary").update_flag_image()
             self.manager.current = "game_question"
 
         elif self.continue_game_label in [TEXT.game_over["continue"], TEXT.game_over["button_back"]]:

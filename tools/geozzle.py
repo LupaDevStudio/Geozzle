@@ -90,7 +90,7 @@ class Game():
             if TEXT.clues[code_clue] == name_clue:
                 break
 
-        value_clue = request_clues(code_clue, self.wikidata_code_country)
+        value_clue = request_clues(code_clue, self.wikidata_code_country, self.code_continent)
         if value_clue is None:
             return
         self.clues[code_clue] = value_clue
