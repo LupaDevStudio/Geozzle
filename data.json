@@ -8,12 +8,12 @@
                 "Q225",
                 "Q213"
             ],
-            "nb_lives": 1,
-            "lost_live_date": 1707216692.2224243,
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "Q29",
                 "clues": {
-                    "official_language": "Spanish"
+                    "flag": true
                 }
             }
         },
@@ -24,8 +24,10 @@
             "nb_lives": 3,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
-                "clues": {}
+                "country": "Q851",
+                "clues": {
+                    "flag": false
+                }
             }
         },
         "Africa": {
@@ -37,7 +39,7 @@
             "nb_lives": 3,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q1028",
                 "clues": {}
             }
         },
@@ -48,8 +50,10 @@
             "nb_lives": 3,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
-                "clues": {}
+                "country": "Q784",
+                "clues": {
+                    "flag": true
+                }
             }
         },
         "South_America": {
@@ -59,7 +63,7 @@
             "nb_lives": 3,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q733",
                 "clues": {}
             }
         },
@@ -70,10 +74,8 @@
             "nb_lives": 3,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
-                "clues": {
-                    "official_language": "English, M\u0101ori"
-                }
+                "country": "Q712",
+                "clues": {}
             }
         }
     }

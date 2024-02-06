@@ -25,7 +25,9 @@ from kivy.uix.label import Label
 
 from tools.path import (
     PATH_BACKGROUNDS,
-    PATH_TEXT_FONT
+    PATH_TEXT_FONT,
+    PATH_IMAGES_FLAG,
+    PATH_IMAGES_FLAG_UNKNOWN
 )
 from tools.constants import (
     DICT_CONTINENTS,
@@ -126,8 +128,10 @@ class GameSummaryScreen(ImprovedScreen):
         self.dict_scrollview_widgets = {}
 
     def update_flag_image(self):
-        print("TOTO")
-        self.ids.flag_image.source = game.clues["flag"]
+        if "flag" in game.clues:
+            self.ids.flag_image.source = PATH_IMAGES_FLAG
+        else:
+            self.ids.flag_image.source = PATH_IMAGES_FLAG_UNKNOWN
         
     def reset_scroll_view(self):
         """
@@ -175,6 +179,9 @@ class GameSummaryScreen(ImprovedScreen):
                     self.ids.scrollview_layout.add_widget(label_clue)
 
                     self.dict_scrollview_widgets[key] = label_clue
+
+            else:
+                self.update_flag_image()
 
     def update_color(self, base_widget, value):
         """

@@ -1,13 +1,13 @@
-# <FlagImage>:
+#:kivy 2.2.1
 
-#     canvas.before:
-#         Svg:
-#             source: PATH_IMAGES + "test.svg"
-    #     Color:
-    #         rgba: (1,1,1,1)
-    #     Rectangle:
-    #         pos:self.pos
-    #         size:self.size
+<FlagImage>:
+
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            pos:self.pos
+            size:self.size
     
     # canvas.after:
     #     Color:
