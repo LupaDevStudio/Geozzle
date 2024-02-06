@@ -162,6 +162,7 @@ class GameQuestionScreen(ImprovedScreen):
         # Display the first clue if it exists
         if not hint_1 is None:
             self.hint_1 = TEXT.clues[hint_1]
+            self.ids.hint_1_button.disabled = False
         else:
             self.ids.hint_1_button.disabled = True
             self.hint_1 = ""
@@ -169,6 +170,7 @@ class GameQuestionScreen(ImprovedScreen):
         # Display the second clue if it exists
         if not hint_2 is None:
             self.hint_2 = TEXT.clues[hint_2]
+            self.ids.hint_2_button.disabled = False
         else:
             self.ids.hint_2_button.disabled = True
             self.hint_2 = ""
@@ -176,6 +178,7 @@ class GameQuestionScreen(ImprovedScreen):
         # Display the third clue if it exists
         if not hint_3 is None:
             self.hint_3 = TEXT.clues[hint_3]
+            self.ids.hint_3_button.disabled = False
         else:
             self.ids.hint_3_button.disabled = True
             self.hint_3 = ""

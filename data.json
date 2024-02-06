@@ -5,8 +5,8 @@
             "highscore": 0,
             "percentage": 0,
             "countries_unlocked": [],
-            "nb_lives": 3,
-            "lost_live_date": null,
+            "nb_lives": 1,
+            "lost_live_date": 1707232881.0088909,
             "current_country": {
                 "country": "Q221",
                 "clues": {
@@ -28,7 +28,8 @@
             "current_country": {
                 "country": "Q884",
                 "clues": {
-                    "motto": ""
+                    "motto": "",
+                    "anthem": "Aegukga"
                 }
             }
         },
