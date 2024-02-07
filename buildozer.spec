@@ -240,7 +240,7 @@ android.gradle_dependencies = com.google.android.gms:play-services-ads:22.5.0, a
 #android.wakelock = False
 
 # (list) Android application meta-data to set (key=value format)
-android.meta_data = com.google.android.gms.ads.APPLICATION_ID=ca-app-pub-3940256099942544~3347511713
+android.meta_data = com.google.android.gms.ads.APPLICATION_ID=ca-app-pub-2909842258525517~6115358308
 
 # (list) Android library project to add (will be added in the
 # project.properties automatically.)
