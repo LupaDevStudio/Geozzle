@@ -28,8 +28,8 @@
                 "Q235",
                 "Q145"
             ],
-            "nb_lives": 0,
-            "lost_live_date": 1707329068.1784973,
+            "nb_lives": 1,
+            "lost_live_date": 1707329968.1784973,
             "current_country": {
                 "country": "Q28",
                 "clues": {}
@@ -88,13 +88,17 @@
             }
         },
         "Oceania": {
-            "highscore": 0,
-            "percentage": 0,
-            "countries_unlocked": [],
-            "nb_lives": 3,
-            "lost_live_date": null,
+            "highscore": 2080,
+            "percentage": 18,
+            "countries_unlocked": [
+                "Q672",
+                "Q686",
+                "Q34020"
+            ],
+            "nb_lives": 1,
+            "lost_live_date": 1707330056.4831862,
             "current_country": {
-                "country": "Q712",
+                "country": "",
                 "clues": {}
             }
         }

@@ -100,14 +100,18 @@ class Game():
         return value_clue
 
     def check_country(self, guessed_country: str):
+        # Find the wikidata code associated to the country
         for wikidata_code_country in DICT_COUNTRIES[USER_DATA.language][self.code_continent]:
             if DICT_COUNTRIES[USER_DATA.language][self.code_continent][wikidata_code_country] == guessed_country:
                 break
+
+        # Check if the user has found the correct country
         if self.wikidata_code_country == wikidata_code_country:
             USER_DATA.continents[self.code_continent]["countries_unlocked"].append(
                 wikidata_code_country)
             USER_DATA.continents[self.code_continent]["current_country"] = copy.deepcopy(CURRENT_COUNTRY_INIT)
             USER_DATA.save_changes()
+            self.list_countries_left.remove(wikidata_code_country)
             return True
 
         # Reduce the number of lives if the user has made a mistake
@@ -130,8 +134,9 @@ class Game():
             percentage = 100
         
         else:
-            percentage = USER_DATA.continents[self.code_continent]["percentage"]
-            percentage += 100 / len(self.list_all_countries)
+            nb_all_countries = len(self.list_all_countries)
+            nb_guessed_countries = len(USER_DATA.continents[self.code_continent]["countries_unlocked"])
+            percentage = int(100 * (nb_guessed_countries / nb_all_countries))
 
         # Save the changes in the USER_DATA
         USER_DATA.continents[self.code_continent]["percentage"] = percentage
