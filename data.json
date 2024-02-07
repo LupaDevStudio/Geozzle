@@ -24,12 +24,13 @@
                 "Q236",
                 "Q39"
             ],
-            "nb_lives": 3,
-            "lost_live_date": null,
+            "nb_lives": 0,
+            "lost_live_date": 1707328168.1784973,
             "current_country": {
                 "country": "Q189",
                 "clues": {
-                    "flag": true
+                    "flag": true,
+                    "official_language": "Icelandic"
                 }
             }
         },

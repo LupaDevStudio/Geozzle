@@ -205,6 +205,7 @@ class GameOverScreen(ImprovedScreen):
                         title=TEXT.game_over["congrats"],
                         ok_button_label=TEXT.game_over["go_to_home"],
                         center_label_text=TEXT.game_over["finish_continent"],
+                        font_ratio=self.font_ratio
                     )
                     popup.release_function=partial(self.go_to_home_and_dismiss, popup)
                     popup.open()
@@ -231,7 +232,8 @@ class GameOverScreen(ImprovedScreen):
                         left_button_label=TEXT.home["watch_ad"],
                         right_button_label=TEXT.game_over["go_to_home"],
                         title=TEXT.home["buy_life_title"],
-                        center_label_text=TEXT.home["buy_life_message"]
+                        center_label_text=TEXT.home["buy_life_message"],
+                        font_ratio=self.font_ratio
                     )
                     popup.left_release_function=partial(self.watch_ad, popup)
                     popup.right_release_function=partial(self.go_to_home_and_dismiss, popup)
@@ -243,7 +245,8 @@ class GameOverScreen(ImprovedScreen):
                 primary_color=self.continent_color,
                 secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
                 title=TEXT.game_over["select_country_title"],
-                center_label_text=TEXT.game_over["select_country_message"]
+                center_label_text=TEXT.game_over["select_country_message"],
+                font_ratio=self.font_ratio
                 )
             popup.open()
 
