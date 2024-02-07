@@ -2,8 +2,8 @@
     "language": "english",
     "continents": {
         "Europe": {
-            "highscore": 3955,
-            "percentage": 42.55319148936168,
+            "highscore": 4202,
+            "percentage": 46.80851063829785,
             "countries_unlocked": [
                 "Q20",
                 "Q191",
@@ -24,15 +24,15 @@
                 "Q236",
                 "Q39",
                 "Q189",
-                "Q238"
+                "Q238",
+                "Q235",
+                "Q145"
             ],
             "nb_lives": 0,
-            "lost_live_date": 1707328168.1784973,
+            "lost_live_date": 1707329068.1784973,
             "current_country": {
-                "country": "Q235",
-                "clues": {
-                    "flag": true
-                }
+                "country": "Q28",
+                "clues": {}
             }
         },
         "Asia": {
