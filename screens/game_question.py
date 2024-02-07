@@ -19,6 +19,7 @@ from kivy.properties import (
     StringProperty,
     NumericProperty
 )
+from kivy.clock import Clock
 
 ### Local imports ###
 
