@@ -63,7 +63,7 @@ class GameOverScreen(ImprovedScreen):
     validate_label = StringProperty()
     continue_game_label = StringProperty()
     number_lives_on = NumericProperty()
-    list_countries = ListProperty([""])
+    list_countries = ListProperty([])
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
@@ -84,7 +84,6 @@ class GameOverScreen(ImprovedScreen):
         self.congrats_defeat_message = ""
         self.ids.validate_button.disable_button = False
         self.ids.validate_button.background_color[-1] = 1
-        self.list_countries = [""]
 
         return super().on_pre_enter(*args)
 
@@ -93,9 +92,6 @@ class GameOverScreen(ImprovedScreen):
         # Schedule the change of background
         Clock.schedule_interval(
             self.manager.change_background, TIME_CHANGE_BACKGROUND)
-
-        # Update the list of countries
-        self.update_countries()
 
         return super().on_enter(*args)
 
@@ -125,7 +121,8 @@ class GameOverScreen(ImprovedScreen):
         self.continue_game_label = TEXT.game_over["button_back"]
 
     def update_countries(self):
-        self.list_countries = [""]
+        self.ids.country_spinner.text = ""
+        self.list_countries = []
         for wikidata_code_country in game.list_countries_left:
             self.list_countries.append(DICT_COUNTRIES[USER_DATA.language][self.code_continent][wikidata_code_country])
 
@@ -177,6 +174,7 @@ class GameOverScreen(ImprovedScreen):
             self.manager.get_screen(
                 "game_summary").update_flag_image()
             self.manager.current = "game_question"
+            self.update_countries()
 
         elif self.continue_game_label in [TEXT.game_over["continue"], TEXT.game_over["button_back"]]:
             self.manager.get_screen(
