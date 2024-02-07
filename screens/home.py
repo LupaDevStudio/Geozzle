@@ -265,7 +265,7 @@ class HomeScreen(ImprovedScreen):
                 "game_summary").code_continent = self.code_continent
             self.manager.get_screen(
                 "game_over").code_continent = self.code_continent
-            game.set_continent(self.code_continent)
+            game.create_new_game(self.code_continent)
 
             # Go to the screen game question
             self.manager.current = "game_question"

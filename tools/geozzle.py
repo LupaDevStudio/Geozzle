@@ -10,6 +10,7 @@ Module of the main backend of Geozzle.
 
 import random as rd
 import time
+import copy
 
 ### Local imports ###
 
@@ -61,7 +62,7 @@ class Game():
     def __init__(self):
         pass
 
-    def set_continent(self, continent="Europe"):
+    def create_new_game(self, continent="Europe"):
         self.code_continent = continent
         self.load_data()
 
@@ -105,7 +106,7 @@ class Game():
         if self.wikidata_code_country == wikidata_code_country:
             USER_DATA.continents[self.code_continent]["countries_unlocked"].append(
                 wikidata_code_country)
-            USER_DATA.continents[self.code_continent]["current_country"] = CURRENT_COUNTRY_INIT
+            USER_DATA.continents[self.code_continent]["current_country"] = copy.deepcopy(CURRENT_COUNTRY_INIT)
             USER_DATA.save_changes()
             return True
 

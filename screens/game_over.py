@@ -171,7 +171,7 @@ class GameOverScreen(ImprovedScreen):
             self.manager.get_screen(
                 "game_question").code_continent = self.code_continent
             # Create a new game
-            game.set_continent(self.code_continent)
+            game.create_new_game(self.code_continent)
             self.manager.get_screen(
                 "game_summary").reset_scroll_view()
             self.manager.get_screen(

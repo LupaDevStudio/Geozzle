@@ -128,6 +128,7 @@ class GameSummaryScreen(ImprovedScreen):
         self.dict_scrollview_widgets = {}
 
     def update_flag_image(self):
+        print(game.clues)
         if "flag" in game.clues:
             self.ids.flag_image.source = PATH_IMAGES_FLAG + self.code_continent.lower() + ".png"
         else:

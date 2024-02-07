@@ -2,19 +2,26 @@
     "language": "english",
     "continents": {
         "Europe": {
-            "highscore": 0,
-            "percentage": 0,
-            "countries_unlocked": [],
+            "highscore": 2332,
+            "percentage": 23.40425531914893,
+            "countries_unlocked": [
+                "Q20",
+                "Q191",
+                "Q403",
+                "Q211",
+                "Q41",
+                "Q27",
+                "Q233",
+                "Q222",
+                "Q36",
+                "Q32",
+                "Q221"
+            ],
             "nb_lives": 3,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q221",
-                "clues": {
-                    "flag": true,
-                    "official_language": "Macedonian, Albanian",
-                    "motto": "",
-                    "anthem": "Denes nad Makedonija"
-                }
+                "country": "",
+                "clues": {}
             }
         },
         "Asia": {
@@ -27,12 +34,8 @@
             "nb_lives": 3,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q884",
-                "clues": {
-                    "motto": "",
-                    "anthem": "Aegukga",
-                    "flag": true
-                }
+                "country": "",
+                "clues": {}
             }
         },
         "Africa": {
