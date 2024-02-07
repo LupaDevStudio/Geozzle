@@ -256,6 +256,7 @@ class HomeScreen(ImprovedScreen):
         if self.number_lives_on > 0:
 
             # Reset the screen of game_summary
+            game.create_new_game(self.code_continent)
             self.manager.get_screen("game_summary").reset_screen()
             self.manager.get_screen(
                 "game_question").code_continent = self.code_continent
@@ -265,7 +266,8 @@ class HomeScreen(ImprovedScreen):
                 "game_summary").code_continent = self.code_continent
             self.manager.get_screen(
                 "game_over").code_continent = self.code_continent
-            game.set_continent(self.code_continent)
+            self.manager.get_screen(
+                "game_over").update_countries()
 
             # Go to the screen game question
             self.manager.current = "game_question"

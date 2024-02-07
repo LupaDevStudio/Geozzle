@@ -2,19 +2,37 @@
     "language": "english",
     "continents": {
         "Europe": {
-            "highscore": 0,
-            "percentage": 0,
-            "countries_unlocked": [],
-            "nb_lives": 3,
-            "lost_live_date": null,
+            "highscore": 4202,
+            "percentage": 46.80851063829785,
+            "countries_unlocked": [
+                "Q20",
+                "Q191",
+                "Q403",
+                "Q211",
+                "Q41",
+                "Q27",
+                "Q233",
+                "Q222",
+                "Q36",
+                "Q32",
+                "Q221",
+                "Q184",
+                "Q214",
+                "Q228",
+                "Q35",
+                "Q224",
+                "Q236",
+                "Q39",
+                "Q189",
+                "Q238",
+                "Q235",
+                "Q145"
+            ],
+            "nb_lives": 1,
+            "lost_live_date": 1707329968.1784973,
             "current_country": {
-                "country": "Q221",
-                "clues": {
-                    "flag": true,
-                    "official_language": "Macedonian, Albanian",
-                    "motto": "",
-                    "anthem": "Denes nad Makedonija"
-                }
+                "country": "Q28",
+                "clues": {}
             }
         },
         "Asia": {
@@ -27,12 +45,8 @@
             "nb_lives": 3,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q884",
-                "clues": {
-                    "motto": "",
-                    "anthem": "Aegukga",
-                    "flag": true
-                }
+                "country": "",
+                "clues": {}
             }
         },
         "Africa": {
@@ -74,13 +88,17 @@
             }
         },
         "Oceania": {
-            "highscore": 0,
-            "percentage": 0,
-            "countries_unlocked": [],
-            "nb_lives": 3,
-            "lost_live_date": null,
+            "highscore": 2080,
+            "percentage": 18,
+            "countries_unlocked": [
+                "Q672",
+                "Q686",
+                "Q34020"
+            ],
+            "nb_lives": 1,
+            "lost_live_date": 1707330056.4831862,
             "current_country": {
-                "country": "Q712",
+                "country": "",
                 "clues": {}
             }
         }

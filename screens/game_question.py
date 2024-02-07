@@ -19,6 +19,7 @@ from kivy.properties import (
     StringProperty,
     NumericProperty
 )
+from kivy.clock import Clock
 
 ### Local imports ###
 
@@ -126,7 +127,8 @@ class GameQuestionScreen(ImprovedScreen):
                 primary_color=self.continent_color,
                 secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
                 title=TEXT.game_question["no_connexion_title"],
-                center_label_text=TEXT.game_question["no_connexion_message"]
+                center_label_text=TEXT.game_question["no_connexion_message"],
+                font_ratio=self.font_ratio
                 )
             popup.open()
             return
