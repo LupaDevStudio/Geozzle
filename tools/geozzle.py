@@ -20,11 +20,15 @@ from tools.constants import (
     TEXT,
     DICT_COUNTRIES,
     DICT_HINTS_INFORMATION,
-    CURRENT_COUNTRY_INIT
+    CURRENT_COUNTRY_INIT,
+    MOBILE_MODE
 )
 
 from tools.sparql import (
     request_clues
+)
+from tools.kivyreview import (
+    request_review
 )
 
 #################
@@ -81,7 +85,7 @@ class Game():
             self.wikidata_code_country = last_country
         else:
             self.wikidata_code_country = rd.choice(self.list_countries_left)
-            USER_DATA.continents[self.code_continent]["current_country"]["country"] = self.wikidata_code_country 
+            USER_DATA.continents[self.code_continent]["current_country"]["country"] = self.wikidata_code_country
             USER_DATA.save_changes()
 
     def add_clue(self, name_clue):
@@ -91,7 +95,8 @@ class Game():
             if TEXT.clues[code_clue] == name_clue:
                 break
 
-        value_clue = request_clues(code_clue, self.wikidata_code_country, self.code_continent)
+        value_clue = request_clues(
+            code_clue, self.wikidata_code_country, self.code_continent)
         if value_clue is None:
             return
         self.clues[code_clue] = value_clue
@@ -109,7 +114,8 @@ class Game():
         if self.wikidata_code_country == wikidata_code_country:
             USER_DATA.continents[self.code_continent]["countries_unlocked"].append(
                 wikidata_code_country)
-            USER_DATA.continents[self.code_continent]["current_country"] = copy.deepcopy(CURRENT_COUNTRY_INIT)
+            USER_DATA.continents[self.code_continent]["current_country"] = copy.deepcopy(
+                CURRENT_COUNTRY_INIT)
             USER_DATA.save_changes()
             self.list_countries_left.remove(wikidata_code_country)
             return True
@@ -132,11 +138,21 @@ class Game():
         # 100% of completion when the continent is over
         if self.list_countries_left == []:
             percentage = 100
-        
+
         else:
             nb_all_countries = len(self.list_all_countries)
-            nb_guessed_countries = len(USER_DATA.continents[self.code_continent]["countries_unlocked"])
+            nb_guessed_countries = len(
+                USER_DATA.continents[self.code_continent]["countries_unlocked"])
             percentage = int(100 * (nb_guessed_countries / nb_all_countries))
+
+        # Launch the review if the user reaches 30% for the first time
+        if percentage > 30:
+            has_already_reached_30 = False
+            for continent_key in USER_DATA.continents:
+                if USER_DATA.continents[continent_key]["percentage"] > 30:
+                    has_already_reached_30 = True
+            if not has_already_reached_30 and MOBILE_MODE:
+                request_review()
 
         # Save the changes in the USER_DATA
         USER_DATA.continents[self.code_continent]["percentage"] = percentage
