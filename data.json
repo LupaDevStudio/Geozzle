@@ -28,13 +28,11 @@
                 "Q235",
                 "Q145"
             ],
-            "nb_lives": 2,
-            "lost_live_date": 1707405795.55004,
+            "nb_lives": 0,
+            "lost_live_date": 1707407130.4368086,
             "current_country": {
-                "country": "Q28",
-                "clues": {
-                    "flag": true
-                }
+                "country": "",
+                "clues": {}
             }
         },
         "Asia": {
