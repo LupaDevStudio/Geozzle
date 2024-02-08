@@ -14,7 +14,7 @@ from functools import partial
 
 ### Kivy imports ###
 
-from kivy.clock import Clock
+from kivy.clock import Clock, mainthread
 from kivy.properties import (
     StringProperty,
     ColorProperty,
@@ -44,6 +44,9 @@ from tools import (
 from screens.custom_widgets import (
     TwoButtonsPopup,
     MessagePopup
+)
+from tools.geozzle import (
+    watch_ad
 )
 
 #############
@@ -124,7 +127,8 @@ class GameOverScreen(ImprovedScreen):
         self.ids.country_spinner.text = ""
         self.list_countries = []
         for wikidata_code_country in game.list_countries_left:
-            self.list_countries.append(DICT_COUNTRIES[USER_DATA.language][self.code_continent][wikidata_code_country])
+            self.list_countries.append(
+                DICT_COUNTRIES[USER_DATA.language][self.code_continent][wikidata_code_country])
 
     def update_color(self, base_widget, value):
         """
@@ -149,7 +153,7 @@ class GameOverScreen(ImprovedScreen):
         self.manager.get_screen(
             "game_summary").previous_screen_name = "game_over"
         self.manager.current = "game_summary"
-    
+
     def go_to_home_and_dismiss(self, popup):
         popup.dismiss()
         self.go_to_home()
@@ -199,13 +203,15 @@ class GameOverScreen(ImprovedScreen):
                     self.ids.continue_button.opacity = 0
                     popup = MessagePopup(
                         primary_color=self.continent_color,
-                        secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                        secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                            self.code_continent],
                         title=TEXT.game_over["congrats"],
                         ok_button_label=TEXT.game_over["go_to_home"],
                         center_label_text=TEXT.game_over["finish_continent"],
                         font_ratio=self.font_ratio
                     )
-                    popup.release_function=partial(self.go_to_home_and_dismiss, popup)
+                    popup.release_function = partial(
+                        self.go_to_home_and_dismiss, popup)
                     popup.open()
                 else:
                     self.continue_game_label = TEXT.game_over["next_country"]
@@ -226,15 +232,19 @@ class GameOverScreen(ImprovedScreen):
 
                     popup = TwoButtonsPopup(
                         primary_color=self.continent_color,
-                        secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                        secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                            self.code_continent],
                         left_button_label=TEXT.home["watch_ad"],
                         right_button_label=TEXT.game_over["go_to_home"],
                         title=TEXT.home["buy_life_title"],
                         center_label_text=TEXT.home["buy_life_message"],
                         font_ratio=self.font_ratio
                     )
-                    popup.left_release_function=partial(self.watch_ad, popup)
-                    popup.right_release_function=partial(self.go_to_home_and_dismiss, popup)
+                    watch_ad_with_callback = partial(
+                        watch_ad, partial(self.ad_callback, popup))
+                    popup.left_release_function = watch_ad_with_callback
+                    popup.right_release_function = partial(
+                        self.go_to_home_and_dismiss, popup)
                     popup.open()
 
         # Popup to ask the user to select a country
@@ -245,10 +255,11 @@ class GameOverScreen(ImprovedScreen):
                 title=TEXT.game_over["select_country_title"],
                 center_label_text=TEXT.game_over["select_country_message"],
                 font_ratio=self.font_ratio
-                )
+            )
             popup.open()
 
-    def watch_ad(self, popup: TwoButtonsPopup):
+    @mainthread
+    def ad_callback(self, popup: TwoButtonsPopup):
         game.add_life()
         self.number_lives_on = game.number_lives
         self.ids.continue_button.opacity = 1

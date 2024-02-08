@@ -21,7 +21,8 @@ from tools.constants import (
     DICT_COUNTRIES,
     DICT_HINTS_INFORMATION,
     CURRENT_COUNTRY_INIT,
-    MOBILE_MODE
+    MOBILE_MODE,
+    REWARD_INTERSTITIAL
 )
 
 from tools.sparql import (
@@ -29,6 +30,9 @@ from tools.sparql import (
 )
 from tools.kivyreview import (
     request_review
+)
+from tools.kivads import (
+    RewardedInterstitial
 )
 
 #################
@@ -49,9 +53,27 @@ def calculate_highscore_clues(part_highscore, nb_clues):
     return int(part_highscore)
 
 
+# Create the ad instance
+ad = RewardedInterstitial(REWARD_INTERSTITIAL, on_reward=None)
+
+
+def watch_ad(ad_callback):
+    global ad
+    if MOBILE_MODE:
+        ad.on_reward = ad_callback
+        start_time = time.time()
+        while not ad.is_loaded() and time.time() - start_time < 2:
+            time.sleep(0.05)
+        ad.show()
+        ad = RewardedInterstitial(REWARD_INTERSTITIAL, on_reward=None)
+    else:
+        print("No ads to show outside mobile mode")
+        ad_callback()
+
 #############
 ### Class ###
 #############
+
 
 class Game():
     number_lives: int

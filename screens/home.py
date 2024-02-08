@@ -16,7 +16,7 @@ from functools import partial
 
 ### Kivy imports ###
 
-from kivy.clock import Clock
+from kivy.clock import Clock, mainthread
 from kivy.properties import (
     StringProperty,
     ColorProperty,
@@ -52,6 +52,9 @@ from tools import (
     game
 )
 from screens.custom_widgets import TutorialPopup, TwoButtonsPopup
+from tools.geozzle import (
+    watch_ad
+)
 
 #############
 ### Class ###
@@ -281,10 +284,13 @@ class HomeScreen(ImprovedScreen):
                 center_label_text=TEXT.home["buy_life_message"],
                 font_ratio=self.font_ratio
             )
-            popup.left_release_function = partial(self.watch_ad, popup)
+            watch_ad_with_callback = partial(
+                watch_ad, partial(self.ad_callback, popup))
+            popup.left_release_function = watch_ad_with_callback
             popup.open()
 
-    def watch_ad(self, popup: TwoButtonsPopup):
+    @mainthread
+    def ad_callback(self, popup: TwoButtonsPopup):
         self.number_lives_on += 1
         USER_DATA.continents[self.code_continent]["nb_lives"] += 1
         USER_DATA.save_changes()
