@@ -32,7 +32,7 @@ class TutorialPopup(CustomPopup):
     next_button_label = StringProperty()
     previous_button_label = StringProperty()
     next_button_disabled = BooleanProperty(False)
-    previous_button_disabled = BooleanProperty()
+    previous_button_disabled = BooleanProperty(False)
     center_label_text = StringProperty()
     side_label_text = StringProperty()
     side_image_source = StringProperty()
@@ -42,7 +42,6 @@ class TutorialPopup(CustomPopup):
         super().__init__(**kwargs)
         self.next_button_label = TEXT.tutorial["next"]
         self.previous_button_label = TEXT.tutorial["previous"]
-        self.close_button_label = TEXT.tutorial["close"]
         self.nb_pages = len(tutorial_content)
         self.tutorial_content = tutorial_content
         self.load_content()
@@ -50,16 +49,17 @@ class TutorialPopup(CustomPopup):
     def load_content(self):
         # Disable the useless buttons
         if self.page_id == 0:
-            self.ids["previous_button"].opacity = 0
-            self.previous_button_disabled = True
+            # self.ids["previous_button"].opacity = 0
+            # self.previous_button_disabled = True
+            self.previous_button_label = TEXT.tutorial["close"]
         else:
-            self.previous_button_disabled = False
-            self.ids["previous_button"].opacity = 1
+            self.previous_button_label = TEXT.tutorial["previous"]
+            # self.previous_button_disabled = False
+            # self.ids["previous_button"].opacity = 1
         if self.page_id == self.nb_pages - 1:
-            self.previous_button_disabled = False
+            # self.previous_button_disabled = False
             self.next_button_label = TEXT.tutorial["close"]
         else:
-            self.close_button_disabled = True
             self.next_button_label = TEXT.tutorial["next"]
 
         # Switch on the type of content
@@ -88,4 +88,7 @@ class TutorialPopup(CustomPopup):
 
     def go_to_previous_page(self, *_):
         self.page_id -= 1
-        self.load_content()
+        if self.page_id == -1:
+            self.dismiss()
+        else:
+            self.load_content()
