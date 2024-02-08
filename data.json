@@ -28,8 +28,8 @@
                 "Q235",
                 "Q145"
             ],
-            "nb_lives": 1,
-            "lost_live_date": 1707329968.1784973,
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "Q28",
                 "clues": {}
@@ -69,11 +69,13 @@
             "highscore": 0,
             "percentage": 0,
             "countries_unlocked": [],
-            "nb_lives": 3,
-            "lost_live_date": null,
+            "nb_lives": 0,
+            "lost_live_date": 1707402936.6499178,
             "current_country": {
                 "country": "Q784",
-                "clues": {}
+                "clues": {
+                    "anthem": "Isle of Beauty, Isle of Splendour"
+                }
             }
         },
         "South_America": {
@@ -95,8 +97,8 @@
                 "Q686",
                 "Q34020"
             ],
-            "nb_lives": 1,
-            "lost_live_date": 1707330056.4831862,
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "",
                 "clues": {}
