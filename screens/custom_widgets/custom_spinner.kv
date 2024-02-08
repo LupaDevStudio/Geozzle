@@ -12,9 +12,13 @@
     select_color: self.parent.parent.select_color if self.parent is not None else (0.5,0.5,0.5,1)
 
     size_hint_y: None
-    height: "48dp"
+    # height: "48dp"
+    height: self.texture_size[1] + BUTTON_FONT_SIZE*self.font_ratio*1.5
     font_name: PATH_TEXT_FONT
     font_size: BUTTON_FONT_SIZE * self.font_ratio
+    shorten: False
+    text_size: (root.width*0.8,None)
+    halign: "center"
 
     canvas:
         Color:
