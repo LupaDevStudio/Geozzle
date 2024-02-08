@@ -34,4 +34,5 @@ class FlagImage(Image):
 
     def on_source_change(self, base_widget=None, value=None):
         texture_width, texture_height = self.texture_size
-        self.width = self.height * texture_width / texture_height
+        if texture_height != 0:
+            self.width = self.height * texture_width / texture_height

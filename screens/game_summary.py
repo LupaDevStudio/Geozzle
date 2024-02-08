@@ -80,6 +80,7 @@ class GameSummaryScreen(ImprovedScreen):
         self.update_font_ratio()
         self.update_scroll_view()
         self.update_text()
+        self.update_flag_image()
 
         return super().on_pre_enter(*args)
 
@@ -92,7 +93,6 @@ class GameSummaryScreen(ImprovedScreen):
         self.number_lives_on = game.number_lives
         self.number_clues = len(game.clues)
 
-        self.update_flag_image()
         if "flag" in game.clues:
             self.number_clues -= 1
 
@@ -131,11 +131,13 @@ class GameSummaryScreen(ImprovedScreen):
 
     def update_flag_image(self):
         if "flag" in game.clues:
-            self.ids.flag_image.remove_from_cache()
-            self.ids.flag_image.source = PATH_IMAGES_FLAG + self.code_continent.lower() + ".png"
+            # self.ids.flag_image.remove_from_cache()
+            self.ids.flag_image.reload()
+            self.ids.flag_image.source = PATH_IMAGES_FLAG + self.code_continent.lower() + \
+                ".png"
         else:
             self.ids.flag_image.source = PATH_IMAGES_FLAG_UNKNOWN
-        
+
     def reset_scroll_view(self):
         """
         Remove all the labels in the scrollview.
