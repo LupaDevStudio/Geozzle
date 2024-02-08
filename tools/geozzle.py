@@ -273,3 +273,5 @@ class Game():
 
     def add_life(self):
         self.number_lives += 1
+        USER_DATA.continents[self.code_continent]["nb_lives"] += 1
+        USER_DATA.save_changes()

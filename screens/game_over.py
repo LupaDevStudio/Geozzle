@@ -194,13 +194,17 @@ class GameOverScreen(ImprovedScreen):
     def submit_country(self):
         if self.ids.country_spinner.text != "":
 
+            # Reset the spinner
+            submitted_country = self.ids.country_spinner.text
+            self.ids.country_spinner.text = ""
+
             # The selected country is correct
-            if game.check_country(self.ids.country_spinner.text):
+            if game.check_country(submitted_country):
                 self.disable_validate_button()
 
                 # If the continent is finished
                 if game.list_countries_left == []:
-                    self.ids.continue_button.opacity = 0
+                    self.disable_widget("continue_button")
                     popup = MessagePopup(
                         primary_color=self.continent_color,
                         secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
@@ -228,7 +232,7 @@ class GameOverScreen(ImprovedScreen):
 
                 # The user has no more lives
                 if game.check_game_over():
-                    self.ids.continue_button.opacity = 0
+                    self.disable_widget("continue_button")
 
                     popup = TwoButtonsPopup(
                         primary_color=self.continent_color,
@@ -262,5 +266,5 @@ class GameOverScreen(ImprovedScreen):
     def ad_callback(self, popup: TwoButtonsPopup):
         game.add_life()
         self.number_lives_on = game.number_lives
-        self.ids.continue_button.opacity = 1
+        self.enable_widget("continue_button")
         popup.dismiss()

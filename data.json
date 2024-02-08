@@ -28,8 +28,8 @@
                 "Q235",
                 "Q145"
             ],
-            "nb_lives": 3,
-            "lost_live_date": null,
+            "nb_lives": 1,
+            "lost_live_date": 1707403013.3347573,
             "current_country": {
                 "country": "Q28",
                 "clues": {}
