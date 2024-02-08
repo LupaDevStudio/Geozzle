@@ -13,6 +13,14 @@
         "buy_life_message": "Vous n'avez plus de vies pour l'instant, souhaitez-vous regarder une publicité pour continuer à jouer ?",
         "buy_life_title": "Vies épuisées"
     },
+    "popup": {
+        "buy_life_title": "Rechargement des vies",
+        "next_life_in": "Votre prochaine vie se rechargera dans [TIME] min.",
+        "buy_life_text": "Si vous souhaitez recharger une vie plus rapidement, vous pouvez regarder une publicité.",
+        "full_life_text": "Vous avez toutes vos vies, lancez donc une partie pour deviner un nouveau pays !",
+        "watch_ad": "Regarder",
+        "close": "Fermer"
+    },
     "game_over": {
         "title": "Quel pays est-ce ?",
         "congrats": "Félicitations !",
@@ -50,10 +58,10 @@
         "close": "Fermer",
         "tutorial_content": [
             [
-                "Bienvenue dans le tutoriel de Geozzle ! \n \n Ce tutoriel vous guidera à travers les fonctionnalités du jeu. \n \n Cliquez sur 'Suivant' pour continuer."                
+                "Bienvenue dans le tutoriel de Geozzle ! \n \n Ce tutoriel vous guidera à travers les fonctionnalités du jeu. \n \n Cliquez sur 'Suivant' pour continuer."
             ],
             [
-                "Le but du jeu est de collecter des indices et de tenter de deviner chaque pays dans le continent sélectionné ! \n \n Attention, plus vous utilisez d'indices, moins vous gagnerez de points !"                
+                "Le but du jeu est de collecter des indices et de tenter de deviner chaque pays dans le continent sélectionné ! \n \n Attention, plus vous utilisez d'indices, moins vous gagnerez de points !"
             ],
             [
                 "Sur l'écran d'accueil, vous pouvez sélectionner le continent dans lequel vous souhaitez jouer en utilisant les flèches sur les côtés de l'écran. \n \n Cliquez sur 'Jouer' pour commencer le jeu !",

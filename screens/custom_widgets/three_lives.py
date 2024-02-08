@@ -13,13 +13,20 @@ from kivy.uix.behaviors import ButtonBehavior
 from kivy.properties import (
     StringProperty,
     NumericProperty,
-    ColorProperty
+    ColorProperty,
+    ObjectProperty
 )
 
 ### Local imports ###
 
 from tools.path import (
     PATH_IMAGES
+)
+from tools.constants import (
+    OPACITY_ON_BUTTON_PRESS
+)
+from tools import (
+    sound_mixer
 )
 
 #############
@@ -40,8 +47,13 @@ class ThreeLives(ButtonBehavior, RelativeLayout):
 
     def __init__(
             self,
-            **kwargs):
+            release_function=lambda: 1 + 1,
+            ** kwargs):
         super().__init__(**kwargs)
+
+        self.always_release = True
+
+        self.release_function = release_function
 
         self.bind(number_lives_on=self.update_lives)
 
@@ -61,5 +73,12 @@ class ThreeLives(ButtonBehavior, RelativeLayout):
         else:
             self.image_path_1 = PATH_IMAGES + "life_off.png"
 
+    def on_press(self):
+        if not self.disabled:
+            self.opacity = OPACITY_ON_BUTTON_PRESS
+            sound_mixer.play("click")
+
     def on_release(self):
+        self.release_function()
+        self.opacity = 1
         return super().on_release()

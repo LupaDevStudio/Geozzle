@@ -13,6 +13,14 @@
         "buy_life_message": "You don't have any lives left at the moment. Would you like to watch an ad to continue playing?",
         "buy_life_title": "Lives depleted"
     },
+    "popup": {
+        "buy_life_title": "Rechargement des vies",
+        "next_life_in": "Votre prochaine vie se rechargera dans [TIME] min.",
+        "buy_life_text": "Si vous souhaitez recharger une vie plus rapidement, vous pouvez regarder une publicité.",
+        "full_life_text": "Vous avez toutes vos vies, lancez donc une partie pour deviner un nouveau pays !",
+        "watch_ad": "Regarder",
+        "close": "Fermer"
+    },
     "game_over": {
         "title": "Which country is it ?",
         "congrats": "Congratulations !",
@@ -50,10 +58,10 @@
         "close": "Close",
         "tutorial_content": [
             [
-                "Welcome to Geozzle's tutorial ! \n \n This tutorial will guide you through the game's features. \n \n Click 'Next' to continue."                
+                "Welcome to Geozzle's tutorial ! \n \n This tutorial will guide you through the game's features. \n \n Click 'Next' to continue."
             ],
             [
-                "The goal of the game is to gather clues and attempt to guess every country in the selected continent ! \n \n Remember, the more clues you use, the fewer points you'll earn !"                
+                "The goal of the game is to gather clues and attempt to guess every country in the selected continent ! \n \n Remember, the more clues you use, the fewer points you'll earn !"
             ],
             [
                 "On the welcome screen, you can select the continent you want to play in using the arrows on the sides of the screen. \n \n Click 'Play' to start the game !",
