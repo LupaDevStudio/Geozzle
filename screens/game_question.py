@@ -156,33 +156,40 @@ class GameQuestionScreen(ImprovedScreen):
         -------
         None
         """
-        self.title_label = TEXT.game_question["title"]
-
         # Pick randomly three clues
         hint_1, hint_2, hint_3 = game.choose_three_clues()
 
         # Display the first clue if it exists
         if not hint_1 is None:
+            self.title_label = TEXT.game_question["title"]
             self.hint_1 = TEXT.clues[hint_1]
-            self.ids.hint_1_button.disabled = False
+            try:
+                self.enable_widget("hint_1_button")
+            except:
+                pass
         else:
-            self.ids.hint_1_button.disabled = True
+            self.title_label = TEXT.game_question["no_more_clues"]
             self.hint_1 = ""
+            self.disable_widget("hint_1_button")
 
         # Display the second clue if it exists
         if not hint_2 is None:
             self.hint_2 = TEXT.clues[hint_2]
-            self.ids.hint_2_button.disabled = False
+            try:
+                self.enable_widget("hint_2_button")
+            except:
+                pass
         else:
-            self.ids.hint_2_button.disabled = True
             self.hint_2 = ""
-        
+            self.disable_widget("hint_2_button")
+
         # Display the third clue if it exists
         if not hint_3 is None:
             self.hint_3 = TEXT.clues[hint_3]
-            self.ids.hint_3_button.disabled = False
+            try:
+                self.enable_widget("hint_3_button")
+            except:
+                pass
         else:
-            self.ids.hint_3_button.disabled = True
             self.hint_3 = ""
-
-        self.clue = TEXT.game_question["clue"]
+            self.disable_widget("hint_3_button")

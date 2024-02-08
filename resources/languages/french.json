@@ -37,7 +37,7 @@
     },
     "game_question": {
         "title": "Choisissez un nouvel indice parmi ceux proposés",
-        "clue": "Indice",
+        "no_more_clues": "Vous n'avez plus d'indices à disposition pour deviner ce pays.",
         "no_connexion_title": "Erreur dans la requête",
         "no_connexion_message": "La requête a échoué, veuillez vérifier votre connexion puis réessayer."
     },

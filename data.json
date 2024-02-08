@@ -53,8 +53,8 @@
                 "Q45",
                 "Q237"
             ],
-            "number_lives": 1,
-            "lost_live_date": 1707416301.0809097,
+            "number_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "",
                 "number_lives_used_game": 0,
@@ -68,13 +68,16 @@
                 "Q851",
                 "Q837"
             ],
-            "number_lives": 3,
-            "lost_live_date": null,
+            "number_lives": 2,
+            "lost_live_date": 1707420769.8837507,
             "current_country": {
-                "number_lives_used_game": 0,
+                "number_lives_used_game": 1,
                 "country": "Q874",
                 "clues": {
-                    "flag": true
+                    "flag": true,
+                    "official_language": "Turkmen",
+                    "motto": "",
+                    "anthem": "National anthem of Turkmenistan"
                 }
             }
         },
