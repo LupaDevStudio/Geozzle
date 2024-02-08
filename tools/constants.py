@@ -201,6 +201,7 @@ class Text():
         self.game_over = data["game_over"]
         self.clues = data["clues"]
         self.tutorial = data["tutorial"]
+        self.popup = data["popup"]
 
 
 TEXT = Text(language=USER_DATA.language)

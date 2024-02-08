@@ -50,19 +50,17 @@
             }
         },
         "Africa": {
-            "highscore": 178,
-            "percentage": 0,
+            "highscore": 362,
+            "percentage": 3,
             "countries_unlocked": [
-                "Q262"
+                "Q262",
+                "Q1028"
             ],
-            "nb_lives": 3,
-            "lost_live_date": null,
+            "nb_lives": 2,
+            "lost_live_date": 1707408541.631783,
             "current_country": {
-                "country": "Q1028",
-                "clues": {
-                    "motto": "",
-                    "flag": true
-                }
+                "country": "Q258",
+                "clues": {}
             }
         },
         "North_America": {

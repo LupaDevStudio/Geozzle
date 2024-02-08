@@ -2,29 +2,37 @@
 
 <ThreeLives>:
 
+    # canvas.before:
+    #     Color:
+    #         rgba: (1,0,0,1)
+    #     Rectangle:
+    #         size: self.size
+    #         pos: (0,0)
+
     # Arrow to go back to home screen
-    RoundedButtonImage:
+    RoundedImage:
         image_path: root.image_path_1
         pos_hint: {"center_x":0.165, "center_y":0.5}
         size_hint: (0.3, None)
         height: self.width
         colors: root.continent_color
-        disabled: True
+        
+        # disabled: True
 
     # Arrow to go back to home screen
-    RoundedButtonImage:
+    RoundedImage:
         image_path: root.image_path_2
         pos_hint: {"center_x":0.495, "center_y":0.5}
         size_hint: (0.3, None)
         height: self.width
         colors: root.continent_color
-        disabled: True
+        # disabled: True
 
     # Arrow to go back to home screen
-    RoundedButtonImage:
+    RoundedImage:
         image_path: root.image_path_3
         pos_hint: {"center_x":0.825, "center_y":0.5}
         size_hint: (0.3, None)
         height: self.width
         colors: root.continent_color
-        disabled: True
+        # disabled: True
