@@ -2,8 +2,8 @@
     "language": "english",
     "continents": {
         "Europe": {
-            "highscore": 7310,
-            "percentage": 82,
+            "highscore": 8935,
+            "percentage": 100,
             "countries_unlocked": [
                 "Q20",
                 "Q191",
@@ -43,7 +43,15 @@
                 "Q40",
                 "Q230",
                 "Q218",
-                "Q38"
+                "Q38",
+                "Q219",
+                "Q213",
+                "Q159",
+                "Q33",
+                "Q142",
+                "Q347",
+                "Q45",
+                "Q237"
             ],
             "number_lives": 1,
             "lost_live_date": 1707416301.0809097,
@@ -85,7 +93,8 @@
                 "clues": {
                     "motto": "Unity in Diversity",
                     "anthem": "national anthem of South Africa",
-                    "official_language": "English, Swazi, Zulu, Xhosa, Tswana"
+                    "official_language": "English, Swazi, Zulu, Xhosa, Tswana",
+                    "flag": true
                 }
             }
         },

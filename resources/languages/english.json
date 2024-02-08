@@ -29,7 +29,7 @@
         "validate": "Validate",
         "continue": "Continue",
         "next_country": "Next country",
-        "finish_continent": "You've successfully guessed all the countries in the continent, congratulations!",
+        "finish_continent": "You've successfully guessed all the countries in this continent, congratulations!",
         "button_back": "Back",
         "go_to_home": "Go back to menu",
         "select_country_title": "Error in choice",

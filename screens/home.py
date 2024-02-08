@@ -204,6 +204,16 @@ class HomeScreen(ImprovedScreen):
 
         self.number_lives_on = USER_DATA.continents[self.code_continent]["number_lives"]
 
+        if self.completion_value == 100:
+            self.disable_widget("play_button")
+            self.disable_widget("three_lives")
+        else:
+            try:
+                self.enable_widget("play_button")
+                self.enable_widget("three_lives")
+            except:
+                pass
+
     def update_language_image(self):
         """
         Update the image of the language on the top right hand corner.
