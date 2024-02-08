@@ -2,8 +2,8 @@
     "language": "english",
     "continents": {
         "Europe": {
-            "highscore": 4202,
-            "percentage": 46.80851063829785,
+            "highscore": 5262,
+            "percentage": 57,
             "countries_unlocked": [
                 "Q20",
                 "Q191",
@@ -26,10 +26,15 @@
                 "Q189",
                 "Q238",
                 "Q235",
-                "Q145"
+                "Q145",
+                "Q29",
+                "Q31",
+                "Q43",
+                "Q183",
+                "Q34"
             ],
-            "nb_lives": 0,
-            "lost_live_date": 1707407130.4368086,
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "",
                 "clues": {}
@@ -45,8 +50,10 @@
             "nb_lives": 3,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
-                "clues": {}
+                "country": "Q874",
+                "clues": {
+                    "flag": true
+                }
             }
         },
         "Africa": {
@@ -56,11 +63,15 @@
                 "Q262",
                 "Q1028"
             ],
-            "nb_lives": 2,
-            "lost_live_date": 1707408541.631783,
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "Q258",
-                "clues": {}
+                "clues": {
+                    "motto": "Unity in Diversity",
+                    "anthem": "national anthem of South Africa",
+                    "official_language": "English, Swazi, Zulu, Xhosa, Tswana"
+                }
             }
         },
         "North_America": {
@@ -98,8 +109,10 @@
             "nb_lives": 3,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
-                "clues": {}
+                "country": "Q695",
+                "clues": {
+                    "flag": true
+                }
             }
         }
     },

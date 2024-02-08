@@ -65,9 +65,6 @@ def watch_ad(ad_callback):
     global ad
     if MOBILE_MODE:
         ad.on_reward = ad_callback
-        start_time = time.time()
-        while not ad.is_loaded() and time.time() - start_time < 2:
-            time.sleep(0.05)
         ad.show()
         ad = RewardedInterstitial(REWARD_INTERSTITIAL, on_reward=None)
     else:
