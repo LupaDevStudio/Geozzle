@@ -194,8 +194,12 @@ class GameOverScreen(ImprovedScreen):
     def submit_country(self):
         if self.ids.country_spinner.text != "":
 
+            # Reset the spinner
+            submitted_country = self.ids.country_spinner.text
+            self.ids.country_spinner.text = ""
+
             # The selected country is correct
-            if game.check_country(self.ids.country_spinner.text):
+            if game.check_country(submitted_country):
                 self.disable_validate_button()
 
                 # If the continent is finished
