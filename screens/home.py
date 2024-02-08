@@ -114,22 +114,22 @@ class HomeScreen(ImprovedScreen):
     def regenerate_lives(self):
         for code_continent in LIST_CONTINENTS:
             current_continent_data = USER_DATA.continents[code_continent]
-            if current_continent_data["nb_lives"] < 3:
+            if current_continent_data["number_lives"] < 3:
                 current_time = time.time()
                 diff_time = int(
                     current_time - current_continent_data["lost_live_date"])
                 diff_minutes = diff_time // 60
-                max_nb_lives_to_regenerate = diff_minutes // LIFE_RELOAD_TIME
-                max_nb_lives_to_regenerate = min(
-                    3 - current_continent_data["nb_lives"], max_nb_lives_to_regenerate)
-                current_continent_data["nb_lives"] += max_nb_lives_to_regenerate
-                if current_continent_data["nb_lives"] == 3:
+                max_number_lives_to_regenerate = diff_minutes // LIFE_RELOAD_TIME
+                max_number_lives_to_regenerate = min(
+                    3 - current_continent_data["number_lives"], max_number_lives_to_regenerate)
+                current_continent_data["number_lives"] += max_number_lives_to_regenerate
+                if current_continent_data["number_lives"] == 3:
                     current_continent_data["lost_live_date"] = None
                 else:
                     current_continent_data["lost_live_date"] = current_continent_data["lost_live_date"] + \
-                        LIFE_RELOAD_TIME * 60 * max_nb_lives_to_regenerate
+                        LIFE_RELOAD_TIME * 60 * max_number_lives_to_regenerate
         USER_DATA.save_changes()
-        self.number_lives_on = USER_DATA.continents[self.code_continent]["nb_lives"]
+        self.number_lives_on = USER_DATA.continents[self.code_continent]["number_lives"]
 
     def on_pre_leave(self, *args):
 
@@ -202,7 +202,7 @@ class HomeScreen(ImprovedScreen):
         self.completion_percentage_text = str(
             USER_DATA.continents[self.code_continent]["percentage"]) + " %"
 
-        self.number_lives_on = USER_DATA.continents[self.code_continent]["nb_lives"]
+        self.number_lives_on = USER_DATA.continents[self.code_continent]["number_lives"]
 
     def update_language_image(self):
         """
@@ -333,7 +333,7 @@ class HomeScreen(ImprovedScreen):
     @mainthread
     def ad_callback(self, popup: TwoButtonsPopup):
         self.number_lives_on += 1
-        USER_DATA.continents[self.code_continent]["nb_lives"] += 1
+        USER_DATA.continents[self.code_continent]["number_lives"] += 1
         USER_DATA.save_changes()
         popup.dismiss()
 

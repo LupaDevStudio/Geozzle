@@ -222,7 +222,7 @@ class GameOverScreen(ImprovedScreen):
                     self.continue_game_label = TEXT.game_over["next_country"]
 
                 self.congrats_defeat_message = TEXT.game_over["congrats"]
-                game.update_highscore()
+                game.update_score()
                 game.update_percentage()
 
             # The country is not correct

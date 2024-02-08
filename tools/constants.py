@@ -56,6 +56,7 @@ BACK_ARROW_SIZE = 0.2
 URL_WIKIDATA = 'https://query.wikidata.org/sparql'
 CURRENT_COUNTRY_INIT = {
     "country": "",
+    "number_lives_used_game": 0,
     "clues": {}
 }
 # Create the user data json if it does not exist
@@ -68,7 +69,8 @@ if not os.path.exists(PATH_USER_DATA):
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
-                "nb_lives": 3,
+                "number_lives": 3,
+                "number_lives_used_game": 0,
                 "lost_live_date": None,
                 "current_country": CURRENT_COUNTRY_INIT
             },
@@ -76,7 +78,8 @@ if not os.path.exists(PATH_USER_DATA):
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
-                "nb_lives": 3,
+                "number_lives": 3,
+                "number_lives_used_game": 0,
                 "lost_live_date": None,
                 "current_country": CURRENT_COUNTRY_INIT
             },
@@ -84,7 +87,8 @@ if not os.path.exists(PATH_USER_DATA):
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
-                "nb_lives": 3,
+                "number_lives": 3,
+                "number_lives_used_game": 0,
                 "lost_live_date": None,
                 "current_country": CURRENT_COUNTRY_INIT
             },
@@ -92,7 +96,8 @@ if not os.path.exists(PATH_USER_DATA):
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
-                "nb_lives": 3,
+                "number_lives": 3,
+                "number_lives_used_game": 0,
                 "lost_live_date": None,
                 "current_country": CURRENT_COUNTRY_INIT
             },
@@ -100,7 +105,8 @@ if not os.path.exists(PATH_USER_DATA):
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
-                "nb_lives": 3,
+                "number_lives": 3,
+                "number_lives_used_game": 0,
                 "lost_live_date": None,
                 "current_country": CURRENT_COUNTRY_INIT
             },
@@ -108,7 +114,8 @@ if not os.path.exists(PATH_USER_DATA):
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
-                "nb_lives": 3,
+                "number_lives": 3,
+                "number_lives_used_game": 0,
                 "lost_live_date": None,
                 "current_country": CURRENT_COUNTRY_INIT
             }
@@ -228,7 +235,7 @@ MAIN_BUTTON_FONT_SIZE = 25
 HIGHSCORE_FONT_SIZE = 25
 BUTTON_FONT_SIZE = 20
 SUB_TEXT_FONT_SIZE = 20
-SMALL_BUTTON_FONT_SIZE = 16
+SMALL_BUTTON_FONT_SIZE = 15
 
 ### Ads code ###
 
