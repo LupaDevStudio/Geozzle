@@ -69,8 +69,8 @@
             "highscore": 0,
             "percentage": 0,
             "countries_unlocked": [],
-            "nb_lives": 0,
-            "lost_live_date": 1707402936.6499178,
+            "nb_lives": 1,
+            "lost_live_date": 1707403836.6499178,
             "current_country": {
                 "country": "Q784",
                 "clues": {
