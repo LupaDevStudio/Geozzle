@@ -106,10 +106,7 @@ class Game():
     # The countries left to guess (wikidata code countries)
     list_countries_left: list
 
-    def __init__(self):
-        pass
-
-    def create_new_game(self, continent="Europe"):
+    def create_new_game(self, continent:str="Europe"):
         """
         Create a new game.
         
@@ -126,6 +123,18 @@ class Game():
         self.load_data()
 
     def load_data(self):
+        """
+        Load the data for a new game.
+        It also load the data of the previous game is there was an ongoing one.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
         user_data_continent = USER_DATA.continents[self.code_continent]
         self.clues = user_data_continent["current_country"]["clues"]
         self.number_lives = user_data_continent["number_lives"]
@@ -144,7 +153,21 @@ class Game():
             USER_DATA.continents[self.code_continent]["current_country"]["country"] = self.wikidata_code_country
             USER_DATA.save_changes()
 
-    def add_clue(self, name_clue):
+    def add_clue(self, name_clue: str):
+        """
+        Add a clue in the dictionary of clues.
+        It also create the request for the associated clue.
+        
+        Parameters
+        ----------
+        name_clue : str
+            Name of the clue (depending on the language)
+        
+        Returns
+        -------
+        str
+            Value associated to the clue.
+        """
 
         # Get the code of the clue with its name
         for code_clue in TEXT.clues:
@@ -161,6 +184,19 @@ class Game():
         return value_clue
 
     def check_country(self, guessed_country: str):
+        """
+        Check if the country proposed by the user is the correct one.
+        
+        Parameters
+        ----------
+        guessed_country : str
+            Name of the country proposed by the user.
+        
+        Returns
+        -------
+        bool
+            Boolean according to which the country proposed by the user is correct or not.
+        """
         # Find the wikidata code associated to the country
         for wikidata_code_country in DICT_COUNTRIES[USER_DATA.language][self.code_continent]:
             if DICT_COUNTRIES[USER_DATA.language][self.code_continent][wikidata_code_country] == guessed_country:
@@ -223,6 +259,18 @@ class Game():
         USER_DATA.save_changes()
 
     def update_percentage(self):
+        """
+        Update the percentage of completion of the continent.
+        It is calculated based on the number of countries already guessed.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
         # 100% of completion when the continent is over
         if self.list_countries_left == []:
             percentage = 100
@@ -247,6 +295,20 @@ class Game():
         USER_DATA.save_changes()
 
     def update_score(self):
+        """
+        Update the score of the user in its data when he has guessed a country.
+        The score is divided into two parts:
+            - the number of lives he used to guess the country
+            - the number of clues he used to guess the country
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
         highscore = USER_DATA.continents[self.code_continent]["highscore"]
         part_highscore = MAX_HIGHSCORE / len(self.list_all_countries)
         half_part_highscore = part_highscore / 2
@@ -335,6 +397,17 @@ class Game():
             sum_probabilities += value_probability
 
     def add_life(self):
+        """
+        Add a life to the user after he watches an add.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
         self.number_lives += 1
         USER_DATA.continents[self.code_continent]["number_lives"] += 1
         USER_DATA.save_changes()
