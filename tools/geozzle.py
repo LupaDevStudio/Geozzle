@@ -31,9 +31,10 @@ from tools.sparql import (
 from tools.kivyreview import (
     request_review
 )
-from tools.kivads import (
-    RewardedInterstitial
-)
+if MOBILE_MODE:
+    from tools.kivads import (
+        RewardedInterstitial
+    )
 
 #################
 ### Functions ###
@@ -54,7 +55,10 @@ def calculate_highscore_clues(part_highscore, nb_clues):
 
 
 # Create the ad instance
-ad = RewardedInterstitial(REWARD_INTERSTITIAL, on_reward=None)
+if MOBILE_MODE:
+    ad = RewardedInterstitial(REWARD_INTERSTITIAL, on_reward=None)
+else:
+    ad = None
 
 
 def watch_ad(ad_callback):

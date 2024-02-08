@@ -238,16 +238,16 @@ class GameOverScreen(ImprovedScreen):
                         primary_color=self.continent_color,
                         secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
                             self.code_continent],
-                        left_button_label=TEXT.home["watch_ad"],
-                        right_button_label=TEXT.game_over["go_to_home"],
+                        right_button_label=TEXT.home["watch_ad"],
+                        left_button_label=TEXT.game_over["go_to_home"],
                         title=TEXT.home["buy_life_title"],
                         center_label_text=TEXT.home["buy_life_message"],
                         font_ratio=self.font_ratio
                     )
                     watch_ad_with_callback = partial(
                         watch_ad, partial(self.ad_callback, popup))
-                    popup.left_release_function = watch_ad_with_callback
-                    popup.right_release_function = partial(
+                    popup.right_release_function = watch_ad_with_callback
+                    popup.left_release_function = partial(
                         self.go_to_home_and_dismiss, popup)
                     popup.open()
 
