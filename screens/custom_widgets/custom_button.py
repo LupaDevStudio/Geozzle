@@ -65,12 +65,6 @@ class CustomButton(ButtonBehavior, Widget):
         self.text_filling_ratio = text_filling_ratio
         self.font_size = font_size
 
-        self.bind(disable_button=self.my_function)
-        self.bind(color_label=self.my_function)
-
-    def my_function(self, base_widget, value):
-        pass
-
     def on_press(self):
         if not self.disable_button:
             self.opacity = OPACITY_ON_BUTTON_PRESS

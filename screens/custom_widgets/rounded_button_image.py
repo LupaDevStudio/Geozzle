@@ -52,9 +52,6 @@ class RoundedButtonImage(ButtonBehavior, RelativeLayout):
         self.colors = colors
         self.always_release = True
 
-    def bind_function(self, base_widget, value):
-        pass
-
     def on_press(self):
         if not self.disabled:
             self.opacity = OPACITY_ON_BUTTON_PRESS

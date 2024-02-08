@@ -32,7 +32,9 @@
             "lost_live_date": 1707405795.55004,
             "current_country": {
                 "country": "Q28",
-                "clues": {}
+                "clues": {
+                    "flag": true
+                }
             }
         },
         "Asia": {
