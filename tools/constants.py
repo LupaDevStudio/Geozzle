@@ -62,6 +62,7 @@ CURRENT_COUNTRY_INIT = {
 if not os.path.exists(PATH_USER_DATA):
     default_user_data = {
         "language": "english",
+        "has_seen_tutorial": False,
         "continents": {
             "Europe": {
                 "highscore": 0,
@@ -127,6 +128,7 @@ class UserData():
         data = load_json_file(PATH_USER_DATA)
         self.language = data["language"]
         self.continents = data["continents"]
+        self.has_seen_tutorial = data["has_seen_tutorial"]
 
     def save_changes(self) -> None:
         """
@@ -145,6 +147,7 @@ class UserData():
         data = {}
         data["language"] = self.language
         data["continents"] = self.continents
+        data["has_seen_tutorial"] = self.has_seen_tutorial
 
         # Save this dictionary
         save_json_file(

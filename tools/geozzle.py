@@ -93,6 +93,18 @@ class Game():
         pass
 
     def create_new_game(self, continent="Europe"):
+        """
+        Create a new game.
+        
+        Parameters
+        ----------
+        continent : str, optional (default is "Europe")
+            Code name of the continent.
+        
+        Returns
+        -------
+        None
+        """
         self.code_continent = continent
         self.load_data()
 
@@ -155,10 +167,39 @@ class Game():
         USER_DATA.save_changes()
         return False
 
-    def check_game_over(self):
+    def detect_game_over(self):
+        """
+        Detect if this is the game over or not.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        bool
+            Boolean according to which it is the game over or not.
+        """
+        # Reset the current dict of clues
         if self.number_lives <= 0:
             return True
         return False
+
+    def reset_data_game_over(self):
+        """
+        When the user is in game over, the dict of clues is resetted.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
+        USER_DATA.continents[self.code_continent]["current_country"] = copy.deepcopy(
+            CURRENT_COUNTRY_INIT)
+        USER_DATA.save_changes()
 
     def update_percentage(self):
         # 100% of completion when the continent is over

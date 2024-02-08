@@ -156,6 +156,7 @@ class GameOverScreen(ImprovedScreen):
 
     def go_to_home_and_dismiss(self, popup):
         popup.dismiss()
+        game.reset_data_game_over()
         self.go_to_home()
 
     def go_to_home(self):
@@ -231,7 +232,7 @@ class GameOverScreen(ImprovedScreen):
                 self.congrats_defeat_message = TEXT.game_over["defeat"]
 
                 # The user has no more lives
-                if game.check_game_over():
+                if game.detect_game_over():
                     self.disable_widget("continue_button")
 
                     popup = TwoButtonsPopup(

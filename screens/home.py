@@ -103,6 +103,11 @@ class HomeScreen(ImprovedScreen):
         # Schedule the change of background
         Clock.schedule_interval(
             self.manager.change_background, TIME_CHANGE_BACKGROUND)
+        
+        if not USER_DATA.has_seen_tutorial:
+            USER_DATA.has_seen_tutorial = True
+            USER_DATA.save_changes()
+            self.launch_tutorial()
 
         return super().on_enter(*args)
 
