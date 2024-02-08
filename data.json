@@ -28,11 +28,13 @@
                 "Q235",
                 "Q145"
             ],
-            "nb_lives": 2,
-            "lost_live_date": 1707403913.3347573,
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "Q28",
-                "clues": {}
+                "clues": {
+                    "flag": true
+                }
             }
         },
         "Asia": {
@@ -69,8 +71,8 @@
             "highscore": 0,
             "percentage": 0,
             "countries_unlocked": [],
-            "nb_lives": 1,
-            "lost_live_date": 1707403836.6499178,
+            "nb_lives": 3,
+            "lost_live_date": null,
             "current_country": {
                 "country": "Q784",
                 "clues": {

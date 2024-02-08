@@ -9,6 +9,7 @@ Module to create custom buttons with round transparent white background.
 ### Kivy imports ###
 
 from kivy.uix.relativelayout import RelativeLayout
+from kivy.uix.behaviors import ButtonBehavior
 from kivy.properties import (
     StringProperty,
     NumericProperty,
@@ -26,12 +27,12 @@ from tools.path import (
 #############
 
 
-class ThreeLives(RelativeLayout):
+class ThreeLives(ButtonBehavior, RelativeLayout):
     """
     The indicator of lives.
     """
 
-    continent_color = ColorProperty((0,0,0,1))
+    continent_color = ColorProperty((0, 0, 0, 1))
     number_lives_on = NumericProperty(3)
     image_path_1 = StringProperty(PATH_IMAGES + "life_on.png")
     image_path_2 = StringProperty(PATH_IMAGES + "life_on.png")
@@ -43,17 +44,13 @@ class ThreeLives(RelativeLayout):
         super().__init__(**kwargs)
 
         self.bind(number_lives_on=self.update_lives)
-        self.bind(continent_color=self.bind_function)
-
-    def bind_function(self, base_widget, value):
-        pass
 
     def update_lives(self, base_widget, value):
         if self.number_lives_on >= 1:
             self.image_path_3 = PATH_IMAGES + "life_on.png"
         else:
             self.image_path_3 = PATH_IMAGES + "life_off.png"
-        
+
         if self.number_lives_on >= 2:
             self.image_path_2 = PATH_IMAGES + "life_on.png"
         else:
@@ -63,3 +60,6 @@ class ThreeLives(RelativeLayout):
             self.image_path_1 = PATH_IMAGES + "life_on.png"
         else:
             self.image_path_1 = PATH_IMAGES + "life_off.png"
+
+    def on_release(self):
+        return super().on_release()

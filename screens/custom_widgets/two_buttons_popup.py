@@ -43,13 +43,3 @@ class TwoButtonsPopup(CustomPopup):
             super().__init__(left_release_function=self.dismiss, **kwargs)
         else:
             super().__init__(**kwargs)
-
-        self.bind(left_button_label=self.bind_function)
-        self.bind(left_release_function=self.bind_function)
-        self.bind(right_button_label=self.bind_function)
-        self.bind(right_release_function=self.bind_function)
-        self.bind(center_label_text=self.bind_function)
-        self.bind(title=self.bind_function)
-
-    def bind_function(self, *args):
-        pass
