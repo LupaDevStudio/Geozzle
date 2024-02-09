@@ -21,7 +21,7 @@ from tools.constants import (
     DICT_COUNTRIES,
     DICT_HINTS_INFORMATION,
     CURRENT_COUNTRY_INIT,
-    MOBILE_MODE,
+    ANDROID_MODE,
     REWARD_INTERSTITIAL
 )
 
@@ -31,7 +31,7 @@ from tools.sparql import (
 from tools.kivyreview import (
     request_review
 )
-if MOBILE_MODE:
+if ANDROID_MODE:
     from tools.kivads import (
         RewardedInterstitial
     )
@@ -44,14 +44,14 @@ if MOBILE_MODE:
 def calculate_score_clues(part_highscore: float, nb_clues: int):
     """
     Calculate the score of the user depending only on the number of clues used.
-    
+
     Parameters
     ----------
     part_highscore : float
         Part of the score to attribute to the clues.
     nb_clues : int
         Number of clues used to guess the country.
-    
+
     Returns
     -------
     int
@@ -72,7 +72,7 @@ def calculate_score_clues(part_highscore: float, nb_clues: int):
 
 
 # Create the ad instance
-if MOBILE_MODE:
+if ANDROID_MODE:
     ad = RewardedInterstitial(REWARD_INTERSTITIAL, on_reward=None)
 else:
     ad = None
@@ -80,7 +80,7 @@ else:
 
 def watch_ad(ad_callback):
     global ad
-    if MOBILE_MODE:
+    if ANDROID_MODE:
         ad.on_reward = ad_callback
         ad.show()
         ad = RewardedInterstitial(REWARD_INTERSTITIAL, on_reward=None)
@@ -106,15 +106,15 @@ class Game():
     # The countries left to guess (wikidata code countries)
     list_countries_left: list
 
-    def create_new_game(self, continent:str="Europe"):
+    def create_new_game(self, continent: str = "Europe"):
         """
         Create a new game.
-        
+
         Parameters
         ----------
         continent : str, optional (default is "Europe")
             Code name of the continent.
-        
+
         Returns
         -------
         None
@@ -126,11 +126,11 @@ class Game():
         """
         Load the data for a new game.
         It also load the data of the previous game is there was an ongoing one.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         None
@@ -157,12 +157,12 @@ class Game():
         """
         Add a clue in the dictionary of clues.
         It also create the request for the associated clue.
-        
+
         Parameters
         ----------
         name_clue : str
             Name of the clue (depending on the language)
-        
+
         Returns
         -------
         str
@@ -186,12 +186,12 @@ class Game():
     def check_country(self, guessed_country: str):
         """
         Check if the country proposed by the user is the correct one.
-        
+
         Parameters
         ----------
         guessed_country : str
             Name of the country proposed by the user.
-        
+
         Returns
         -------
         bool
@@ -227,11 +227,11 @@ class Game():
     def detect_game_over(self):
         """
         Detect if this is the game over or not.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         bool
@@ -245,11 +245,11 @@ class Game():
     def reset_data_game_over(self):
         """
         When the user is in game over, the dict of clues is resetted.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         None
@@ -262,11 +262,11 @@ class Game():
         """
         Update the percentage of completion of the continent.
         It is calculated based on the number of countries already guessed.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         None
@@ -287,7 +287,7 @@ class Game():
             for continent_key in USER_DATA.continents:
                 if USER_DATA.continents[continent_key]["percentage"] > 30:
                     has_already_reached_30 = True
-            if not has_already_reached_30 and MOBILE_MODE:
+            if not has_already_reached_30 and ANDROID_MODE:
                 request_review()
 
         # Save the changes in the USER_DATA
@@ -300,11 +300,11 @@ class Game():
         The score is divided into two parts:
             - the number of lives he used to guess the country
             - the number of clues he used to guess the country
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         None
@@ -314,7 +314,8 @@ class Game():
         half_part_highscore = part_highscore / 2
 
         # Depending on the number of lives => half the score
-        highscore += int((max(3-self.number_lives_used_game, 0) * half_part_highscore)/3)
+        highscore += int((max(3 - self.number_lives_used_game, 0)
+                         * half_part_highscore) / 3)
 
         # Depending on the number of clues used => the other half of the score
         highscore += calculate_score_clues(
@@ -399,11 +400,11 @@ class Game():
     def add_life(self):
         """
         Add a life to the user after he watches an add.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         None

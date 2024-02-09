@@ -6,16 +6,20 @@ Module to store all the paths used for the app files and folders
 ###############
 
 from kivy.utils import platform
+from kivy.app import App
 
 #################
 ### Constants ###
 #################
 
-MOBILE_MODE = platform == "android"
+IOS_MODE = platform == "ios"
+ANDROID_MODE = platform == "android"
 
-if MOBILE_MODE:
+if ANDROID_MODE:
     from android.storage import app_storage_path  # pylint: disable=import-error # type: ignore
     PATH_APP_FOLDER = app_storage_path() + "/"
+elif IOS_MODE:
+    PATH_APP_FOLDER = '~/Documents/.%(appname)s.ini'
 else:
     PATH_APP_FOLDER = "./"
 

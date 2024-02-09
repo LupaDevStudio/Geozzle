@@ -6,7 +6,7 @@ Constants
 __version__ : str
     Version of the application.
 
-MOBILE_MODE : bool
+ANDROID_MODE : bool
     Whether the application is launched on mobile or not.
 """
 
@@ -28,7 +28,9 @@ from tools.path import (
     PATH_USER_DATA,
     PATH_LANGUAGE,
     PATH_QUERIES_CONTINENT,
-    PATH_DICT_HINTS_INFORMATION
+    PATH_DICT_HINTS_INFORMATION,
+    ANDROID_MODE,
+    IOS_MODE
 )
 from tools.basic_tools import (
     load_json_file,
@@ -45,7 +47,7 @@ __version__ = "1.0.0"
 
 ### Mode ###
 
-MOBILE_MODE = platform == "android"
+
 DEBUG_MODE = False
 FPS = 30
 MSAA_LEVEL = 2
