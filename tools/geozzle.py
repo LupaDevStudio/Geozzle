@@ -22,6 +22,7 @@ from tools.constants import (
     DICT_HINTS_INFORMATION,
     CURRENT_COUNTRY_INIT,
     ANDROID_MODE,
+    IOS_MODE,
     REWARD_INTERSTITIAL
 )
 
@@ -35,6 +36,9 @@ if ANDROID_MODE:
     from tools.kivads import (
         RewardedInterstitial
     )
+
+if IOS_MODE:
+    from pyobjus import autoclass
 
 #################
 ### Functions ###
@@ -74,6 +78,8 @@ def calculate_score_clues(part_highscore: float, nb_clues: int):
 # Create the ad instance
 if ANDROID_MODE:
     ad = RewardedInterstitial(REWARD_INTERSTITIAL, on_reward=None)
+elif IOS_MODE:
+    ad = autoclass("adInterstitial").alloc().init()
 else:
     ad = None
 
@@ -84,6 +90,10 @@ def watch_ad(ad_callback):
         ad.on_reward = ad_callback
         ad.show()
         ad = RewardedInterstitial(REWARD_INTERSTITIAL, on_reward=None)
+    elif IOS_MODE:
+        ad.InterstitialView()
+        ad_callback()
+        # ad = autoclass("adInterstitial").alloc().init()
     else:
         print("No ads to show outside mobile mode")
         ad_callback()

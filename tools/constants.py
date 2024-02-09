@@ -18,9 +18,6 @@ ANDROID_MODE : bool
 
 import os
 
-### Kivy imports ###
-
-from kivy import platform
 
 ### Local imports ###
 

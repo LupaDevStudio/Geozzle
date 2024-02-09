@@ -19,7 +19,9 @@ if ANDROID_MODE:
     from android.storage import app_storage_path  # pylint: disable=import-error # type: ignore
     PATH_APP_FOLDER = app_storage_path() + "/"
 elif IOS_MODE:
-    PATH_APP_FOLDER = '~/Documents/.%(appname)s.ini'
+    my_app = App()
+    # PATH_APP_FOLDER = '~/Documents/.%(appname)s.ini/'
+    PATH_APP_FOLDER = my_app.user_data_dir
 else:
     PATH_APP_FOLDER = "./"
 

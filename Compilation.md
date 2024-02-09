@@ -53,10 +53,16 @@ Warning: https://github.com/kivy/kivy-ios/issues/513
 
 `open geozzle-ios/geozzle.xcodeproj`
 
+Warning after the install of firebase using `pod install`, the following command should be used.
+
+`open geozzle-ios/geozzle/xcworkspace`
+
 ### Add a library to Xcode
 
 `toolchain build numpy`
 
-### Update the Xcode project to recompile
+### Update the Xcode project
+
+This is only useful when new packages must be added. Code modifications are automatically taken into account.
 
 `toolchain update geozzle-ios`
