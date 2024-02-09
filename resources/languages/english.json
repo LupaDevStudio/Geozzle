@@ -14,12 +14,12 @@
         "buy_life_title": "Lives depleted"
     },
     "popup": {
-        "buy_life_title": "Rechargement des vies",
-        "next_life_in": "Votre prochaine vie se rechargera dans [TIME] min.",
-        "buy_life_text": "Si vous souhaitez recharger une vie plus rapidement, vous pouvez regarder une publicité.",
-        "full_life_text": "Vous avez toutes vos vies, lancez donc une partie pour deviner un nouveau pays !",
-        "watch_ad": "Regarder",
-        "close": "Fermer"
+        "buy_life_title": "Life Reload",
+        "next_life_in": "Your next life will recharge in [TIME] min.",
+        "buy_life_text": "If you wish to recharge a life more quickly, you can watch an advertisement.",
+        "full_life_text": "You have all your lives, so start a game to guess a new country!",
+        "watch_ad": "Watch",
+        "close": "Close"
     },
     "game_over": {
         "title": "Which country is it?",
@@ -64,7 +64,11 @@
                 "The goal of the game is to gather clues and attempt to guess every country in the selected continent! \n \n Remember, the more clues you use, the fewer points you'll earn!"
             ],
             [
-                "On the welcome screen, you can select the continent you want to play in using the arrows on the sides of the screen. \n \n Click 'Play' to start the game!",
+                "On the welcome screen, you can select the continent you want to play in using the arrows on the sides of the screen.",
+                "resources/images/tuto/home_screen_en.png"
+            ],
+            [
+                "Click 'Play' to start the game!",
                 "resources/images/tuto/home_screen_en.png"
             ],
             [
@@ -84,7 +88,11 @@
                 "resources/images/tuto/defeat_en.png"
             ],
             [
-                "You are given 3 lives at the beginning of the game. \n \n If you run out of lives, you can watch an ad to get a new one. \n \n Don't worry, your lives will recharge on their own over time!",
+                "You are given 3 lives at the beginning of the game. \n \n If you run out of lives, you can watch an ad to get a new one.",
+                "resources/images/tuto/defeat_en.png"
+            ],
+            [
+                "Don't worry, your lives will recharge on their own over time!",
                 "resources/images/tuto/defeat_en.png"
             ],
             [
