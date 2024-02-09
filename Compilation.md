@@ -39,6 +39,12 @@ python -m buildozer android release
 
 ## IOS
 
+### Before creating the project
+
+`toolchain build kivy`
+
+Warning: https://github.com/kivy/kivy-ios/issues/513
+
 ### Create the Xcode project
 
 `toolchain create Geozzle /Users/lisecreusy/Documents/Paul/Geozzle`
