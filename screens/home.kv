@@ -39,10 +39,12 @@
     
     # Three lives
     ThreeLives:
+        id: three_lives
         continent_color: root.continent_color
         pos_hint: {"center_x":0.5, "center_y":0.3}
         size_hint: (0.35, 0.1)
         number_lives_on: root.number_lives_on
+        release_function: root.open_buy_life_popup
 
     # Label with the name of the continent
     Label:
@@ -56,6 +58,7 @@
 
     # Play button
     CustomButton:
+        id: play_button
         text: root.play_label
         pos_hint: {"center_x":0.5, "center_y":0.2}
         size_hint: (0.4, 0.075)

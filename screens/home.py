@@ -16,7 +16,7 @@ from functools import partial
 
 ### Kivy imports ###
 
-from kivy.clock import Clock
+from kivy.clock import Clock, mainthread
 from kivy.properties import (
     StringProperty,
     ColorProperty,
@@ -52,6 +52,9 @@ from tools import (
     game
 )
 from screens.custom_widgets import TutorialPopup, TwoButtonsPopup
+from tools.geozzle import (
+    watch_ad
+)
 
 #############
 ### Class ###
@@ -100,28 +103,33 @@ class HomeScreen(ImprovedScreen):
         # Schedule the change of background
         Clock.schedule_interval(
             self.manager.change_background, TIME_CHANGE_BACKGROUND)
+        
+        if not USER_DATA.has_seen_tutorial:
+            USER_DATA.has_seen_tutorial = True
+            USER_DATA.save_changes()
+            self.launch_tutorial()
 
         return super().on_enter(*args)
 
     def regenerate_lives(self):
         for code_continent in LIST_CONTINENTS:
             current_continent_data = USER_DATA.continents[code_continent]
-            if current_continent_data["nb_lives"] < 3:
+            if current_continent_data["number_lives"] < 3:
                 current_time = time.time()
                 diff_time = int(
                     current_time - current_continent_data["lost_live_date"])
                 diff_minutes = diff_time // 60
-                max_nb_lives_to_regenerate = diff_minutes // LIFE_RELOAD_TIME
-                max_nb_lives_to_regenerate = min(
-                    3 - current_continent_data["nb_lives"], max_nb_lives_to_regenerate)
-                current_continent_data["nb_lives"] += max_nb_lives_to_regenerate
-                if current_continent_data["nb_lives"] == 3:
+                max_number_lives_to_regenerate = diff_minutes // LIFE_RELOAD_TIME
+                max_number_lives_to_regenerate = min(
+                    3 - current_continent_data["number_lives"], max_number_lives_to_regenerate)
+                current_continent_data["number_lives"] += max_number_lives_to_regenerate
+                if current_continent_data["number_lives"] == 3:
                     current_continent_data["lost_live_date"] = None
                 else:
                     current_continent_data["lost_live_date"] = current_continent_data["lost_live_date"] + \
-                        LIFE_RELOAD_TIME * 60 * max_nb_lives_to_regenerate
+                        LIFE_RELOAD_TIME * 60 * max_number_lives_to_regenerate
         USER_DATA.save_changes()
-        self.number_lives_on = USER_DATA.continents[self.code_continent]["nb_lives"]
+        self.number_lives_on = USER_DATA.continents[self.code_continent]["number_lives"]
 
     def on_pre_leave(self, *args):
 
@@ -194,7 +202,17 @@ class HomeScreen(ImprovedScreen):
         self.completion_percentage_text = str(
             USER_DATA.continents[self.code_continent]["percentage"]) + " %"
 
-        self.number_lives_on = USER_DATA.continents[self.code_continent]["nb_lives"]
+        self.number_lives_on = USER_DATA.continents[self.code_continent]["number_lives"]
+
+        if self.completion_value == 100:
+            self.disable_widget("play_button")
+            self.disable_widget("three_lives")
+        else:
+            try:
+                self.enable_widget("play_button")
+                self.enable_widget("three_lives")
+            except:
+                pass
 
     def update_language_image(self):
         """
@@ -256,6 +274,7 @@ class HomeScreen(ImprovedScreen):
         if self.number_lives_on > 0:
 
             # Reset the screen of game_summary
+            game.create_new_game(self.code_continent)
             self.manager.get_screen("game_summary").reset_screen()
             self.manager.get_screen(
                 "game_question").code_continent = self.code_continent
@@ -265,7 +284,8 @@ class HomeScreen(ImprovedScreen):
                 "game_summary").code_continent = self.code_continent
             self.manager.get_screen(
                 "game_over").code_continent = self.code_continent
-            game.set_continent(self.code_continent)
+            self.manager.get_screen(
+                "game_over").update_countries()
 
             # Go to the screen game question
             self.manager.current = "game_question"
@@ -274,16 +294,56 @@ class HomeScreen(ImprovedScreen):
             popup = TwoButtonsPopup(
                 primary_color=self.continent_color,
                 secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
-                left_button_label=TEXT.home["watch_ad"],
+                right_button_label=TEXT.home["watch_ad"],
                 title=TEXT.home["buy_life_title"],
-                center_label_text=TEXT.home["buy_life_message"]
+                center_label_text=TEXT.home["buy_life_message"],
+                font_ratio=self.font_ratio
             )
-            popup.left_release_function=partial(self.watch_ad, popup)
+            watch_ad_with_callback = partial(
+                watch_ad, partial(self.ad_callback, popup))
+            popup.right_release_function = watch_ad_with_callback
             popup.open()
 
-    def watch_ad(self, popup: TwoButtonsPopup):
+    def open_buy_life_popup(self):
+        if self.number_lives_on == 3:
+            popup_text = TEXT.popup["full_life_text"]
+            popup = TwoButtonsPopup(
+                primary_color=self.continent_color,
+                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                right_button_label=TEXT.popup["watch_ad"],
+                title=TEXT.popup["buy_life_title"],
+                center_label_text=popup_text,
+                font_ratio=self.font_ratio
+            )
+            popup.ids.right_button.disabled = True
+            popup.ids.right_button.opacity = 0
+            popup.left_button_label = TEXT.popup["close"]
+            popup.open()
+        else:
+            current_time = time.time()
+            diff_time = int(
+                current_time - USER_DATA.continents[self.code_continent]["lost_live_date"])
+            time_to_next_life = 15 - diff_time // 60
+            popup_text = TEXT.popup["next_life_in"].replace(
+                "[TIME]", str(time_to_next_life)) + "\n\n" + TEXT.popup["buy_life_text"]
+            popup = TwoButtonsPopup(
+                primary_color=self.continent_color,
+                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                right_button_label=TEXT.popup["watch_ad"],
+                title=TEXT.popup["buy_life_title"],
+                center_label_text=popup_text,
+                font_ratio=self.font_ratio
+            )
+            watch_ad_with_callback = partial(
+                watch_ad, partial(self.ad_callback, popup))
+            popup.right_release_function = watch_ad_with_callback
+            popup.left_button_label = TEXT.popup["close"]
+            popup.open()
+
+    @mainthread
+    def ad_callback(self, popup: TwoButtonsPopup):
         self.number_lives_on += 1
-        USER_DATA.continents[self.code_continent]["nb_lives"] += 1
+        USER_DATA.continents[self.code_continent]["number_lives"] += 1
         USER_DATA.save_changes()
         popup.dismiss()
 
@@ -292,7 +352,8 @@ class HomeScreen(ImprovedScreen):
             title="Tutorial",
             primary_color=self.continent_color,
             secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
-            tutorial_content=TEXT.tutorial["tutorial_content"])
+            tutorial_content=TEXT.tutorial["tutorial_content"],
+            font_ratio=self.font_ratio)
         popup.open()
 
     def open_lupa_website(self):

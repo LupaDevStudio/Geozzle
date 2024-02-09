@@ -188,7 +188,7 @@ class SoundMixer():
         self.sounds = {}
         self.channel_number = channel_number
         for key in dict_sound:
-            self.sounds[key] = [SoundLoader.load(dict_sound[key])
+            self.sounds[key] = [dict_sound[key]
                                 for i in range(channel_number)]
             for i in range(channel_number):
                 self.sounds[key][i].volume = volume

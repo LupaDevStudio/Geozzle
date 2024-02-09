@@ -6,22 +6,30 @@
         "North_America": "North America",
         "South_America": "South America",
         "Oceania": "Oceania",
-        "highscore": "Highscore: ",
+        "highscore": "Score: ",
         "play": "Play",
         "watch_ad": "Watch",
         "cancel": "Cancel",
         "buy_life_message": "You don't have any lives left at the moment. Would you like to watch an ad to continue playing?",
         "buy_life_title": "Lives depleted"
     },
+    "popup": {
+        "buy_life_title": "Life Reload",
+        "next_life_in": "Your next life will recharge in [TIME] min.",
+        "buy_life_text": "If you wish to recharge a life more quickly, you can watch an advertisement.",
+        "full_life_text": "You have all your lives, so start a game to guess a new country!",
+        "watch_ad": "Watch",
+        "close": "Close"
+    },
     "game_over": {
-        "title": "Which country is it ?",
-        "congrats": "Congratulations !",
-        "defeat": "Wrong choice !",
+        "title": "Which country is it?",
+        "congrats": "Congratulations!",
+        "defeat": "Wrong choice!",
         "game_over": "Defeat...",
         "validate": "Validate",
         "continue": "Continue",
         "next_country": "Next country",
-        "finish_continent": "You've successfully guessed all the countries in the continent, congratulations!",
+        "finish_continent": "You've successfully guessed all the countries in this continent, congratulations!",
         "button_back": "Back",
         "go_to_home": "Go back to menu",
         "select_country_title": "Error in choice",
@@ -29,7 +37,7 @@
     },
     "game_question": {
         "title": "Choose a clue from the provided options",
-        "clue": "Clue",
+        "no_more_clues": "You don't have any clue left to guess this country.",
         "no_connexion_title": "Request error",
         "no_connexion_message": "The request failed, please connect to the Internet and try again."
     },
@@ -50,13 +58,17 @@
         "close": "Close",
         "tutorial_content": [
             [
-                "Welcome to Geozzle's tutorial ! \n \n This tutorial will guide you through the game's features. \n \n Click 'Next' to continue."                
+                "Welcome to Geozzle's tutorial! \n \n This tutorial will guide you through the game's features. \n \n Click 'Next' to continue."
             ],
             [
-                "The goal of the game is to gather clues and attempt to guess every country in the selected continent ! \n \n Remember, the more clues you use, the fewer points you'll earn !"                
+                "The goal of the game is to gather clues and attempt to guess every country in the selected continent! \n \n Remember, the more clues you use, the fewer points you'll earn!"
             ],
             [
-                "On the welcome screen, you can select the continent you want to play in using the arrows on the sides of the screen. \n \n Click 'Play' to start the game !",
+                "On the welcome screen, you can select the continent you want to play in using the arrows on the sides of the screen.",
+                "resources/images/tuto/home_screen_en.png"
+            ],
+            [
+                "Click 'Play' to start the game!",
                 "resources/images/tuto/home_screen_en.png"
             ],
             [
@@ -64,11 +76,11 @@
                 "resources/images/tuto/game_question_en.png"
             ],
             [
-                "Use all collected clues to guess the country by clicking 'I've found !'. \n \n If you don't know the country, you can click 'New hint' to get a new one.",
+                "Use all collected clues to guess the country by clicking 'I've found!'. \n \n If you don't know the country, you can click 'New hint' to get a new one.",
                 "resources/images/tuto/game_summary_en.png"
             ],
             [
-                "Choose the right country from the dropdown menu and click 'Validate'. \n \n Click 'Back' to return to your clues. ",
+                "Choose the right country from the dropdown menu and click 'Validate'. \n \n Click 'Back' to return to your clues.",
                 "resources/images/tuto/game_over_en.png"
             ],
             [
@@ -76,7 +88,11 @@
                 "resources/images/tuto/defeat_en.png"
             ],
             [
-                "You are given 3 lives at the beginning of the game. \n \n If you run out of lives, you can watch an ad to get a new one. \n \n Don't worry, your lives will recharge on their own over time !",
+                "You are given 3 lives at the beginning of the game. \n \n If you run out of lives, you can watch an ad to get a new one.",
+                "resources/images/tuto/defeat_en.png"
+            ],
+            [
+                "Don't worry, your lives will recharge on their own over time!",
                 "resources/images/tuto/defeat_en.png"
             ],
             [
@@ -84,7 +100,7 @@
                 "resources/images/tuto/home_score_update_en.png"
             ],
             [
-                "Enjoy the game ! \n \n LupaDevStudio's team "
+                "Enjoy the game! \n \n LupaDevStudio's team "
             ]
         ]
     }

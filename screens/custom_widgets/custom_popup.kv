@@ -1,17 +1,18 @@
 #:kivy 2.2.1
 #:set POPUP_EXP 0
 #:set POPUP_RADIUS 20
+#:set POPUP_TITLE_FONT_SIZE 20
 
 <CustomPopup>:
 
-    size_hint: (0.8,0.5)
+    size_hint: (0.85,0.6)
     separator_color: root.primary_color
     background_color: (1,1,1,0)
     background: ""
     title_color: (0,0,0,1)
     title_align: "center"
     title_font: PATH_TEXT_FONT
-    title_size: MAIN_BUTTON_FONT_SIZE * self.font_ratio
+    title_size: POPUP_TITLE_FONT_SIZE * self.font_ratio
     auto_dismiss: False
     overlay_color: (0,0,0,0)
 

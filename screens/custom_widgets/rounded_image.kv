@@ -1,0 +1,19 @@
+#:kivy 2.2.1
+
+<RoundedImage>:
+
+    # Background
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        Ellipse:
+            pos:(0,0)
+            size:self.size
+
+    # Image
+    Image:
+        fit_mode: "contain"
+        source: root.image_path
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        size_hint: (0.6, 0.6)
+        color: root.colors

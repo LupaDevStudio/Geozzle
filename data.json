@@ -5,50 +5,65 @@
             "highscore": 0,
             "percentage": 0,
             "countries_unlocked": [],
-            "nb_lives": 3,
-            "lost_live_date": 1707227595.2713683,
+            "number_lives": 3,
+            "lost_live_date": 1707463772.937445,
             "current_country": {
                 "country": "",
+                "number_lives_used_game": 1,
                 "clues": {}
             }
         },
         "Asia": {
-            "highscore": 0,
-            "percentage": 0,
-            "countries_unlocked": [],
-            "nb_lives": 3,
+            "highscore": 424,
+            "percentage": 4.25531914893617,
+            "countries_unlocked": [
+                "Q851",
+                "Q837"
+            ],
+            "number_lives": 3,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q851",
+                "number_lives_used_game": 1,
+                "country": "Q874",
                 "clues": {
-                    "flag": false
+                    "flag": true,
+                    "official_language": "Turkmen",
+                    "motto": "",
+                    "anthem": "National anthem of Turkmenistan"
                 }
             }
         },
         "Africa": {
-            "highscore": 178,
-            "percentage": 0,
+            "highscore": 362,
+            "percentage": 3,
             "countries_unlocked": [
-                "Q262"
+                "Q262",
+                "Q1028"
             ],
-            "nb_lives": 3,
+            "number_lives": 3,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q1028",
-                "clues": {}
+                "number_lives_used_game": 0,
+                "country": "Q258",
+                "clues": {
+                    "motto": "Unity in Diversity",
+                    "anthem": "national anthem of South Africa",
+                    "official_language": "English, Swazi, Zulu, Xhosa, Tswana",
+                    "flag": true
+                }
             }
         },
         "North_America": {
             "highscore": 0,
             "percentage": 0,
             "countries_unlocked": [],
-            "nb_lives": 3,
+            "number_lives": 3,
             "lost_live_date": null,
             "current_country": {
+                "number_lives_used_game": 0,
                 "country": "Q784",
                 "clues": {
-                    "flag": true,
-                    "official_language": "English"
+                    "anthem": "Isle of Beauty, Isle of Splendour"
                 }
             }
         },
@@ -56,25 +71,32 @@
             "highscore": 595,
             "percentage": 0,
             "countries_unlocked": [],
-            "nb_lives": 3,
+            "number_lives": 3,
             "lost_live_date": null,
             "current_country": {
+                "number_lives_used_game": 0,
                 "country": "Q733",
                 "clues": {}
             }
         },
         "Oceania": {
-            "highscore": 0,
-            "percentage": 0,
-            "countries_unlocked": [],
-            "nb_lives": 3,
+            "highscore": 2080,
+            "percentage": 18,
+            "countries_unlocked": [
+                "Q672",
+                "Q686",
+                "Q34020"
+            ],
+            "number_lives": 3,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q712",
+                "country": "Q695",
+                "number_lives_used_game": 0,
                 "clues": {
                     "flag": true
                 }
             }
         }
-    }
+    },
+    "has_seen_tutorial": true
 }

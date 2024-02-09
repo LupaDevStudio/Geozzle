@@ -14,7 +14,7 @@ from functools import partial
 
 ### Kivy imports ###
 
-from kivy.clock import Clock
+from kivy.clock import Clock, mainthread
 from kivy.properties import (
     StringProperty,
     ColorProperty,
@@ -45,6 +45,9 @@ from screens.custom_widgets import (
     TwoButtonsPopup,
     MessagePopup
 )
+from tools.geozzle import (
+    watch_ad
+)
 
 #############
 ### Class ###
@@ -63,7 +66,7 @@ class GameOverScreen(ImprovedScreen):
     validate_label = StringProperty()
     continue_game_label = StringProperty()
     number_lives_on = NumericProperty()
-    list_countries = ListProperty([""])
+    list_countries = ListProperty([])
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
@@ -84,7 +87,6 @@ class GameOverScreen(ImprovedScreen):
         self.congrats_defeat_message = ""
         self.ids.validate_button.disable_button = False
         self.ids.validate_button.background_color[-1] = 1
-        self.list_countries = [""]
 
         return super().on_pre_enter(*args)
 
@@ -93,9 +95,6 @@ class GameOverScreen(ImprovedScreen):
         # Schedule the change of background
         Clock.schedule_interval(
             self.manager.change_background, TIME_CHANGE_BACKGROUND)
-
-        # Update the list of countries
-        self.update_countries()
 
         return super().on_enter(*args)
 
@@ -125,9 +124,11 @@ class GameOverScreen(ImprovedScreen):
         self.continue_game_label = TEXT.game_over["button_back"]
 
     def update_countries(self):
-        self.list_countries = [""]
+        self.ids.country_spinner.text = ""
+        self.list_countries = []
         for wikidata_code_country in game.list_countries_left:
-            self.list_countries.append(DICT_COUNTRIES[USER_DATA.language][self.code_continent][wikidata_code_country])
+            self.list_countries.append(
+                DICT_COUNTRIES[USER_DATA.language][self.code_continent][wikidata_code_country])
 
     def update_color(self, base_widget, value):
         """
@@ -152,9 +153,10 @@ class GameOverScreen(ImprovedScreen):
         self.manager.get_screen(
             "game_summary").previous_screen_name = "game_over"
         self.manager.current = "game_summary"
-    
+
     def go_to_home_and_dismiss(self, popup):
         popup.dismiss()
+        game.reset_data_game_over()
         self.go_to_home()
 
     def go_to_home(self):
@@ -171,10 +173,13 @@ class GameOverScreen(ImprovedScreen):
             self.manager.get_screen(
                 "game_question").code_continent = self.code_continent
             # Create a new game
-            game.set_continent(self.code_continent)
+            game.create_new_game(self.code_continent)
             self.manager.get_screen(
                 "game_summary").reset_scroll_view()
+            self.manager.get_screen(
+                "game_summary").update_flag_image()
             self.manager.current = "game_question"
+            self.update_countries()
 
         elif self.continue_game_label in [TEXT.game_over["continue"], TEXT.game_over["button_back"]]:
             self.manager.get_screen(
@@ -190,27 +195,33 @@ class GameOverScreen(ImprovedScreen):
     def submit_country(self):
         if self.ids.country_spinner.text != "":
 
+            # Reset the spinner
+            submitted_country = self.ids.country_spinner.text
+            self.ids.country_spinner.text = ""
+
             # The selected country is correct
-            if game.check_country(self.ids.country_spinner.text):
+            if game.check_country(submitted_country):
                 self.disable_validate_button()
 
                 # If the continent is finished
                 if game.list_countries_left == []:
-                    self.ids.continue_button.opacity = 0
                     popup = MessagePopup(
                         primary_color=self.continent_color,
-                        secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                        secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                            self.code_continent],
                         title=TEXT.game_over["congrats"],
                         ok_button_label=TEXT.game_over["go_to_home"],
                         center_label_text=TEXT.game_over["finish_continent"],
+                        font_ratio=self.font_ratio
                     )
-                    popup.release_function=partial(self.go_to_home_and_dismiss, popup)
+                    popup.release_function = partial(
+                        self.go_to_home_and_dismiss, popup)
                     popup.open()
                 else:
                     self.continue_game_label = TEXT.game_over["next_country"]
 
                 self.congrats_defeat_message = TEXT.game_over["congrats"]
-                game.update_highscore()
+                game.update_score()
                 game.update_percentage()
 
             # The country is not correct
@@ -220,19 +231,23 @@ class GameOverScreen(ImprovedScreen):
                 self.congrats_defeat_message = TEXT.game_over["defeat"]
 
                 # The user has no more lives
-                if game.check_game_over():
-                    self.ids.continue_button.opacity = 0
+                if game.detect_game_over():
 
                     popup = TwoButtonsPopup(
                         primary_color=self.continent_color,
-                        secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
-                        left_button_label=TEXT.home["watch_ad"],
-                        right_button_label=TEXT.game_over["go_to_home"],
+                        secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                            self.code_continent],
+                        right_button_label=TEXT.home["watch_ad"],
+                        left_button_label=TEXT.game_over["go_to_home"],
                         title=TEXT.home["buy_life_title"],
-                        center_label_text=TEXT.home["buy_life_message"]
+                        center_label_text=TEXT.home["buy_life_message"],
+                        font_ratio=self.font_ratio
                     )
-                    popup.left_release_function=partial(self.watch_ad, popup)
-                    popup.right_release_function=partial(self.go_to_home_and_dismiss, popup)
+                    watch_ad_with_callback = partial(
+                        watch_ad, partial(self.ad_callback, popup))
+                    popup.right_release_function = watch_ad_with_callback
+                    popup.left_release_function = partial(
+                        self.go_to_home_and_dismiss, popup)
                     popup.open()
 
         # Popup to ask the user to select a country
@@ -241,12 +256,13 @@ class GameOverScreen(ImprovedScreen):
                 primary_color=self.continent_color,
                 secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
                 title=TEXT.game_over["select_country_title"],
-                center_label_text=TEXT.game_over["select_country_message"]
-                )
+                center_label_text=TEXT.game_over["select_country_message"],
+                font_ratio=self.font_ratio
+            )
             popup.open()
 
-    def watch_ad(self, popup: TwoButtonsPopup):
+    @mainthread
+    def ad_callback(self, popup: TwoButtonsPopup):
         game.add_life()
         self.number_lives_on = game.number_lives
-        self.ids.continue_button.opacity = 1
         popup.dismiss()

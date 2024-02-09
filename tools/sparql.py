@@ -134,7 +134,7 @@ def request_official_language(wikidata_code_country, language:Literal["en", "fr"
         list_languages.append(language_name.capitalize())
     return list_languages
 
-def download_png_from_svg_url(svg_url: str):
+def download_png_from_svg_url(svg_url: str, code_continent: str):
     try:
         print("URL", svg_url)
         svg_url = svg_url.replace("Special:FilePath/", "File:")
@@ -170,7 +170,7 @@ def download_png_from_svg_url(svg_url: str):
         response = requests.get(url, headers=headers, stream=True)
         # print(response.status_code)
         # print(response.text)
-        with open(PATH_IMAGES_FLAG, 'wb') as out_file:
+        with open(PATH_IMAGES_FLAG + code_continent.lower() + ".png", 'wb') as out_file:
             shutil.copyfileobj(response.raw, out_file)
         # del response
         return True
@@ -178,7 +178,7 @@ def download_png_from_svg_url(svg_url: str):
         print("No connection")
         return False
 
-def request_country_flag(wikidata_code_country, language:Literal["en", "fr"]):
+def request_country_flag(wikidata_code_country, language:Literal["en", "fr"], code_continent:str):
     query = """
     SELECT DISTINCT ?flag
     WHERE {
@@ -198,7 +198,7 @@ def request_country_flag(wikidata_code_country, language:Literal["en", "fr"]):
     
     try:
         url = data[0]["flag"]["value"]
-        has_success = download_png_from_svg_url(url)
+        has_success = download_png_from_svg_url(url, code_continent)
         return has_success
     except:
         return False
@@ -276,18 +276,17 @@ def format_list_string(list_data):
     string_data = string_data[:-2]
     return string_data
 
-def request_clues(code_clue, wikidata_code_country):
+def request_clues(code_clue: str, wikidata_code_country: str, code_continent: str):
     wikidata_language = DICT_WIKIDATA_LANGUAGE[USER_DATA.language]
     list_data = []
 
     if code_clue == "official_language":
         list_data = request_official_language(wikidata_code_country, wikidata_language)
     if code_clue == "flag":
-        has_success = request_country_flag(wikidata_code_country, wikidata_language)
+        has_success = request_country_flag(wikidata_code_country, wikidata_language, code_continent)
         return has_success
     if code_clue == "motto":
         list_data = request_motto(wikidata_code_country, wikidata_language)
-        # print(list_data)
     if code_clue == "anthem":
         list_data = request_anthem(wikidata_code_country, wikidata_language)
     # TODO mettre les autres requêtes ici pour les autres indices

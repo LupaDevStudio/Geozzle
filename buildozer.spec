@@ -47,7 +47,7 @@ requirements = python3, kivy, androidstorage4kivy
 #presplash.filename = ./resources/logo_collector_1024.png
 
 # (str) Icon of the application
-icon.filename = ./resources/images/logo_5.png
+icon.filename = ./resources/images/logo.png
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 orientation = portrait
@@ -176,7 +176,7 @@ android.extra_manifest_xml = ./resources/manifest/extra_manifest.xml
 
 # (list) List of Java files to add to the android project (can be java or a
 # directory containing the files)
-android.add_src = ./tools/kivads/src
+android.add_src = ./tools/java_src
 
 # (list) Android AAR archives to add
 #android.add_aars =
@@ -188,7 +188,7 @@ android.add_src = ./tools/kivads/src
 #android.add_assets =
 
 # (list) Gradle dependencies to add
-android.gradle_dependencies = com.google.android.gms:play-services-ads:22.5.0, androidx.fragment:fragment-ktx:1.3.0-beta01, com.google.android.ump:user-messaging-platform:2.1.0
+android.gradle_dependencies = com.google.android.gms:play-services-ads:22.5.0, androidx.fragment:fragment-ktx:1.3.0-beta01, com.google.android.ump:user-messaging-platform:2.1.0, com.google.android.play:core:1.10.0
 
 # (bool) Enable AndroidX support. Enable when 'android.gradle_dependencies'
 # contains an 'androidx' package, or any package from Kotlin source.
@@ -240,7 +240,7 @@ android.gradle_dependencies = com.google.android.gms:play-services-ads:22.5.0, a
 #android.wakelock = False
 
 # (list) Android application meta-data to set (key=value format)
-android.meta_data = com.google.android.gms.ads.APPLICATION_ID=ca-app-pub-3940256099942544~3347511713
+android.meta_data = com.google.android.gms.ads.APPLICATION_ID=ca-app-pub-2909842258525517~6115358308
 
 # (list) Android library project to add (will be added in the
 # project.properties automatically.)

@@ -37,10 +37,3 @@ class MessagePopup(CustomPopup):
             super().__init__(release_function=self.dismiss, **kwargs)
         else:
             super().__init__(**kwargs)
-
-        self.bind(ok_button_label=self.bind_function)
-        self.bind(release_function=self.bind_function)
-        self.bind(title=self.bind_function)
-
-    def bind_function(self, *args):
-        pass

@@ -56,53 +56,67 @@ BACK_ARROW_SIZE = 0.2
 URL_WIKIDATA = 'https://query.wikidata.org/sparql'
 CURRENT_COUNTRY_INIT = {
     "country": "",
+    "number_lives_used_game": 0,
     "clues": {}
 }
 # Create the user data json if it does not exist
 if not os.path.exists(PATH_USER_DATA):
     default_user_data = {
         "language": "english",
+        "has_seen_tutorial": False,
         "continents": {
             "Europe": {
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
-                "nb_lives": 3,
+                "number_lives": 3,
+                "number_lives_used_game": 0,
+                "lost_live_date": None,
                 "current_country": CURRENT_COUNTRY_INIT
             },
             "Asia": {
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
-                "nb_lives": 3,
+                "number_lives": 3,
+                "number_lives_used_game": 0,
+                "lost_live_date": None,
                 "current_country": CURRENT_COUNTRY_INIT
             },
             "Africa": {
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
-                "nb_lives": 3,
+                "number_lives": 3,
+                "number_lives_used_game": 0,
+                "lost_live_date": None,
                 "current_country": CURRENT_COUNTRY_INIT
             },
             "North_America": {
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
-                "nb_lives": 3,
+                "number_lives": 3,
+                "number_lives_used_game": 0,
+                "lost_live_date": None,
                 "current_country": CURRENT_COUNTRY_INIT
             },
             "South_America": {
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
-                "nb_lives": 3,
+                "number_lives": 3,
+                "number_lives_used_game": 0,
+                "lost_live_date": None,
                 "current_country": CURRENT_COUNTRY_INIT
             },
             "Oceania": {
                 "highscore": 0,
                 "percentage": 0,
                 "countries_unlocked": [],
-                "nb_lives": 3,
+                "number_lives": 3,
+                "number_lives_used_game": 0,
+                "lost_live_date": None,
                 "current_country": CURRENT_COUNTRY_INIT
             }
         }
@@ -121,6 +135,7 @@ class UserData():
         data = load_json_file(PATH_USER_DATA)
         self.language = data["language"]
         self.continents = data["continents"]
+        self.has_seen_tutorial = data["has_seen_tutorial"]
 
     def save_changes(self) -> None:
         """
@@ -139,6 +154,7 @@ class UserData():
         data = {}
         data["language"] = self.language
         data["continents"] = self.continents
+        data["has_seen_tutorial"] = self.has_seen_tutorial
 
         # Save this dictionary
         save_json_file(
@@ -192,6 +208,7 @@ class Text():
         self.game_over = data["game_over"]
         self.clues = data["clues"]
         self.tutorial = data["tutorial"]
+        self.popup = data["popup"]
 
 
 TEXT = Text(language=USER_DATA.language)
@@ -218,12 +235,11 @@ MAIN_BUTTON_FONT_SIZE = 25
 HIGHSCORE_FONT_SIZE = 25
 BUTTON_FONT_SIZE = 20
 SUB_TEXT_FONT_SIZE = 20
-SMALL_BUTTON_FONT_SIZE = 18
+SMALL_BUTTON_FONT_SIZE = 15
 
 ### Ads code ###
 
-REWARD_INTERSTITIAL = ""
-INTERSTITIAL = ""
+REWARD_INTERSTITIAL = "ca-app-pub-2909842258525517/8121987815"
 
 ### Continents ###
 
@@ -292,5 +308,5 @@ LIFE_RELOAD_TIME = 15
 ### Musics ###
 
 MUSIC_VOLUME = 0.5
-SOUND_VOLUME = 0.5
+SOUND_VOLUME = 1
 MAIN_MUSIC_NAME = "world_travel"

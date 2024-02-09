@@ -25,6 +25,7 @@ from tools.constants import (
     MAIN_BUTTON_FONT_SIZE,
     OPACITY_ON_BUTTON_PRESS
 )
+from tools import sound_mixer
 
 #############
 ### Class ###
@@ -43,7 +44,7 @@ class CustomButton(ButtonBehavior, Widget):
     font_ratio = NumericProperty(1)
     radius = NumericProperty(30)
     disable_button = BooleanProperty(False)
-    color_label = ColorProperty((0,0,0,1))
+    color_label = ColorProperty((0, 0, 0, 1))
 
     def __init__(
             self,
@@ -64,18 +65,12 @@ class CustomButton(ButtonBehavior, Widget):
         self.text_filling_ratio = text_filling_ratio
         self.font_size = font_size
 
-        self.bind(disable_button=self.my_function)
-        self.bind(color_label=self.my_function)
-
-    def my_function(self, base_widget, value):
-        pass
-
     def on_press(self):
         if not self.disable_button:
             self.opacity = OPACITY_ON_BUTTON_PRESS
+            sound_mixer.play("click")
 
     def on_release(self):
         if not self.disable_button:
             self.release_function()
             self.opacity = 1
-
