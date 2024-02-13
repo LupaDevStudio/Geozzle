@@ -36,13 +36,13 @@ python -m virtualenv venv
 To start it, use the command on *Windows*:
 
 ```bash
-venv/Scripts/Activate.ps1
+./venv/Scripts/Activate.ps1
 ```
 
 Or for *MacOS* and *Linux*:
 
 ```bash
-venv/Scripts/activate
+source venv/Scripts/activate
 ```
 
 ### Installation of the necessary librairies
@@ -109,4 +109,4 @@ This project has been realized by LupaDevStudio, Laure-Emilie Martin and Romain 
 
 ## License
 
-This program is licensed under the `Creative Commons license`.
+This program is licensed under the `Creative Commons Attribution-NonCommercial-ShareAlike 4.0` license.
