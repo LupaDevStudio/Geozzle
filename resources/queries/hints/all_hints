@@ -1,0 +1,71 @@
+SELECT DISTINCT ?hint ?valueLabel
+WHERE {
+    BIND(wd:Q_country AS ?country)
+
+    {  # official language
+        BIND("official language" AS ?hint)
+        BIND(?language AS ?value)
+
+        ?country wdt:P37 ?language.  # official language of the country
+
+        MINUS {
+            ?language wdt:P31/wdt:P279* wd:Q34228.  # instance of `sign language` or any of its subclasses
+        }
+
+        MINUS {
+            ?language wdt:P31/wdt:P279* wd:Q20671156.  # instance of `languages of a geographic region` or any of its subclasses
+        }
+    }
+
+    UNION {  # capital
+        BIND("capital" AS ?hint)
+        BIND(?capital AS ?value)
+
+        ?country wdt:P36 ?capital.  # force statement to be the main statement
+        ?country p:P36 ?statement.  # capital statement of the country
+        ?statement ps:P36 ?capital.
+
+        OPTIONAL {
+             ?statement pq:P582 ?endtime.  # statement end-time
+        }
+
+        FILTER(!bound(?endtime))
+
+        MINUS {
+            ?statement pq:P459 wd:Q712144.  # `determination method` is `de facto`
+        }
+        MINUS {
+            ?statement pq:P5102 wd:Q712144.  # `nature of statement` is `de facto`
+        }
+    }
+
+    UNION {  # motto
+        BIND("motto" AS ?hint)
+        BIND(?motto AS ?value)
+
+        ?country wdt:P1546 ?motto.  # motto of the country
+    }
+
+    UNION {  # anthem
+        BIND("anthem" AS ?hint)
+        BIND(?anthem AS ?value)
+
+        ?country p:P85 ?statement.  # anthem statement of the country
+        ?statement ps:P85 ?anthem.
+
+         OPTIONAL {
+             ?statement pq:P582 ?endtime.  # statement end-time
+         }
+
+         FILTER(!bound(?endtime))
+    }
+
+    UNION {  # flag
+        BIND("flag" AS ?hint)
+        BIND(?flag AS ?value)
+
+        ?country wdt:P41 ?flag.  # flag image of the country
+    }
+
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
