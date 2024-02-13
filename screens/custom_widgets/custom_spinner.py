@@ -57,6 +57,10 @@ class CustomDropDown(DropDown):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+    def on_dismiss(self):
+        self.scroll_y = 1
+        return super().on_dismiss()
+
 
 class CustomSpinner(Spinner):
 
