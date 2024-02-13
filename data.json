@@ -1,14 +1,14 @@
 {
-    "language": "english",
+    "language": "french",
     "continents": {
         "Europe": {
             "highscore": 0,
             "percentage": 0,
             "countries_unlocked": [],
             "number_lives": 3,
-            "lost_live_date": 1707463772.937445,
+            "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q20",
                 "number_lives_used_game": 1,
                 "clues": {}
             }

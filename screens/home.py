@@ -16,7 +16,7 @@ from functools import partial
 
 ### Kivy imports ###
 
-from kivy.clock import Clock, mainthread
+from kivy.clock import Clock
 from kivy.properties import (
     StringProperty,
     ColorProperty,
@@ -31,11 +31,7 @@ from tools.path import (
     PATH_LANGUAGES_IMAGES,
     PATH_TEXT_FONT
 )
-
-from tools.kivy_tools import (
-    ImprovedScreen
-)
-
+from screens.custom_widgets import ImprovedScreenWithAds
 from tools.constants import (
     LIST_CONTINENTS,
     DICT_CONTINENTS,
@@ -61,7 +57,7 @@ from tools.geozzle import (
 #############
 
 
-class HomeScreen(ImprovedScreen):
+class HomeScreen(ImprovedScreenWithAds):
 
     previous_screen_name = StringProperty()
     counter_continents = 0
@@ -103,7 +99,7 @@ class HomeScreen(ImprovedScreen):
         # Schedule the change of background
         Clock.schedule_interval(
             self.manager.change_background, TIME_CHANGE_BACKGROUND)
-        
+
         if not USER_DATA.has_seen_tutorial:
             USER_DATA.has_seen_tutorial = True
             USER_DATA.save_changes()
@@ -303,49 +299,6 @@ class HomeScreen(ImprovedScreen):
                 watch_ad, partial(self.ad_callback, popup))
             popup.right_release_function = watch_ad_with_callback
             popup.open()
-
-    def open_buy_life_popup(self):
-        if self.number_lives_on == 3:
-            popup_text = TEXT.popup["full_life_text"]
-            popup = TwoButtonsPopup(
-                primary_color=self.continent_color,
-                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
-                right_button_label=TEXT.popup["watch_ad"],
-                title=TEXT.popup["buy_life_title"],
-                center_label_text=popup_text,
-                font_ratio=self.font_ratio
-            )
-            popup.ids.right_button.disabled = True
-            popup.ids.right_button.opacity = 0
-            popup.left_button_label = TEXT.popup["close"]
-            popup.open()
-        else:
-            current_time = time.time()
-            diff_time = int(
-                current_time - USER_DATA.continents[self.code_continent]["lost_live_date"])
-            time_to_next_life = 15 - diff_time // 60
-            popup_text = TEXT.popup["next_life_in"].replace(
-                "[TIME]", str(time_to_next_life)) + "\n\n" + TEXT.popup["buy_life_text"]
-            popup = TwoButtonsPopup(
-                primary_color=self.continent_color,
-                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
-                right_button_label=TEXT.popup["watch_ad"],
-                title=TEXT.popup["buy_life_title"],
-                center_label_text=popup_text,
-                font_ratio=self.font_ratio
-            )
-            watch_ad_with_callback = partial(
-                watch_ad, partial(self.ad_callback, popup))
-            popup.right_release_function = watch_ad_with_callback
-            popup.left_button_label = TEXT.popup["close"]
-            popup.open()
-
-    @mainthread
-    def ad_callback(self, popup: TwoButtonsPopup):
-        self.number_lives_on += 1
-        USER_DATA.continents[self.code_continent]["number_lives"] += 1
-        USER_DATA.save_changes()
-        popup.dismiss()
 
     def launch_tutorial(self):
         popup = TutorialPopup(
