@@ -63,6 +63,7 @@ class GameOverScreen(ImprovedScreenWithAds):
         DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
     title_label = StringProperty()
     congrats_defeat_message = StringProperty()
+    score_label = StringProperty()
     validate_label = StringProperty()
     continue_game_label = StringProperty()
     number_lives_on = NumericProperty()
@@ -85,6 +86,7 @@ class GameOverScreen(ImprovedScreenWithAds):
 
         self.number_lives_on = game.number_lives
         self.congrats_defeat_message = ""
+        self.score_label = ""
         self.ids.validate_button.disable_button = False
         self.ids.validate_button.background_color[-1] = 1
 
@@ -233,7 +235,8 @@ class GameOverScreen(ImprovedScreenWithAds):
                     self.continue_game_label = TEXT.game_over["next_country"]
 
                 self.congrats_defeat_message = TEXT.game_over["congrats"]
-                game.update_score()
+                current_score = game.update_score()
+                self.score_label = TEXT.home["highscore"] + str(current_score)
                 game.update_percentage()
 
             # The country is not correct

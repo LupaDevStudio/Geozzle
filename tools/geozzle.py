@@ -470,7 +470,7 @@ class Game():
         USER_DATA.continents[self.code_continent]["percentage"] = percentage
         USER_DATA.save_changes()
 
-    def update_score(self):
+    def update_score(self) -> int:
         """
         Update the score of the user in its data when he has guessed a country.
         The score is divided into two parts:
@@ -483,25 +483,29 @@ class Game():
 
         Returns
         -------
-        None
+        int
+            Current score
         """
+        current_score = 0
         highscore = USER_DATA.continents[self.code_continent]["highscore"]
         part_highscore = MAX_HIGHSCORE / len(self.list_all_countries)
         half_part_highscore = part_highscore / 2
 
         # Depending on the number of lives => half the score
-        highscore += int((max(3 - self.number_lives_used_game, 0)
+        current_score += int((max(3 - self.number_lives_used_game, 0)
                          * half_part_highscore) / 3)
 
         # Depending on the number of clues used => the other half of the score
-        highscore += calculate_score_clues(
+        current_score += calculate_score_clues(
             part_highscore=half_part_highscore,
             nb_clues=len(self.dict_clues[TEXT.language])
         )
 
         # Save the changes in the USER_DATA
-        USER_DATA.continents[self.code_continent]["highscore"] = highscore
+        USER_DATA.continents[self.code_continent]["highscore"] = highscore + current_score
         USER_DATA.save_changes()
+
+        return current_score
 
     def choose_three_clues(self):
         """
