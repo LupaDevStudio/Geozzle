@@ -170,7 +170,7 @@ class GameSummaryScreen(ImprovedScreenWithAds):
         None
         """
         for key in game.clues:
-            if key != "flag":
+            if not key in ["flag", "ISO_3_code"]:
                 name_key = TEXT.clues[key]
 
                 # Add the labels which are not already in the scrollview
