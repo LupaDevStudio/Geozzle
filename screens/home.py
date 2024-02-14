@@ -47,7 +47,11 @@ from tools import (
     music_mixer,
     game
 )
-from screens.custom_widgets import TutorialPopup, TwoButtonsPopup
+from screens.custom_widgets import (
+    TutorialPopup,
+    TwoButtonsPopup,
+    MessagePopup
+)
 from tools.geozzle import (
     watch_ad
 )
@@ -270,21 +274,32 @@ class HomeScreen(ImprovedScreenWithAds):
         if self.number_lives_on > 0:
 
             # Reset the screen of game_summary
-            game.create_new_game(self.code_continent)
-            self.manager.get_screen("game_summary").reset_screen()
-            self.manager.get_screen(
-                "game_question").code_continent = self.code_continent
-            self.manager.get_screen(
-                "game_question").previous_screen_name = "home"
-            self.manager.get_screen(
-                "game_summary").code_continent = self.code_continent
-            self.manager.get_screen(
-                "game_over").code_continent = self.code_continent
-            self.manager.get_screen(
-                "game_over").update_countries()
+            has_success = game.create_new_game(self.code_continent)
+            if has_success:
+                self.manager.get_screen("game_summary").reset_screen()
+                self.manager.get_screen(
+                    "game_question").code_continent = self.code_continent
+                self.manager.get_screen(
+                    "game_question").previous_screen_name = "home"
+                self.manager.get_screen(
+                    "game_summary").code_continent = self.code_continent
+                self.manager.get_screen(
+                    "game_over").code_continent = self.code_continent
+                self.manager.get_screen(
+                    "game_over").update_countries()
 
-            # Go to the screen game question
-            self.manager.current = "game_question"
+                # Go to the screen game question
+                self.manager.current = "game_question"
+            
+            else:
+                popup = MessagePopup(
+                    primary_color=self.continent_color,
+                    secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                    title=TEXT.clues["no_connexion_title"],
+                    center_label_text=TEXT.clues["no_connexion_message"],
+                    font_ratio=self.font_ratio
+                )
+                popup.open()
 
         else:
             popup = TwoButtonsPopup(

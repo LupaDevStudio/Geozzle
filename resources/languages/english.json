@@ -37,9 +37,7 @@
     },
     "game_question": {
         "title": "Choose a clue from the provided options",
-        "no_more_clues": "You don't have any clue left to guess this country.",
-        "no_connexion_title": "Request error",
-        "no_connexion_message": "The request failed, please connect to the Internet and try again."
+        "no_more_clues": "You don't have any clue left to guess this country."
     },
     "game_summary": {
         "i_found": "I've found!",
@@ -47,6 +45,8 @@
         "title": "Which country is it?"
     },
     "clues": {
+        "no_connexion_title": "Request error",
+        "no_connexion_message": "The request failed, please connect to the Internet and try again.",
         "official_language": "Official language",
         "motto": "Motto",
         "anthem": "Anthem",

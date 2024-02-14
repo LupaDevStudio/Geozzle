@@ -168,18 +168,30 @@ class GameOverScreen(ImprovedScreenWithAds):
 
     def go_to_next_screen(self):
         if self.continue_game_label == TEXT.game_over["next_country"]:
-            self.manager.get_screen(
-                "game_question").previous_screen_name = "game_over"
-            self.manager.get_screen(
-                "game_question").code_continent = self.code_continent
             # Create a new game
-            game.create_new_game(self.code_continent)
-            self.manager.get_screen(
-                "game_summary").reset_scroll_view()
-            self.manager.get_screen(
-                "game_summary").update_flag_image()
-            self.manager.current = "game_question"
-            self.update_countries()
+            has_success = game.create_new_game(self.code_continent)
+            if has_success:
+
+                self.manager.get_screen(
+                    "game_question").previous_screen_name = "game_over"
+                self.manager.get_screen(
+                    "game_question").code_continent = self.code_continent
+                self.manager.get_screen(
+                    "game_summary").reset_scroll_view()
+                self.manager.get_screen(
+                    "game_summary").update_flag_image()
+                self.manager.current = "game_question"
+                self.update_countries()
+
+            else:
+                popup = MessagePopup(
+                    primary_color=self.continent_color,
+                    secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                    title=TEXT.clues["no_connexion_title"],
+                    center_label_text=TEXT.clues["no_connexion_message"],
+                    font_ratio=self.font_ratio
+                )
+                popup.open()
 
         elif self.continue_game_label in [TEXT.game_over["continue"], TEXT.game_over["button_back"]]:
             self.manager.get_screen(

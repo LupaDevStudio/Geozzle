@@ -27,7 +27,7 @@ from tools.constants import (
 )
 
 from tools.sparql import (
-    request_clues
+    request_all_clues
 )
 from tools.kivyreview import (
     request_review
@@ -38,7 +38,7 @@ if ANDROID_MODE:
     )
 
 if IOS_MODE:
-    from pyobjus import autoclass
+    from pyobjus import autoclass # pylint: disable=import-error # type: ignore
 
 #################
 ### Functions ###
@@ -115,6 +115,8 @@ class Game():
     list_all_countries: list
     # The countries left to guess (wikidata code countries)
     list_countries_left: list
+    # Dict of all clues (not only the one selected by the user)
+    dict_all_clues: dict
 
     def create_new_game(self, continent: str = "Europe"):
         """
@@ -127,15 +129,18 @@ class Game():
 
         Returns
         -------
-        None
+        bool
+            Whether the creation of the game has worked or not.
         """
         self.code_continent = continent
-        self.load_data()
+        has_success = self.load_data()
+        return has_success
 
     def load_data(self):
         """
         Load the data for a new game.
         It also load the data of the previous game is there was an ongoing one.
+        It also create the request to get all clues of the current country.
 
         Parameters
         ----------
@@ -143,8 +148,10 @@ class Game():
 
         Returns
         -------
-        None
+        bool
+            Whether the creation of the game has worked or not.
         """
+        print("hi")
         user_data_continent = USER_DATA.continents[self.code_continent]
         self.clues = user_data_continent["current_country"]["clues"]
         self.number_lives = user_data_continent["number_lives"]
@@ -155,18 +162,32 @@ class Game():
         self.list_countries_left = [
             country for country in self.list_all_countries if not country in user_data_continent["countries_unlocked"]]
 
-        last_country = user_data_continent["current_country"]["country"]
-        if user_data_continent["current_country"]["country"] != "":
-            self.wikidata_code_country = last_country
+        last_country = user_data_continent["current_country"]
+        print(last_country)
+        if last_country["country"] != "":
+            self.wikidata_code_country = last_country["country"]
+            self.dict_all_clues = last_country["dict_all_clues"]
+
         else:
             self.wikidata_code_country = rd.choice(self.list_countries_left)
+
+            # Request all clues for the current country
+            self.dict_all_clues = request_all_clues(
+                wikidata_code_country=self.wikidata_code_country,
+                code_continent=self.code_continent)
+            if self.dict_all_clues is None:
+                return False
             USER_DATA.continents[self.code_continent]["current_country"]["country"] = self.wikidata_code_country
+            USER_DATA.continents[self.code_continent][
+                "current_country"]["dict_all_clues"] = self.dict_all_clues
+
             USER_DATA.save_changes()
+
+        return True
 
     def add_clue(self, name_clue: str):
         """
         Add a clue in the dictionary of clues.
-        It also create the request for the associated clue.
 
         Parameters
         ----------
@@ -184,10 +205,7 @@ class Game():
             if TEXT.clues[code_clue] == name_clue:
                 break
 
-        value_clue = request_clues(
-            code_clue, self.wikidata_code_country, self.code_continent)
-        if value_clue is None:
-            return
+        value_clue = self.dict_all_clues[code_clue]
         self.clues[code_clue] = value_clue
         USER_DATA.continents[self.code_continent]["current_country"]["clues"][code_clue] = value_clue
         USER_DATA.save_changes()

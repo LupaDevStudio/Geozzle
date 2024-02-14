@@ -56,7 +56,8 @@ URL_WIKIDATA = 'https://query.wikidata.org/sparql'
 CURRENT_COUNTRY_INIT = {
     "country": "",
     "number_lives_used_game": 0,
-    "clues": {}
+    "clues": {},
+    "dict_all_clues": {}
 }
 # Create the user data json if it does not exist
 if not os.path.exists(PATH_USER_DATA):
