@@ -66,7 +66,8 @@
         "area": "Superficie",
         "population": "Population",
         "ISO_3_code": "Forme du pays",
-        "years": " ans"
+        "years": " ans",
+        "inhabitants": " habitants"
     },
     "tutorial": {
         "next": "Suivant",

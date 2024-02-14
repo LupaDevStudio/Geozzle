@@ -62,7 +62,22 @@ def insert_space_numbers(number: str, language: str) -> str:
     str
         New number formatted with delimitators.
     """
-    if number[0] == "0":
+    if "." in number:
+        list_int_decimals = number.split(".")
+        if len(list_int_decimals[1]) >= 3:
+            if len(list_int_decimals[0]) <= 3:
+                list_int_decimals[1] = list_int_decimals[1][:2]
+            else:
+                list_int_decimals[1] = []
+        number = ""
+        for int_number in list_int_decimals[0]:
+            number += int_number
+        if list_int_decimals[1] != []:
+            number += "."
+        for dec_number in list_int_decimals[1]:
+            number += dec_number
+
+    if number[0] == "0" or len(number) <= 3:
         return number
 
     if language == "english":
@@ -81,6 +96,10 @@ def insert_space_numbers(number: str, language: str) -> str:
         else:
             list_characters.insert(0, value)
             counter += 1
+
+    if list_characters[0] == delimitation_character:
+        list_characters.pop(0)
+
     for character in list_characters:
         new_number += character
     return new_number
@@ -126,7 +145,7 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
             value_clue = str(mean_gdp/1000000)
 
     # Add spaces between the numbers
-    if code_clue in ["area", "population", "nominal_GDP"]:
+    if code_clue in ["area", "population", "nominal_GDP", "median_income"]:
         value_clue = insert_space_numbers(value_clue, language)
 
     value_clue = "– " + name_key + " : " + value_clue
@@ -136,8 +155,10 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
         value_clue += " km²"
     if code_clue == "nominal_GDP":
         value_clue += " M"
-    if code_clue == "age_majority":
+    if code_clue == "age_of_majority":
         value_clue += TEXT.clues["years"]
+    if code_clue == "population":
+        value_clue += TEXT.clues["inhabitants"]
 
     return value_clue
 
