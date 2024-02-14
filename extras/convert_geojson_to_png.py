@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw
 file_path = "draft_countries.geojson"
 img_side = 500
 
-output_folder = "z_out/"
+output_folder = "resources/images/countries_shape/"
 
 with open(file_path, "r", encoding="utf-8") as file:
     geo_dict = json.load(file)
@@ -16,7 +16,7 @@ for country in geo_dict:
     current_shape = country["geometry"]["coordinates"]
     current_shape_type = country["geometry"]["type"]
     current_image = Image.new(
-        "RGBA", (img_side, img_side), (255, 255, 255, 255))
+        "RGBA", (img_side, img_side), (255, 255, 255, 0))
     current_image_draw = ImageDraw.Draw(current_image)
     if current_shape_type == "Polygon":
         x_list = [e[0] for e in current_shape[0]]
@@ -40,7 +40,7 @@ for country in geo_dict:
         coords_list = [(x_list_norm[i], img_side - y_list_norm[i])
                        for i in range(len(x_list))]
         current_image_draw.polygon(coords_list, fill=(
-            0, 0, 0), outline=(0, 0, 0), width=10)
+            255, 255, 255), outline=(255, 255, 255), width=10)
     else:
         # Compute extrema of the coordinates
         x_min = current_shape[0][0][0][0]
@@ -84,6 +84,6 @@ for country in geo_dict:
             coords_list = [(x_list_norm[i], img_side - y_list_norm[i])
                            for i in range(len(x_list))]
             current_image_draw.polygon(coords_list, fill=(
-                0, 0, 0), outline=(0, 0, 0), width=10)
+                255, 255, 255), outline=(255, 255, 255), width=10)
     # Save the image
     current_image.save(output_folder + current_ISO_code + ".png")
