@@ -62,14 +62,16 @@ def calculate_score_clues(part_highscore: float, nb_clues: int):
     int
         Score of the user for the clues part.
     """
-    # If the user guesses with less than three clues, he has all points
+    print(part_highscore)
+    # If the user guesses with less than 4 clues, he has all points
     if nb_clues <= 4:
         return int(part_highscore)
 
-    # Lose points after
-    lost_points = part_highscore * (1 - nb_clues / 6)
-    part_highscore -= lost_points
+    # Lose points after, until using more than 14 clues
+    part_highscore = part_highscore * (1 - (nb_clues-4)/10)
+    print(nb_clues, part_highscore)
 
+    # No negative score
     if part_highscore <= 0:
         return 0
 
