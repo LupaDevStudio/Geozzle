@@ -102,6 +102,8 @@ def request_countries_continent(code_continent, language:Literal["en", "fr"]="en
         else:
             dict_results[country[0]] = country[2]
 
+    dict_results = dict(sorted(dict_results.items(), key=lambda item: item[1]))
+
     save_json_file(
         file_path=PATH_QUERIES_CONTINENT+code_continent+"_"+language+".json",
         dict_to_save=dict_results
@@ -401,5 +403,5 @@ def request_all_clues(wikidata_code_country: str, code_continent: str, language 
 if __name__ == "__main__":
     if BOOL_CREATE_DICT_CONTINENTS:
        for code_continent in DICT_WIKIDATA_CONTINENTS:
-           request_countries_continent(code_continent=code_continent, language="fr")
+           request_countries_continent(code_continent=code_continent, language="en")
     print(request_all_clues("Q1013", "Africa"))
