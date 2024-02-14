@@ -65,7 +65,8 @@
         "driving_side": "Sens de conduite",
         "area": "Superficie",
         "population": "Population",
-        "ISO_3_code": "Forme du pays"
+        "ISO_3_code": "Forme du pays",
+        "years": " ans"
     },
     "tutorial": {
         "next": "Suivant",

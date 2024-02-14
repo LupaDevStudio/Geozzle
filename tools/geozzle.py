@@ -46,7 +46,22 @@ if IOS_MODE:
 ### Functions ###
 #################
 
-def insert_space_numbers(number: str, language: str):
+def insert_space_numbers(number: str, language: str) -> str:
+    """
+    Put spaces or comas each 3 numbers.
+    
+    Parameters
+    ----------
+    number : str
+        String of a number
+    language : str
+        Code of the language
+    
+    Returns
+    -------
+    str
+        New number formatted with delimitators.
+    """
     if number[0] == "0":
         return number
 
@@ -70,7 +85,63 @@ def insert_space_numbers(number: str, language: str):
         new_number += character
     return new_number
 
-def calculate_score_clues(part_highscore: float, nb_clues: int):
+def format_clue(code_clue: str, value_clue: str, language: str) -> str:
+    """
+    Format the value of the clue to display something nice in the scrollview.
+    
+    Parameters
+    ----------
+    code_clue : str
+        Code of the clue
+    value_clue : str
+        Value associated to the clue
+    language : str
+        Code of the language
+    
+    Returns
+    -------
+    str
+        Value of the clue formatted.
+    """
+
+    name_key = TEXT.clues[code_clue]
+
+    try:
+        # Capitalize the clues
+        if value_clue.upper() != value_clue:
+            value_clue = value_clue.capitalize()
+    except:
+        pass
+
+    # Take the mean of the GDP values
+    if code_clue == "nominal_GDP":
+        list_gdp = value_clue.split(", ")
+        mean_gdp = 0
+        for gdp in list_gdp:
+            mean_gdp += int(gdp)
+        mean_gdp /= len(list_gdp)
+        if mean_gdp >= 1000000:
+            value_clue = str(int(mean_gdp/1000000))
+        else:
+            value_clue = str(mean_gdp/1000000)
+
+    # Add spaces between the numbers
+    if code_clue in ["area", "population", "nominal_GDP"]:
+        value_clue = insert_space_numbers(value_clue, language)
+
+    value_clue = "– " + name_key + " : " + value_clue
+
+    # Add the units when needed
+    if code_clue == "area":
+        value_clue += " km²"
+    if code_clue == "nominal_GDP":
+        value_clue += " M"
+    if code_clue == "age_majority":
+        value_clue += TEXT.clues["years"]
+
+    return value_clue
+
+def calculate_score_clues(part_highscore: float, nb_clues: int) -> int:
     """
     Calculate the score of the user depending only on the number of clues used.
 
@@ -136,6 +207,8 @@ class Game():
     code_continent: str
     wikidata_code_country: str
     dict_clues: dict
+    # List of the at most three hints randomly choosen
+    list_current_hints: list
     # The list of the wikidata code countries
     list_all_countries: list
     # The countries left to guess (wikidata code countries)
@@ -143,7 +216,7 @@ class Game():
     # Dict of all clues (not only the one selected by the user)
     dict_all_clues: dict
 
-    def create_new_game(self, continent: str = "Europe"):
+    def create_new_game(self, continent: str = "Europe") -> bool:
         """
         Create a new game.
 
@@ -161,7 +234,7 @@ class Game():
         has_success = self.load_data()
         return has_success
 
-    def load_data(self):
+    def load_data(self) -> bool:
         """
         Load the data for a new game.
         It also load the data of the previous game is there was an ongoing one.
@@ -177,16 +250,18 @@ class Game():
             Whether the creation of the game has worked or not.
         """
         user_data_continent = USER_DATA.continents[self.code_continent]
-        self.dict_clues = user_data_continent["current_country"]["clues"]
+        last_country = user_data_continent["current_country"]
+
+        self.list_current_hints = last_country["list_current_hints"]
+        self.dict_clues = last_country["dict_clues"]
         self.number_lives = user_data_continent["number_lives"]
-        self.number_lives_used_game = user_data_continent["current_country"]["number_lives_used_game"]
+        self.number_lives_used_game = last_country["number_lives_used_game"]
 
         self.list_all_countries = list(
             DICT_COUNTRIES[USER_DATA.language][self.code_continent].keys())
         self.list_countries_left = [
             country for country in self.list_all_countries if not country in user_data_continent["countries_unlocked"]]
 
-        last_country = user_data_continent["current_country"]
         if last_country["country"] != "":
             self.wikidata_code_country = last_country["country"]
             self.dict_all_clues = last_country["dict_all_clues"]
@@ -221,43 +296,6 @@ class Game():
 
         return True
 
-    def format_clue(self, code_clue: str, value_clue: str, language: str):
-
-        name_key = TEXT.clues[code_clue]
-
-        try:
-            # Capitalize the clues
-            if value_clue.upper() != value_clue:
-                value_clue = value_clue.capitalize()
-        except:
-            pass
-
-        # Take the mean of the GDP values
-        if code_clue == "nominal_GDP":
-            list_gdp = value_clue.split(", ")
-            mean_gdp = 0
-            for gdp in list_gdp:
-                mean_gdp += int(gdp)
-            mean_gdp /= len(list_gdp)
-            if mean_gdp >= 1000000:
-                value_clue = str(int(mean_gdp/1000000))
-            else:
-                value_clue = str(mean_gdp/1000000)
-
-        # Add spaces between the numbers
-        if code_clue in ["area", "population", "nominal_GDP"]:
-            value_clue = insert_space_numbers(value_clue, language)
-
-        value_clue = "– " + name_key + " : " + value_clue
-
-        # Add the units when needed
-        if code_clue == "area":
-            value_clue += " km²"
-        if code_clue == "nominal_GDP":
-            value_clue += " M"
-
-        return value_clue
-
     def add_clue(self, name_clue: str):
         """
         Add a clue in the dictionary of clues.
@@ -269,9 +307,10 @@ class Game():
 
         Returns
         -------
-        str
-            Value associated to the clue.
+        None
         """
+        # Reset the list of hints
+        self.list_current_hints = []
 
         # Get the code of the clue with its name
         for code_clue in TEXT.clues:
@@ -280,7 +319,7 @@ class Game():
 
         for language in ["french", "english"]:
             if not code_clue in ["ISO_3_code", "flag"]:
-                value_clue = self.format_clue(
+                value_clue = format_clue(
                     code_clue=code_clue,
                     value_clue=self.dict_all_clues[language][code_clue],
                     language=language)
@@ -288,10 +327,10 @@ class Game():
                 value_clue = self.dict_all_clues[language][code_clue]
             self.dict_clues[language][code_clue] = value_clue
             USER_DATA.continents[self.code_continent][
-                "current_country"]["clues"][language][code_clue] = value_clue
+                "current_country"]["dict_clues"][language][code_clue] = value_clue
             USER_DATA.save_changes()
 
-    def check_country(self, guessed_country: str):
+    def check_country(self, guessed_country: str) -> bool:
         """
         Check if the country proposed by the user is the correct one.
 
@@ -332,7 +371,7 @@ class Game():
         USER_DATA.save_changes()
         return False
 
-    def detect_game_over(self):
+    def detect_game_over(self) -> bool:
         """
         Detect if this is the game over or not.
 
@@ -453,6 +492,17 @@ class Game():
         hint_2 = None
         hint_3 = None
 
+        # Load the preselected clues if there are some
+        if self.list_current_hints != []:
+            hint_1 = self.list_current_hints[0]
+            if len(self.list_current_hints) >= 2:
+                hint_2 = self.list_current_hints[1]
+                if len(self.list_current_hints) >= 3:
+                    hint_3 = self.list_current_hints[2]
+
+            return hint_1, hint_2, hint_3
+
+        # Choose three new clues
         for type_clue in self.dict_all_clues[TEXT.language]:
             # Check if the clue has not already been selected
             if not type_clue in self.dict_clues[TEXT.language] and not type_clue in LIST_CLUES_EXCEPTIONS:
@@ -467,22 +517,29 @@ class Game():
                 dict_probabilities[type_clue] /= total
 
             hint_1 = self.select_clue(dict_probabilities)
+            self.list_current_hints.append(hint_1)
 
             # Choose a second distinct clue
             if len(dict_probabilities) != 1:
                 hint_2 = hint_1
                 while hint_2 == hint_1:
                     hint_2 = self.select_clue(dict_probabilities)
+                self.list_current_hints.append(hint_2)
 
                 # Choose a third distinct clue
                 if len(dict_probabilities) != 2:
                     hint_3 = hint_1
                     while hint_3 == hint_1 or hint_3 == hint_2:
                         hint_3 = self.select_clue(dict_probabilities)
+                    self.list_current_hints.append(hint_3)
+
+        USER_DATA.continents[self.code_continent][
+            "current_country"]["list_current_hints"] = self.list_current_hints
+        USER_DATA.save_changes()
 
         return hint_1, hint_2, hint_3
 
-    def select_clue(self, dict_probabilities):
+    def select_clue(self, dict_probabilities: dict) -> str:
         """
         Select randomly a clue given the probabilities of the clues.
 

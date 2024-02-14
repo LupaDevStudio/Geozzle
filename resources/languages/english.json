@@ -65,7 +65,8 @@
         "driving_side": "Driving side",
         "area": "Area",
         "population": "Population",
-        "ISO_3_code": "Country shape"
+        "ISO_3_code": "Country shape",
+        "years": " years"
     },
     "tutorial": {
         "next": "Next",

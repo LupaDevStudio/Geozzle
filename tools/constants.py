@@ -56,7 +56,8 @@ URL_WIKIDATA = 'https://query.wikidata.org/sparql'
 CURRENT_COUNTRY_INIT = {
     "country": "",
     "number_lives_used_game": 0,
-    "clues": {
+    "list_current_hints": [],
+    "dict_clues": {
         "french": {},
         "english": {}
     },
