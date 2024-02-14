@@ -24,7 +24,8 @@ from tools.constants import (
     ANDROID_MODE,
     IOS_MODE,
     REWARD_INTERSTITIAL,
-    LIST_CLUES_EXCEPTIONS
+    LIST_CLUES_EXCEPTIONS,
+    DICT_WIKIDATA_LANGUAGE
 )
 
 from tools.sparql import (
@@ -62,14 +63,12 @@ def calculate_score_clues(part_highscore: float, nb_clues: int):
     int
         Score of the user for the clues part.
     """
-    print(part_highscore)
     # If the user guesses with less than 4 clues, he has all points
     if nb_clues <= 4:
         return int(part_highscore)
 
     # Lose points after, until using more than 14 clues
     part_highscore = part_highscore * (1 - (nb_clues-4)/10)
-    print(nb_clues, part_highscore)
 
     # No negative score
     if part_highscore <= 0:
@@ -113,7 +112,7 @@ class Game():
     number_lives_used_game: int
     code_continent: str
     wikidata_code_country: str
-    clues: dict
+    dict_clues: dict
     # The list of the wikidata code countries
     list_all_countries: list
     # The countries left to guess (wikidata code countries)
@@ -154,9 +153,8 @@ class Game():
         bool
             Whether the creation of the game has worked or not.
         """
-        print("hi")
         user_data_continent = USER_DATA.continents[self.code_continent]
-        self.clues = user_data_continent["current_country"]["clues"]
+        self.dict_clues = user_data_continent["current_country"]["clues"]
         self.number_lives = user_data_continent["number_lives"]
         self.number_lives_used_game = user_data_continent["current_country"]["number_lives_used_game"]
 
@@ -172,14 +170,27 @@ class Game():
 
         else:
             self.wikidata_code_country = rd.choice(self.list_countries_left)
+            self.dict_all_clues = {}
 
-            # Request all clues for the current country
-            self.dict_all_clues = request_all_clues(
+            # Request all clues for the current country in French and English
+            dict_all_clues_en = request_all_clues(
                 wikidata_code_country=self.wikidata_code_country,
-                code_continent=self.code_continent)
-            if self.dict_all_clues is None:
+                code_continent=self.code_continent,
+                language=DICT_WIKIDATA_LANGUAGE["english"])
+            dict_all_clues_fr = request_all_clues(
+                wikidata_code_country=self.wikidata_code_country,
+                code_continent=self.code_continent,
+                language=DICT_WIKIDATA_LANGUAGE["french"])
+
+            if dict_all_clues_en is None or dict_all_clues_fr is None:
                 return False
-            USER_DATA.continents[self.code_continent]["current_country"]["country"] = self.wikidata_code_country
+            
+            self.dict_all_clues["french"] = dict_all_clues_fr
+            self.dict_all_clues["english"] = dict_all_clues_en
+
+            # Update the information is the USER_DATA
+            USER_DATA.continents[self.code_continent][
+                "current_country"]["country"] = self.wikidata_code_country
             USER_DATA.continents[self.code_continent][
                 "current_country"]["dict_all_clues"] = self.dict_all_clues
 
@@ -207,11 +218,12 @@ class Game():
             if TEXT.clues[code_clue] == name_clue:
                 break
 
-        value_clue = self.dict_all_clues[code_clue]
-        self.clues[code_clue] = value_clue
-        USER_DATA.continents[self.code_continent]["current_country"]["clues"][code_clue] = value_clue
-        USER_DATA.save_changes()
-        return value_clue
+        for language in ["french", "english"]:
+            value_clue = self.dict_all_clues[language][code_clue]
+            self.dict_clues[language][code_clue] = value_clue
+            USER_DATA.continents[self.code_continent][
+                "current_country"]["clues"][language][code_clue] = value_clue
+            USER_DATA.save_changes()
 
     def check_country(self, guessed_country: str):
         """
@@ -350,7 +362,7 @@ class Game():
         # Depending on the number of clues used => the other half of the score
         highscore += calculate_score_clues(
             part_highscore=half_part_highscore,
-            nb_clues=len(self.clues)
+            nb_clues=len(self.dict_clues[TEXT.language])
         )
 
         # Save the changes in the USER_DATA
@@ -375,9 +387,9 @@ class Game():
         hint_2 = None
         hint_3 = None
 
-        for type_clue in self.dict_all_clues:
+        for type_clue in self.dict_all_clues[TEXT.language]:
             # Check if the clue has not already been selected
-            if not type_clue in self.clues and not type_clue in LIST_CLUES_EXCEPTIONS:
+            if not type_clue in self.dict_clues[TEXT.language] and not type_clue in LIST_CLUES_EXCEPTIONS:
                 # Get the probability of the clue
                 dict_probabilities[type_clue] = DICT_HINTS_INFORMATION[type_clue]
 
