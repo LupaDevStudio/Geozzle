@@ -46,6 +46,29 @@ if IOS_MODE:
 ### Functions ###
 #################
 
+def insert_space_numbers(number: str, language: str):
+    if number[0] == "0":
+        return number
+
+    if language == "english":
+        delimitation_character = ","
+    else:
+        delimitation_character = " "
+
+    counter = 0
+    list_characters = []
+    new_number = ""
+    for character in range(len(number)-1,-1,-1):
+        value = number[character]
+        if counter == 2:
+            list_characters = [delimitation_character, value] + list_characters
+            counter = 0
+        else:
+            list_characters.insert(0, value)
+            counter += 1
+    for character in list_characters:
+        new_number += character
+    return new_number
 
 def calculate_score_clues(part_highscore: float, nb_clues: int):
     """
@@ -198,6 +221,43 @@ class Game():
 
         return True
 
+    def format_clue(self, code_clue: str, value_clue: str, language: str):
+
+        name_key = TEXT.clues[code_clue]
+
+        try:
+            # Capitalize the clues
+            if value_clue.upper() != value_clue:
+                value_clue = value_clue.capitalize()
+        except:
+            pass
+
+        # Take the mean of the GDP values
+        if code_clue == "nominal_GDP":
+            list_gdp = value_clue.split(", ")
+            mean_gdp = 0
+            for gdp in list_gdp:
+                mean_gdp += int(gdp)
+            mean_gdp /= len(list_gdp)
+            if mean_gdp >= 1000000:
+                value_clue = str(int(mean_gdp/1000000))
+            else:
+                value_clue = str(mean_gdp/1000000)
+
+        # Add spaces between the numbers
+        if code_clue in ["area", "population", "nominal_GDP"]:
+            value_clue = insert_space_numbers(value_clue, language)
+
+        value_clue = "– " + name_key + " : " + value_clue
+
+        # Add the units when needed
+        if code_clue == "area":
+            value_clue += " km²"
+        if code_clue == "nominal_GDP":
+            value_clue += " M"
+
+        return value_clue
+
     def add_clue(self, name_clue: str):
         """
         Add a clue in the dictionary of clues.
@@ -219,7 +279,13 @@ class Game():
                 break
 
         for language in ["french", "english"]:
-            value_clue = self.dict_all_clues[language][code_clue]
+            if not code_clue in ["ISO_3_code", "flag"]:
+                value_clue = self.format_clue(
+                    code_clue=code_clue,
+                    value_clue=self.dict_all_clues[language][code_clue],
+                    language=language)
+            else:
+                value_clue = self.dict_all_clues[language][code_clue]
             self.dict_clues[language][code_clue] = value_clue
             USER_DATA.continents[self.code_continent][
                 "current_country"]["clues"][language][code_clue] = value_clue

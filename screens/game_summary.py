@@ -157,17 +157,6 @@ class GameSummaryScreen(ImprovedScreenWithAds):
         self.ids.scrollview_layout.reset_screen()
         self.dict_scrollview_widgets = {}
 
-    def format_text_label_clue(self, key):
-        name_key = TEXT.clues[key]
-        text_label_clue = "– " + name_key + " : " + \
-            game.dict_clues[TEXT.language][key]
-
-        # Add the units when needed
-        if key == "area":
-            text_label_clue += " km²"
-
-        return text_label_clue
-
     def update_scroll_view(self):
         """
         Add the labels of clues in the scrollview.
@@ -185,10 +174,9 @@ class GameSummaryScreen(ImprovedScreenWithAds):
 
                 # Add the labels which are not already in the scrollview
                 if not key in self.dict_scrollview_widgets:
-                    text_label_clue = self.format_text_label_clue(key=key)
 
                     label_clue = ScrollViewLabel(
-                        text=text_label_clue,
+                        text=game.dict_clues[TEXT.language][key],
                         color=self.continent_color,
                         font_name=self.font_name,
                         font_size=17 * self.font_ratio,
