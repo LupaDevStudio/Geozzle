@@ -299,7 +299,7 @@ DICT_COUNTRIES = {
 }
 
 DICT_HINTS_INFORMATION = load_json_file(file_path=PATH_DICT_HINTS_INFORMATION)
-LIST_CLUES_EXCEPTIONS = ["ISO_2_code", "ISO_3_code"]
+LIST_CLUES_EXCEPTIONS = ["ISO_2_code"]
 
 ### Gameplay ###
 

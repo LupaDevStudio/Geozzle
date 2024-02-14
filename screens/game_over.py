@@ -179,7 +179,7 @@ class GameOverScreen(ImprovedScreenWithAds):
                 self.manager.get_screen(
                     "game_summary").reset_scroll_view()
                 self.manager.get_screen(
-                    "game_summary").update_flag_image()
+                    "game_summary").update_images()
                 self.manager.current = "game_question"
                 self.update_countries()
 

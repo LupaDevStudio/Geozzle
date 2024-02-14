@@ -16,5 +16,6 @@
     "top_level_internet_domain": 0.5,
     "driving_side": 5,
     "area": 5,
-    "population": 4
+    "population": 4,
+    "ISO_3_code": 1
 }

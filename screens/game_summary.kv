@@ -61,13 +61,26 @@
             spacing:20*root.font_ratio
             padding: (0.05*root.width, 10,0.05*root.width,40)
 
+    FlagImage:
+        id: flag_image
+        size_hint: (None, 0.1)
+        pos_hint: {"center_x":0.25,"center_y":0.2}
+        primary_color: root.continent_color
+
+    GeojsonImage:
+        id: geojson_image
+        size_hint: (None, 0.1)
+        pos_hint: {"center_x":0.75,"center_y":0.2}
+        primary_color: root.continent_color
+        color: root.continent_color
+
     # Button to get new clue and go back to game summary
     ColoredRoundedButton:
         background_color: root.background_color
         text: root.get_new_hint
-        font_size: MAIN_BUTTON_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.2}
-        size_hint: (0.75, 0.1)
+        font_size: BUTTON_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.275, "center_y":0.075}
+        size_hint: (0.4, 0.075)
         color_label: root.continent_color 
         release_function: root.go_to_game_question
 
@@ -77,12 +90,6 @@
         background_color: root.continent_color
         font_size: BUTTON_FONT_SIZE * root.font_ratio
         pos_hint: {"center_x":0.725, "center_y":0.075}
-        size_hint: (0.45, 0.075)
+        size_hint: (0.4, 0.075)
         color_label: root.background_color
         release_function: root.go_to_game_over
-
-    FlagImage:
-        id: flag_image
-        size_hint: (None,0.1)
-        pos_hint: {"center_x":0.25,"center_y":0.075}
-        primary_color: root.continent_color

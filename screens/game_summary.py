@@ -27,7 +27,8 @@ from tools.path import (
     PATH_BACKGROUNDS,
     PATH_TEXT_FONT,
     PATH_IMAGES_FLAG,
-    PATH_IMAGES_FLAG_UNKNOWN
+    PATH_IMAGES_FLAG_UNKNOWN,
+    PATH_IMAGES_GEOJSON
 )
 from tools.constants import (
     DICT_CONTINENTS,
@@ -79,7 +80,7 @@ class GameSummaryScreen(ImprovedScreenWithAds):
         self.update_font_ratio()
         self.update_scroll_view()
         self.update_text()
-        self.update_flag_image()
+        self.update_images()
 
         return super().on_pre_enter(*args)
 
@@ -124,14 +125,22 @@ class GameSummaryScreen(ImprovedScreenWithAds):
         self.ids.scrollview_layout.reset_screen()
         self.dict_scrollview_widgets = {}
 
-    def update_flag_image(self):
+    def update_images(self):
+        # Update the flag image
         if "flag" in game.clues:
-            # self.ids.flag_image.remove_from_cache()
             self.ids.flag_image.reload()
             self.ids.flag_image.source = PATH_IMAGES_FLAG + self.code_continent.lower() + \
                 ".png"
         else:
             self.ids.flag_image.source = PATH_IMAGES_FLAG_UNKNOWN
+
+        # Update the geojson image
+        if "ISO_3_code" in game.clues:
+            self.ids.geojson_image.reload()
+            self.ids.geojson_image.source = PATH_IMAGES_GEOJSON + game.clues["ISO_3_code"] + \
+                ".png"
+        else:
+            self.ids.geojson_image.source = PATH_IMAGES_FLAG_UNKNOWN
 
     def reset_scroll_view(self):
         """
@@ -187,7 +196,7 @@ class GameSummaryScreen(ImprovedScreenWithAds):
                     self.dict_scrollview_widgets[key] = label_clue
 
             else:
-                self.update_flag_image()
+                self.update_images()
 
     def update_color(self, base_widget, value):
         """

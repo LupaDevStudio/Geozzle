@@ -64,7 +64,8 @@
         "top_level_internet_domain": "Internet domain",
         "driving_side": "Driving side",
         "area": "Area",
-        "population": "Population"
+        "population": "Population",
+        "ISO_3_code": "Country shape"
     },
     "tutorial": {
         "next": "Next",
