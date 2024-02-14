@@ -37,7 +37,7 @@ from tools.constants import (
     DICT_COUNTRIES,
     USER_DATA
 )
-from tools.kivy_tools import ImprovedScreen
+from screens.custom_widgets import ImprovedScreenWithAds
 from tools import (
     game
 )
@@ -54,7 +54,7 @@ from tools.geozzle import (
 #############
 
 
-class GameOverScreen(ImprovedScreen):
+class GameOverScreen(ImprovedScreenWithAds):
 
     previous_screen_name = StringProperty()
     code_continent = StringProperty(LIST_CONTINENTS[0])

@@ -1,3 +1,7 @@
+
+# Ignore IOS compilation folder
+geozzle-ios
+
 # Ignore Xara files
 *.xar
 
@@ -12,6 +16,7 @@ share_image.png
 *ini
 
 # Ignore draft files
+z_out
 draft*
 *_test.*
 ideas.md

@@ -22,7 +22,7 @@ source.include_exts = py,png,jpg,kv,atlas,json,txt,ttf,wav,ico,ogg,otf,mp3
 #source.exclude_exts = spec
 
 # (list) List of directory to exclude (let empty to not exclude anything)
-source.exclude_dirs = test, bin, .buildozer, venv, PlayStore, reports
+source.exclude_dirs = test, bin, .buildozer, venv, PlayStore, reports, extras
 
 # (list) List of exclusions using pattern matching
 # Do not prefix with './'

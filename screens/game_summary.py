@@ -36,7 +36,7 @@ from tools.constants import (
     TIME_CHANGE_BACKGROUND,
     TEXT
 )
-from tools.kivy_tools import ImprovedScreen
+from screens.custom_widgets import ImprovedScreenWithAds
 from tools import (
     game
 )
@@ -50,7 +50,7 @@ class ScrollViewLabel(Label):
     pass
 
 
-class GameSummaryScreen(ImprovedScreen):
+class GameSummaryScreen(ImprovedScreenWithAds):
 
     previous_screen_name = StringProperty()
     code_continent = StringProperty(LIST_CONTINENTS[0])

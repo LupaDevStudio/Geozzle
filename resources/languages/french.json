@@ -17,7 +17,7 @@
         "buy_life_title": "Rechargement des vies",
         "next_life_in": "Votre prochaine vie se rechargera dans [TIME] min.",
         "buy_life_text": "Si vous souhaitez recharger une vie plus rapidement, vous pouvez regarder une publicité.",
-        "full_life_text": "Vous avez toutes vos vies, lancez donc une partie pour deviner un nouveau pays !",
+        "full_life_text": "Bravo, vous avez toutes vos vies, essayez donc de deviner un nouveau pays !",
         "watch_ad": "Regarder",
         "close": "Fermer"
     },
@@ -64,7 +64,11 @@
                 "Le but du jeu est de collecter des indices et de tenter de deviner chaque pays dans le continent sélectionné ! \n \n Attention, plus vous utilisez d'indices, moins vous gagnerez de points !"
             ],
             [
-                "Sur l'écran d'accueil, vous pouvez sélectionner le continent dans lequel vous souhaitez jouer en utilisant les flèches sur les côtés de l'écran. \n \n Cliquez sur 'Jouer' pour commencer le jeu !",
+                "Sur l'écran d'accueil, vous pouvez sélectionner le continent dans lequel vous souhaitez jouer en utilisant les flèches sur les côtés de l'écran.",
+                "resources/images/tuto/home_screen_fr.png"
+            ],
+            [
+                "Cliquez sur 'Jouer' pour commencer le jeu !",
                 "resources/images/tuto/home_screen_fr.png"
             ],
             [
@@ -72,7 +76,11 @@
                 "resources/images/tuto/game_question_fr.png"
             ],
             [
-                "Utilisez tous les indices collectés pour deviner le pays en cliquant sur 'J'ai trouvé !'. \n \n Si vous ne connaissez pas le pays, vous pouvez cliquer sur 'Nouvel indice' pour en obtenir un nouveau.",
+                "Utilisez tous les indices collectés pour deviner le pays en cliquant sur 'J'ai trouvé !'.",
+                "resources/images/tuto/game_summary_fr.png"
+            ],
+            [
+                "Si vous ne connaissez pas le pays, vous pouvez cliquer sur 'Nouvel indice' pour en obtenir un nouveau.",
                 "resources/images/tuto/game_summary_fr.png"
             ],
             [

@@ -30,7 +30,8 @@ from tools.path import (
     PATH_BACKGROUNDS
 )
 from tools.constants import (
-    MOBILE_MODE,
+    ANDROID_MODE,
+    IOS_MODE,
     FPS,
     MSAA_LEVEL
 )
@@ -168,7 +169,7 @@ class MainApp(App, Widget):
         return super().on_resume()
 
     def on_start(self):
-        if MOBILE_MODE:
+        if ANDROID_MODE:
             Window.update_viewport()
 
         # Open the opening screen
@@ -186,7 +187,7 @@ class MainApp(App, Widget):
 
 # Run the application
 if __name__ == "__main__":
-    if not MOBILE_MODE:
+    if not (ANDROID_MODE or IOS_MODE):
         Window.size = (405, 720)
-        # Window.size = (600, 900)
-    MainApp().run()
+    main_app = MainApp()
+    main_app.run()
