@@ -76,7 +76,7 @@ The project is divided into several folders:
   - `languages`, containing the dictionaries of language.
   - `manifest`, containing some tools for the Play Store.
   - `musics`, containing the musics of the game.
-  - `queries`, containing some results of the queries to Wikidata.
+  - `queries`, containing some results of the queries to Wikidata. It also contains the module `convert_geojson_to_png.py`, which converted the geojson data into images of the shape of the countries.
   - `sounds`, containing the sound effects of the game.
 - `screens`, containing the *Python* modules for the different screens. The subfolder `custom_widgets` contains tools widgets inserted in the screens.
 - `tools`, divided into several subfolders and modules:
