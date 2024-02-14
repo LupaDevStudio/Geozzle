@@ -107,33 +107,6 @@ def request_countries_continent(code_continent, language:Literal["en", "fr"]="en
         dict_to_save=dict_results
     )
 
-def request_official_language(wikidata_code_country, language:Literal["en", "fr"]):
-    query = """
-    SELECT DISTINCT ?language ?languageLabel
-    WHERE {
-        wd:%s wdt:P37 ?language.
-
-        MINUS {
-            ?language wdt:P31/wdt:P279* wd:Q34228.  # Not an instance of sign language or any of its subclasses
-        }
-
-        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],%s". }
-        }    
-    """%(wikidata_code_country, language)
-    data = make_request(query)
-
-    # Try a second time the request
-    if data is None:
-        data = make_request(query)
-        if data is None:
-            return
-
-    list_languages = []
-    for language in data:
-        language_name = language["languageLabel"]["value"]
-        list_languages.append(language_name.capitalize())
-    return list_languages
-
 def download_png_from_svg_url(svg_url: str, code_continent: str):
     try:
         svg_url = svg_url.replace("Special:FilePath/", "File:")
@@ -173,82 +146,6 @@ def download_png_from_svg_url(svg_url: str, code_continent: str):
         print("No connection")
         return False
 
-def request_country_flag(wikidata_code_country, language:Literal["en", "fr"], code_continent:str):
-    query = """
-    SELECT DISTINCT ?flag
-    WHERE {
-        wd:%s wdt:P41 ?flag.
-
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],%s". }
-    }
-    """%(wikidata_code_country, language)
-
-    data = make_request(query)
-
-    # Try a second time the request
-    if data is None:
-        data = make_request(query)
-        if data is None:
-            return
-    
-    try:
-        url = data[0]["flag"]["value"]
-        has_success = download_png_from_svg_url(url, code_continent)
-        return has_success
-    except:
-        return False
-
-def request_motto(wikidata_code_country, language:Literal["en", "fr"]):
-    query = """
-    SELECT DISTINCT ?mottoLabel
-    WHERE {
-        wd:%s wdt:P1546 ?motto.
-
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],%s". }
-    }"""%(wikidata_code_country, language)
-
-    data = make_request(query)
-
-    # Try a second time the request
-    if data is None:
-        data = make_request(query)
-        if data is None:
-            return
-        
-    list_mottos = []
-    for motto in data:
-        motto_name = motto["mottoLabel"]["value"]
-        list_mottos.append(motto_name)
-    return list_mottos
-
-def request_anthem(wikidata_code_country, language:Literal["en", "fr"]):
-    query = """
-    SELECT DISTINCT ?anthem ?anthemLabel
-    WHERE {
-        wd:%s p:P85 ?statement.
-        ?statement ps:P85 ?anthem.
-
-        OPTIONAL {
-            ?statement pq:P582 ?endtime.
-        }
-    FILTER(!bound(?endtime))
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],%s". }
-    }"""%(wikidata_code_country, language)
-
-    data = make_request(query)
-
-    # Try a second time the request
-    if data is None:
-        data = make_request(query)
-        if data is None:
-            return
-        
-    list_anthems = []
-    for anthem in data:
-        anthem_name = anthem["anthemLabel"]["value"]
-        list_anthems.append(anthem_name)
-    return list_anthems
-
 def format_list_string(list_data):
     """
     Format a list of strings into a string with coma
@@ -269,28 +166,6 @@ def format_list_string(list_data):
     for data in list_data:
         string_data += data + ", "
     string_data = string_data[:-2]
-    return string_data
-
-def request_clues(code_clue: str, wikidata_code_country: str, code_continent: str):
-    wikidata_language = DICT_WIKIDATA_LANGUAGE[USER_DATA.language]
-    list_data = []
-
-    if code_clue == "official_language":
-        list_data = request_official_language(wikidata_code_country, wikidata_language)
-    if code_clue == "flag":
-        has_success = request_country_flag(wikidata_code_country, wikidata_language, code_continent)
-        return has_success
-    if code_clue == "motto":
-        list_data = request_motto(wikidata_code_country, wikidata_language)
-    if code_clue == "anthem":
-        list_data = request_anthem(wikidata_code_country, wikidata_language)
-    # TODO mettre les autres requêtes ici pour les autres indices
-
-    # If the request fails
-    if list_data is None:
-        return
-
-    string_data = format_list_string(list_data=list_data)
     return string_data
 
 def post_treat_flag(svg_url, code_continent):
@@ -527,5 +402,4 @@ if __name__ == "__main__":
     # if BOOL_CREATE_DICT_CONTINENTS:
     #    for code_continent in DICT_WIKIDATA_CONTINENTS:
     #        request_countries_continent(code_continent=code_continent, language="en")
-    # print(request_clues("flag", "Q258", "Africa"))
     print(request_all_clues("Q1013", "Africa"))
