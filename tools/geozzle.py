@@ -23,7 +23,8 @@ from tools.constants import (
     CURRENT_COUNTRY_INIT,
     ANDROID_MODE,
     IOS_MODE,
-    REWARD_INTERSTITIAL
+    REWARD_INTERSTITIAL,
+    LIST_CLUES_EXCEPTIONS
 )
 
 from tools.sparql import (
@@ -163,7 +164,6 @@ class Game():
             country for country in self.list_all_countries if not country in user_data_continent["countries_unlocked"]]
 
         last_country = user_data_continent["current_country"]
-        print(last_country)
         if last_country["country"] != "":
             self.wikidata_code_country = last_country["country"]
             self.dict_all_clues = last_country["dict_all_clues"]
@@ -372,13 +372,12 @@ class Game():
         hint_1 = None
         hint_2 = None
         hint_3 = None
-        for type_clue in DICT_HINTS_INFORMATION:
-            # Check if the clue has not already been selected
-            if not type_clue in self.clues:
 
-                # Check if the clue has a value for the current country
-                if not self.wikidata_code_country in DICT_HINTS_INFORMATION[type_clue]["exceptions"]:
-                    dict_probabilities[type_clue] = DICT_HINTS_INFORMATION[type_clue]["probability"]
+        for type_clue in self.dict_all_clues:
+            # Check if the clue has not already been selected
+            if not type_clue in self.clues and not type_clue in LIST_CLUES_EXCEPTIONS:
+                # Get the probability of the clue
+                dict_probabilities[type_clue] = DICT_HINTS_INFORMATION[type_clue]
 
         if dict_probabilities != {}:
             # Sum all probabilities

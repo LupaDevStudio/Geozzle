@@ -50,7 +50,21 @@
         "official_language": "Langue officielle",
         "motto": "Devise",
         "anthem": "Hymne",
-        "flag": "Drapeau"
+        "flag": "Drapeau",
+        "capital": "Capitale",
+        "currency": "Devise",
+        "age_of_majority": "Age de la majorité",
+        "human_development_index": "Index de Développement Humain",
+        "median_income": "Revenu moyen",
+        "country_calling_code": "Code téléphonique",
+        "license_plate_code": "Code de plaque d'immatriculation",
+        "nominal_GDP": "PIB moyen",
+        "head_of_state": "Chef de l'État",
+        "head_of_government": "Chef du gouvernement",
+        "top_level_internet_domain": "Domaine internet",
+        "driving_side": "Sens de conduite",
+        "area": "Superficie",
+        "population": "Population"
     },
     "tutorial": {
         "next": "Suivant",

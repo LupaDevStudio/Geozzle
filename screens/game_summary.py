@@ -58,7 +58,6 @@ class GameSummaryScreen(ImprovedScreenWithAds):
     background_color = ColorProperty(
         DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
     number_lives_on = NumericProperty()
-    number_clues = NumericProperty(0)
     dict_scrollview_widgets = {}
     text_found_country = StringProperty()
     current_hint = StringProperty()  # the name of the new hint
@@ -91,10 +90,6 @@ class GameSummaryScreen(ImprovedScreenWithAds):
             self.manager.change_background, TIME_CHANGE_BACKGROUND)
 
         self.number_lives_on = game.number_lives
-        self.number_clues = len(game.clues)
-
-        if "flag" in game.clues:
-            self.number_clues -= 1
 
         return super().on_enter(*args)
 
@@ -171,8 +166,14 @@ class GameSummaryScreen(ImprovedScreenWithAds):
 
                 # Add the labels which are not already in the scrollview
                 if not key in self.dict_scrollview_widgets:
+                    text_label_clue = "– " + name_key + " : " + game.clues[key]
+
+                    # Add the units when needed
+                    if key == "area":
+                        text_label_clue += " km²"
+
                     label_clue = ScrollViewLabel(
-                        text="– " + name_key + " : " + game.clues[key],
+                        text=text_label_clue,
                         color=self.continent_color,
                         font_name=self.font_name,
                         font_size=17 * self.font_ratio,

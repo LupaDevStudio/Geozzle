@@ -50,7 +50,21 @@
         "official_language": "Official language",
         "motto": "Motto",
         "anthem": "Anthem",
-        "flag": "Flag"
+        "capital": "Capital",
+        "flag": "Flag",
+        "currency": "Currency",
+        "age_of_majority": "Age of majority",
+        "human_development_index": "Human Development Index",
+        "median_income": "Median income",
+        "country_calling_code": "Country calling code",
+        "license_plate_code": "License plate code",
+        "nominal_GDP": "Nominal GDP",
+        "head_of_state": "Head of state",
+        "head_of_government": "Head of government",
+        "top_level_internet_domain": "Internet domain",
+        "driving_side": "Driving side",
+        "area": "Area",
+        "population": "Population"
     },
     "tutorial": {
         "next": "Next",
