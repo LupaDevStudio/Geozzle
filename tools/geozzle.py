@@ -122,15 +122,17 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
     str
         Value of the clue formatted.
     """
+    has_changed_language = False
+    if language != TEXT.language:
+        has_changed_language = True
+        original_language = TEXT.language
+        TEXT.change_language(language=language)
 
     name_key = TEXT.clues[code_clue]
 
-    try:
-        # Capitalize the clues
-        if value_clue.upper() != value_clue:
-            value_clue = value_clue.capitalize()
-    except:
-        pass
+    # Capitalize some clues
+    if code_clue in ["driving_side", "currency", "official_language"]:
+        value_clue = value_clue.capitalize()
 
     # Take the mean of the GDP values
     if code_clue == "nominal_GDP":
@@ -154,11 +156,14 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
     if code_clue == "area":
         value_clue += " km²"
     if code_clue == "nominal_GDP":
-        value_clue += " M"
+        value_clue += " M$"
     if code_clue == "age_of_majority":
         value_clue += TEXT.clues["years"]
     if code_clue == "population":
         value_clue += TEXT.clues["inhabitants"]
+
+    if has_changed_language:
+        TEXT.change_language(language=original_language)
 
     return value_clue
 
@@ -332,6 +337,8 @@ class Game():
         """
         # Reset the list of hints
         self.list_current_hints = []
+        USER_DATA.continents[self.code_continent][
+            "current_country"]["list_current_hints"] = []
 
         # Get the code of the clue with its name
         for code_clue in TEXT.clues:
@@ -349,7 +356,8 @@ class Game():
             self.dict_clues[language][code_clue] = value_clue
             USER_DATA.continents[self.code_continent][
                 "current_country"]["dict_clues"][language][code_clue] = value_clue
-            USER_DATA.save_changes()
+
+        USER_DATA.save_changes()
 
     def check_country(self, guessed_country: str) -> bool:
         """

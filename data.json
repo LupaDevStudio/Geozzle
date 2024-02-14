@@ -1,95 +1,73 @@
 {
-    "language": "english",
+    "language": "french",
     "continents": {
         "Europe": {
-            "highscore": 131,
-            "percentage": 2,
+            "highscore": 504,
+            "percentage": 6,
             "countries_unlocked": [
-                "Q235"
+                "Q235",
+                "Q145",
+                "Q29999"
             ],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": 1707922857.4886987,
             "current_country": {
-                "country": "Q145",
+                "country": "Q31",
                 "number_lives_used_game": 0,
-                "list_current_hints": [
-                    "official_language",
-                    "head_of_state",
-                    "area"
-                ],
+                "list_current_hints": [],
                 "dict_clues": {
                     "french": {
-                        "human_development_index": "\u2013 Human Development Index : 0.929",
-                        "country_calling_code": "\u2013 Country calling code : +44",
-                        "head_of_government": "\u2013 Head of government : Rishi sunak",
-                        "currency": "\u2013 Currency : Livre sterling",
-                        "population": "\u2013 Population : 67 326 569 inhabitants",
-                        "license_plate_code": "\u2013 License plate code : GB",
-                        "driving_side": "\u2013 Driving side : Gauche",
-                        "nominal_GDP": "\u2013 Nominal GDP : 3 096 574 M",
-                        "median_income": "\u2013 Median income : 31 617",
-                        "age_of_majority": "\u2013 Age of majority : 18 years",
-                        "ISO_3_code": "GBR",
-                        "area": "\u2013 Area : 242 495 km\u00b2"
+                        "flag": "flag_europe.png"
                     },
                     "english": {
-                        "human_development_index": "\u2013 Human Development Index : 0.929",
-                        "country_calling_code": "\u2013 Country calling code : +44",
-                        "head_of_government": "\u2013 Head of government : Rishi sunak",
-                        "currency": "\u2013 Currency : Pound sterling",
-                        "population": "\u2013 Population : 67,326,569 inhabitants",
-                        "license_plate_code": "\u2013 License plate code : GB",
-                        "driving_side": "\u2013 Driving side : Left",
-                        "nominal_GDP": "\u2013 Nominal GDP : 3,096,574 M",
-                        "median_income": "\u2013 Median income : 31,617",
-                        "age_of_majority": "\u2013 Age of majority : 18 years",
-                        "ISO_3_code": "GBR",
-                        "area": "\u2013 Area : 242,495 km\u00b2"
+                        "flag": "flag_europe.png"
                     }
                 },
                 "dict_all_clues": {
                     "french": {
-                        "top_level_internet_domain": ".uk, .gb",
-                        "currency": "livre sterling",
-                        "anthem": "God Save the King",
-                        "capital": "Londres",
+                        "head_of_state": "Philippe Ier de Belgique",
+                        "currency": "euro",
+                        "anthem": "La Braban\u00e7onne",
                         "age_of_majority": "18",
-                        "human_development_index": "0.929",
-                        "median_income": "31617",
-                        "country_calling_code": "+44",
-                        "license_plate_code": "GB",
-                        "nominal_GDP": "3070667732359, 3122480345925",
-                        "ISO_2_code": "GB",
-                        "ISO_3_code": "GBR",
-                        "official_language": "anglais",
+                        "human_development_index": "0.937",
+                        "license_plate_code": "B",
+                        "country_calling_code": "+32",
+                        "nominal_GDP": "599880000000",
+                        "median_income": "31112",
+                        "ISO_2_code": "BE",
+                        "ISO_3_code": "BEL",
+                        "official_language": "allemand, fran\u00e7ais, n\u00e9erlandais",
                         "flag": "flag_europe.png",
-                        "head_of_state": "Charles III",
-                        "area": "242495",
-                        "driving_side": "gauche",
-                        "population": "67326569",
-                        "head_of_government": "Rishi Sunak"
+                        "driving_side": "droite",
+                        "motto": "L'union fait la force",
+                        "area": "30688",
+                        "head_of_government": "Alexander De Croo",
+                        "population": "11584008",
+                        "top_level_internet_domain": ".be",
+                        "capital": "Ville de Bruxelles"
                     },
                     "english": {
-                        "top_level_internet_domain": ".uk, .gb",
-                        "currency": "pound sterling",
-                        "capital": "London",
-                        "anthem": "God Save the King",
-                        "human_development_index": "0.929",
+                        "head_of_state": "Philippe of Belgium",
+                        "currency": "euro",
+                        "anthem": "The Braban\u00e7onne",
                         "age_of_majority": "18",
-                        "median_income": "31617",
-                        "license_plate_code": "GB",
-                        "nominal_GDP": "3070667732359, 3122480345925",
-                        "country_calling_code": "+44",
-                        "ISO_2_code": "GB",
-                        "ISO_3_code": "GBR",
-                        "official_language": "English",
+                        "human_development_index": "0.937",
+                        "median_income": "31112",
+                        "license_plate_code": "B",
+                        "nominal_GDP": "599880000000",
+                        "ISO_2_code": "BE",
+                        "country_calling_code": "+32",
+                        "ISO_3_code": "BEL",
+                        "official_language": "German, Dutch, French",
                         "flag": "flag_europe.png",
-                        "driving_side": "left",
-                        "area": "242495",
-                        "population": "67326569",
-                        "head_of_government": "Rishi Sunak",
-                        "head_of_state": "Charles III of the United Kingdom"
+                        "motto": "Unity makes strength",
+                        "capital": "City of Brussels",
+                        "driving_side": "right",
+                        "area": "30688",
+                        "head_of_government": "Alexander De Croo",
+                        "population": "11584008",
+                        "top_level_internet_domain": ".be"
                     }
                 }
             }
