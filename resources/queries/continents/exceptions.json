@@ -9,8 +9,8 @@
     },
     "to_add": {
         "Africa": [],
-        "Asia": [["Q148", "People's Republic of China", "Chine"], ["Q865", "Taiwan", "Taïwan"], ["Q801", "Israel", "Israël"], ["Q1246", "Kosovo", "Kosovo"]],
-        "Europe": [],
+        "Asia": [["Q148", "People's Republic of China", "Chine"], ["Q865", "Taiwan", "Taïwan"], ["Q801", "Israel", "Israël"]],
+        "Europe": [["Q1246", "Kosovo", "Kosovo"]],
         "North_America": [],
         "Oceania": [],
         "South_America": []
