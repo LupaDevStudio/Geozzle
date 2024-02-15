@@ -1,79 +1,46 @@
 {
-    "language": "french",
+    "language": "english",
     "continents": {
         "Europe": {
-            "highscore": 104,
-            "percentage": 2,
-            "countries_unlocked": [
-                "Q222"
-            ],
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q184",
+                "country": "Q33",
                 "number_lives_used_game": 0,
                 "list_current_hints": [
-                    "human_development_index",
-                    "nominal_GDP",
-                    "currency"
+                    "population",
+                    "currency",
+                    "driving_side"
                 ],
                 "dict_clues": {
-                    "french": {
-                        "country_calling_code": "\u2013 Code t\u00e9l\u00e9phonique : +375",
-                        "driving_side": "\u2013 Sens de conduite : Droite",
-                        "license_plate_code": "\u2013 Code de plaque d'immatriculation : BLR",
-                        "head_of_government": "\u2013 Chef du gouvernement : Roman Golovtchenko",
-                        "area": "\u2013 Superficie : 207 595 km\u00b2"
-                    },
-                    "english": {
-                        "country_calling_code": "\u2013 Country calling code : +375",
-                        "driving_side": "\u2013 Driving side : Right",
-                        "license_plate_code": "\u2013 License plate code : BLR",
-                        "head_of_government": "\u2013 Head of government : Roman Golovchenko",
-                        "area": "\u2013 Area : 207,595 km\u00b2"
-                    }
+                    "french": {},
+                    "english": {}
                 },
                 "dict_all_clues": {
                     "english": {
-                        "head_of_government": "Roman Golovchenko",
-                        "top_level_internet_domain": ".by, .\u0431\u0435\u043b",
-                        "currency": "Belarusian ruble",
-                        "capital": "Minsk",
-                        "human_development_index": "0.808",
+                        "capital": "Helsinki",
+                        "currency": "euro",
                         "age_of_majority": "18",
-                        "country_calling_code": "+375",
-                        "nominal_GDP": "69673747132, 72793457588",
-                        "license_plate_code": "BLR",
-                        "ISO_2_code": "BY",
-                        "ISO_3_code": "BLR",
-                        "official_language": "Belarusian, Russian",
+                        "human_development_index": "0.94",
+                        "median_income": "34615",
+                        "nominal_GDP": "280825957768, 296387625264",
+                        "ISO_2_code": "FI",
+                        "license_plate_code": "FIN",
+                        "country_calling_code": "+358",
+                        "ISO_3_code": "FIN",
                         "flag": "flag_europe.png",
+                        "official_language": "Swedish, Finnish",
+                        "top_level_internet_domain": ".fi",
                         "driving_side": "right",
-                        "anthem": "My Belarusy",
-                        "area": "207595",
-                        "population": "9200617",
-                        "head_of_state": "Alexander Lukashenko"
-                    },
-                    "french": {
-                        "head_of_government": "Roman Golovtchenko",
-                        "top_level_internet_domain": ".by, .\u0431\u0435\u043b",
-                        "currency": "Rouble bi\u00e9lorusse",
-                        "capital": "Minsk",
-                        "age_of_majority": "18",
-                        "human_development_index": "0.808",
-                        "nominal_GDP": "69673747132, 72793457588",
-                        "ISO_3_code": "BLR",
-                        "country_calling_code": "+375",
-                        "license_plate_code": "BLR",
-                        "ISO_2_code": "BY",
-                        "official_language": "bi\u00e9lorusse, russe",
-                        "flag": "flag_europe.png",
-                        "driving_side": "droite",
-                        "anthem": "My Bielaroussy",
-                        "area": "207595",
-                        "population": "9200617",
-                        "head_of_state": "Alexandre Loukachenko"
+                        "anthem": "Maamme",
+                        "area": "338145",
+                        "population": "5563970",
+                        "head_of_government": "Petteri Orpo",
+                        "head_of_state": "Sauli Niinist\u00f6"
                     }
                 }
             }

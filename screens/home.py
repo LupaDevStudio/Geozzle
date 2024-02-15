@@ -40,7 +40,8 @@ from tools.constants import (
     TIME_CHANGE_BACKGROUND,
     MAIN_MUSIC_NAME,
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
-    LIFE_RELOAD_TIME
+    LIFE_RELOAD_TIME,
+    CURRENT_COUNTRY_INIT
 )
 
 from tools import (
@@ -75,6 +76,7 @@ class HomeScreen(ImprovedScreenWithAds):
         PATH_CONTINENTS_IMAGES + LIST_CONTINENTS[counter_continents] + ".jpg")
     language_image = StringProperty()
     play_label = StringProperty()
+    restart_label = StringProperty()
     number_lives_on = NumericProperty(3)
 
     def __init__(self, **kwargs) -> None:
@@ -153,6 +155,7 @@ class HomeScreen(ImprovedScreenWithAds):
         """
         self.continent_name = TEXT.home[self.code_continent]
         self.play_label = TEXT.home["play"]
+        self.restart_label = TEXT.home["restart"]
         self.highscore = TEXT.home["highscore"] + \
             str(USER_DATA.continents[self.code_continent]["highscore"])
 
@@ -204,10 +207,16 @@ class HomeScreen(ImprovedScreenWithAds):
 
         self.number_lives_on = USER_DATA.continents[self.code_continent]["number_lives"]
 
+        # Decide the mode of the game between restart and play
         if self.completion_value == 100:
             self.disable_widget("play_button")
             self.disable_widget("three_lives")
+            try:
+                self.enable_widget("restart_button")
+            except:
+                pass
         else:
+            self.disable_widget("restart_button")
             try:
                 self.enable_widget("play_button")
                 self.enable_widget("three_lives")
@@ -314,6 +323,33 @@ class HomeScreen(ImprovedScreenWithAds):
                 watch_ad, partial(self.ad_callback, popup))
             popup.right_release_function = watch_ad_with_callback
             popup.open()
+
+    def restart_game(self, popup: TwoButtonsPopup):
+        popup.dismiss()
+        USER_DATA.continents[self.code_continent] = {
+                "highscore": 0,
+                "percentage": 0,
+                "countries_unlocked": [],
+                "number_lives": 3,
+                "number_lives_used_game": 0,
+                "lost_live_date": None,
+                "current_country": CURRENT_COUNTRY_INIT
+            }
+        USER_DATA.save_changes()
+        self.load_continent_data()
+
+    def ask_restart_game(self):
+        popup = TwoButtonsPopup(
+            primary_color=self.continent_color,
+            secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+            title=TEXT.home["ask_restart_title"],
+            center_label_text=TEXT.home["ask_restart_message"],
+            font_ratio=self.font_ratio,
+            right_button_label=TEXT.popup["yes"],
+            left_button_label=TEXT.popup["no"]
+        )
+        popup.right_release_function = partial(self.restart_game, popup)
+        popup.open()
 
     def launch_tutorial(self):
         popup = TutorialPopup(

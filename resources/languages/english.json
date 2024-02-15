@@ -11,7 +11,10 @@
         "watch_ad": "Watch",
         "cancel": "Cancel",
         "buy_life_message": "You don't have any lives left at the moment. Would you like to watch an ad to continue playing?",
-        "buy_life_title": "Lives depleted"
+        "buy_life_title": "Lives depleted",
+        "ask_restart_title": "Restart the continent",
+        "ask_restart_message": "Do you really want to start this continent all over again? You won't be able to retrieve your current data.",
+        "restart": "Restart"
     },
     "popup": {
         "buy_life_title": "Life Reload",
@@ -19,7 +22,9 @@
         "buy_life_text": "If you wish to recharge a life more quickly, you can watch an advertisement.",
         "full_life_text": "Congratulations, you have all your lives, so try to guess a new country!",
         "watch_ad": "Watch",
-        "close": "Close"
+        "close": "Close",
+        "yes": "Yes",
+        "no": "No"
     },
     "game_over": {
         "title": "Which country is it?",

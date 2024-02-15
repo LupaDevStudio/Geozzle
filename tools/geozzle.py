@@ -243,7 +243,7 @@ class Game():
     # Dict of all clues (not only the one selected by the user)
     dict_all_clues: dict
 
-    def create_new_game(self, continent: str = "Europe") -> bool:
+    def create_new_game(self, code_continent: str = "Europe") -> bool:
         """
         Create a new game.
 
@@ -257,7 +257,7 @@ class Game():
         bool
             Whether the creation of the game has worked or not.
         """
-        self.code_continent = continent
+        self.code_continent = code_continent
         has_success = self.load_data()
         return has_success
 
@@ -370,7 +370,9 @@ class Game():
 
             # Add all clues of the reference dict of clues in the other one
             for code_clue in self.dict_clues[ref_language]:
-                self.add_clue(code_clue=code_clue)
+                # Check if the clue exists in the results of the query
+                if code_clue in self.dict_clues[TEXT.language]:
+                    self.add_clue(code_clue=code_clue)
 
     def select_clue(self, name_clue: str):
         """
