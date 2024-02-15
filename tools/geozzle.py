@@ -62,6 +62,7 @@ def insert_space_numbers(number: str, language: str) -> str:
     str
         New number formatted with delimitators.
     """
+    # Treat number with decimals
     if "." in number:
         list_int_decimals = number.split(".")
         if len(list_int_decimals[1]) >= 3:
@@ -70,6 +71,8 @@ def insert_space_numbers(number: str, language: str) -> str:
             else:
                 list_int_decimals[1] = []
         number = ""
+
+        # Reconstruct the number with the integer and decimal parts
         for int_number in list_int_decimals[0]:
             number += int_number
         if list_int_decimals[1] != []:
@@ -77,14 +80,17 @@ def insert_space_numbers(number: str, language: str) -> str:
         for dec_number in list_int_decimals[1]:
             number += dec_number
 
-    if number[0] == "0" or len(number) <= 3:
+    # Do not put separators for small numbers
+    if "." in number or len(number) <= 3:
         return number
 
+    # Choose between "," or " " for the delimitation character
     if language == "english":
         delimitation_character = ","
     else:
         delimitation_character = " "
 
+    # Put the delimitator character each three numbers
     counter = 0
     list_characters = []
     new_number = ""
@@ -122,6 +128,7 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
     str
         Value of the clue formatted.
     """
+    # Change the language in order to create the dictionnary for the other language
     has_changed_language = False
     if language != TEXT.language:
         has_changed_language = True
@@ -162,6 +169,7 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
     if code_clue == "population":
         value_clue += TEXT.clues["inhabitants"]
 
+    # Put the right language again
     if has_changed_language:
         TEXT.change_language(language=original_language)
 
