@@ -5,7 +5,7 @@
         "Europe": ["Q232", "Q3908", "Q124003554", "Q227", "Q756617"],
         "North_America": ["Q756617", "Q29999", "Q223"],
         "Oceania": ["Q252"],
-        "South_America": []
+        "South_America": ["Q804"]
     },
     "to_add": {
         "Africa": [],

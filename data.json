@@ -1,5 +1,5 @@
 {
-    "language": "english",
+    "language": "french",
     "continents": {
         "Europe": {
             "highscore": 0,
@@ -37,6 +37,27 @@
                         "top_level_internet_domain": ".fi",
                         "driving_side": "right",
                         "anthem": "Maamme",
+                        "area": "338145",
+                        "population": "5563970",
+                        "head_of_government": "Petteri Orpo",
+                        "head_of_state": "Sauli Niinist\u00f6"
+                    },
+                    "french": {
+                        "official_language": "finnois, su\u00e9dois",
+                        "anthem": "Maamme",
+                        "capital": "Helsinki",
+                        "currency": "euro",
+                        "age_of_majority": "18",
+                        "human_development_index": "0.94",
+                        "median_income": "34615",
+                        "nominal_GDP": "280825957768, 296387625264",
+                        "ISO_2_code": "FI",
+                        "license_plate_code": "FIN",
+                        "ISO_3_code": "FIN",
+                        "country_calling_code": "+358",
+                        "flag": "flag_europe.png",
+                        "driving_side": "droite",
+                        "top_level_internet_domain": ".fi",
                         "area": "338145",
                         "population": "5563970",
                         "head_of_government": "Petteri Orpo",
