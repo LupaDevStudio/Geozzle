@@ -121,7 +121,7 @@ class GameQuestionScreen(ImprovedScreenWithAds):
 
     def add_clue(self, hint):
         # Add the clue in the class
-        game.add_clue(hint)
+        game.select_clue(hint)
 
         # Change screen
         self.go_to_game_summary(hint)

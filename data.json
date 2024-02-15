@@ -1,76 +1,79 @@
 {
-    "language": "english",
+    "language": "french",
     "continents": {
         "Europe": {
-            "highscore": 1116,
-            "percentage": 16,
+            "highscore": 104,
+            "percentage": 2,
             "countries_unlocked": [
-                "Q235",
-                "Q145",
-                "Q29999",
-                "Q31",
-                "Q1246",
-                "Q212",
-                "Q189",
-                "Q34"
+                "Q222"
             ],
             "number_lives": 3,
             "number_lives_used_game": 0,
-            "lost_live_date": 1707938369.928693,
+            "lost_live_date": null,
             "current_country": {
-                "country": "Q33",
+                "country": "Q184",
                 "number_lives_used_game": 0,
                 "list_current_hints": [
+                    "human_development_index",
                     "nominal_GDP",
-                    "area",
-                    "official_language"
+                    "currency"
                 ],
                 "dict_clues": {
-                    "french": {},
-                    "english": {}
-                },
-                "dict_all_clues": {
                     "french": {
-                        "official_language": "finnois, su\u00e9dois",
-                        "anthem": "Maamme",
-                        "capital": "Helsinki",
-                        "currency": "euro",
-                        "age_of_majority": "18",
-                        "human_development_index": "0.94",
-                        "median_income": "34615",
-                        "nominal_GDP": "280825957768, 296387625264",
-                        "country_calling_code": "+358",
-                        "license_plate_code": "FIN",
-                        "ISO_3_code": "FIN",
-                        "ISO_2_code": "FI",
-                        "flag": "flag_europe.png",
-                        "driving_side": "droite",
-                        "top_level_internet_domain": ".fi",
-                        "area": "338145",
-                        "population": "5563970",
-                        "head_of_government": "Petteri Orpo",
-                        "head_of_state": "Sauli Niinist\u00f6"
+                        "country_calling_code": "\u2013 Code t\u00e9l\u00e9phonique : +375",
+                        "driving_side": "\u2013 Sens de conduite : Droite",
+                        "license_plate_code": "\u2013 Code de plaque d'immatriculation : BLR",
+                        "head_of_government": "\u2013 Chef du gouvernement : Roman Golovtchenko",
+                        "area": "\u2013 Superficie : 207 595 km\u00b2"
                     },
                     "english": {
-                        "capital": "Helsinki",
-                        "currency": "euro",
+                        "country_calling_code": "\u2013 Country calling code : +375",
+                        "driving_side": "\u2013 Driving side : Right",
+                        "license_plate_code": "\u2013 License plate code : BLR",
+                        "head_of_government": "\u2013 Head of government : Roman Golovchenko",
+                        "area": "\u2013 Area : 207,595 km\u00b2"
+                    }
+                },
+                "dict_all_clues": {
+                    "english": {
+                        "head_of_government": "Roman Golovchenko",
+                        "top_level_internet_domain": ".by, .\u0431\u0435\u043b",
+                        "currency": "Belarusian ruble",
+                        "capital": "Minsk",
+                        "human_development_index": "0.808",
                         "age_of_majority": "18",
-                        "human_development_index": "0.94",
-                        "median_income": "34615",
-                        "license_plate_code": "FIN",
-                        "country_calling_code": "+358",
-                        "nominal_GDP": "280825957768, 296387625264",
-                        "ISO_2_code": "FI",
-                        "ISO_3_code": "FIN",
+                        "country_calling_code": "+375",
+                        "nominal_GDP": "69673747132, 72793457588",
+                        "license_plate_code": "BLR",
+                        "ISO_2_code": "BY",
+                        "ISO_3_code": "BLR",
+                        "official_language": "Belarusian, Russian",
                         "flag": "flag_europe.png",
-                        "official_language": "Swedish, Finnish",
-                        "top_level_internet_domain": ".fi",
                         "driving_side": "right",
-                        "anthem": "Maamme",
-                        "area": "338145",
-                        "population": "5563970",
-                        "head_of_government": "Petteri Orpo",
-                        "head_of_state": "Sauli Niinist\u00f6"
+                        "anthem": "My Belarusy",
+                        "area": "207595",
+                        "population": "9200617",
+                        "head_of_state": "Alexander Lukashenko"
+                    },
+                    "french": {
+                        "head_of_government": "Roman Golovtchenko",
+                        "top_level_internet_domain": ".by, .\u0431\u0435\u043b",
+                        "currency": "Rouble bi\u00e9lorusse",
+                        "capital": "Minsk",
+                        "age_of_majority": "18",
+                        "human_development_index": "0.808",
+                        "nominal_GDP": "69673747132, 72793457588",
+                        "ISO_3_code": "BLR",
+                        "country_calling_code": "+375",
+                        "license_plate_code": "BLR",
+                        "ISO_2_code": "BY",
+                        "official_language": "bi\u00e9lorusse, russe",
+                        "flag": "flag_europe.png",
+                        "driving_side": "droite",
+                        "anthem": "My Bielaroussy",
+                        "area": "207595",
+                        "population": "9200617",
+                        "head_of_state": "Alexandre Loukachenko"
                     }
                 }
             }
@@ -83,69 +86,35 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q796",
+                "country": "Q819",
                 "number_lives_used_game": 0,
                 "list_current_hints": [],
                 "dict_clues": {
                     "french": {
-                        "nominal_GDP": "\u2013 PIB moyen : 235 936 M$",
-                        "human_development_index": "\u2013 Index de D\u00e9veloppement Humain : 0.686",
-                        "currency": "\u2013 Monnaie : Dinar irakien",
-                        "capital": "\u2013 Capitale : Bagdad",
-                        "driving_side": "\u2013 Sens de conduite : Droite",
-                        "area": "\u2013 Superficie : 437.07 km\u00b2",
-                        "country_calling_code": "\u2013 Code t\u00e9l\u00e9phonique : +964"
+                        "driving_side": "\u2013 Sens de conduite : Droite"
                     },
-                    "english": {
-                        "nominal_GDP": "\u2013 Nominal GDP : 235,936 M$",
-                        "human_development_index": "\u2013 Human Development Index : 0.686",
-                        "currency": "\u2013 Currency : Iraqi dinar",
-                        "capital": "\u2013 Capital : Baghdad",
-                        "driving_side": "\u2013 Driving side : Right",
-                        "area": "\u2013 Area : 437.07 km\u00b2",
-                        "country_calling_code": "\u2013 Country calling code : +964"
-                    }
+                    "english": {}
                 },
                 "dict_all_clues": {
                     "french": {
-                        "human_development_index": "0.686",
-                        "license_plate_code": "IRQ",
-                        "nominal_GDP": "207691599310, 264182173793",
-                        "country_calling_code": "+964",
-                        "ISO_3_code": "IRQ",
-                        "ISO_2_code": "IQ",
+                        "head_of_government": "Phankham Viphavanh",
+                        "age_of_majority": "18",
+                        "human_development_index": "0.607",
+                        "ISO_2_code": "LA",
+                        "country_calling_code": "+856",
+                        "license_plate_code": "LAO",
+                        "nominal_GDP": "15724383783, 18827148530",
+                        "ISO_3_code": "LAO",
                         "flag": "flag_asia.png",
                         "driving_side": "droite",
-                        "capital": "Bagdad",
-                        "currency": "dinar irakien",
-                        "motto": "Allahu akbar",
-                        "top_level_internet_domain": ".iq",
-                        "area": "437.072",
-                        "anthem": "Mawtini",
-                        "head_of_state": "Abdel Latif Rachid",
-                        "population": "38274618",
-                        "official_language": "kurde, arabe",
-                        "head_of_government": "Mohammed Shia' Al Sudani"
-                    },
-                    "english": {
-                        "anthem": "Mawtini",
-                        "capital": "Baghdad",
-                        "human_development_index": "0.686",
-                        "country_calling_code": "+964",
-                        "license_plate_code": "IRQ",
-                        "nominal_GDP": "207691599310, 264182173793",
-                        "ISO_2_code": "IQ",
-                        "ISO_3_code": "IRQ",
-                        "flag": "flag_asia.png",
-                        "official_language": "Arabic, Kurdish",
-                        "currency": "Iraqi dinar",
-                        "driving_side": "right",
-                        "motto": "Takbir",
-                        "top_level_internet_domain": ".iq",
-                        "area": "437.072",
-                        "head_of_state": "Abdul Latif Rashid",
-                        "population": "38274618",
-                        "head_of_government": "Mohammed Shia' Al Sudani"
+                        "top_level_internet_domain": ".la",
+                        "anthem": "Pheng Xat Lao",
+                        "capital": "Vientiane",
+                        "head_of_state": "Thongloun Sisoulith",
+                        "area": "236800",
+                        "population": "6858160",
+                        "official_language": "lao",
+                        "currency": "Kip laotien"
                     }
                 }
             }
@@ -214,91 +183,23 @@
             }
         },
         "Oceania": {
-            "highscore": 5212,
-            "percentage": 56,
-            "countries_unlocked": [
-                "Q695",
-                "Q712",
-                "Q702",
-                "Q686",
-                "Q709",
-                "Q710",
-                "Q26988",
-                "Q672",
-                "Q697"
-            ],
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q683",
+                "country": "",
                 "number_lives_used_game": 0,
                 "list_current_hints": [],
                 "dict_clues": {
-                    "french": {
-                        "human_development_index": "\u2013 Index de D\u00e9veloppement Humain : 0.707",
-                        "capital": "\u2013 Capitale : Apia",
-                        "nominal_GDP": "\u2013 PIB moyen : 838 M$",
-                        "head_of_government": "\u2013 Chef du gouvernement : Sa'ilele Malielegaoi, Naomi Mata'afa",
-                        "area": "\u2013 Superficie : 2 842 km\u00b2",
-                        "country_calling_code": "\u2013 Code t\u00e9l\u00e9phonique : +685",
-                        "driving_side": "\u2013 Sens de conduite : Gauche",
-                        "top_level_internet_domain": "\u2013 Domaine internet : .ws",
-                        "population": "\u2013 Population : 198 410 habitants",
-                        "head_of_state": "\u2013 Chef de l'\u00c9tat : Va'aletoa Sualauvi II"
-                    },
-                    "english": {
-                        "human_development_index": "\u2013 Human Development Index : 0.707",
-                        "capital": "\u2013 Capital : Apia",
-                        "nominal_GDP": "\u2013 Nominal GDP : 838 M$",
-                        "head_of_government": "\u2013 Head of government : Tuila'epa Sa'ilele Malielegaoi, Fiam\u0113 Naomi Mata'afa",
-                        "area": "\u2013 Area : 2,842 km\u00b2",
-                        "country_calling_code": "\u2013 Country calling code : +685",
-                        "driving_side": "\u2013 Driving side : Left",
-                        "top_level_internet_domain": "\u2013 Internet domain : .ws",
-                        "population": "\u2013 Population : 198,410 inhabitants",
-                        "head_of_state": "\u2013 Head of state : Va'aletoa Sualauvi II"
-                    }
+                    "french": {},
+                    "english": {}
                 },
                 "dict_all_clues": {
-                    "french": {
-                        "head_of_government": "Sa'ilele Malielegaoi, Naomi Mata\u02bbafa",
-                        "official_language": "samoan, anglais",
-                        "currency": "tala",
-                        "human_development_index": "0.707",
-                        "country_calling_code": "+685",
-                        "license_plate_code": "WS",
-                        "nominal_GDP": "832421565, 843850778",
-                        "ISO_2_code": "WS",
-                        "ISO_3_code": "WSM",
-                        "flag": "flag_oceania.png",
-                        "anthem": "Samoa Tula\u2019i",
-                        "head_of_state": "Va'aletoa Sualauvi II",
-                        "capital": "Apia",
-                        "area": "2842",
-                        "driving_side": "gauche",
-                        "top_level_internet_domain": ".ws",
-                        "population": "198410"
-                    },
-                    "english": {
-                        "head_of_government": "Tuila'epa Sa'ilele Malielegaoi, Fiam\u0113 Naomi Mata\u02bbafa",
-                        "capital": "Apia",
-                        "human_development_index": "0.707",
-                        "country_calling_code": "+685",
-                        "license_plate_code": "WS",
-                        "ISO_2_code": "WS",
-                        "nominal_GDP": "832421565, 843850778",
-                        "ISO_3_code": "WSM",
-                        "official_language": "English, Samoan",
-                        "flag": "flag_oceania.png",
-                        "anthem": "The Banner of Freedom",
-                        "head_of_state": "Va'aletoa Sualauvi II",
-                        "driving_side": "left",
-                        "currency": "Samoan T\u0101l\u0101",
-                        "area": "2842",
-                        "top_level_internet_domain": ".ws",
-                        "population": "198410"
-                    }
+                    "french": {},
+                    "english": {}
                 }
             }
         }

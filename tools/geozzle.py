@@ -128,12 +128,6 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
     str
         Value of the clue formatted.
     """
-    # Change the language in order to create the dictionnary for the other language
-    has_changed_language = False
-    if language != TEXT.language:
-        has_changed_language = True
-        original_language = TEXT.language
-        TEXT.change_language(language=language)
 
     name_key = TEXT.clues[code_clue]
 
@@ -171,10 +165,6 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
         value_clue += TEXT.clues["years"]
     if code_clue == "population":
         value_clue += TEXT.clues["inhabitants"]
-
-    # Put the right language again
-    if has_changed_language:
-        TEXT.change_language(language=original_language)
 
     return value_clue
 
@@ -290,9 +280,9 @@ class Game():
         last_country = user_data_continent["current_country"]
 
         self.list_current_hints = last_country["list_current_hints"]
-        self.dict_clues = last_country["dict_clues"]
         self.number_lives = user_data_continent["number_lives"]
         self.number_lives_used_game = last_country["number_lives_used_game"]
+        self.dict_clues = last_country["dict_clues"]
 
         self.list_all_countries = list(
             DICT_COUNTRIES[USER_DATA.language][self.code_continent].keys())
@@ -303,39 +293,88 @@ class Game():
             self.wikidata_code_country = last_country["country"]
             self.dict_all_clues = last_country["dict_all_clues"]
 
+            # If the user has changed the language, load the clues in the new language
+            if TEXT.language not in self.dict_all_clues:
+                has_success = self.load_dict_all_clues()
+                if not has_success:
+                    return False
+                self.dict_clues[TEXT.language] = {}
+            self.fill_dict_clues()
+
         else:
             self.wikidata_code_country = rd.choice(self.list_countries_left)
             self.dict_all_clues = {}
 
             # Request all clues for the current country in French and English
-            dict_all_clues_en = request_all_clues(
-                wikidata_code_country=self.wikidata_code_country,
-                code_continent=self.code_continent,
-                language=DICT_WIKIDATA_LANGUAGE["english"])
-            dict_all_clues_fr = request_all_clues(
-                wikidata_code_country=self.wikidata_code_country,
-                code_continent=self.code_continent,
-                language=DICT_WIKIDATA_LANGUAGE["french"])
-
-            if dict_all_clues_en is None or dict_all_clues_fr is None:
+            has_success = self.load_dict_all_clues()
+            if not has_success:
                 return False
-            
-            self.dict_all_clues["french"] = dict_all_clues_fr
-            self.dict_all_clues["english"] = dict_all_clues_en
 
-            # Update the information is the USER_DATA
+            # Update the information in the USER_DATA
             USER_DATA.continents[self.code_continent][
                 "current_country"]["country"] = self.wikidata_code_country
-            USER_DATA.continents[self.code_continent][
-                "current_country"]["dict_all_clues"] = self.dict_all_clues
-
             USER_DATA.save_changes()
 
         return True
 
-    def add_clue(self, name_clue: str):
+    def load_dict_all_clues(self) -> bool:
         """
-        Add a clue in the dictionary of clues.
+        Load the dict of all clues with requests to Wikidata, in the current language.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        bool
+            Boolean indicating if the request has successed or not.
+        """
+        # Get all clues with the sparql request
+        dict_all_clues_current_language = request_all_clues(
+            wikidata_code_country=self.wikidata_code_country,
+            code_continent=self.code_continent,
+            language=DICT_WIKIDATA_LANGUAGE[TEXT.language])
+
+        if dict_all_clues_current_language is None:
+            return False
+
+        self.dict_all_clues[TEXT.language] = dict_all_clues_current_language
+
+        # Update the user data
+        USER_DATA.continents[self.code_continent][
+            "current_country"]["dict_all_clues"] = self.dict_all_clues
+        USER_DATA.save_changes()
+
+        return True
+
+    def fill_dict_clues(self):
+        """
+        Fill the dict of clues of the current language, depending of the one of the other language.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
+        # Detect the reference language
+        if TEXT.language == "english":
+            ref_language = "french"
+        else:
+            ref_language = "english"
+
+        if len(self.dict_clues[ref_language]) > len(self.dict_clues[TEXT.language]):
+
+            # Add all clues of the reference dict of clues in the other one
+            for code_clue in self.dict_clues[ref_language]:
+                self.add_clue(code_clue=code_clue)
+
+    def select_clue(self, name_clue: str):
+        """
+        Select the code name of the value and add it into the dictionary.
 
         Parameters
         ----------
@@ -356,18 +395,33 @@ class Game():
             if TEXT.clues[code_clue] == name_clue:
                 break
 
-        for language in ["french", "english"]:
-            if not code_clue in ["ISO_3_code", "flag"]:
-                value_clue = format_clue(
-                    code_clue=code_clue,
-                    value_clue=self.dict_all_clues[language][code_clue],
-                    language=language)
-            else:
-                value_clue = self.dict_all_clues[language][code_clue]
-            self.dict_clues[language][code_clue] = value_clue
-            USER_DATA.continents[self.code_continent][
-                "current_country"]["dict_clues"][language][code_clue] = value_clue
+        self.add_clue(code_clue=code_clue)
 
+    def add_clue(self, code_clue: str):
+        """
+        Add a clue in the dictionary of clues corresponding to the language.
+
+        Parameters
+        ----------
+        name_clue : str
+            Name of the clue (depending on the language)
+
+        Returns
+        -------
+        None
+        """
+
+        if not code_clue in ["ISO_3_code", "flag"]:
+            value_clue = format_clue(
+                code_clue=code_clue,
+                value_clue=self.dict_all_clues[TEXT.language][code_clue],
+                language=TEXT.language)
+        else:
+            value_clue = self.dict_all_clues[TEXT.language][code_clue]
+        self.dict_clues[TEXT.language][code_clue] = value_clue
+
+        USER_DATA.continents[self.code_continent][
+            "current_country"]["dict_clues"][TEXT.language][code_clue] = value_clue
         USER_DATA.save_changes()
 
     def check_country(self, guessed_country: str) -> bool:
@@ -560,21 +614,21 @@ class Game():
             for type_clue in dict_probabilities:
                 dict_probabilities[type_clue] /= total
 
-            hint_1 = self.select_clue(dict_probabilities)
+            hint_1 = self.choose_clue(dict_probabilities)
             self.list_current_hints.append(hint_1)
 
             # Choose a second distinct clue
             if len(dict_probabilities) != 1:
                 hint_2 = hint_1
                 while hint_2 == hint_1:
-                    hint_2 = self.select_clue(dict_probabilities)
+                    hint_2 = self.choose_clue(dict_probabilities)
                 self.list_current_hints.append(hint_2)
 
                 # Choose a third distinct clue
                 if len(dict_probabilities) != 2:
                     hint_3 = hint_1
                     while hint_3 == hint_1 or hint_3 == hint_2:
-                        hint_3 = self.select_clue(dict_probabilities)
+                        hint_3 = self.choose_clue(dict_probabilities)
                     self.list_current_hints.append(hint_3)
 
         USER_DATA.continents[self.code_continent][
@@ -583,7 +637,7 @@ class Game():
 
         return hint_1, hint_2, hint_3
 
-    def select_clue(self, dict_probabilities: dict) -> str:
+    def choose_clue(self, dict_probabilities: dict) -> str:
         """
         Select randomly a clue given the probabilities of the clues.
 
