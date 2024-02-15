@@ -137,6 +137,9 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
 
     name_key = TEXT.clues[code_clue]
 
+    # Delete odd characters
+    value_clue = value_clue.replace("ʻ", "'")
+
     # Capitalize some clues
     if code_clue in ["driving_side", "currency", "official_language"]:
         value_clue = value_clue.capitalize()
