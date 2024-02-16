@@ -7,7 +7,7 @@ WHERE {
     BIND(wd:$Q_country AS ?country)
 
     {  # official language
-        BIND("official language" AS ?hint)
+        BIND("official_language" AS ?hint)
         BIND(?language AS ?value)
 
         ?country wdt:P37 ?language.  # official language of the country
@@ -72,14 +72,14 @@ WHERE {
     }
 
     UNION {  # age of majority
-        BIND("age of majority" AS ?hint)
+        BIND("age_of_majority" AS ?hint)
         BIND(?age AS ?value)
 
         ?country wdt:P2997 ?age.  # age of majority of the country
     }
 
     UNION {  # human development index
-        BIND("human development index" AS ?hint)
+        BIND("human_development_index" AS ?hint)
         BIND(?hdi AS ?value)
 
         ?country wdt:P1081 ?hdi.  # human development index of the country
@@ -93,7 +93,7 @@ WHERE {
     }
 
     UNION {  # median income
-        BIND("median income" AS ?hint)
+        BIND("median_income" AS ?hint)
         BIND(?income AS ?value)
 
         ?country wdt:P3529 ?income.  # median income of the country
@@ -107,49 +107,49 @@ WHERE {
     }
 
     UNION {  # country calling code
-        BIND("country calling code" AS ?hint)
+        BIND("country_calling_code" AS ?hint)
         BIND(?code AS ?value)
 
         ?country wdt:P474 ?code.  # calling code of the country
     }
 
     UNION {  # license plate code
-        BIND("license plate code" AS ?hint)
+        BIND("license_plate_code" AS ?hint)
         BIND(?code AS ?value)
 
         ?country wdt:P395 ?code.  # license plate code of the country
     }
 
     UNION {  # nominal GDP
-        BIND("nominal GDP" AS ?hint)
+        BIND("nominal_GDP" AS ?hint)
         BIND(?gdp AS ?value)
 
         ?country wdt:P2131 ?gdp.  # nominal GDP of the country
     }
 
     UNION {  # top level internet domain
-        BIND("top level internet domain" AS ?hint)
+        BIND("top_level_internet_domain" AS ?hint)
         BIND(?domain AS ?value)
 
         ?country wdt:P78 ?domain.  # top level internet domain of the country
     }
 
     UNION {  # ISO 3166-1 alpha-2 code
-        BIND("ISO 3166-1 alpha-2 code" AS ?hint)
+        BIND("ISO_2_code" AS ?hint)
         BIND(?code AS ?value)
 
         ?country wdt:P297 ?code.  # ISO 3166-1 alpha-2 code of the country
     }
 
     UNION {  # ISO 3166-1 alpha-3 code
-        BIND("ISO 3166-1 alpha-3 code" AS ?hint)
+        BIND("ISO_3_code" AS ?hint)
         BIND(?code AS ?value)
 
         ?country wdt:P298 ?code.  # ISO 3166-1 alpha-3 code of the country
     }
 
     UNION {  # driving side
-        BIND("driving side" AS ?hint)
+        BIND("driving_side" AS ?hint)
         BIND(?side AS ?value)
 
         ?country wdt:P1622 ?side.  # driving side in the country
@@ -163,18 +163,18 @@ WHERE {
     }
 
     UNION {  # head of state
-        BIND("head of state" AS ?hint)
+        BIND("head_of_state" AS ?hint)
         BIND(?head_of_state AS ?value)
 
         ?country wdt:P35 ?head_of_state.  # head of state of the country
     }
 
     UNION {  # head of government
-        BIND("head of government" AS ?hint)
+        BIND("head_of_government" AS ?hint)
         BIND(?head_of_government AS ?value)
 
         ?country wdt:P6 ?head_of_government.  # head of government of the country
     }
 
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "$output_language". }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],$output_language". }
 }
