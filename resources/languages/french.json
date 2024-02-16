@@ -47,7 +47,9 @@
     "game_summary": {
         "i_found": "J'ai trouvé !",
         "new_hint": "Nouvel indice",
-        "title": "Quel pays est-ce ?"
+        "title": "Quel pays est-ce ?",
+        "zoom_flag_title": "Drapeau",
+        "zoom_geojson_title": "Forme du pays"
     },
     "clues": {
         "no_connexion_title": "Erreur dans la requête",

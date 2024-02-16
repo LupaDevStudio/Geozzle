@@ -10,6 +10,8 @@ Module to create the game screen with the summary of all clues.
 
 import os
 import random as rd
+from typing import Literal
+from functools import partial
 
 ### Kivy imports ###
 
@@ -20,6 +22,7 @@ from kivy.properties import (
     NumericProperty
 )
 from kivy.uix.label import Label
+from screens.custom_widgets.image_popup import ImagePopup
 
 ### Local imports ###
 
@@ -131,16 +134,20 @@ class GameSummaryScreen(ImprovedScreenWithAds):
             self.ids.flag_image.reload()
             self.ids.flag_image.source = PATH_IMAGES_FLAG + self.code_continent.lower() + \
                 ".png"
+            self.ids.flag_image.disable_button = False
         else:
             self.ids.flag_image.source = PATH_IMAGES_FLAG_UNKNOWN
+            self.ids.flag_image.disable_button = True
 
         # Update the geojson image
         if "ISO_3_code" in game.dict_clues[TEXT.language]:
             self.ids.geojson_image.reload()
             self.ids.geojson_image.source = PATH_IMAGES_GEOJSON + game.dict_clues[TEXT.language]["ISO_3_code"] + \
                 ".png"
+            self.ids.geojson_image.disable_button = False
         else:
             self.ids.geojson_image.source = PATH_IMAGES_FLAG_UNKNOWN
+            self.ids.geojson_image.disable_button = True
 
     def reset_scroll_view(self):
         """
@@ -225,3 +232,25 @@ class GameSummaryScreen(ImprovedScreenWithAds):
         self.manager.get_screen(
             "home").previous_screen_name = "game_summary"
         self.manager.current = "home"
+
+    def open_popup_image(self, mode: Literal["flag", "geojson"]):
+        if mode == "flag":
+            image_source = PATH_IMAGES_FLAG + self.code_continent.lower() + ".png"
+        elif mode == "geojson":
+            image_source = PATH_IMAGES_GEOJSON + game.dict_clues[TEXT.language]["ISO_3_code"] + ".png"
+            print(image_source)
+        popup = ImagePopup(
+                    primary_color=self.continent_color,
+                    secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                    title=TEXT.game_summary["zoom_" + mode + "_title"],
+                    font_ratio=self.font_ratio,
+                    image_source=image_source
+                )
+        popup.mode = mode
+        popup.open()
+
+    def open_popup_flag(self):
+        self.open_popup_image("flag")
+
+    def open_popup_geojson(self):
+        self.open_popup_image("geojson")

@@ -2,66 +2,47 @@
     "language": "french",
     "continents": {
         "Europe": {
-            "highscore": 0,
-            "percentage": 0,
-            "countries_unlocked": [],
+            "highscore": 114,
+            "percentage": 2,
+            "countries_unlocked": [
+                "Q33"
+            ],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q33",
+                "country": "Q212",
                 "number_lives_used_game": 0,
                 "list_current_hints": [
-                    "population",
-                    "currency",
-                    "driving_side"
+                    "license_plate_code",
+                    "age_of_majority",
+                    "capital"
                 ],
                 "dict_clues": {
                     "french": {},
                     "english": {}
                 },
                 "dict_all_clues": {
-                    "english": {
-                        "capital": "Helsinki",
-                        "currency": "euro",
-                        "age_of_majority": "18",
-                        "human_development_index": "0.94",
-                        "median_income": "34615",
-                        "nominal_GDP": "280825957768, 296387625264",
-                        "ISO_2_code": "FI",
-                        "license_plate_code": "FIN",
-                        "country_calling_code": "+358",
-                        "ISO_3_code": "FIN",
-                        "flag": "flag_europe.png",
-                        "official_language": "Swedish, Finnish",
-                        "top_level_internet_domain": ".fi",
-                        "driving_side": "right",
-                        "anthem": "Maamme",
-                        "area": "338145",
-                        "population": "5563970",
-                        "head_of_government": "Petteri Orpo",
-                        "head_of_state": "Sauli Niinist\u00f6"
-                    },
                     "french": {
-                        "official_language": "finnois, su\u00e9dois",
-                        "anthem": "Maamme",
-                        "capital": "Helsinki",
-                        "currency": "euro",
+                        "capital": "Kiev",
+                        "currency": "hryvnia",
                         "age_of_majority": "18",
-                        "human_development_index": "0.94",
-                        "median_income": "34615",
-                        "nominal_GDP": "280825957768, 296387625264",
-                        "ISO_2_code": "FI",
-                        "license_plate_code": "FIN",
-                        "ISO_3_code": "FIN",
-                        "country_calling_code": "+358",
+                        "human_development_index": "0.773",
+                        "country_calling_code": "+380",
+                        "nominal_GDP": "160502739236, 199765856765",
+                        "median_income": "9218",
+                        "license_plate_code": "UA",
+                        "ISO_2_code": "UA",
+                        "ISO_3_code": "UKR",
                         "flag": "flag_europe.png",
                         "driving_side": "droite",
-                        "top_level_internet_domain": ".fi",
-                        "area": "338145",
-                        "population": "5563970",
-                        "head_of_government": "Petteri Orpo",
-                        "head_of_state": "Sauli Niinist\u00f6"
+                        "head_of_government": "Denys Chmyhal",
+                        "area": "603550",
+                        "official_language": "ukrainien",
+                        "anthem": "Chtche ne vmerla Ukra\u00efny",
+                        "head_of_state": "Volodymyr Zelensky",
+                        "population": "41167335",
+                        "top_level_internet_domain": ".ua"
                     }
                 }
             }

@@ -47,7 +47,9 @@
     "game_summary": {
         "i_found": "I've found!",
         "new_hint": "New hint",
-        "title": "Which country is it?"
+        "title": "Which country is it?",
+        "zoom_flag_title": "Flag",
+        "zoom_geojson_title": "Country shape"
     },
     "clues": {
         "no_connexion_title": "Request error",
