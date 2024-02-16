@@ -65,12 +65,13 @@ python main.py
 
 <table align="center">
     <tr>
-        <td align="justify">A tutorial has been written inside the game and when the user launches the game for the first time, the tutorial is displayed. The user can also see it again by clicking on the information button on the bottom-left hand corner of the home screen.
-        The by-default language is english, but the player rather play in french they can switch the game language by clicking on the flag button on the top-right hand corner of the home screen.t</td>
+        <td align="justify">A tutorial has been written inside the game and when the user launches the game for the first time, the tutorial is displayed. The user can also see it again by clicking on the information button on the bottom-left hand corner of the home screen. 
+        The default language is English, but if the player prefers to play in French, they can switch the game language by clicking on the flag button in the top-right corner of the home screen.</td>
         <td align="center"><img src="resources/images/tuto/home_screen_en.png?raw=true" alt="some text" width=800></td>
     </tr>
 
 </table>
+
 ## Architecture of the project
 
 The project is divided into several folders:

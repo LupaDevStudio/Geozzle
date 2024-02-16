@@ -76,7 +76,11 @@
             "current_country": {
                 "country": "Q819",
                 "number_lives_used_game": 0,
-                "list_current_hints": [],
+                "list_current_hints": [
+                    "currency",
+                    "driving_side",
+                    "area"
+                ],
                 "dict_clues": {
                     "french": {
                         "driving_side": "\u2013 Sens de conduite : Droite"
@@ -103,6 +107,26 @@
                         "population": "6858160",
                         "official_language": "lao",
                         "currency": "Kip laotien"
+                    },
+                    "english": {
+                        "head_of_government": "Phankham Viphavan",
+                        "age_of_majority": "18",
+                        "human_development_index": "0.607",
+                        "license_plate_code": "LAO",
+                        "nominal_GDP": "15724383783, 18827148530",
+                        "country_calling_code": "+856",
+                        "ISO_2_code": "LA",
+                        "ISO_3_code": "LAO",
+                        "official_language": "Lao",
+                        "flag": "flag_asia.png",
+                        "top_level_internet_domain": ".la",
+                        "driving_side": "right",
+                        "anthem": "Pheng Xat Lao",
+                        "capital": "Vientiane",
+                        "head_of_state": "Thongloun Sisoulith",
+                        "area": "236800",
+                        "population": "6858160",
+                        "currency": "Lao kip"
                     }
                 }
             }
@@ -136,16 +160,38 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q766",
                 "number_lives_used_game": 0,
-                "list_current_hints": [],
+                "list_current_hints": [
+                    "human_development_index",
+                    "nominal_GDP",
+                    "head_of_government"
+                ],
                 "dict_clues": {
                     "french": {},
                     "english": {}
                 },
                 "dict_all_clues": {
-                    "french": {},
-                    "english": {}
+                    "french": {
+                        "anthem": "Jamaica, Land We Love",
+                        "capital": "Kingston",
+                        "age_of_majority": "18",
+                        "human_development_index": "0.709",
+                        "country_calling_code": "+1876",
+                        "nominal_GDP": "14657586359, 17097760745",
+                        "ISO_2_code": "JM",
+                        "license_plate_code": "JA",
+                        "ISO_3_code": "JAM",
+                        "official_language": "anglais",
+                        "flag": "flag_north_america.png",
+                        "head_of_state": "Charles III",
+                        "head_of_government": "Andrew Holness",
+                        "area": "10991.90954",
+                        "driving_side": "gauche",
+                        "population": "2697983",
+                        "top_level_internet_domain": ".jm",
+                        "currency": "Dollar jama\u00efcain"
+                    }
                 }
             }
         },
@@ -178,16 +224,39 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q408",
                 "number_lives_used_game": 0,
-                "list_current_hints": [],
+                "list_current_hints": [
+                    "official_language",
+                    "driving_side",
+                    "area"
+                ],
                 "dict_clues": {
                     "french": {},
                     "english": {}
                 },
                 "dict_all_clues": {
-                    "french": {},
-                    "english": {}
+                    "french": {
+                        "official_language": "anglais australien",
+                        "median_income": "65000",
+                        "age_of_majority": "18",
+                        "human_development_index": "0.951",
+                        "license_plate_code": "AUS",
+                        "nominal_GDP": "1675418665067",
+                        "country_calling_code": "+61",
+                        "ISO_2_code": "AU",
+                        "ISO_3_code": "AUS",
+                        "flag": "flag_oceania.png",
+                        "head_of_state": "Charles III",
+                        "head_of_government": "Anthony Albanese",
+                        "capital": "Canberra",
+                        "anthem": "Advance Australia Fair",
+                        "area": "7692024",
+                        "driving_side": "gauche",
+                        "population": "26473055",
+                        "top_level_internet_domain": ".au",
+                        "currency": "dollar australien"
+                    }
                 }
             }
         }
