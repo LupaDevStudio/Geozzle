@@ -14,12 +14,27 @@
                 "country": "Q212",
                 "number_lives_used_game": 0,
                 "list_current_hints": [
-                    "license_plate_code",
-                    "age_of_majority",
-                    "capital"
+                    "head_of_state",
+                    "anthem",
+                    "country_calling_code"
                 ],
                 "dict_clues": {
-                    "french": {},
+                    "french": {
+                        "license_plate_code": "\u2013 Code de plaque d'immatriculation : UA",
+                        "area": "\u2013 Superficie : 603 550 km\u00b2",
+                        "age_of_majority": "\u2013 Age de la majorit\u00e9 : 18 ans",
+                        "flag": "flag_europe.png",
+                        "driving_side": "\u2013 Sens de conduite : Droite",
+                        "capital": "\u2013 Capitale : Kiev",
+                        "population": "\u2013 Population : 41 167 335 habitants",
+                        "currency": "\u2013 Monnaie : Hryvnia",
+                        "human_development_index": "\u2013 Index de D\u00e9veloppement Humain : 0.773",
+                        "median_income": "\u2013 Revenu moyen : 9 218",
+                        "nominal_GDP": "\u2013 PIB moyen : 180 134 M$",
+                        "official_language": "\u2013 Langue officielle : Ukrainien",
+                        "top_level_internet_domain": "\u2013 Domaine internet : .ua",
+                        "ISO_3_code": "UKR"
+                    },
                     "english": {}
                 },
                 "dict_all_clues": {

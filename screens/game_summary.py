@@ -237,15 +237,16 @@ class GameSummaryScreen(ImprovedScreenWithAds):
         if mode == "flag":
             image_source = PATH_IMAGES_FLAG + self.code_continent.lower() + ".png"
         elif mode == "geojson":
-            image_source = PATH_IMAGES_GEOJSON + game.dict_clues[TEXT.language]["ISO_3_code"] + ".png"
+            image_source = PATH_IMAGES_GEOJSON + \
+                game.dict_clues[TEXT.language]["ISO_3_code"] + ".png"
             print(image_source)
         popup = ImagePopup(
-                    primary_color=self.continent_color,
-                    secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
-                    title=TEXT.game_summary["zoom_" + mode + "_title"],
-                    font_ratio=self.font_ratio,
-                    image_source=image_source
-                )
+            primary_color=self.continent_color,
+            secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+            title=TEXT.game_summary["zoom_" + mode + "_title"],
+            font_ratio=self.font_ratio,
+            image_source=image_source
+        )
         popup.mode = mode
         popup.open()
 
