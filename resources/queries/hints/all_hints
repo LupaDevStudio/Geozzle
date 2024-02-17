@@ -1,180 +1,193 @@
-# Replace `Q_country` with the identifier of the country without the "Q"
+# Replace `Q_country` with the identifier of the country with the "Q"
 # Replace `$output_language` with language of the output, e.g.: "en" for English, "fr" for French, ...
 
 
-SELECT DISTINCT ?hint ?valueLabel
+SELECT DISTINCT ?hint (COALESCE(?value_label, ?value) AS ?value_text)
+WITH {
+    SELECT DISTINCT ?hint ?value {  # use a named subquery, otherwise the query optimizer messes up
+        BIND(wd:$Q_country AS ?country).
+
+        {  # official language
+            BIND("official_language" AS ?hint).
+            BIND(?language AS ?value).
+
+            ?country wdt:P37 ?language.  # official language of the country
+
+            MINUS {
+                ?language wdt:P31/wdt:P279* wd:Q34228.  # instance of `sign language` or any of its subclasses
+            }
+
+            MINUS {
+                ?language wdt:P31/wdt:P279* wd:Q20671156.  # instance of `languages of a geographic region` or any of its subclasses
+            }
+        }
+
+        UNION {  # capital
+            BIND("capital" AS ?hint).
+            BIND(?capital AS ?value).
+
+            ?country wdt:P36 ?capital.  # force statement to be the main statement
+            ?country p:P36 ?statement.  # capital statement of the country
+            ?statement ps:P36 ?capital.
+
+            OPTIONAL {
+                 ?statement pq:P582 ?endtime.  # statement end-time
+            }
+
+            FILTER(!BOUND(?endtime)).
+
+            MINUS {
+                ?statement pq:P459 wd:Q712144.  # `determination method` is `de facto`
+            }
+            MINUS {
+                ?statement pq:P5102 wd:Q712144.  # `nature of statement` is `de facto`
+            }
+        }
+
+        UNION {  # motto
+            BIND("motto" AS ?hint).
+            BIND(?motto AS ?value).
+
+            ?country wdt:P1546 ?motto.  # motto of the country
+        }
+
+        UNION {  # anthem
+            BIND("anthem" AS ?hint).
+            BIND(?anthem AS ?value).
+
+            ?country p:P85 ?statement.  # anthem statement of the country
+            ?statement ps:P85 ?anthem.
+
+             OPTIONAL {
+                 ?statement pq:P582 ?endtime.  # statement end-time
+             }
+
+             FILTER(!BOUND(?endtime)).
+        }
+
+        UNION {  # flag
+            BIND("flag" AS ?hint).
+            BIND(?flag AS ?value).
+
+            ?country wdt:P41 ?flag.  # flag image of the country
+        }
+
+        UNION {  # age of majority
+            BIND("age_of_majority" AS ?hint).
+            BIND(?age AS ?value).
+
+            ?country wdt:P2997 ?age.  # age of majority of the country
+        }
+
+        UNION {  # human development index
+            BIND("human_development_index" AS ?hint).
+            BIND(?hdi AS ?value).
+
+            ?country wdt:P1081 ?hdi.  # human development index of the country
+        }
+
+        UNION {  # population
+            BIND("population" AS ?hint).
+            BIND(?population AS ?value).
+
+            ?country wdt:P1082 ?population.  # population of the country
+        }
+
+        UNION {  # median income
+            BIND("median_income" AS ?hint).
+            BIND(?income AS ?value).
+
+            ?country wdt:P3529 ?income.  # median income of the country
+        }
+
+        UNION {  # area
+            BIND("area" AS ?hint).
+            BIND(?area AS ?value).
+
+            ?country wdt:P2046 ?area.  # area of country
+        }
+
+        UNION {  # country calling code
+            BIND("country_calling_code" AS ?hint).
+            BIND(?code AS ?value).
+
+            ?country wdt:P474 ?code.  # calling code of the country
+        }
+
+        UNION {  # license plate code
+            BIND("license_plate_code" AS ?hint).
+            BIND(?code AS ?value).
+
+            ?country wdt:P395 ?code.  # license plate code of the country
+        }
+
+        UNION {  # nominal GDP
+            BIND("nominal_GDP" AS ?hint).
+            BIND(?gdp AS ?value).
+
+            ?country wdt:P2131 ?gdp.  # nominal GDP of the country
+        }
+
+        UNION {  # top level internet domain
+            BIND("top_level_internet_domain" AS ?hint).
+            BIND(?domain AS ?value).
+
+            ?country wdt:P78 ?domain.  # top level internet domain of the country
+        }
+
+        UNION {  # ISO 3166-1 alpha-2 code
+            BIND("ISO_2_code" AS ?hint).
+            BIND(?code AS ?value).
+
+            ?country wdt:P297 ?code.  # ISO 3166-1 alpha-2 code of the country
+        }
+
+        UNION {  # ISO 3166-1 alpha-3 code
+            BIND("ISO_3_code" AS ?hint).
+            BIND(?code AS ?value).
+
+            ?country wdt:P298 ?code.  # ISO 3166-1 alpha-3 code of the country
+        }
+
+        UNION {  # driving side
+            BIND("driving_side" AS ?hint).
+            BIND(?side AS ?value).
+
+            ?country wdt:P1622 ?side.  # driving side in the country
+        }
+
+        UNION {  # currency
+            BIND("currency" AS ?hint).
+            BIND(?currency AS ?value).
+
+            ?country wdt:P38 ?currency.  # currency of the country
+        }
+
+        UNION {  # head of state
+            BIND("head_of_state" AS ?hint).
+            BIND(?head_of_state AS ?value).
+
+            ?country wdt:P35 ?head_of_state.  # head of state of the country
+        }
+
+        UNION {  # head of government
+            BIND("head_of_government" AS ?hint).
+            BIND(?head_of_government AS ?value).
+
+            ?country wdt:P6 ?head_of_government.  # head of government of the country
+        }
+    }
+} AS %raw_results
+
 WHERE {
-    BIND(wd:$Q_country AS ?country)
+    INCLUDE %raw_results.
 
-    {  # official language
-        BIND("official_language" AS ?hint)
-        BIND(?language AS ?value)
+    OPTIONAL {
+        ?value rdfs:label ?value_label.  # get labels without using `SERVICE ...` because subsequent filtering does not work with that
+        FILTER(LANG(?value_label) = "$output_language").  # filter the language of the labels
 
-        ?country wdt:P37 ?language.  # official language of the country
-
-        MINUS {
-            ?language wdt:P31/wdt:P279* wd:Q34228.  # instance of `sign language` or any of its subclasses
-        }
-
-        MINUS {
-            ?language wdt:P31/wdt:P279* wd:Q20671156.  # instance of `languages of a geographic region` or any of its subclasses
-        }
+        FILTER(!REGEX(?value_label, "^Q[1-9][0-9]*$")).  # do not take the label if its the identifier of the entity
     }
 
-    UNION {  # capital
-        BIND("capital" AS ?hint)
-        BIND(?capital AS ?value)
-
-        ?country wdt:P36 ?capital.  # force statement to be the main statement
-        ?country p:P36 ?statement.  # capital statement of the country
-        ?statement ps:P36 ?capital.
-
-        OPTIONAL {
-             ?statement pq:P582 ?endtime.  # statement end-time
-        }
-
-        FILTER(!bound(?endtime))
-
-        MINUS {
-            ?statement pq:P459 wd:Q712144.  # `determination method` is `de facto`
-        }
-        MINUS {
-            ?statement pq:P5102 wd:Q712144.  # `nature of statement` is `de facto`
-        }
-    }
-
-    UNION {  # motto
-        BIND("motto" AS ?hint)
-        BIND(?motto AS ?value)
-
-        ?country wdt:P1546 ?motto.  # motto of the country
-    }
-
-    UNION {  # anthem
-        BIND("anthem" AS ?hint)
-        BIND(?anthem AS ?value)
-
-        ?country p:P85 ?statement.  # anthem statement of the country
-        ?statement ps:P85 ?anthem.
-
-         OPTIONAL {
-             ?statement pq:P582 ?endtime.  # statement end-time
-         }
-
-         FILTER(!bound(?endtime))
-    }
-
-    UNION {  # flag
-        BIND("flag" AS ?hint)
-        BIND(?flag AS ?value)
-
-        ?country wdt:P41 ?flag.  # flag image of the country
-    }
-
-    UNION {  # age of majority
-        BIND("age_of_majority" AS ?hint)
-        BIND(?age AS ?value)
-
-        ?country wdt:P2997 ?age.  # age of majority of the country
-    }
-
-    UNION {  # human development index
-        BIND("human_development_index" AS ?hint)
-        BIND(?hdi AS ?value)
-
-        ?country wdt:P1081 ?hdi.  # human development index of the country
-    }
-
-    UNION {  # population
-        BIND("population" AS ?hint)
-        BIND(?population AS ?value)
-
-        ?country wdt:P1082 ?population.  # population of the country
-    }
-
-    UNION {  # median income
-        BIND("median_income" AS ?hint)
-        BIND(?income AS ?value)
-
-        ?country wdt:P3529 ?income.  # median income of the country
-    }
-
-    UNION {  # area
-        BIND("area" AS ?hint)
-        BIND(?area AS ?value)
-
-        ?country wdt:P2046 ?area.  # area of country
-    }
-
-    UNION {  # country calling code
-        BIND("country_calling_code" AS ?hint)
-        BIND(?code AS ?value)
-
-        ?country wdt:P474 ?code.  # calling code of the country
-    }
-
-    UNION {  # license plate code
-        BIND("license_plate_code" AS ?hint)
-        BIND(?code AS ?value)
-
-        ?country wdt:P395 ?code.  # license plate code of the country
-    }
-
-    UNION {  # nominal GDP
-        BIND("nominal_GDP" AS ?hint)
-        BIND(?gdp AS ?value)
-
-        ?country wdt:P2131 ?gdp.  # nominal GDP of the country
-    }
-
-    UNION {  # top level internet domain
-        BIND("top_level_internet_domain" AS ?hint)
-        BIND(?domain AS ?value)
-
-        ?country wdt:P78 ?domain.  # top level internet domain of the country
-    }
-
-    UNION {  # ISO 3166-1 alpha-2 code
-        BIND("ISO_2_code" AS ?hint)
-        BIND(?code AS ?value)
-
-        ?country wdt:P297 ?code.  # ISO 3166-1 alpha-2 code of the country
-    }
-
-    UNION {  # ISO 3166-1 alpha-3 code
-        BIND("ISO_3_code" AS ?hint)
-        BIND(?code AS ?value)
-
-        ?country wdt:P298 ?code.  # ISO 3166-1 alpha-3 code of the country
-    }
-
-    UNION {  # driving side
-        BIND("driving_side" AS ?hint)
-        BIND(?side AS ?value)
-
-        ?country wdt:P1622 ?side.  # driving side in the country
-    }
-
-    UNION {  # currency
-        BIND("currency" AS ?hint)
-        BIND(?currency AS ?value)
-
-        ?country wdt:P38 ?currency.  # currency of the country
-    }
-
-    UNION {  # head of state
-        BIND("head_of_state" AS ?hint)
-        BIND(?head_of_state AS ?value)
-
-        ?country wdt:P35 ?head_of_state.  # head of state of the country
-    }
-
-    UNION {  # head of government
-        BIND("head_of_government" AS ?hint)
-        BIND(?head_of_government AS ?value)
-
-        ?country wdt:P6 ?head_of_government.  # head of government of the country
-    }
-
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],$output_language". }
+    FILTER(BOUND(?value_label) || !isIRI(?value)).  # if the label is not defined, return only values not entities
 }
