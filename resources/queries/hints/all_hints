@@ -2,9 +2,9 @@
 # Replace `$output_language` with language of the output, e.g.: "en" for English, "fr" for French, ...
 
 
-SELECT DISTINCT ?hint (COALESCE(?value_label, ?value) AS ?value_text)
+SELECT DISTINCT ?hint (COALESCE(?value_label, ?value) AS ?value_text) ?unitLabel
 WITH {
-    SELECT DISTINCT ?hint ?value {  # use a named subquery, otherwise the query optimizer messes up
+    SELECT DISTINCT ?hint ?value ?unit {  # use a named subquery, otherwise the query optimizer messes up
         BIND(wd:$Q_country AS ?country).
 
         {  # official language
@@ -55,6 +55,7 @@ WITH {
             BIND("anthem" AS ?hint).
             BIND(?anthem AS ?value).
 
+            ?country wdt:P85 ?anthem.  # force statement to be the preferred statement
             ?country p:P85 ?statement.  # anthem statement of the country
             ?statement ps:P85 ?anthem.
 
@@ -97,12 +98,18 @@ WITH {
             BIND("median_income" AS ?hint).
             BIND(?income AS ?value).
 
-            ?country wdt:P3529 ?income.  # median income of the country
+            ?country wdt:P3529 ?income.  # force statement to be the preferred statement
+            ?country p:P3529 ?statement.  # median income in the country
+
+            ?statement psv:P3529 ?value_node.  # get the value node
+            ?value_node wikibase:quantityAmount ?income.  # get the income value
+            ?value_node wikibase:quantityUnit ?unit.  # get the income unit
         }
 
         UNION {  # area in km^2
             BIND("area" AS ?hint).
             BIND(?area AS ?value).
+            BIND(wd:Q712226 AS ?unit).  # output in km^2
 
             ?country wdt:P2046 ?wd_area.  # force statement to be the preferred statement
             ?country p:P2046 ?statement. # area of the country
@@ -113,9 +120,9 @@ WITH {
             ?statement psn:P2046 ?si_value_node.  # get the value node in SI unit
             ?si_value_node wikibase:quantityAmount ?si_area.  # area value in SI unit
 
-            wd:Q712226 wdt:P2370 ?km2_si_conv.  # conversion factor from km^2 to SI unit (m^2)
+            ?unit wdt:P2370 ?si_conv.  # conversion factor to SI unit (m^2)
 
-            BIND((?si_area / ?km2_si_conv) AS ?area).  # conversion from SI unit (m^2) to km^2
+            BIND((?si_area / ?si_conv) AS ?area).  # conversion from SI unit (m^2) to output unit
         }
 
         UNION {  # country calling code
@@ -136,7 +143,12 @@ WITH {
             BIND("nominal_GDP" AS ?hint).
             BIND(?gdp AS ?value).
 
-            ?country wdt:P2131 ?gdp.  # nominal GDP of the country
+            ?country wdt:P2131 ?gdp.  # force statement to be the preferred statement
+            ?country p:P2131 ?statement.  # nominal GDP of the country
+
+            ?statement psv:P2131 ?value_node.  # get the value node
+            ?value_node wikibase:quantityAmount ?gdp.  # get the gdp value
+            ?value_node wikibase:quantityUnit ?unit.  # get the gdp unit
         }
 
         UNION {  # top level internet domain
@@ -201,4 +213,6 @@ WHERE {
     }
 
     FILTER(BOUND(?value_label) || !isIRI(?value)).  # if the label is not defined, return only values not entities
+
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "$output_language". }  # for unit labels, because `rdfs:label` messes up the optimizer
 }
