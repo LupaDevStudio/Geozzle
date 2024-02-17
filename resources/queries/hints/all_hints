@@ -26,7 +26,7 @@ WITH {
             BIND("capital" AS ?hint).
             BIND(?capital AS ?value).
 
-            ?country wdt:P36 ?capital.  # force statement to be the main statement
+            ?country wdt:P36 ?capital.  # force statement to be the preferred statement
             ?country p:P36 ?statement.  # capital statement of the country
             ?statement ps:P36 ?capital.
 
@@ -100,11 +100,22 @@ WITH {
             ?country wdt:P3529 ?income.  # median income of the country
         }
 
-        UNION {  # area
+        UNION {  # area in km^2
             BIND("area" AS ?hint).
             BIND(?area AS ?value).
 
-            ?country wdt:P2046 ?area.  # area of country
+            ?country wdt:P2046 ?wd_area.  # force statement to be the preferred statement
+            ?country p:P2046 ?statement. # area of the country
+
+            ?statement psv:P2046 ?wd_value_node.  # get the value node
+            ?wd_value_node wikibase:quantityAmount ?wd_area.  # link value node to preferred statement
+
+            ?statement psn:P2046 ?si_value_node.  # get the value node in SI unit
+            ?si_value_node wikibase:quantityAmount ?si_area.  # area value in SI unit
+
+            wd:Q712226 wdt:P2370 ?km2_si_conv.  # conversion factor from km^2 to SI unit (m^2)
+
+            BIND((?si_area / ?km2_si_conv) AS ?area).  # conversion from SI unit (m^2) to km^2
         }
 
         UNION {  # country calling code
