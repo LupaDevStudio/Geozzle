@@ -77,6 +77,7 @@
         "inhabitants": " inhabitants"
     },
     "tutorial": {
+        "tutorial_title": "Tutorial",
         "next": "Next",
         "previous": "Previous",
         "close": "Close",

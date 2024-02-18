@@ -353,7 +353,6 @@ class HomeScreen(ImprovedScreenWithAds):
 
     def launch_tutorial(self):
         popup = TutorialPopup(
-            title="Tutorial",
             primary_color=self.continent_color,
             secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
             tutorial_content=TEXT.tutorial["tutorial_content"],

@@ -37,6 +37,7 @@ class TutorialPopup(CustomPopup):
     side_label_text = StringProperty()
     side_image_source = StringProperty()
     side_image_disabled = BooleanProperty()
+    title = StringProperty(TEXT.tutorial["tutorial_title"])
 
     def __init__(self, tutorial_content, **kwargs):
         super().__init__(**kwargs)
@@ -47,17 +48,12 @@ class TutorialPopup(CustomPopup):
         self.load_content()
 
     def load_content(self):
-        # Disable the useless buttons
+        # Change the names of the buttons
         if self.page_id == 0:
-            # self.ids["previous_button"].opacity = 0
-            # self.previous_button_disabled = True
             self.previous_button_label = TEXT.tutorial["close"]
         else:
             self.previous_button_label = TEXT.tutorial["previous"]
-            # self.previous_button_disabled = False
-            # self.ids["previous_button"].opacity = 1
         if self.page_id == self.nb_pages - 1:
-            # self.previous_button_disabled = False
             self.next_button_label = TEXT.tutorial["close"]
         else:
             self.next_button_label = TEXT.tutorial["next"]
