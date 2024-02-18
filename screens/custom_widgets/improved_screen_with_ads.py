@@ -18,7 +18,7 @@ from kivy.clock import mainthread
 ### Local imports ###
 
 from tools.kivy_tools import ImprovedScreen
-from tools.geozzle import watch_ad
+from tools.geozzle import watch_ad, load_ad
 from screens.custom_widgets.two_buttons_popup import TwoButtonsPopup
 from tools.constants import (
     TEXT,
@@ -77,3 +77,4 @@ class ImprovedScreenWithAds(ImprovedScreen):
             USER_DATA.continents[self.code_continent]["lost_live_date"] = None
         USER_DATA.save_changes()
         popup.dismiss()
+        load_ad()

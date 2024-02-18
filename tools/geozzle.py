@@ -40,23 +40,24 @@ if ANDROID_MODE:
     )
 
 if IOS_MODE:
-    from pyobjus import autoclass # pylint: disable=import-error # type: ignore
+    from pyobjus import autoclass  # pylint: disable=import-error # type: ignore
 
 #################
 ### Functions ###
 #################
 
+
 def insert_space_numbers(number: str, language: str) -> str:
     """
     Put spaces or comas each 3 numbers.
-    
+
     Parameters
     ----------
     number : str
         String of a number
     language : str
         Code of the language
-    
+
     Returns
     -------
     str
@@ -94,7 +95,7 @@ def insert_space_numbers(number: str, language: str) -> str:
     counter = 0
     list_characters = []
     new_number = ""
-    for character in range(len(number)-1,-1,-1):
+    for character in range(len(number) - 1, -1, -1):
         value = number[character]
         if counter == 2:
             list_characters = [delimitation_character, value] + list_characters
@@ -110,10 +111,11 @@ def insert_space_numbers(number: str, language: str) -> str:
         new_number += character
     return new_number
 
+
 def format_clue(code_clue: str, value_clue: str, language: str) -> str:
     """
     Format the value of the clue to display something nice in the scrollview.
-    
+
     Parameters
     ----------
     code_clue : str
@@ -122,7 +124,7 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
         Value associated to the clue
     language : str
         Code of the language
-    
+
     Returns
     -------
     str
@@ -149,9 +151,9 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
                 mean_gdp += int(float(gdp))
         mean_gdp /= len(list_gdp)
         if mean_gdp >= 1000000:
-            value_clue = str(int(mean_gdp/1000000))
+            value_clue = str(int(mean_gdp / 1000000))
         else:
-            value_clue = str(mean_gdp/1000000)
+            value_clue = str(mean_gdp / 1000000)
 
     # Add spaces between the numbers
     if code_clue in ["area", "population", "nominal_GDP", "median_income"]:
@@ -170,6 +172,7 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
         value_clue += TEXT.clues["inhabitants"]
 
     return value_clue
+
 
 def calculate_score_clues(part_highscore: float, nb_clues: int) -> int:
     """
@@ -192,7 +195,7 @@ def calculate_score_clues(part_highscore: float, nb_clues: int) -> int:
         return part_highscore
 
     # Lose points after, until using more than 12 clues
-    part_highscore = part_highscore * (1 - (nb_clues-3)/9)
+    part_highscore = part_highscore * (1 - (nb_clues - 3) / 9)
 
     # No negative score
     if part_highscore <= 0:
@@ -210,16 +213,26 @@ else:
     ad = None
 
 
+def load_ad():
+    global ad
+    if ANDROID_MODE:
+        ad = RewardedInterstitial(REWARD_INTERSTITIAL, on_reward=None)
+    elif IOS_MODE:
+        ad = autoclass("adInterstitial").alloc().init()
+    else:
+        ad = None
+
+
 def watch_ad(ad_callback):
     global ad
     if ANDROID_MODE:
+        print("try to show ads")
+        print("Ad is loaded", ad.is_loaded())
         ad.on_reward = ad_callback
         ad.show()
-        ad = RewardedInterstitial(REWARD_INTERSTITIAL, on_reward=None)
     elif IOS_MODE:
         ad.InterstitialView()
         ad_callback()
-        # ad = autoclass("adInterstitial").alloc().init()
     else:
         print("No ads to show outside mobile mode")
         ad_callback()
@@ -323,11 +336,11 @@ class Game():
     def load_dict_all_clues(self) -> bool:
         """
         Load the dict of all clues with requests to Wikidata, in the current language.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         bool
@@ -354,11 +367,11 @@ class Game():
     def fill_dict_clues(self):
         """
         Fill the dict of clues of the current language, depending of the one of the other language.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         None
@@ -376,7 +389,6 @@ class Game():
                 # Check if the clue exists in the results of the query
                 if code_clue in self.dict_all_clues[TEXT.language]:
                     self.add_clue(code_clue=code_clue)
-
 
     def select_clue(self, name_clue: str):
         """
@@ -425,7 +437,7 @@ class Game():
                     language=TEXT.language)
             except:
                 print("Error in formatting")
-                value_clue = self.dict_all_clues[TEXT.language][code_clue] 
+                value_clue = self.dict_all_clues[TEXT.language][code_clue]
         else:
             value_clue = self.dict_all_clues[TEXT.language][code_clue]
         self.dict_clues[TEXT.language][code_clue] = value_clue
@@ -568,7 +580,7 @@ class Game():
 
         # Depending on the number of lives => half the score
         current_score += (max(3 - self.number_lives_used_game, 0)
-                         * half_part_highscore) / 3
+                          * half_part_highscore) / 3
 
         # Depending on the number of clues used => the other half of the score
         current_score += calculate_score_clues(
