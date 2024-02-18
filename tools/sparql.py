@@ -35,7 +35,7 @@ from tools.path import (
 ### Constants ###
 #################
 
-BOOL_CREATE_DICT_CONTINENTS = True
+BOOL_CREATE_DICT_CONTINENTS = False
 
 #################
 ### Functions ###
@@ -404,4 +404,4 @@ if __name__ == "__main__":
     if BOOL_CREATE_DICT_CONTINENTS:
        for code_continent in DICT_WIKIDATA_CONTINENTS:
            request_countries_continent(code_continent=code_continent, language="fr")
-    print(request_all_clues("Q1013", "Africa"))
+    print(request_all_clues("Q28", "Europe"))

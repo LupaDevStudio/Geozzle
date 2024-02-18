@@ -9,62 +9,37 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q228",
+                "country": "Q28",
                 "number_lives_used_game": 0,
-                "list_current_hints": [
-                    "driving_side",
-                    "population",
-                    "country_calling_code"
-                ],
+                "list_current_hints": [],
                 "dict_clues": {
-                    "french": {
-                        "license_plate_code": "\u2013 Code de plaque d'immatriculation : AND",
-                        "area": "\u2013 Superficie : 468 km\u00b2"
-                    },
+                    "french": {},
                     "english": {
-                        "license_plate_code": "\u2013 License plate code : AND",
-                        "area": "\u2013 Area : 468 km\u00b2"
+                        "nominal_GDP": "\u2013 Nominal GDP : 181 M$"
                     }
                 },
                 "dict_all_clues": {
                     "english": {
-                        "currency": "euro",
-                        "capital": "Andorra la Vella",
-                        "human_development_index": "0.858",
-                        "license_plate_code": "AND",
-                        "country_calling_code": "+376",
-                        "ISO_2_code": "AD",
-                        "ISO_3_code": "AND",
-                        "nominal_GDP": "3325145407, 3352032737",
-                        "official_language": "Catalan",
+                        "top_level_internet_domain": ".hu",
+                        "capital": "Budapest",
+                        "currency": "forint",
+                        "age_of_majority": "18",
+                        "human_development_index": "0.846",
+                        "country_calling_code": "+36",
+                        "license_plate_code": "H",
+                        "ISO_2_code": "HU",
+                        "ISO_3_code": "HUN",
+                        "nominal_GDP": "181848022.23",
                         "flag": "flag_europe.png",
-                        "head_of_state": "Emmanuel Macron, Joan Enric Vives Sic\u00edlia",
-                        "anthem": "El gran Carlemany",
+                        "official_language": "Hungarian",
+                        "head_of_state": "Katalin Nov\u00e1k",
+                        "head_of_government": "Viktor Orb\u00e1n",
+                        "anthem": "Himnusz",
                         "driving_side": "right",
-                        "area": "468",
-                        "top_level_internet_domain": ".ad",
-                        "population": "81588",
-                        "head_of_government": "Xavier Espot Zamora"
+                        "area": "93011.4",
+                        "population": "9603634"
                     },
-                    "french": {
-                        "currency": "euro",
-                        "human_development_index": "0.858",
-                        "nominal_GDP": "3325145407, 3352032737",
-                        "country_calling_code": "+376",
-                        "ISO_2_code": "AD",
-                        "license_plate_code": "AND",
-                        "ISO_3_code": "AND",
-                        "flag": "flag_europe.png",
-                        "head_of_state": "Emmanuel Macron, Joan Enric Vives i Sic\u00edlia",
-                        "anthem": "El gran Carlemany",
-                        "driving_side": "droite",
-                        "capital": "Andorre-la-Vieille",
-                        "area": "468",
-                        "official_language": "catalan",
-                        "top_level_internet_domain": ".ad",
-                        "population": "81588",
-                        "head_of_government": "Xavier Espot Zamora"
-                    }
+                    "french": {}
                 }
             }
         },

@@ -143,7 +143,10 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
         list_gdp = value_clue.split(", ")
         mean_gdp = 0
         for gdp in list_gdp:
-            mean_gdp += int(gdp)
+            if not "." in gdp:
+                mean_gdp += int(gdp)
+            else:
+                mean_gdp += int(float(gdp))
         mean_gdp /= len(list_gdp)
         if mean_gdp >= 1000000:
             value_clue = str(int(mean_gdp/1000000))
@@ -415,10 +418,14 @@ class Game():
         """
 
         if not code_clue in ["ISO_3_code", "flag"]:
-            value_clue = format_clue(
-                code_clue=code_clue,
-                value_clue=self.dict_all_clues[TEXT.language][code_clue],
-                language=TEXT.language)
+            try:
+                value_clue = format_clue(
+                    code_clue=code_clue,
+                    value_clue=self.dict_all_clues[TEXT.language][code_clue],
+                    language=TEXT.language)
+            except:
+                print("Error in formatting")
+                value_clue = self.dict_all_clues[TEXT.language][code_clue] 
         else:
             value_clue = self.dict_all_clues[TEXT.language][code_clue]
         self.dict_clues[TEXT.language][code_clue] = value_clue
