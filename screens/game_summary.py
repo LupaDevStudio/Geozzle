@@ -89,6 +89,9 @@ class GameSummaryScreen(ImprovedScreenWithAds):
 
     def on_enter(self, *args):
 
+        if len(game.dict_clues[TEXT.language]) < 2:
+            self.ids.scrollview.scroll_y = 1
+
         # Schedule the change of background
         Clock.schedule_interval(
             self.manager.change_background, TIME_CHANGE_BACKGROUND)
