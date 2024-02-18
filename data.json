@@ -1,63 +1,69 @@
 {
-    "language": "french",
+    "language": "english",
     "continents": {
         "Europe": {
-            "highscore": 114,
-            "percentage": 2,
-            "countries_unlocked": [
-                "Q33"
-            ],
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q212",
+                "country": "Q228",
                 "number_lives_used_game": 0,
                 "list_current_hints": [
-                    "head_of_state",
-                    "anthem",
+                    "driving_side",
+                    "population",
                     "country_calling_code"
                 ],
                 "dict_clues": {
                     "french": {
-                        "license_plate_code": "\u2013 Code de plaque d'immatriculation : UA",
-                        "area": "\u2013 Superficie : 603 550 km\u00b2",
-                        "age_of_majority": "\u2013 Age de la majorit\u00e9 : 18 ans",
-                        "flag": "flag_europe.png",
-                        "driving_side": "\u2013 Sens de conduite : Droite",
-                        "capital": "\u2013 Capitale : Kiev",
-                        "population": "\u2013 Population : 41 167 335 habitants",
-                        "currency": "\u2013 Monnaie : Hryvnia",
-                        "human_development_index": "\u2013 Index de D\u00e9veloppement Humain : 0.773",
-                        "median_income": "\u2013 Revenu moyen : 9 218",
-                        "nominal_GDP": "\u2013 PIB moyen : 180 134 M$",
-                        "official_language": "\u2013 Langue officielle : Ukrainien",
-                        "top_level_internet_domain": "\u2013 Domaine internet : .ua",
-                        "ISO_3_code": "UKR"
+                        "license_plate_code": "\u2013 Code de plaque d'immatriculation : AND",
+                        "area": "\u2013 Superficie : 468 km\u00b2"
                     },
-                    "english": {}
+                    "english": {
+                        "license_plate_code": "\u2013 License plate code : AND",
+                        "area": "\u2013 Area : 468 km\u00b2"
+                    }
                 },
                 "dict_all_clues": {
-                    "french": {
-                        "capital": "Kiev",
-                        "currency": "hryvnia",
-                        "age_of_majority": "18",
-                        "human_development_index": "0.773",
-                        "country_calling_code": "+380",
-                        "nominal_GDP": "160502739236, 199765856765",
-                        "median_income": "9218",
-                        "license_plate_code": "UA",
-                        "ISO_2_code": "UA",
-                        "ISO_3_code": "UKR",
+                    "english": {
+                        "currency": "euro",
+                        "capital": "Andorra la Vella",
+                        "human_development_index": "0.858",
+                        "license_plate_code": "AND",
+                        "country_calling_code": "+376",
+                        "ISO_2_code": "AD",
+                        "ISO_3_code": "AND",
+                        "nominal_GDP": "3325145407, 3352032737",
+                        "official_language": "Catalan",
                         "flag": "flag_europe.png",
+                        "head_of_state": "Emmanuel Macron, Joan Enric Vives Sic\u00edlia",
+                        "anthem": "El gran Carlemany",
+                        "driving_side": "right",
+                        "area": "468",
+                        "top_level_internet_domain": ".ad",
+                        "population": "81588",
+                        "head_of_government": "Xavier Espot Zamora"
+                    },
+                    "french": {
+                        "currency": "euro",
+                        "human_development_index": "0.858",
+                        "nominal_GDP": "3325145407, 3352032737",
+                        "country_calling_code": "+376",
+                        "ISO_2_code": "AD",
+                        "license_plate_code": "AND",
+                        "ISO_3_code": "AND",
+                        "flag": "flag_europe.png",
+                        "head_of_state": "Emmanuel Macron, Joan Enric Vives i Sic\u00edlia",
+                        "anthem": "El gran Carlemany",
                         "driving_side": "droite",
-                        "head_of_government": "Denys Chmyhal",
-                        "area": "603550",
-                        "official_language": "ukrainien",
-                        "anthem": "Chtche ne vmerla Ukra\u00efny",
-                        "head_of_state": "Volodymyr Zelensky",
-                        "population": "41167335",
-                        "top_level_internet_domain": ".ua"
+                        "capital": "Andorre-la-Vieille",
+                        "area": "468",
+                        "official_language": "catalan",
+                        "top_level_internet_domain": ".ad",
+                        "population": "81588",
+                        "head_of_government": "Xavier Espot Zamora"
                     }
                 }
             }
@@ -70,60 +76,16 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q819",
+                "country": "",
                 "number_lives_used_game": 0,
-                "list_current_hints": [
-                    "currency",
-                    "driving_side",
-                    "area"
-                ],
+                "list_current_hints": [],
                 "dict_clues": {
-                    "french": {
-                        "driving_side": "\u2013 Sens de conduite : Droite"
-                    },
+                    "french": {},
                     "english": {}
                 },
                 "dict_all_clues": {
-                    "french": {
-                        "head_of_government": "Phankham Viphavanh",
-                        "age_of_majority": "18",
-                        "human_development_index": "0.607",
-                        "ISO_2_code": "LA",
-                        "country_calling_code": "+856",
-                        "license_plate_code": "LAO",
-                        "nominal_GDP": "15724383783, 18827148530",
-                        "ISO_3_code": "LAO",
-                        "flag": "flag_asia.png",
-                        "driving_side": "droite",
-                        "top_level_internet_domain": ".la",
-                        "anthem": "Pheng Xat Lao",
-                        "capital": "Vientiane",
-                        "head_of_state": "Thongloun Sisoulith",
-                        "area": "236800",
-                        "population": "6858160",
-                        "official_language": "lao",
-                        "currency": "Kip laotien"
-                    },
-                    "english": {
-                        "head_of_government": "Phankham Viphavan",
-                        "age_of_majority": "18",
-                        "human_development_index": "0.607",
-                        "license_plate_code": "LAO",
-                        "nominal_GDP": "15724383783, 18827148530",
-                        "country_calling_code": "+856",
-                        "ISO_2_code": "LA",
-                        "ISO_3_code": "LAO",
-                        "official_language": "Lao",
-                        "flag": "flag_asia.png",
-                        "top_level_internet_domain": ".la",
-                        "driving_side": "right",
-                        "anthem": "Pheng Xat Lao",
-                        "capital": "Vientiane",
-                        "head_of_state": "Thongloun Sisoulith",
-                        "area": "236800",
-                        "population": "6858160",
-                        "currency": "Lao kip"
-                    }
+                    "french": {},
+                    "english": {}
                 }
             }
         },
@@ -156,38 +118,16 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q766",
+                "country": "",
                 "number_lives_used_game": 0,
-                "list_current_hints": [
-                    "human_development_index",
-                    "nominal_GDP",
-                    "head_of_government"
-                ],
+                "list_current_hints": [],
                 "dict_clues": {
                     "french": {},
                     "english": {}
                 },
                 "dict_all_clues": {
-                    "french": {
-                        "anthem": "Jamaica, Land We Love",
-                        "capital": "Kingston",
-                        "age_of_majority": "18",
-                        "human_development_index": "0.709",
-                        "country_calling_code": "+1876",
-                        "nominal_GDP": "14657586359, 17097760745",
-                        "ISO_2_code": "JM",
-                        "license_plate_code": "JA",
-                        "ISO_3_code": "JAM",
-                        "official_language": "anglais",
-                        "flag": "flag_north_america.png",
-                        "head_of_state": "Charles III",
-                        "head_of_government": "Andrew Holness",
-                        "area": "10991.90954",
-                        "driving_side": "gauche",
-                        "population": "2697983",
-                        "top_level_internet_domain": ".jm",
-                        "currency": "Dollar jama\u00efcain"
-                    }
+                    "french": {},
+                    "english": {}
                 }
             }
         },
@@ -220,39 +160,16 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q408",
+                "country": "",
                 "number_lives_used_game": 0,
-                "list_current_hints": [
-                    "official_language",
-                    "driving_side",
-                    "area"
-                ],
+                "list_current_hints": [],
                 "dict_clues": {
                     "french": {},
                     "english": {}
                 },
                 "dict_all_clues": {
-                    "french": {
-                        "official_language": "anglais australien",
-                        "median_income": "65000",
-                        "age_of_majority": "18",
-                        "human_development_index": "0.951",
-                        "license_plate_code": "AUS",
-                        "nominal_GDP": "1675418665067",
-                        "country_calling_code": "+61",
-                        "ISO_2_code": "AU",
-                        "ISO_3_code": "AUS",
-                        "flag": "flag_oceania.png",
-                        "head_of_state": "Charles III",
-                        "head_of_government": "Anthony Albanese",
-                        "capital": "Canberra",
-                        "anthem": "Advance Australia Fair",
-                        "area": "7692024",
-                        "driving_side": "gauche",
-                        "population": "26473055",
-                        "top_level_internet_domain": ".au",
-                        "currency": "dollar australien"
-                    }
+                    "french": {},
+                    "english": {}
                 }
             }
         }

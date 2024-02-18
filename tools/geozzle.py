@@ -371,8 +371,9 @@ class Game():
             # Add all clues of the reference dict of clues in the other one
             for code_clue in self.dict_clues[ref_language]:
                 # Check if the clue exists in the results of the query
-                if code_clue in self.dict_clues[TEXT.language]:
+                if code_clue in self.dict_all_clues[TEXT.language]:
                     self.add_clue(code_clue=code_clue)
+
 
     def select_clue(self, name_clue: str):
         """
