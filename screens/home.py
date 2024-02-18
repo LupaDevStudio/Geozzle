@@ -157,7 +157,7 @@ class HomeScreen(ImprovedScreenWithAds):
         self.play_label = TEXT.home["play"]
         self.restart_label = TEXT.home["restart"]
         self.highscore = TEXT.home["highscore"] + \
-            str(USER_DATA.continents[self.code_continent]["highscore"])
+            str(int(USER_DATA.continents[self.code_continent]["highscore"]))
 
     def change_continent(self, side: str):
         """
@@ -200,7 +200,7 @@ class HomeScreen(ImprovedScreenWithAds):
 
         # Change the score and the completion percentage of the user
         self.highscore = TEXT.home["highscore"] + \
-            str(USER_DATA.continents[self.code_continent]["highscore"])
+            str(int(USER_DATA.continents[self.code_continent]["highscore"]))
         self.completion_value = USER_DATA.continents[self.code_continent]["percentage"]
         self.completion_percentage_text = str(
             USER_DATA.continents[self.code_continent]["percentage"]) + " %"

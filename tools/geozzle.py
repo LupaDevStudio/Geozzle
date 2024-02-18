@@ -189,7 +189,7 @@ def calculate_score_clues(part_highscore: float, nb_clues: int) -> int:
     """
     # If the user guesses with less than 4 clues, he has all points
     if nb_clues <= 4:
-        return int(part_highscore)
+        return part_highscore
 
     # Lose points after, until using more than 14 clues
     part_highscore = part_highscore * (1 - (nb_clues-4)/10)
@@ -198,7 +198,7 @@ def calculate_score_clues(part_highscore: float, nb_clues: int) -> int:
     if part_highscore <= 0:
         return 0
 
-    return int(part_highscore)
+    return part_highscore
 
 
 # Create the ad instance
@@ -567,8 +567,8 @@ class Game():
         half_part_highscore = part_highscore / 2
 
         # Depending on the number of lives => half the score
-        current_score += int((max(3 - self.number_lives_used_game, 0)
-                         * half_part_highscore) / 3)
+        current_score += (max(3 - self.number_lives_used_game, 0)
+                         * half_part_highscore) / 3
 
         # Depending on the number of clues used => the other half of the score
         current_score += calculate_score_clues(

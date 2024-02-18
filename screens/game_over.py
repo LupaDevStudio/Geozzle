@@ -236,7 +236,7 @@ class GameOverScreen(ImprovedScreenWithAds):
 
                 self.congrats_defeat_message = TEXT.game_over["congrats"]
                 current_score = game.update_score()
-                self.score_label = TEXT.home["highscore"] + str(current_score)
+                self.score_label = TEXT.home["highscore"] + str(int(current_score))
                 game.update_percentage()
 
             # The country is not correct
