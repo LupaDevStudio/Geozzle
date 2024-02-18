@@ -1,46 +1,81 @@
 {
-    "language": "english",
+    "language": "french",
     "continents": {
         "Europe": {
-            "highscore": 104.16666666666667,
-            "percentage": 2,
-            "countries_unlocked": [
-                "Q28"
-            ],
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q20",
+                "country": "Q235",
                 "number_lives_used_game": 0,
-                "list_current_hints": [],
+                "list_current_hints": [
+                    "ISO_3_code",
+                    "nominal_GDP",
+                    "driving_side"
+                ],
                 "dict_clues": {
-                    "french": {},
+                    "french": {
+                        "license_plate_code": "\u2013 Code de plaque d'immatriculation : MC",
+                        "currency": "\u2013 Monnaie : Euro",
+                        "country_calling_code": "\u2013 Code t\u00e9l\u00e9phonique : +377",
+                        "head_of_state": "\u2013 Chef de l'\u00c9tat : Albert II de Monaco",
+                        "area": "\u2013 Superficie : 2.02 km\u00b2",
+                        "population": "\u2013 Population : 38 350 habitants",
+                        "capital": "\u2013 Capitale : Monaco-Ville",
+                        "motto": "\u2013 Devise : Deo juvante"
+                    },
                     "english": {
-                        "population": "\u2013 Population : 5,504,329 inhabitants"
+                        "license_plate_code": "\u2013 License plate code : MC",
+                        "currency": "\u2013 Currency : Euro",
+                        "country_calling_code": "\u2013 Country calling code : +377",
+                        "head_of_state": "\u2013 Head of state : Albert II, Prince of Monaco",
+                        "area": "\u2013 Area : 2.02 km\u00b2",
+                        "population": "\u2013 Population : 38,350 inhabitants",
+                        "capital": "\u2013 Capital : Monaco City",
+                        "motto": "\u2013 Motto : Deo juvante"
                     }
                 },
                 "dict_all_clues": {
                     "english": {
-                        "top_level_internet_domain": ".no",
-                        "head_of_government": "Jonas Gahr St\u00f8re",
-                        "official_language": "Bokm\u00e5l, Norwegian, Nynorsk, S\u00e1mi",
-                        "currency": "Norwegian krone",
-                        "capital": "Oslo",
-                        "age_of_majority": "18",
-                        "human_development_index": "0.961",
-                        "median_income": "51489",
-                        "country_calling_code": "+47",
-                        "license_plate_code": "N",
-                        "nominal_GDP": "490293364377, 579267365866",
-                        "ISO_3_code": "NOR",
-                        "ISO_2_code": "NO",
-                        "flag": "flag_europe.png",
-                        "anthem": "Ja, vi elsker dette landet",
+                        "official_language": "French",
+                        "head_of_state": "Albert II, Prince of Monaco",
+                        "currency": "euro",
+                        "top_level_internet_domain": ".mc",
+                        "capital": "Monaco City",
+                        "anthem": "Hymne mon\u00e9gasque",
                         "driving_side": "right",
-                        "area": "385207",
-                        "head_of_state": "Harald V of Norway",
-                        "population": "5504329"
+                        "motto": "Deo juvante",
+                        "head_of_government": "Pierre Dartout",
+                        "age_of_majority": "21",
+                        "license_plate_code": "MC",
+                        "ISO_2_code": "MC",
+                        "ISO_3_code": "MCO",
+                        "nominal_GDP": "8596156574",
+                        "country_calling_code": "+377",
+                        "area": "2.02",
+                        "population": "38350"
+                    },
+                    "french": {
+                        "official_language": "fran\u00e7ais",
+                        "currency": "euro",
+                        "head_of_state": "Albert II de Monaco",
+                        "top_level_internet_domain": ".mc",
+                        "capital": "Monaco-Ville",
+                        "anthem": "Hymne mon\u00e9gasque",
+                        "driving_side": "droite",
+                        "motto": "Deo juvante",
+                        "head_of_government": "Pierre Dartout",
+                        "age_of_majority": "21",
+                        "license_plate_code": "MC",
+                        "ISO_2_code": "MC",
+                        "ISO_3_code": "MCO",
+                        "nominal_GDP": "8596156574",
+                        "country_calling_code": "+377",
+                        "area": "2.02",
+                        "population": "38350"
                     }
                 }
             }
@@ -109,89 +144,44 @@
             }
         },
         "South_America": {
-            "highscore": 769.2307692307693,
-            "percentage": 7,
-            "countries_unlocked": [
-                "Q750"
-            ],
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q155",
+                "country": "",
                 "number_lives_used_game": 0,
-                "list_current_hints": [
-                    "population",
-                    "human_development_index",
-                    "nominal_GDP"
-                ],
+                "list_current_hints": [],
                 "dict_clues": {
                     "french": {},
                     "english": {}
                 },
                 "dict_all_clues": {
-                    "english": {
-                        "motto": "Order and Progress",
-                        "currency": "Brazilian real",
-                        "capital": "Bras\u00edlia",
-                        "age_of_majority": "18",
-                        "human_development_index": "0.754",
-                        "country_calling_code": "+55",
-                        "license_plate_code": "BR",
-                        "nominal_GDP": "1649622972159, 1920095560995",
-                        "ISO_2_code": "BR",
-                        "ISO_3_code": "BRA",
-                        "official_language": "Portuguese",
-                        "flag": "flag_south_america.png",
-                        "anthem": "Brazilian National Anthem",
-                        "head_of_state": "Luiz In\u00e1cio Lula da Silva",
-                        "head_of_government": "Luiz In\u00e1cio Lula da Silva",
-                        "driving_side": "right",
-                        "area": "8515767",
-                        "top_level_internet_domain": ".br",
-                        "population": "203062512"
-                    }
+                    "french": {},
+                    "english": {}
                 }
             }
         },
         "Oceania": {
-            "highscore": 625.0,
-            "percentage": 6,
-            "countries_unlocked": [
-                "Q697"
-            ],
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q26988",
+                "country": "",
                 "number_lives_used_game": 0,
-                "list_current_hints": [
-                    "currency",
-                    "population",
-                    "official_language"
-                ],
+                "list_current_hints": [],
                 "dict_clues": {
                     "french": {},
                     "english": {}
                 },
                 "dict_all_clues": {
-                    "english": {
-                        "currency": "New Zealand dollar, Cook Islands dollar",
-                        "capital": "Avarua",
-                        "country_calling_code": "+682",
-                        "ISO_3_code": "COK",
-                        "ISO_2_code": "CK",
-                        "official_language": "English, Cook Islands Maori",
-                        "flag": "flag_oceania.png",
-                        "top_level_internet_domain": ".ck",
-                        "anthem": "Te Atua Mou E",
-                        "driving_side": "left",
-                        "area": "240",
-                        "population": "17434",
-                        "head_of_government": "Henry Puna",
-                        "head_of_state": "Charles III of the United Kingdom"
-                    }
+                    "french": {},
+                    "english": {}
                 }
             }
         }
