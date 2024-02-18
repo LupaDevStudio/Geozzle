@@ -223,13 +223,16 @@ def load_ad():
         ad = None
 
 
-def watch_ad(ad_callback):
+def watch_ad(ad_callback, ad_fail):
     global ad
     if ANDROID_MODE:
         print("try to show ads")
         print("Ad is loaded", ad.is_loaded())
-        ad.on_reward = ad_callback
-        ad.show()
+        if not ad.is_loaded():
+            ad_fail()
+        else:
+            ad.on_reward = ad_callback
+            ad.show()
     elif IOS_MODE:
         ad.InterstitialView()
         ad_callback()

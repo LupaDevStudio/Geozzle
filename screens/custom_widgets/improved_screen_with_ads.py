@@ -19,7 +19,11 @@ from kivy.clock import mainthread
 
 from tools.kivy_tools import ImprovedScreen
 from tools.geozzle import watch_ad, load_ad
-from screens.custom_widgets.two_buttons_popup import TwoButtonsPopup
+from screens.custom_widgets import (
+    TwoButtonsPopup,
+    MessagePopup
+)
+
 from tools.constants import (
     TEXT,
     USER_DATA,
@@ -64,7 +68,7 @@ class ImprovedScreenWithAds(ImprovedScreen):
                 font_ratio=self.font_ratio
             )
             watch_ad_with_callback = partial(
-                watch_ad, partial(self.ad_callback, popup))
+                watch_ad, partial(self.ad_callback, popup), partial(self.error_ad_loading_message, popup))
             popup.right_release_function = watch_ad_with_callback
             popup.left_button_label = TEXT.popup["close"]
             popup.open()
@@ -78,3 +82,14 @@ class ImprovedScreenWithAds(ImprovedScreen):
         USER_DATA.save_changes()
         popup.dismiss()
         load_ad()
+
+    @mainthread
+    def error_ad_loading_message(self, popup: TwoButtonsPopup):
+        popup.dismiss()
+        error_popup = MessagePopup(
+            primary_color=self.continent_color,
+            secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+            center_label_text=TEXT.clues["no_connexion_message"],
+            font_ratio=self.font_ratio,
+            title=TEXT.clues["no_connexion_title"])
+        error_popup.open()
