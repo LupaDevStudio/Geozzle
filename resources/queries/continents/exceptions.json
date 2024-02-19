@@ -1,16 +1,16 @@
 {
     "to_remove": {
-        "Africa": ["Q370173", "Q124003554"],
+        "Africa": ["Q370173", "Q124003554", "Q971"],
         "Asia": ["Q79", "Q124003554", "Q159", "Q43"],
-        "Europe": ["Q232", "Q3908", "Q124003554", "Q227", "Q756617"],
+        "Europe": ["Q232", "Q3908", "Q124003554", "Q227", "Q756617", "Q213"],
         "North_America": ["Q756617", "Q29999", "Q223"],
         "Oceania": ["Q252"],
         "South_America": ["Q804", "Q21203"]
     },
     "to_add": {
-        "Africa": [],
+        "Africa": [["Q971", "Republic of the Congo", "R\u00e9publique du Congo"]],
         "Asia": [["Q148", "People's Republic of China", "Chine"], ["Q865", "Taiwan", "Taïwan"], ["Q801", "Israel", "Israël"]],
-        "Europe": [["Q1246", "Kosovo", "Kosovo"]],
+        "Europe": [["Q1246", "Kosovo", "Kosovo"], ["Q213", "Czech Republic", "R\u00e9publique Tch\u00e8que"]],
         "North_America": [],
         "Oceania": [],
         "South_America": []
