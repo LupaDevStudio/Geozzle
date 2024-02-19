@@ -12,13 +12,17 @@
                 "country": "Q212",
                 "number_lives_used_game": 0,
                 "list_current_hints": [
+                    "capital",
                     "nominal_GDP",
-                    "age_of_majority",
-                    "driving_side"
+                    "head_of_government"
                 ],
                 "dict_clues": {
                     "french": {},
-                    "english": {}
+                    "english": {
+                        "driving_side": "\u2013 Driving side : Right",
+                        "license_plate_code": "\u2013 License plate code : UA",
+                        "population": "\u2013 Population : 41,167,335 inhabitants"
+                    }
                 },
                 "dict_all_clues": {
                     "english": {
