@@ -13,6 +13,7 @@ import webbrowser
 import random as rd
 import time
 from functools import partial
+import copy
 
 ### Kivy imports ###
 
@@ -333,7 +334,7 @@ class HomeScreen(ImprovedScreenWithAds):
                 "number_lives": 3,
                 "number_lives_used_game": 0,
                 "lost_live_date": None,
-                "current_country": CURRENT_COUNTRY_INIT
+                "current_country": copy.deepcopy(CURRENT_COUNTRY_INIT)
             }
         USER_DATA.save_changes()
         self.load_continent_data()

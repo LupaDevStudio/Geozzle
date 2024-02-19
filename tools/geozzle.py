@@ -352,7 +352,6 @@ class Game():
             USER_DATA.continents[self.code_continent][
                 "current_country"]["country"] = self.wikidata_code_country
             USER_DATA.save_changes()
-
         return True
 
     def load_dict_all_clues(self) -> bool:

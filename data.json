@@ -9,12 +9,12 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q27",
+                "country": "Q212",
                 "number_lives_used_game": 0,
                 "list_current_hints": [
-                    "head_of_state",
+                    "nominal_GDP",
                     "age_of_majority",
-                    "median_income"
+                    "driving_side"
                 ],
                 "dict_clues": {
                     "french": {},
@@ -22,68 +22,46 @@
                 },
                 "dict_all_clues": {
                     "english": {
-                        "official_language": "English, Irish",
-                        "capital": "Dublin",
-                        "currency": "euro",
-                        "top_level_internet_domain": ".ie",
-                        "head_of_state": "Michael D. Higgins",
-                        "anthem": "Amhr\u00e1n na bhFiann",
-                        "head_of_government": "Leo Varadkar",
-                        "driving_side": "left",
-                        "nominal_GDP": "529244870223, 504182603276",
+                        "capital": "Kyiv",
+                        "official_language": "Ukrainian",
+                        "top_level_internet_domain": ".ua",
+                        "currency": "Hryvnia",
+                        "head_of_state": "Volodymyr Zelenskyy",
+                        "anthem": "Shche ne vmerla Ukrainy i slava, i volia",
+                        "driving_side": "right",
+                        "head_of_government": "Denys Shmyhal",
+                        "population": "41167335",
+                        "nominal_GDP": "199765856765, 160502739236",
                         "age_of_majority": "18",
-                        "human_development_index": "0.945",
-                        "median_income": "25969",
-                        "license_plate_code": "IRL",
-                        "ISO_3_code": "IRL",
-                        "ISO_2_code": "IE",
-                        "country_calling_code": "+353",
-                        "area": "69797",
-                        "population": "5123536"
+                        "human_development_index": "0.773",
+                        "median_income": "9218",
+                        "license_plate_code": "UA",
+                        "ISO_2_code": "UA",
+                        "ISO_3_code": "UKR",
+                        "country_calling_code": "+380",
+                        "area": "603550"
                     }
                 }
             }
         },
         "Asia": {
-            "highscore": 222.22222222222223,
-            "percentage": 2,
-            "countries_unlocked": [
-                "Q232"
-            ],
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q27",
+                "country": "",
                 "number_lives_used_game": 0,
                 "list_current_hints": [],
                 "dict_clues": {
                     "french": {},
-                    "english": {
-                        "head_of_state": "\u2013 Head of state : Michael D. Higgins"
-                    }
+                    "english": {}
                 },
                 "dict_all_clues": {
-                    "english": {
-                        "official_language": "English, Irish",
-                        "capital": "Dublin",
-                        "currency": "euro",
-                        "top_level_internet_domain": ".ie",
-                        "head_of_state": "Michael D. Higgins",
-                        "anthem": "Amhr\u00e1n na bhFiann",
-                        "head_of_government": "Leo Varadkar",
-                        "driving_side": "left",
-                        "nominal_GDP": "529244870223, 504182603276",
-                        "age_of_majority": "18",
-                        "human_development_index": "0.945",
-                        "median_income": "25969",
-                        "license_plate_code": "IRL",
-                        "ISO_3_code": "IRL",
-                        "ISO_2_code": "IE",
-                        "country_calling_code": "+353",
-                        "area": "69797",
-                        "population": "5123536"
-                    }
+                    "french": {},
+                    "english": {}
                 }
             }
         },
@@ -151,9 +129,12 @@
             }
         },
         "Oceania": {
-            "highscore": 0,
-            "percentage": 0,
-            "countries_unlocked": [],
+            "highscore": 1215.2777777777778,
+            "percentage": 12,
+            "countries_unlocked": [
+                "Q710",
+                "Q672"
+            ],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,

@@ -35,7 +35,7 @@ from tools.path import (
 ### Constants ###
 #################
 
-BOOL_CREATE_DICT_CONTINENTS = True
+BOOL_CREATE_DICT_CONTINENTS = False
 
 #################
 ### Functions ###
