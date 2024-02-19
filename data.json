@@ -5,15 +5,31 @@
             "highscore": 0,
             "percentage": 0,
             "countries_unlocked": [],
-            "number_lives": 3,
+            "number_lives": 1,
             "number_lives_used_game": 0,
-            "lost_live_date": null,
+            "lost_live_date": 1708370409.2560694,
             "current_country": {
-                "country": "Q33",
-                "number_lives_used_game": 0,
-                "list_current_hints": [],
+                "country": "Q236",
+                "number_lives_used_game": 8,
+                "list_current_hints": [
+                    "area",
+                    "official_language",
+                    "head_of_government"
+                ],
                 "dict_clues": {
-                    "french": {},
+                    "french": {
+                        "license_plate_code": "\u2013 Code de plaque d'immatriculation : MNE",
+                        "head_of_state": "\u2013 Chef de l'\u00c9tat : Jakov Milatovi\u0107",
+                        "currency": "\u2013 Monnaie : Euro",
+                        "ISO_3_code": "MNE",
+                        "human_development_index": "\u2013 Index de D\u00e9veloppement Humain : 0.832",
+                        "nominal_GDP": "\u2013 PIB moyen : 5 978 M$",
+                        "capital": "\u2013 Capitale : Podgorica",
+                        "anthem": "\u2013 Hymne : Oj, svijetla majska zoro",
+                        "population": "\u2013 Population : 622 359 habitants",
+                        "country_calling_code": "\u2013 Code t\u00e9l\u00e9phonique : +382",
+                        "driving_side": "\u2013 Sens de conduite : Droite"
+                    },
                     "english": {
                         "human_development_index": "\u2013 Human Development Index : 0.94",
                         "age_of_majority": "\u2013 Age of majority : 18 years",

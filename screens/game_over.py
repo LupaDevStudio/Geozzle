@@ -188,7 +188,8 @@ class GameOverScreen(ImprovedScreenWithAds):
             else:
                 popup = MessagePopup(
                     primary_color=self.continent_color,
-                    secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                    secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                        self.code_continent],
                     title=TEXT.clues["no_connexion_title"],
                     center_label_text=TEXT.clues["no_connexion_message"],
                     font_ratio=self.font_ratio
@@ -236,7 +237,8 @@ class GameOverScreen(ImprovedScreenWithAds):
 
                 self.congrats_defeat_message = TEXT.game_over["congrats"]
                 current_score = game.update_score()
-                self.score_label = TEXT.home["highscore"] + str(int(current_score))
+                self.score_label = TEXT.home["highscore"] + \
+                    str(int(current_score))
                 game.update_percentage()
 
             # The country is not correct

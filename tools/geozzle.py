@@ -261,7 +261,7 @@ def load_ad():
         ad = None
 
 
-def watch_ad(ad_callback, ad_fail):
+def watch_ad(ad_callback, ad_fail=lambda: 1 + 1):
     global ad
     if ANDROID_MODE:
         print("try to show ads")
