@@ -9,51 +9,16 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q145",
+                "country": "",
                 "number_lives_used_game": 0,
                 "list_current_hints": [],
                 "dict_clues": {
-                    "french": {
-                        "currency": "\u2013 Monnaie : Lev bulgare",
-                        "age_of_majority": "\u2013 Age de la majorit\u00e9 : 18 ans",
-                        "area": "\u2013 Superficie : 110 993 km\u00b2",
-                        "country_calling_code": "\u2013 Code t\u00e9l\u00e9phonique : +359",
-                        "capital": "\u2013 Capitale : Sofia",
-                        "motto": "\u2013 Devise : L'union fait la force",
-                        "driving_side": "\u2013 Sens de conduite : Droite",
-                        "head_of_government": "\u2013 Chef du gouvernement : Nikolay Denkov",
-                        "head_of_state": "\u2013 Chef de l'\u00c9tat : Roumen Radev",
-                        "official_language": "\u2013 Langue officielle : Bulgare",
-                        "human_development_index": "\u2013 Index de D\u00e9veloppement Humain : 0.795",
-                        "ISO_3_code": "BGR",
-                        "license_plate_code": "\u2013 Code de plaque d'immatriculation : BG",
-                        "population": "\u2013 Population : 7 000 039 habitants",
-                        "top_level_internet_domain": "\u2013 Domaine internet : .bg"
-                    },
+                    "french": {},
                     "english": {}
                 },
                 "dict_all_clues": {
                     "english": {},
-                    "french": {
-                        "capital": "Sofia",
-                        "official_language": "bulgare",
-                        "top_level_internet_domain": ".bg, .\u0431\u0433",
-                        "currency": "lev bulgare",
-                        "anthem": "Mila Rodino",
-                        "driving_side": "droite",
-                        "motto": "L'union fait la force",
-                        "head_of_state": "Roumen Radev",
-                        "head_of_government": "Nikolay Denkov",
-                        "country_calling_code": "+359",
-                        "nominal_GDP": "89040398406, 84061395658",
-                        "age_of_majority": "18",
-                        "human_development_index": "0.795",
-                        "license_plate_code": "BG",
-                        "ISO_2_code": "BG",
-                        "ISO_3_code": "BGR",
-                        "area": "110993.6",
-                        "population": "7000039"
-                    }
+                    "french": {}
                 }
             }
         },
