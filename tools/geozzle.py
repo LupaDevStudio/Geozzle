@@ -137,37 +137,56 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
     name_key = TEXT.clues[code_clue]
 
     # Delete odd characters
-    value_clue = value_clue.replace("ʻ", "'")
-    list_odd_characters = []
-    for counter_character in range(len(value_clue)):
-        character = value_clue[counter_character]
-        if ord(character) >= 700:
-            list_odd_characters.append(character)
-    for character in list_odd_characters:
-        value_clue = value_clue.replace(character, "")
+    try:
+        value_clue = value_clue.replace("ʻ", "'")
+        list_odd_characters = []
+        for counter_character in range(len(value_clue)):
+            character = value_clue[counter_character]
+            if ord(character) >= 700:
+                list_odd_characters.append(character)
+        for character in list_odd_characters:
+            value_clue = value_clue.replace(character, "")
+    except:
+        pass
 
     # Capitalize some clues
     if code_clue in ["driving_side", "currency", "official_language"]:
         value_clue = value_clue.capitalize()
 
     # Take the mean of the GDP values
-    if code_clue == "nominal_GDP":
-        list_gdp = value_clue.split(", ")
-        mean_gdp = 0
-        for gdp in list_gdp:
-            if not "." in gdp:
-                mean_gdp += int(gdp)
+    try:
+        if code_clue == "nominal_GDP":
+            list_gdp = value_clue.split(", ")
+            mean_gdp = 0
+            for gdp in list_gdp:
+                if not "." in gdp:
+                    mean_gdp += int(gdp)
+                else:
+                    mean_gdp += int(float(gdp))
+            mean_gdp /= len(list_gdp)
+            if mean_gdp >= 1000000:
+                value_clue = str(int(mean_gdp / 1000000))
             else:
-                mean_gdp += int(float(gdp))
-        mean_gdp /= len(list_gdp)
-        if mean_gdp >= 1000000:
-            value_clue = str(int(mean_gdp / 1000000))
-        else:
-            value_clue = str(mean_gdp / 1000000)
+                value_clue = str(mean_gdp / 1000000)
+    except:
+        pass
+
+    try:
+        if code_clue == "population":
+            list_pop = value_clue.split(", ")
+            list_pop_int = []
+            for element in list_pop:
+                list_pop_int.append(int(element))
+            value_clue = str(max(list_pop_int))
+    except:
+        pass
 
     # Add spaces between the numbers
-    if code_clue in ["area", "population", "nominal_GDP", "median_income"]:
-        value_clue = insert_space_numbers(value_clue, language)
+    try:
+        if code_clue in ["area", "population", "nominal_GDP", "median_income"]:
+            value_clue = insert_space_numbers(value_clue, language)
+    except:
+        pass
 
     # Some clean
     try:
