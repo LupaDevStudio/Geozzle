@@ -393,8 +393,6 @@ def request_all_clues(wikidata_code_country: str, code_continent: str, language 
             FILTER(LANG(?value_label) = "$output_language"). 
             FILTER(!REGEX(?value_label, "^Q[1-9][0-9]*$")). 
         }
-
-        FILTER(BOUND(?value_label) || !isIRI(?value)).
     }
     """
     query = query.replace("$Q_country", wikidata_code_country)
