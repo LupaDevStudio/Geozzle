@@ -5,79 +5,41 @@
             "highscore": 0,
             "percentage": 0,
             "countries_unlocked": [],
-            "number_lives": 1,
+            "number_lives": 2,
             "number_lives_used_game": 0,
-            "lost_live_date": 1708370409.2560694,
+            "lost_live_date": 1708376395.2057164,
             "current_country": {
-                "country": "Q236",
-                "number_lives_used_game": 8,
+                "country": "Q219",
+                "number_lives_used_game": 1,
                 "list_current_hints": [
-                    "area",
-                    "official_language",
-                    "head_of_government"
+                    "license_plate_code",
+                    "ISO_3_code",
+                    "capital"
                 ],
                 "dict_clues": {
-                    "french": {
-                        "license_plate_code": "\u2013 Code de plaque d'immatriculation : MNE",
-                        "head_of_state": "\u2013 Chef de l'\u00c9tat : Jakov Milatovi\u0107",
-                        "currency": "\u2013 Monnaie : Euro",
-                        "ISO_3_code": "MNE",
-                        "human_development_index": "\u2013 Index de D\u00e9veloppement Humain : 0.832",
-                        "nominal_GDP": "\u2013 PIB moyen : 5 978 M$",
-                        "capital": "\u2013 Capitale : Podgorica",
-                        "anthem": "\u2013 Hymne : Oj, svijetla majska zoro",
-                        "population": "\u2013 Population : 622 359 habitants",
-                        "country_calling_code": "\u2013 Code t\u00e9l\u00e9phonique : +382",
-                        "driving_side": "\u2013 Sens de conduite : Droite"
-                    },
-                    "english": {
-                        "license_plate_code": "\u2013 License plate code : MNE",
-                        "head_of_state": "\u2013 Head of state : Jakov Milatovi\u0107",
-                        "currency": "\u2013 Currency : Euro",
-                        "ISO_3_code": "MNE",
-                        "human_development_index": "\u2013 Human Development Index : 0.832",
-                        "nominal_GDP": "\u2013 Nominal GDP : 5,978 M$",
-                        "capital": "\u2013 Capital : Podgorica",
-                        "anthem": "\u2013 Anthem : Oj, svijetla majska zoro",
-                        "population": "\u2013 Population : 622,359 inhabitants"
-                    }
+                    "french": {},
+                    "english": {}
                 },
                 "dict_all_clues": {
-                    "english": {
-                        "currency": "euro",
-                        "official_language": "Montenegrin",
-                        "capital": "Podgorica",
-                        "top_level_internet_domain": ".me",
-                        "anthem": "Oj, svijetla majska zoro",
-                        "driving_side": "right",
-                        "head_of_government": "Dritan Abazovi\u0107",
-                        "head_of_state": "Jakov Milatovi\u0107",
-                        "nominal_GDP": "6095978868, 5861430526",
-                        "human_development_index": "0.832",
-                        "ISO_2_code": "ME",
-                        "license_plate_code": "MNE",
-                        "ISO_3_code": "MNE",
-                        "area": "13812",
-                        "country_calling_code": "+382",
-                        "population": "617213, 622359"
-                    },
                     "french": {
-                        "currency": "euro",
-                        "official_language": "mont\u00e9n\u00e9grin",
-                        "capital": "Podgorica",
-                        "top_level_internet_domain": ".me",
-                        "anthem": "Oj, svijetla majska zoro",
+                        "capital": "Sofia",
+                        "official_language": "bulgare",
+                        "top_level_internet_domain": ".bg, .\u0431\u0433",
+                        "currency": "lev bulgare",
+                        "anthem": "Mila Rodino",
                         "driving_side": "droite",
-                        "head_of_government": "Dritan Abazovi\u0107",
-                        "head_of_state": "Jakov Milatovi\u0107",
-                        "nominal_GDP": "6095978868, 5861430526",
-                        "human_development_index": "0.832",
-                        "ISO_2_code": "ME",
-                        "license_plate_code": "MNE",
-                        "ISO_3_code": "MNE",
-                        "area": "13812",
-                        "country_calling_code": "+382",
-                        "population": "617213, 622359"
+                        "motto": "L'union fait la force",
+                        "head_of_state": "Roumen Radev",
+                        "head_of_government": "Nikolay Denkov",
+                        "country_calling_code": "+359",
+                        "nominal_GDP": "89040398406, 84061395658",
+                        "age_of_majority": "18",
+                        "human_development_index": "0.795",
+                        "license_plate_code": "BG",
+                        "ISO_2_code": "BG",
+                        "ISO_3_code": "BGR",
+                        "area": "110993.6",
+                        "population": "7000039"
                     }
                 }
             }

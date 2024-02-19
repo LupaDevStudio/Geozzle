@@ -56,7 +56,7 @@ class ImprovedScreenWithAds(ImprovedScreen):
             current_time = time.time()
             diff_time = int(
                 current_time - USER_DATA.continents[self.code_continent]["lost_live_date"])
-            time_to_next_life = 15 - diff_time // 60
+            time_to_next_life = int((15 - diff_time / 60) % 15)
             popup_text = TEXT.popup["next_life_in"].replace(
                 "[TIME]", str(time_to_next_life)) + "\n\n" + TEXT.popup["buy_life_text"]
             popup = TwoButtonsPopup(
