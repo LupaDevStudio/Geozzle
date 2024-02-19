@@ -9,73 +9,38 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q235",
+                "country": "Q145",
                 "number_lives_used_game": 0,
-                "list_current_hints": [
-                    "ISO_3_code",
-                    "nominal_GDP",
-                    "driving_side"
-                ],
+                "list_current_hints": [],
                 "dict_clues": {
                     "french": {
-                        "license_plate_code": "\u2013 Code de plaque d'immatriculation : MC",
-                        "currency": "\u2013 Monnaie : Euro",
-                        "country_calling_code": "\u2013 Code t\u00e9l\u00e9phonique : +377",
-                        "head_of_state": "\u2013 Chef de l'\u00c9tat : Albert II de Monaco",
-                        "area": "\u2013 Superficie : 2.02 km\u00b2",
-                        "population": "\u2013 Population : 38 350 habitants",
-                        "capital": "\u2013 Capitale : Monaco-Ville",
-                        "motto": "\u2013 Devise : Deo juvante"
+                        "currency": "\u2013 Monnaie : Lev bulgare",
+                        "age_of_majority": "\u2013 Age de la majorit\u00e9 : 18 ans",
+                        "area": "\u2013 Superficie : 110 993 km\u00b2"
                     },
-                    "english": {
-                        "license_plate_code": "\u2013 License plate code : MC",
-                        "currency": "\u2013 Currency : Euro",
-                        "country_calling_code": "\u2013 Country calling code : +377",
-                        "head_of_state": "\u2013 Head of state : Albert II, Prince of Monaco",
-                        "area": "\u2013 Area : 2.02 km\u00b2",
-                        "population": "\u2013 Population : 38,350 inhabitants",
-                        "capital": "\u2013 Capital : Monaco City",
-                        "motto": "\u2013 Motto : Deo juvante"
-                    }
+                    "english": {}
                 },
                 "dict_all_clues": {
-                    "english": {
-                        "official_language": "French",
-                        "head_of_state": "Albert II, Prince of Monaco",
-                        "currency": "euro",
-                        "top_level_internet_domain": ".mc",
-                        "capital": "Monaco City",
-                        "anthem": "Hymne mon\u00e9gasque",
-                        "driving_side": "right",
-                        "motto": "Deo juvante",
-                        "head_of_government": "Pierre Dartout",
-                        "age_of_majority": "21",
-                        "license_plate_code": "MC",
-                        "ISO_2_code": "MC",
-                        "ISO_3_code": "MCO",
-                        "nominal_GDP": "8596156574",
-                        "country_calling_code": "+377",
-                        "area": "2.02",
-                        "population": "38350"
-                    },
+                    "english": {},
                     "french": {
-                        "official_language": "fran\u00e7ais",
-                        "currency": "euro",
-                        "head_of_state": "Albert II de Monaco",
-                        "top_level_internet_domain": ".mc",
-                        "capital": "Monaco-Ville",
-                        "anthem": "Hymne mon\u00e9gasque",
+                        "capital": "Sofia",
+                        "official_language": "bulgare",
+                        "top_level_internet_domain": ".bg, .\u0431\u0433",
+                        "currency": "lev bulgare",
+                        "anthem": "Mila Rodino",
                         "driving_side": "droite",
-                        "motto": "Deo juvante",
-                        "head_of_government": "Pierre Dartout",
-                        "age_of_majority": "21",
-                        "license_plate_code": "MC",
-                        "ISO_2_code": "MC",
-                        "ISO_3_code": "MCO",
-                        "nominal_GDP": "8596156574",
-                        "country_calling_code": "+377",
-                        "area": "2.02",
-                        "population": "38350"
+                        "motto": "L'union fait la force",
+                        "head_of_state": "Roumen Radev",
+                        "head_of_government": "Nikolay Denkov",
+                        "country_calling_code": "+359",
+                        "nominal_GDP": "89040398406, 84061395658",
+                        "age_of_majority": "18",
+                        "human_development_index": "0.795",
+                        "license_plate_code": "BG",
+                        "ISO_2_code": "BG",
+                        "ISO_3_code": "BGR",
+                        "area": "110993.6",
+                        "population": "7000039"
                     }
                 }
             }

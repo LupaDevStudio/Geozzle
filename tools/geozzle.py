@@ -47,7 +47,7 @@ if IOS_MODE:
 #################
 
 
-def insert_space_numbers(number: str, language: str) -> str:
+def insert_space_numbers(str_number: str, language: str) -> str:
     """
     Put spaces or comas each 3 numbers.
 
@@ -64,26 +64,29 @@ def insert_space_numbers(number: str, language: str) -> str:
         New number formatted with delimitators.
     """
     # Treat number with decimals
-    if "." in number:
-        list_int_decimals = number.split(".")
-        if len(list_int_decimals[1]) >= 3:
-            if len(list_int_decimals[0]) <= 3:
-                list_int_decimals[1] = list_int_decimals[1][:2]
+    if "." in str_number:
+        list_int_decimals = str_number.split(".")
+        int_part = list_int_decimals[0]
+        decimal_part = list_int_decimals[1]
+
+        # Crop the decimal part when too long
+        if len(decimal_part) >= 3:
+            if len(int_part) <= 3:
+                decimal_part = decimal_part[:2]
             else:
-                list_int_decimals[1] = []
-        number = ""
+                decimal_part = ""
+        if len(int_part) >= 3:
+            decimal_part = ""
 
         # Reconstruct the number with the integer and decimal parts
-        for int_number in list_int_decimals[0]:
-            number += int_number
-        if list_int_decimals[1] != []:
-            number += "."
-        for dec_number in list_int_decimals[1]:
-            number += dec_number
+        str_number = int_part
+        if decimal_part != "":
+            str_number += "."
+            str_number += decimal_part
 
     # Do not put separators for small numbers
-    if "." in number or len(number) <= 3:
-        return number
+    if "." in str_number or len(str_number) <= 3:
+        return str_number
 
     # Choose between "," or " " for the delimitation character
     if language == "english":
@@ -94,9 +97,9 @@ def insert_space_numbers(number: str, language: str) -> str:
     # Put the delimitator character each three numbers
     counter = 0
     list_characters = []
-    new_number = ""
-    for character in range(len(number) - 1, -1, -1):
-        value = number[character]
+    new_str_number = ""
+    for counter_character in range(len(str_number) - 1, -1, -1):
+        value = str_number[counter_character]
         if counter == 2:
             list_characters = [delimitation_character, value] + list_characters
             counter = 0
@@ -107,9 +110,9 @@ def insert_space_numbers(number: str, language: str) -> str:
     if list_characters[0] == delimitation_character:
         list_characters.pop(0)
 
-    for character in list_characters:
-        new_number += character
-    return new_number
+    for counter_character in list_characters:
+        new_str_number += counter_character
+    return new_str_number
 
 
 def format_clue(code_clue: str, value_clue: str, language: str) -> str:
