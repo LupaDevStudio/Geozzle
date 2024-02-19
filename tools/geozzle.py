@@ -138,6 +138,13 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
 
     # Delete odd characters
     value_clue = value_clue.replace("ʻ", "'")
+    list_odd_characters = []
+    for counter_character in range(len(value_clue)):
+        character = value_clue[counter_character]
+        if ord(character) >= 700:
+            list_odd_characters.append(character)
+    for character in list_odd_characters:
+        value_clue = value_clue.replace(character, "")
 
     # Capitalize some clues
     if code_clue in ["driving_side", "currency", "official_language"]:
@@ -161,6 +168,15 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
     # Add spaces between the numbers
     if code_clue in ["area", "population", "nominal_GDP", "median_income"]:
         value_clue = insert_space_numbers(value_clue, language)
+
+    # Some clean
+    try:
+        if value_clue[0: 3] == "., ":
+            value_clue = value_clue.replace("., ", "")
+        if value_clue[-3:] == ", .":
+            value_clue = value_clue.replace(", .", "")
+    except:
+        pass
 
     value_clue = "– " + name_key + " : " + value_clue
 

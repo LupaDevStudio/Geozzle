@@ -16,7 +16,19 @@
                     "french": {
                         "currency": "\u2013 Monnaie : Lev bulgare",
                         "age_of_majority": "\u2013 Age de la majorit\u00e9 : 18 ans",
-                        "area": "\u2013 Superficie : 110 993 km\u00b2"
+                        "area": "\u2013 Superficie : 110 993 km\u00b2",
+                        "country_calling_code": "\u2013 Code t\u00e9l\u00e9phonique : +359",
+                        "capital": "\u2013 Capitale : Sofia",
+                        "motto": "\u2013 Devise : L'union fait la force",
+                        "driving_side": "\u2013 Sens de conduite : Droite",
+                        "head_of_government": "\u2013 Chef du gouvernement : Nikolay Denkov",
+                        "head_of_state": "\u2013 Chef de l'\u00c9tat : Roumen Radev",
+                        "official_language": "\u2013 Langue officielle : Bulgare",
+                        "human_development_index": "\u2013 Index de D\u00e9veloppement Humain : 0.795",
+                        "ISO_3_code": "BGR",
+                        "license_plate_code": "\u2013 Code de plaque d'immatriculation : BG",
+                        "population": "\u2013 Population : 7 000 039 habitants",
+                        "top_level_internet_domain": "\u2013 Domaine internet : .bg"
                     },
                     "english": {}
                 },
