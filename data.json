@@ -1,5 +1,5 @@
 {
-    "language": "french",
+    "language": "english",
     "continents": {
         "Europe": {
             "highscore": 0,
@@ -9,37 +9,81 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q27",
                 "number_lives_used_game": 0,
-                "list_current_hints": [],
+                "list_current_hints": [
+                    "head_of_state",
+                    "age_of_majority",
+                    "median_income"
+                ],
                 "dict_clues": {
                     "french": {},
                     "english": {}
                 },
                 "dict_all_clues": {
-                    "english": {},
-                    "french": {}
+                    "english": {
+                        "official_language": "English, Irish",
+                        "capital": "Dublin",
+                        "currency": "euro",
+                        "top_level_internet_domain": ".ie",
+                        "head_of_state": "Michael D. Higgins",
+                        "anthem": "Amhr\u00e1n na bhFiann",
+                        "head_of_government": "Leo Varadkar",
+                        "driving_side": "left",
+                        "nominal_GDP": "529244870223, 504182603276",
+                        "age_of_majority": "18",
+                        "human_development_index": "0.945",
+                        "median_income": "25969",
+                        "license_plate_code": "IRL",
+                        "ISO_3_code": "IRL",
+                        "ISO_2_code": "IE",
+                        "country_calling_code": "+353",
+                        "area": "69797",
+                        "population": "5123536"
+                    }
                 }
             }
         },
         "Asia": {
-            "highscore": 0,
-            "percentage": 0,
-            "countries_unlocked": [],
+            "highscore": 222.22222222222223,
+            "percentage": 2,
+            "countries_unlocked": [
+                "Q232"
+            ],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q27",
                 "number_lives_used_game": 0,
                 "list_current_hints": [],
                 "dict_clues": {
                     "french": {},
-                    "english": {}
+                    "english": {
+                        "head_of_state": "\u2013 Head of state : Michael D. Higgins"
+                    }
                 },
                 "dict_all_clues": {
-                    "french": {},
-                    "english": {}
+                    "english": {
+                        "official_language": "English, Irish",
+                        "capital": "Dublin",
+                        "currency": "euro",
+                        "top_level_internet_domain": ".ie",
+                        "head_of_state": "Michael D. Higgins",
+                        "anthem": "Amhr\u00e1n na bhFiann",
+                        "head_of_government": "Leo Varadkar",
+                        "driving_side": "left",
+                        "nominal_GDP": "529244870223, 504182603276",
+                        "age_of_majority": "18",
+                        "human_development_index": "0.945",
+                        "median_income": "25969",
+                        "license_plate_code": "IRL",
+                        "ISO_3_code": "IRL",
+                        "ISO_2_code": "IE",
+                        "country_calling_code": "+353",
+                        "area": "69797",
+                        "population": "5123536"
+                    }
                 }
             }
         },
