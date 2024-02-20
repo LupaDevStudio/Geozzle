@@ -21,7 +21,7 @@ WITH {
                 ?language wdt:P31/wdt:P279* wd:Q20671156.  # instance of `languages of a geographic region` or any of its subclasses
             }
 
-            ?language ?label_property ?value_.  # do not factor this otherwise this optimizer messes up
+            ?language ?label_property ?value_.  # do not factor this otherwise the optimizer messes up
         }
 
         UNION {  # capital
@@ -44,7 +44,7 @@ WITH {
                 ?statement pq:P5102 wd:Q712144.  # `nature of statement` is `de facto`
             }
 
-            ?capital ?label_property ?value_.  # do not factor this otherwise this optimizer messes up
+            ?capital ?label_property ?value_.  # do not factor this otherwise the optimizer messes up
         }
 
         UNION {  # motto
@@ -52,7 +52,7 @@ WITH {
 
             ?country wdt:P1546 ?motto.  # motto of the country
 
-            ?motto ?label_property ?value_.  # do not factor this otherwise this optimizer messes up
+            ?motto ?label_property ?value_.  # do not factor this otherwise the optimizer messes up
         }
 
         UNION {  # anthem
@@ -68,7 +68,7 @@ WITH {
 
              FILTER(!BOUND(?endtime)).
 
-            ?anthem ?label_property ?value_.  # do not factor this otherwise this optimizer messes up
+            ?anthem ?label_property ?value_.  # do not factor this otherwise the optimizer messes up
         }
 
         UNION {  # top level internet domain
@@ -76,7 +76,7 @@ WITH {
 
             ?country wdt:P78 ?domain.  # top level internet domain of the country
 
-            ?domain ?label_property ?value_.  # do not factor this otherwise this optimizer messes up
+            ?domain ?label_property ?value_.  # do not factor this otherwise the optimizer messes up
         }
 
         UNION {  # driving side
@@ -84,7 +84,7 @@ WITH {
 
             ?country wdt:P1622 ?side.  # driving side in the country
 
-            ?side ?label_property ?value_.  # do not factor this otherwise this optimizer messes up
+            ?side ?label_property ?value_.  # do not factor this otherwise the optimizer messes up
         }
 
         UNION {  # currency
@@ -92,7 +92,7 @@ WITH {
 
             ?country wdt:P38 ?currency.  # currency of the country
 
-            ?currency ?label_property ?value_.  # do not factor this otherwise this optimizer messes up
+            ?currency ?label_property ?value_.  # do not factor this otherwise the optimizer messes up
         }
 
         UNION {  # head of state
@@ -100,7 +100,7 @@ WITH {
 
             ?country wdt:P35 ?head_of_state.  # head of state of the country
 
-            ?head_of_state ?label_property ?value_.  # do not factor this otherwise this optimizer messes up
+            ?head_of_state ?label_property ?value_.  # do not factor this otherwise the optimizer messes up
         }
 
         UNION {  # head of government
@@ -108,7 +108,7 @@ WITH {
 
             ?country wdt:P6 ?head_of_government.  # head of government of the country
 
-            ?head_of_government ?label_property ?value_.  # do not factor this otherwise this optimizer messes up
+            ?head_of_government ?label_property ?value_.  # do not factor this otherwise the optimizer messes up
         }
 
         # requires using `rdfs:label`, does not work with `SERVICE  wikibase:label { ... }`
@@ -181,7 +181,6 @@ WITH {
 
 WITH {
     SELECT DISTINCT ?hint_ ?value_ ?unit {
-#     SELECT DISTINCT ?hint_ ?value_ (?unit_label_override AS ?unit) {
         BIND(wd:Q142 AS ?country).  # bind `?country` for readability
         BIND(rdfs:label AS ?label_property).  # bind `rdfs:label` for query compression when sending the GET request
 
@@ -196,7 +195,7 @@ WITH {
               ?value_node wikibase:quantityAmount ?income.  # get the income value
               ?value_node wikibase:quantityUnit ?unit_.  # get the income unit
 
-              ?unit_ ?label_property ?unit_label.  # do not factor this otherwise this optimizer messes up
+              ?unit_ ?label_property ?unit_label.  # do not factor this otherwise the optimizer messes up
         }
 
         UNION {  # area in km^2
@@ -217,7 +216,7 @@ WITH {
 
             BIND((?si_area / ?si_conv) AS ?area).  # conversion from SI unit (m^2) to output unit
 
-            ?unit_ ?label_property ?unit_label.  # do not factor this otherwise this optimizer messes up
+            ?unit_ ?label_property ?unit_label.  # do not factor this otherwise the optimizer messes up
         }
 
         UNION {  # nominal GDP
@@ -241,6 +240,8 @@ WITH {
                 IF(?unit_ = wd:Q712226, "km²", 1/0),
                 IF(?unit_ = wd:Q4917, "US-$", 1/0),
                 IF(?unit_ = wd:Q4916, "€", 1/0),
+                IF(?unit_ = wd:Q25224, "£", 1/0),
+                IF(?unit_ = wd:Q1104069, "CA-$", 1/0),
                 ?unit_label
             ) AS ?unit
         ).
