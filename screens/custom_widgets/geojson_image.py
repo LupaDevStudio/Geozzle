@@ -12,7 +12,8 @@ from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.image import Image
 from kivy.properties import (
     ColorProperty,
-    StringProperty
+    StringProperty,
+    NumericProperty
 )
 
 ### Local imports ###
@@ -34,11 +35,14 @@ class GeojsonImage(ButtonBehavior, Image):
 
     primary_color = ColorProperty((0, 0, 0, 1))
     stretch_mode = StringProperty("height")
+    font_ratio = NumericProperty(1)
 
     def __init__(self,
                  release_function=lambda: 1 + 1,
-                 disable_button=False, **kw):
+                 disable_button=False, font_ratio=None, **kw):
         super().__init__(**kw)
+        if font_ratio is not None:
+            self.font_ratio = font_ratio
         self.source = PATH_IMAGES_FLAG_UNKNOWN
         self.bind(source=self.on_source_change)
         self.release_function = release_function

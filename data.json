@@ -5,17 +5,13 @@
             "highscore": 0,
             "percentage": 0,
             "countries_unlocked": [],
-            "number_lives": 2,
+            "number_lives": 3,
             "number_lives_used_game": 0,
-            "lost_live_date": 1708376395.2057164,
+            "lost_live_date": null,
             "current_country": {
                 "country": "Q219",
-                "number_lives_used_game": 1,
-                "list_current_hints": [
-                    "license_plate_code",
-                    "ISO_3_code",
-                    "capital"
-                ],
+                "number_lives_used_game": 2,
+                "list_current_hints": [],
                 "dict_clues": {
                     "french": {
                         "license_plate_code": "\u2013 Code de plaque d'immatriculation : MNE",

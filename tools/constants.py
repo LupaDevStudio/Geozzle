@@ -233,6 +233,7 @@ BOTTOM_BAR_HEIGHT = 0.12
 SUBTITLE_OUTLINE_WIDTH = 1
 TIME_CHANGE_BACKGROUND = 10  # every 10 seconds, the background changes
 RATE_CHANGE_OPACITY = 0.03
+BUTTON_OUTLINE_WIDTH = 1.5
 
 ### Font sizes ###
 
