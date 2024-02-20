@@ -10,8 +10,12 @@
             "lost_live_date": null,
             "current_country": {
                 "country": "Q219",
-                "number_lives_used_game": 2,
-                "list_current_hints": [],
+                "number_lives_used_game": 9,
+                "list_current_hints": [
+                    "head_of_state",
+                    "official_language",
+                    "driving_side"
+                ],
                 "dict_clues": {
                     "french": {
                         "license_plate_code": "\u2013 Code de plaque d'immatriculation : MNE",
@@ -37,7 +41,8 @@
                         "top_level_internet_domain": "\u2013 Internet domain : .fi",
                         "area": "\u2013 Area : 338,145 km\u00b2",
                         "ISO_3_code": "FIN",
-                        "flag": "flag_europe.png"
+                        "flag": "flag_europe.png",
+                        "currency": "\u2013 Currency : Euro"
                     }
                 },
                 "dict_all_clues": {

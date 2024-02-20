@@ -29,6 +29,9 @@ from tools.constants import (
     USER_DATA,
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED
 )
+from tools import (
+    game
+)
 
 ##############
 ### Class ####
@@ -76,10 +79,7 @@ class ImprovedScreenWithAds(ImprovedScreen):
     @mainthread
     def ad_callback(self, popup: TwoButtonsPopup):
         self.number_lives_on += 1
-        USER_DATA.continents[self.code_continent]["number_lives"] += 1
-        if self.number_lives_on == 3:
-            USER_DATA.continents[self.code_continent]["lost_live_date"] = None
-        USER_DATA.save_changes()
+        game.add_life()
         popup.dismiss()
         load_ad()
 

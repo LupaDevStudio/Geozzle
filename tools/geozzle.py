@@ -735,4 +735,6 @@ class Game():
         """
         self.number_lives += 1
         USER_DATA.continents[self.code_continent]["number_lives"] += 1
+        if self.number_lives == 3:
+            USER_DATA.continents[self.code_continent]["lost_live_date"] = None
         USER_DATA.save_changes()
