@@ -268,6 +268,8 @@ def watch_ad(ad_callback, ad_fail=lambda: 1 + 1):
         print("Ad is loaded", ad.is_loaded())
         if not ad.is_loaded():
             ad_fail()
+            ad = None
+            load_ad()
         else:
             ad.on_reward = ad_callback
             ad.show()

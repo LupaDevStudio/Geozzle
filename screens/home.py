@@ -207,6 +207,8 @@ class HomeScreen(ImprovedScreenWithAds):
             USER_DATA.continents[self.code_continent]["percentage"]) + " %"
 
         self.number_lives_on = USER_DATA.continents[self.code_continent]["number_lives"]
+        game.number_lives = self.number_lives_on
+        game.code_continent = self.code_continent
 
         # Decide the mode of the game between restart and play
         if self.completion_value == 100:
@@ -300,11 +302,12 @@ class HomeScreen(ImprovedScreenWithAds):
 
                 # Go to the screen game question
                 self.manager.current = "game_question"
-            
+
             else:
                 popup = MessagePopup(
                     primary_color=self.continent_color,
-                    secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                    secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                        self.code_continent],
                     title=TEXT.clues["no_connexion_title"],
                     center_label_text=TEXT.clues["no_connexion_message"],
                     font_ratio=self.font_ratio
@@ -328,14 +331,14 @@ class HomeScreen(ImprovedScreenWithAds):
     def restart_game(self, popup: TwoButtonsPopup):
         popup.dismiss()
         USER_DATA.continents[self.code_continent] = {
-                "highscore": 0,
-                "percentage": 0,
-                "countries_unlocked": [],
-                "number_lives": 3,
-                "number_lives_used_game": 0,
-                "lost_live_date": None,
-                "current_country": copy.deepcopy(CURRENT_COUNTRY_INIT)
-            }
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
+            "number_lives": 3,
+            "number_lives_used_game": 0,
+            "lost_live_date": None,
+            "current_country": copy.deepcopy(CURRENT_COUNTRY_INIT)
+        }
         USER_DATA.save_changes()
         self.load_continent_data()
 

@@ -5,68 +5,20 @@
             "highscore": 0,
             "percentage": 0,
             "countries_unlocked": [],
-            "number_lives": 3,
+            "number_lives": 1,
             "number_lives_used_game": 0,
-            "lost_live_date": null,
+            "lost_live_date": 1708454033.8046713,
             "current_country": {
-                "country": "Q219",
-                "number_lives_used_game": 9,
-                "list_current_hints": [
-                    "head_of_state",
-                    "official_language",
-                    "driving_side"
-                ],
+                "country": "",
+                "number_lives_used_game": 0,
+                "list_current_hints": [],
                 "dict_clues": {
-                    "french": {
-                        "license_plate_code": "\u2013 Code de plaque d'immatriculation : MNE",
-                        "head_of_state": "\u2013 Chef de l'\u00c9tat : Jakov Milatovi\u0107",
-                        "currency": "\u2013 Monnaie : Euro",
-                        "ISO_3_code": "MNE",
-                        "human_development_index": "\u2013 Index de D\u00e9veloppement Humain : 0.832",
-                        "nominal_GDP": "\u2013 PIB moyen : 5 978 M$",
-                        "capital": "\u2013 Capitale : Podgorica",
-                        "anthem": "\u2013 Hymne : Oj, svijetla majska zoro",
-                        "population": "\u2013 Population : 622 359 habitants",
-                        "country_calling_code": "\u2013 Code t\u00e9l\u00e9phonique : +382",
-                        "driving_side": "\u2013 Sens de conduite : Droite"
-                    },
-                    "english": {
-                        "human_development_index": "\u2013 Human Development Index : 0.94",
-                        "age_of_majority": "\u2013 Age of majority : 18 years",
-                        "median_income": "\u2013 Median income : 34,615",
-                        "license_plate_code": "\u2013 License plate code : FIN",
-                        "nominal_GDP": "\u2013 Nominal GDP : 288,606 M$",
-                        "capital": "\u2013 Capital : Helsinki",
-                        "country_calling_code": "\u2013 Country calling code : +358",
-                        "top_level_internet_domain": "\u2013 Internet domain : .fi",
-                        "area": "\u2013 Area : 338,145 km\u00b2",
-                        "ISO_3_code": "FIN",
-                        "flag": "flag_europe.png",
-                        "currency": "\u2013 Currency : Euro"
-                    }
+                    "french": {},
+                    "english": {}
                 },
                 "dict_all_clues": {
-                    "english": {
-                        "capital": "Helsinki",
-                        "official_language": "Finnish, Swedish",
-                        "currency": "euro",
-                        "head_of_state": "Sauli Niinist\u00f6",
-                        "top_level_internet_domain": ".fi",
-                        "anthem": "Maamme",
-                        "driving_side": "right",
-                        "head_of_government": "Petteri Orpo",
-                        "nominal_GDP": "280825957768, 296387625264",
-                        "age_of_majority": "18",
-                        "human_development_index": "0.94",
-                        "ISO_2_code": "FI",
-                        "median_income": "34615",
-                        "license_plate_code": "FIN",
-                        "ISO_3_code": "FIN",
-                        "flag": "flag_europe.png",
-                        "area": "338145",
-                        "population": "5563970",
-                        "country_calling_code": "+358"
-                    }
+                    "french": {},
+                    "english": {}
                 }
             }
         },
