@@ -1,11 +1,11 @@
-# Replace `Q_country` with the identifier of the country with the "Q"
+# Replace `$Q_country` with the identifier of the country with the "Q"
 # Replace `$output_language` with language of the output, e.g.: "en" for English, "fr" for French, ...
 
 
 SELECT ?hint ?value ?unit
 WITH {
     SELECT DISTINCT ?hint_ ?value_ {
-        BIND(wd:Q142 AS ?country).  # bind `?country` for readability
+        BIND(wd:$Q_country AS ?country).  # bind `?country` for readability
         BIND(rdfs:label AS ?label_property).  # bind `rdfs:label` for query compression when sending the GET request
 
         {  # official language
@@ -112,14 +112,14 @@ WITH {
         }
 
         # requires using `rdfs:label`, does not work with `SERVICE  wikibase:label { ... }`
-        FILTER(LANG(?value_) = "en").  # filter the language of the labels
+        FILTER(LANG(?value_) = $output_language).  # filter the language of the labels
         FILTER(!REGEX(?value_, "^Q[1-9][0-9]*$")).  # do not take the label if it is the identifier of the entity
     }
 } AS %entity_valued_hints
 
 WITH {
     SELECT DISTINCT ?hint_ ?value_ {
-        BIND(wd:Q142 AS ?country).  # bind `?country` for readability
+        BIND(wd:$Q_country AS ?country).  # bind `?country` for readability
 
         {  # flag
               BIND("flag" AS ?hint_).
@@ -181,7 +181,7 @@ WITH {
 
 WITH {
     SELECT DISTINCT ?hint_ ?value_ ?unit {
-        BIND(wd:Q142 AS ?country).  # bind `?country` for readability
+        BIND(wd:$Q_country AS ?country).  # bind `?country` for readability
         BIND(rdfs:label AS ?label_property).  # bind `rdfs:label` for query compression when sending the GET request
 
         {  # median income
@@ -233,7 +233,7 @@ WITH {
             ?unit_ ?label_property ?unit_label.  # do not factor this otherwise this optimizer messes up
         }
 
-        FILTER(LANG(?unit_label) = "en").  # filter the language of the labels
+        FILTER(LANG(?unit_label) = $output_language).  # filter the language of the labels
 
         BIND (  # custom abbreviations for most common units
             COALESCE(
@@ -250,11 +250,11 @@ WITH {
 
 WHERE {
     {
-      INCLUDE %entity_valued_hints.
+        INCLUDE %entity_valued_hints.
     } UNION {
-      INCLUDE %dimensionless_valued_hints.
+        INCLUDE %dimensionless_valued_hints.
     } UNION {
-      INCLUDE %dimension_valued_hints.
+        INCLUDE %dimension_valued_hints.
     }
 
     BIND(?hint_ AS ?hint).  # Use private names for query compression when sending the GET request
