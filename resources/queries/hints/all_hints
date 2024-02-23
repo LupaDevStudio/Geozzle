@@ -1,5 +1,5 @@
 # Replace `$Q_country` with the identifier of the country with the "Q"
-# Replace `$output_language` with language of the output, e.g.: "en" for English, "fr" for French, ...
+# Replace `$output_language` with language of the output, e.g.: `en` for English, `fr` for French, ...
 
 
 SELECT ?hint ?value ?unit
@@ -112,7 +112,7 @@ WITH {
         }
 
         # requires using `rdfs:label`, does not work with `SERVICE  wikibase:label { ... }`
-        FILTER(LANG(?value_) = $output_language).  # filter the language of the labels
+        FILTER(LANG(?value_) = "$output_language").  # filter the language of the labels
         FILTER(!REGEX(?value_, "^Q[1-9][0-9]*$")).  # do not take the label if it is the identifier of the entity
     }
 } AS %entity_valued_hints
@@ -233,7 +233,7 @@ WITH {
             ?unit_ ?label_property ?unit_label.  # do not factor this otherwise this optimizer messes up
         }
 
-        FILTER(LANG(?unit_label) = $output_language).  # filter the language of the labels
+        FILTER(LANG(?unit_label) = "$output_language").  # filter the language of the labels
 
         BIND (  # custom abbreviations for most common units
             COALESCE(
