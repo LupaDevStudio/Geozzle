@@ -18,7 +18,7 @@ from kivy.clock import mainthread
 ### Local imports ###
 
 from tools.kivy_tools import ImprovedScreen
-from tools.geozzle import watch_ad, load_ad
+from tools.geozzle import AD_CONTAINER
 from screens.custom_widgets import (
     TwoButtonsPopup,
     MessagePopup
@@ -71,7 +71,7 @@ class ImprovedScreenWithAds(ImprovedScreen):
                 font_ratio=self.font_ratio
             )
             watch_ad_with_callback = partial(
-                watch_ad, partial(self.ad_callback, popup), partial(self.error_ad_loading_message, popup))
+                AD_CONTAINER.watch_ad, partial(self.ad_callback, popup), partial(self.error_ad_loading_message, popup))
             popup.right_release_function = watch_ad_with_callback
             popup.left_button_label = TEXT.popup["close"]
             popup.open()
@@ -81,7 +81,7 @@ class ImprovedScreenWithAds(ImprovedScreen):
         self.number_lives_on += 1
         game.add_life()
         popup.dismiss()
-        load_ad()
+        AD_CONTAINER.load_ad()
 
     @mainthread
     def error_ad_loading_message(self, popup: TwoButtonsPopup):

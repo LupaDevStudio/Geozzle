@@ -242,47 +242,87 @@ def calculate_score_clues(part_highscore: float, nb_clues: int) -> int:
     return part_highscore
 
 
-# Create the ad instance
-if ANDROID_MODE:
-    ad = RewardedInterstitial(REWARD_INTERSTITIAL, on_reward=None)
-elif IOS_MODE:
-    ad = autoclass("adInterstitial").alloc().init()
-else:
-    ad = None
+# # Create the ad instance
+# if ANDROID_MODE:
+#     ad = RewardedInterstitial(REWARD_INTERSTITIAL, on_reward=None)
+# elif IOS_MODE:
+#     ad = autoclass("adInterstitial").alloc().init()
+# else:
+#     ad = None
 
 
-def load_ad():
-    global ad
-    if ANDROID_MODE:
-        ad = RewardedInterstitial(REWARD_INTERSTITIAL, on_reward=None)
-    elif IOS_MODE:
-        ad = autoclass("adInterstitial").alloc().init()
-    else:
-        ad = None
+# def load_ad():
+#     global ad
+#     if ANDROID_MODE:
+#         ad = RewardedInterstitial(REWARD_INTERSTITIAL, on_reward=None)
+#     elif IOS_MODE:
+#         ad = autoclass("adInterstitial").alloc().init()
+#     else:
+#         ad = None
 
 
-def watch_ad(ad_callback, ad_fail=lambda: 1 + 1):
-    global ad
-    if ANDROID_MODE:
-        print("try to show ads")
-        print("Ad is loaded", ad.is_loaded())
-        if not ad.is_loaded():
-            ad_fail()
-            ad = None
-            load_ad()
-        else:
-            ad.on_reward = ad_callback
-            ad.show()
-    elif IOS_MODE:
-        ad.InterstitialView()
-        ad_callback()
-    else:
-        print("No ads to show outside mobile mode")
-        ad_callback()
+# def watch_ad(ad_callback, ad_fail=lambda: 1 + 1):
+#     global ad
+#     if ANDROID_MODE:
+#         print("try to show ads")
+#         print("Ad is loaded", ad.is_loaded())
+#         if not ad.is_loaded():
+#             ad_fail()
+#             ad = None
+#             load_ad()
+#         else:
+#             ad.on_reward = ad_callback
+#             ad.show()
+#     elif IOS_MODE:
+#         ad.InterstitialView()
+#         ad_callback()
+#     else:
+#         print("No ads to show outside mobile mode")
+#         ad_callback()
 
 #############
 ### Class ###
 #############
+
+
+class AdContainer():
+    def __init__(self) -> None:
+        self.ads_list = []
+        self.load_ad()
+        print("Ad container initialization")
+
+    def watch_ad(self, ad_callback, ad_fail=lambda: 1 + 1):
+        current_ad = self.ads_list[-1]
+        if ANDROID_MODE:
+            current_ad: RewardedInterstitial
+            print("try to show ads")
+            print("Ad is loaded", current_ad.is_loaded())
+            if not current_ad.is_loaded():
+                ad_fail()
+                current_ad = None
+                self.load_ad()
+            else:
+                current_ad.on_reward = ad_callback
+                current_ad.show()
+        elif IOS_MODE:
+            current_ad.InterstitialView()
+            ad_callback()
+        else:
+            print("No ads to show outside mobile mode")
+            ad_callback()
+
+    def load_ad(self):
+        print("try to load ad")
+        if ANDROID_MODE:
+            self.ads_list.append(RewardedInterstitial(
+                REWARD_INTERSTITIAL, on_reward=None))
+        elif IOS_MODE:
+            self.ads_list.append(autoclass("adInterstitial").alloc().init())
+        else:
+            self.ads_list.append(None)
+
+
+AD_CONTAINER = AdContainer()
 
 
 class Game():
