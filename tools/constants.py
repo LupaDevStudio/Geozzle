@@ -40,7 +40,7 @@ from tools.basic_tools import (
 
 ### Version ###
 
-__version__ = "1.0.0"
+__version__ = "1.0.3"
 
 ### Mode ###
 
@@ -56,7 +56,15 @@ URL_WIKIDATA = 'https://query.wikidata.org/sparql'
 CURRENT_COUNTRY_INIT = {
     "country": "",
     "number_lives_used_game": 0,
-    "clues": {}
+    "list_current_hints": [],
+    "dict_clues": {
+        "french": {},
+        "english": {}
+    },
+    "dict_all_clues": {
+        "french": {},
+        "english": {}
+    }
 }
 # Create the user data json if it does not exist
 if not os.path.exists(PATH_USER_DATA):
@@ -225,6 +233,7 @@ BOTTOM_BAR_HEIGHT = 0.12
 SUBTITLE_OUTLINE_WIDTH = 1
 TIME_CHANGE_BACKGROUND = 10  # every 10 seconds, the background changes
 RATE_CHANGE_OPACITY = 0.03
+BUTTON_OUTLINE_WIDTH = 1.5
 
 ### Font sizes ###
 
@@ -232,7 +241,8 @@ TITLE_FONT_SIZE = 60
 MAIN_TEXT_FONT_SIZE = 30
 MAIN_BUTTON_FONT_SIZE = 25
 HIGHSCORE_FONT_SIZE = 25
-BUTTON_FONT_SIZE = 20
+BUTTON_FONT_SIZE = 18
+SPINNER_BUTTON_FONT_SIZE = 20
 SUB_TEXT_FONT_SIZE = 20
 SMALL_BUTTON_FONT_SIZE = 15
 
@@ -298,6 +308,7 @@ DICT_COUNTRIES = {
 }
 
 DICT_HINTS_INFORMATION = load_json_file(file_path=PATH_DICT_HINTS_INFORMATION)
+LIST_CLUES_EXCEPTIONS = ["ISO_2_code"]
 
 ### Gameplay ###
 

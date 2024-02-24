@@ -17,6 +17,7 @@
         pos_hint: {"x":0.57, "top":0.98}
         size_hint: (0.4, 0.075)
         number_lives_on: root.number_lives_on
+        release_function: root.open_buy_life_popup
 
     # Title of the screen
     Label:
@@ -38,32 +39,35 @@
         id: hint_1_button
         background_color: root.background_color
         text: root.hint_1
-        font_size: MAIN_BUTTON_FONT_SIZE * root.font_ratio
+        font_size: BUTTON_FONT_SIZE
         pos_hint: {"center_x":0.5, "center_y":0.6}
         size_hint: (0.75, 0.10)
         color_label: root.continent_color
         on_release: root.add_clue(root.hint_1)
+        font_ratio: root.font_ratio
 
     ColoredRoundedButton:
         id: hint_2_button
         background_color: root.background_color
         border: root.continent_color
         text: root.hint_2
-        font_size: MAIN_BUTTON_FONT_SIZE * root.font_ratio
+        font_size: BUTTON_FONT_SIZE
         pos_hint: {"center_x":0.5, "center_y":0.4}
         size_hint: (0.75, 0.10)
         color_label: root.continent_color
         on_release: root.add_clue(root.hint_2)
+        font_ratio: root.font_ratio
 
     ColoredRoundedButton:
         id: hint_3_button
         background_color: root.background_color
         text: root.hint_3
-        font_size: MAIN_BUTTON_FONT_SIZE * root.font_ratio
+        font_size: BUTTON_FONT_SIZE
         pos_hint: {"center_x":0.5, "center_y":0.2}
         size_hint: (0.75, 0.10)
         color_label: root.continent_color
         on_release: root.add_clue(root.hint_3)
+        font_ratio: root.font_ratio
 
     # Arrow to skip hints
     RoundedButtonImage:

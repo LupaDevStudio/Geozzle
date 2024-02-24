@@ -13,10 +13,11 @@ import webbrowser
 import random as rd
 import time
 from functools import partial
+import copy
 
 ### Kivy imports ###
 
-from kivy.clock import Clock, mainthread
+from kivy.clock import Clock
 from kivy.properties import (
     StringProperty,
     ColorProperty,
@@ -31,11 +32,7 @@ from tools.path import (
     PATH_LANGUAGES_IMAGES,
     PATH_TEXT_FONT
 )
-
-from tools.kivy_tools import (
-    ImprovedScreen
-)
-
+from screens.custom_widgets import ImprovedScreenWithAds
 from tools.constants import (
     LIST_CONTINENTS,
     DICT_CONTINENTS,
@@ -44,16 +41,21 @@ from tools.constants import (
     TIME_CHANGE_BACKGROUND,
     MAIN_MUSIC_NAME,
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
-    LIFE_RELOAD_TIME
+    LIFE_RELOAD_TIME,
+    CURRENT_COUNTRY_INIT
 )
 
 from tools import (
     music_mixer,
     game
 )
-from screens.custom_widgets import TutorialPopup, TwoButtonsPopup
+from screens.custom_widgets import (
+    TutorialPopup,
+    TwoButtonsPopup,
+    MessagePopup
+)
 from tools.geozzle import (
-    watch_ad
+    AD_CONTAINER
 )
 
 #############
@@ -61,7 +63,7 @@ from tools.geozzle import (
 #############
 
 
-class HomeScreen(ImprovedScreen):
+class HomeScreen(ImprovedScreenWithAds):
 
     previous_screen_name = StringProperty()
     counter_continents = 0
@@ -75,6 +77,7 @@ class HomeScreen(ImprovedScreen):
         PATH_CONTINENTS_IMAGES + LIST_CONTINENTS[counter_continents] + ".jpg")
     language_image = StringProperty()
     play_label = StringProperty()
+    restart_label = StringProperty()
     number_lives_on = NumericProperty(3)
 
     def __init__(self, **kwargs) -> None:
@@ -103,7 +106,7 @@ class HomeScreen(ImprovedScreen):
         # Schedule the change of background
         Clock.schedule_interval(
             self.manager.change_background, TIME_CHANGE_BACKGROUND)
-        
+
         if not USER_DATA.has_seen_tutorial:
             USER_DATA.has_seen_tutorial = True
             USER_DATA.save_changes()
@@ -153,8 +156,9 @@ class HomeScreen(ImprovedScreen):
         """
         self.continent_name = TEXT.home[self.code_continent]
         self.play_label = TEXT.home["play"]
+        self.restart_label = TEXT.home["restart"]
         self.highscore = TEXT.home["highscore"] + \
-            str(USER_DATA.continents[self.code_continent]["highscore"])
+            str(int(USER_DATA.continents[self.code_continent]["highscore"]))
 
     def change_continent(self, side: str):
         """
@@ -197,17 +201,25 @@ class HomeScreen(ImprovedScreen):
 
         # Change the score and the completion percentage of the user
         self.highscore = TEXT.home["highscore"] + \
-            str(USER_DATA.continents[self.code_continent]["highscore"])
+            str(int(USER_DATA.continents[self.code_continent]["highscore"]))
         self.completion_value = USER_DATA.continents[self.code_continent]["percentage"]
         self.completion_percentage_text = str(
             USER_DATA.continents[self.code_continent]["percentage"]) + " %"
 
         self.number_lives_on = USER_DATA.continents[self.code_continent]["number_lives"]
+        game.number_lives = self.number_lives_on
+        game.code_continent = self.code_continent
 
+        # Decide the mode of the game between restart and play
         if self.completion_value == 100:
             self.disable_widget("play_button")
             self.disable_widget("three_lives")
+            try:
+                self.enable_widget("restart_button")
+            except:
+                pass
         else:
+            self.disable_widget("restart_button")
             try:
                 self.enable_widget("play_button")
                 self.enable_widget("three_lives")
@@ -274,21 +286,33 @@ class HomeScreen(ImprovedScreen):
         if self.number_lives_on > 0:
 
             # Reset the screen of game_summary
-            game.create_new_game(self.code_continent)
-            self.manager.get_screen("game_summary").reset_screen()
-            self.manager.get_screen(
-                "game_question").code_continent = self.code_continent
-            self.manager.get_screen(
-                "game_question").previous_screen_name = "home"
-            self.manager.get_screen(
-                "game_summary").code_continent = self.code_continent
-            self.manager.get_screen(
-                "game_over").code_continent = self.code_continent
-            self.manager.get_screen(
-                "game_over").update_countries()
+            has_success = game.create_new_game(self.code_continent)
+            if has_success:
+                self.manager.get_screen("game_summary").reset_screen()
+                self.manager.get_screen(
+                    "game_question").code_continent = self.code_continent
+                self.manager.get_screen(
+                    "game_question").previous_screen_name = "home"
+                self.manager.get_screen(
+                    "game_summary").code_continent = self.code_continent
+                self.manager.get_screen(
+                    "game_over").code_continent = self.code_continent
+                self.manager.get_screen(
+                    "game_over").update_countries()
 
-            # Go to the screen game question
-            self.manager.current = "game_question"
+                # Go to the screen game question
+                self.manager.current = "game_question"
+
+            else:
+                popup = MessagePopup(
+                    primary_color=self.continent_color,
+                    secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                        self.code_continent],
+                    title=TEXT.clues["no_connexion_title"],
+                    center_label_text=TEXT.clues["no_connexion_message"],
+                    font_ratio=self.font_ratio
+                )
+                popup.open()
 
         else:
             popup = TwoButtonsPopup(
@@ -300,56 +324,39 @@ class HomeScreen(ImprovedScreen):
                 font_ratio=self.font_ratio
             )
             watch_ad_with_callback = partial(
-                watch_ad, partial(self.ad_callback, popup))
+                AD_CONTAINER.watch_ad, partial(self.ad_callback, popup))
             popup.right_release_function = watch_ad_with_callback
             popup.open()
 
-    def open_buy_life_popup(self):
-        if self.number_lives_on == 3:
-            popup_text = TEXT.popup["full_life_text"]
-            popup = TwoButtonsPopup(
-                primary_color=self.continent_color,
-                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
-                right_button_label=TEXT.popup["watch_ad"],
-                title=TEXT.popup["buy_life_title"],
-                center_label_text=popup_text,
-                font_ratio=self.font_ratio
-            )
-            popup.ids.right_button.disabled = True
-            popup.ids.right_button.opacity = 0
-            popup.left_button_label = TEXT.popup["close"]
-            popup.open()
-        else:
-            current_time = time.time()
-            diff_time = int(
-                current_time - USER_DATA.continents[self.code_continent]["lost_live_date"])
-            time_to_next_life = 15 - diff_time // 60
-            popup_text = TEXT.popup["next_life_in"].replace(
-                "[TIME]", str(time_to_next_life)) + "\n\n" + TEXT.popup["buy_life_text"]
-            popup = TwoButtonsPopup(
-                primary_color=self.continent_color,
-                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
-                right_button_label=TEXT.popup["watch_ad"],
-                title=TEXT.popup["buy_life_title"],
-                center_label_text=popup_text,
-                font_ratio=self.font_ratio
-            )
-            watch_ad_with_callback = partial(
-                watch_ad, partial(self.ad_callback, popup))
-            popup.right_release_function = watch_ad_with_callback
-            popup.left_button_label = TEXT.popup["close"]
-            popup.open()
-
-    @mainthread
-    def ad_callback(self, popup: TwoButtonsPopup):
-        self.number_lives_on += 1
-        USER_DATA.continents[self.code_continent]["number_lives"] += 1
-        USER_DATA.save_changes()
+    def restart_game(self, popup: TwoButtonsPopup):
         popup.dismiss()
+        USER_DATA.continents[self.code_continent] = {
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
+            "number_lives": 3,
+            "number_lives_used_game": 0,
+            "lost_live_date": None,
+            "current_country": copy.deepcopy(CURRENT_COUNTRY_INIT)
+        }
+        USER_DATA.save_changes()
+        self.load_continent_data()
+
+    def ask_restart_game(self):
+        popup = TwoButtonsPopup(
+            primary_color=self.continent_color,
+            secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+            title=TEXT.home["ask_restart_title"],
+            center_label_text=TEXT.home["ask_restart_message"],
+            font_ratio=self.font_ratio,
+            right_button_label=TEXT.popup["yes"],
+            left_button_label=TEXT.popup["no"]
+        )
+        popup.right_release_function = partial(self.restart_game, popup)
+        popup.open()
 
     def launch_tutorial(self):
         popup = TutorialPopup(
-            title="Tutorial",
             primary_color=self.continent_color,
             secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
             tutorial_content=TEXT.tutorial["tutorial_content"],

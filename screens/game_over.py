@@ -37,7 +37,7 @@ from tools.constants import (
     DICT_COUNTRIES,
     USER_DATA
 )
-from tools.kivy_tools import ImprovedScreen
+from screens.custom_widgets import ImprovedScreenWithAds
 from tools import (
     game
 )
@@ -46,7 +46,7 @@ from screens.custom_widgets import (
     MessagePopup
 )
 from tools.geozzle import (
-    watch_ad
+    AD_CONTAINER
 )
 
 #############
@@ -54,7 +54,7 @@ from tools.geozzle import (
 #############
 
 
-class GameOverScreen(ImprovedScreen):
+class GameOverScreen(ImprovedScreenWithAds):
 
     previous_screen_name = StringProperty()
     code_continent = StringProperty(LIST_CONTINENTS[0])
@@ -63,6 +63,7 @@ class GameOverScreen(ImprovedScreen):
         DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
     title_label = StringProperty()
     congrats_defeat_message = StringProperty()
+    score_label = StringProperty()
     validate_label = StringProperty()
     continue_game_label = StringProperty()
     number_lives_on = NumericProperty()
@@ -85,6 +86,7 @@ class GameOverScreen(ImprovedScreen):
 
         self.number_lives_on = game.number_lives
         self.congrats_defeat_message = ""
+        self.score_label = ""
         self.ids.validate_button.disable_button = False
         self.ids.validate_button.background_color[-1] = 1
 
@@ -168,18 +170,31 @@ class GameOverScreen(ImprovedScreen):
 
     def go_to_next_screen(self):
         if self.continue_game_label == TEXT.game_over["next_country"]:
-            self.manager.get_screen(
-                "game_question").previous_screen_name = "game_over"
-            self.manager.get_screen(
-                "game_question").code_continent = self.code_continent
             # Create a new game
-            game.create_new_game(self.code_continent)
-            self.manager.get_screen(
-                "game_summary").reset_scroll_view()
-            self.manager.get_screen(
-                "game_summary").update_flag_image()
-            self.manager.current = "game_question"
-            self.update_countries()
+            has_success = game.create_new_game(self.code_continent)
+            if has_success:
+
+                self.manager.get_screen(
+                    "game_question").previous_screen_name = "game_over"
+                self.manager.get_screen(
+                    "game_question").code_continent = self.code_continent
+                self.manager.get_screen(
+                    "game_summary").reset_scroll_view()
+                self.manager.get_screen(
+                    "game_summary").update_images()
+                self.manager.current = "game_question"
+                self.update_countries()
+
+            else:
+                popup = MessagePopup(
+                    primary_color=self.continent_color,
+                    secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                        self.code_continent],
+                    title=TEXT.clues["no_connexion_title"],
+                    center_label_text=TEXT.clues["no_connexion_message"],
+                    font_ratio=self.font_ratio
+                )
+                popup.open()
 
         elif self.continue_game_label in [TEXT.game_over["continue"], TEXT.game_over["button_back"]]:
             self.manager.get_screen(
@@ -221,7 +236,9 @@ class GameOverScreen(ImprovedScreen):
                     self.continue_game_label = TEXT.game_over["next_country"]
 
                 self.congrats_defeat_message = TEXT.game_over["congrats"]
-                game.update_score()
+                current_score = game.update_score()
+                self.score_label = TEXT.home["highscore"] + \
+                    str(int(current_score))
                 game.update_percentage()
 
             # The country is not correct
@@ -244,7 +261,7 @@ class GameOverScreen(ImprovedScreen):
                         font_ratio=self.font_ratio
                     )
                     watch_ad_with_callback = partial(
-                        watch_ad, partial(self.ad_callback, popup))
+                        AD_CONTAINER.watch_ad, partial(self.ad_callback, popup))
                     popup.right_release_function = watch_ad_with_callback
                     popup.left_release_function = partial(
                         self.go_to_home_and_dismiss, popup)

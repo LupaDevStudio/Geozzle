@@ -9,9 +9,6 @@ Module to create custom buttons with round transparent white background.
 ### Kivy imports ###
 from kivy.uix.image import Image
 from kivy.uix.behaviors import ButtonBehavior
-from kivy.properties import (
-    NumericProperty
-)
 
 ### Local imports ###
 
@@ -32,8 +29,7 @@ class CircleIconButton(ButtonBehavior, Image):
 
     def __init__(
             self,
-            release_function=lambda: 1 + 1,
-            **kwargs):
+            release_function=lambda: 1 + 1, **kwargs):
         super().__init__(**kwargs)
         self.release_function = release_function
         self.always_release = True

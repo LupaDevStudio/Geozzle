@@ -1,0 +1,262 @@
+# Replace `$Q_country` with the identifier of the country with the "Q"
+# Replace `$output_language` with language of the output, e.g.: `en` for English, `fr` for French, ...
+
+
+SELECT ?hint ?value ?unit
+WITH {
+    SELECT DISTINCT ?hint_ ?value_ {
+        BIND(wd:$Q_country AS ?country).  # bind `?country` for readability
+        BIND(rdfs:label AS ?label_property).  # bind `rdfs:label` for query compression when sending the GET request
+
+        {  # official language
+            BIND("official_language" AS ?hint_).
+
+            ?country wdt:P37 ?language.  # official language of the country
+
+            MINUS {
+                ?language wdt:P31/wdt:P279* wd:Q34228.  # instance of `sign language` or any of its subclasses
+            }
+
+            MINUS {
+                ?language wdt:P31/wdt:P279* wd:Q20671156.  # instance of `languages of a geographic region` or any of its subclasses
+            }
+
+            ?language ?label_property ?value_.  # do not factor this otherwise the optimizer messes up
+        }
+
+        UNION {  # capital
+            BIND("capital" AS ?hint_).
+
+            ?country wdt:P36 ?capital.  # force statement to be the preferred statement
+            ?country p:P36 ?statement.  # capital statement of the country
+            ?statement ps:P36 ?capital.
+
+            OPTIONAL {
+                 ?statement pq:P582 ?endtime.  # statement end-time
+            }
+
+            FILTER(!BOUND(?endtime)).
+
+            MINUS {
+                ?statement pq:P459 wd:Q712144.  # `determination method` is `de facto`
+            }
+            MINUS {
+                ?statement pq:P5102 wd:Q712144.  # `nature of statement` is `de facto`
+            }
+
+            ?capital ?label_property ?value_.  # do not factor this otherwise the optimizer messes up
+        }
+
+        UNION {  # motto
+            BIND("motto" AS ?hint_).
+
+            ?country wdt:P1546 ?motto.  # motto of the country
+
+            ?motto ?label_property ?value_.  # do not factor this otherwise the optimizer messes up
+        }
+
+        UNION {  # anthem
+            BIND("anthem" AS ?hint_).
+
+            ?country wdt:P85 ?anthem.  # force statement to be the preferred statement
+            ?country p:P85 ?statement.  # anthem statement of the country
+            ?statement ps:P85 ?anthem.
+
+             OPTIONAL {
+                 ?statement pq:P582 ?endtime.  # statement end-time
+             }
+
+             FILTER(!BOUND(?endtime)).
+
+            ?anthem ?label_property ?value_.  # do not factor this otherwise the optimizer messes up
+        }
+
+        UNION {  # top level internet domain
+            BIND("top_level_internet_domain" AS ?hint_).
+
+            ?country wdt:P78 ?domain.  # top level internet domain of the country
+
+            ?domain ?label_property ?value_.  # do not factor this otherwise the optimizer messes up
+        }
+
+        UNION {  # driving side
+            BIND("driving_side" AS ?hint_).
+
+            ?country wdt:P1622 ?side.  # driving side in the country
+
+            ?side ?label_property ?value_.  # do not factor this otherwise the optimizer messes up
+        }
+
+        UNION {  # currency
+            BIND("currency" AS ?hint_).
+
+            ?country wdt:P38 ?currency.  # currency of the country
+
+            ?currency ?label_property ?value_.  # do not factor this otherwise the optimizer messes up
+        }
+
+        UNION {  # head of state
+            BIND("head_of_state" AS ?hint_).
+
+            ?country wdt:P35 ?head_of_state.  # head of state of the country
+
+            ?head_of_state ?label_property ?value_.  # do not factor this otherwise the optimizer messes up
+        }
+
+        UNION {  # head of government
+            BIND("head_of_government" AS ?hint_).
+
+            ?country wdt:P6 ?head_of_government.  # head of government of the country
+
+            ?head_of_government ?label_property ?value_.  # do not factor this otherwise the optimizer messes up
+        }
+
+        # requires using `rdfs:label`, does not work with `SERVICE  wikibase:label { ... }`
+        FILTER(LANG(?value_) = "$output_language").  # filter the language of the labels
+        FILTER(!REGEX(?value_, "^Q[1-9][0-9]*$")).  # do not take the label if it is the identifier of the entity
+    }
+} AS %entity_valued_hints
+
+WITH {
+    SELECT DISTINCT ?hint_ ?value_ {
+        BIND(wd:$Q_country AS ?country).  # bind `?country` for readability
+
+        {  # flag
+              BIND("flag" AS ?hint_).
+              BIND(?flag AS ?value_).
+
+              ?country wdt:P41 ?flag.  # flag image of the country
+        }
+
+        UNION {  # age of majority
+            BIND("age_of_majority" AS ?hint_).
+            BIND(?age AS ?value_).
+
+            ?country wdt:P2997 ?age.  # age of majority of the country
+        }
+
+        UNION {  # human development index
+            BIND("human_development_index" AS ?hint_).
+            BIND(?hdi AS ?value_).
+
+            ?country wdt:P1081 ?hdi.  # human development index of the country
+        }
+
+        UNION {  # population
+            BIND("population" AS ?hint_).
+            BIND(?population AS ?value_).
+
+            ?country wdt:P1082 ?population.  # population of the country
+        }
+
+        UNION {  # country calling code
+            BIND("country_calling_code" AS ?hint_).
+            BIND(?code AS ?value_).
+
+            ?country wdt:P474 ?code.  # calling code of the country
+        }
+
+        UNION {  # ISO 3166-1 alpha-2 code
+            BIND("ISO_2_code" AS ?hint_).
+            BIND(?code AS ?value_).
+
+            ?country wdt:P297 ?code.  # ISO 3166-1 alpha-2 code of the country
+        }
+
+        UNION {  # ISO 3166-1 alpha-3 code
+            BIND("ISO_3_code" AS ?hint_).
+            BIND(?code AS ?value_).
+
+            ?country wdt:P298 ?code.  # ISO 3166-1 alpha-3 code of the country
+        }
+
+        UNION {  # license plate code
+            BIND("license_plate_code" AS ?hint_).
+            BIND(?code AS ?value_).
+
+            ?country wdt:P395 ?code.  # license plate code of the country
+        }
+    }
+} AS %dimensionless_valued_hints
+
+WITH {
+    SELECT DISTINCT ?hint_ ?value_ ?unit {
+        BIND(wd:$Q_country AS ?country).  # bind `?country` for readability
+        BIND(rdfs:label AS ?label_property).  # bind `rdfs:label` for query compression when sending the GET request
+
+        {  # median income
+              BIND("median_income" AS ?hint_).
+              BIND(?income AS ?value_).
+
+              ?country wdt:P3529 ?income.  # force statement to be the preferred statement
+              ?country p:P3529 ?statement.  # median income in the country
+
+              ?statement psv:P3529 ?value_node.  # get the value node
+              ?value_node wikibase:quantityAmount ?income.  # get the income value
+              ?value_node wikibase:quantityUnit ?unit_.  # get the income unit
+
+              ?unit_ ?label_property ?unit_label.  # do not factor this otherwise the optimizer messes up
+        }
+
+        UNION {  # area in km^2
+            BIND("area" AS ?hint_).
+            BIND(?area AS ?value_).
+            BIND(wd:Q712226 AS ?unit_).  # output in km^2
+
+            ?country wdt:P2046 ?wd_area.  # force statement to be the preferred statement
+            ?country p:P2046 ?statement. # area of the country
+
+            ?statement psv:P2046 ?wd_value_node.  # get the value node
+            ?wd_value_node wikibase:quantityAmount ?wd_area.  # link value node to preferred statement
+
+            ?statement psn:P2046 ?si_value_node.  # get the value node in SI unit
+            ?si_value_node wikibase:quantityAmount ?si_area.  # area value in SI unit
+
+            ?unit_ wdt:P2370 ?si_conv.  # conversion factor to SI unit (m^2)
+
+            BIND((?si_area / ?si_conv) AS ?area).  # conversion from SI unit (m^2) to output unit
+
+            ?unit_ ?label_property ?unit_label.  # do not factor this otherwise the optimizer messes up
+        }
+
+        UNION {  # nominal GDP
+            BIND("nominal_GDP" AS ?hint_).
+            BIND(?gdp AS ?value_).
+
+            ?country wdt:P2131 ?gdp.  # force statement to be the preferred statement
+            ?country p:P2131 ?statement.  # nominal GDP of the country
+
+            ?statement psv:P2131 ?value_node.  # get the value node
+            ?value_node wikibase:quantityAmount ?gdp.  # get the gdp value
+            ?value_node wikibase:quantityUnit ?unit_.  # get the gdp unit
+
+            ?unit_ ?label_property ?unit_label.  # do not factor this otherwise this optimizer messes up
+        }
+
+        FILTER(LANG(?unit_label) = "$output_language").  # filter the language of the labels
+
+        BIND (  # custom abbreviations for most common units
+            COALESCE(
+                IF(?unit_ = wd:Q712226, "km²", 1/0),
+                IF(?unit_ = wd:Q4917, "US-$", 1/0),
+                IF(?unit_ = wd:Q4916, "€", 1/0),
+                IF(?unit_ = wd:Q25224, "£", 1/0),
+                IF(?unit_ = wd:Q1104069, "CA-$", 1/0),
+                ?unit_label
+            ) AS ?unit
+        ).
+    }
+} AS %dimension_valued_hints
+
+WHERE {
+    {
+        INCLUDE %entity_valued_hints.
+    } UNION {
+        INCLUDE %dimensionless_valued_hints.
+    } UNION {
+        INCLUDE %dimension_valued_hints.
+    }
+
+    BIND(?hint_ AS ?hint).  # Use private names for query compression when sending the GET request
+    BIND(?value_ AS ?value).  # Use private names for query compression when sending the GET request
+}

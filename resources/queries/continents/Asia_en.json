@@ -12,6 +12,7 @@
     "Q252": "Indonesia",
     "Q794": "Iran",
     "Q796": "Iraq",
+    "Q801": "Israel",
     "Q17": "Japan",
     "Q810": "Jordan",
     "Q232": "Kazakhstan",
@@ -27,6 +28,7 @@
     "Q423": "North Korea",
     "Q842": "Oman",
     "Q843": "Pakistan",
+    "Q148": "People's Republic of China",
     "Q928": "Philippines",
     "Q846": "Qatar",
     "Q851": "Saudi Arabia",
@@ -34,15 +36,12 @@
     "Q884": "South Korea",
     "Q854": "Sri Lanka",
     "Q858": "Syria",
+    "Q865": "Taiwan",
     "Q863": "Tajikistan",
     "Q869": "Thailand",
     "Q874": "Turkmenistan",
     "Q878": "United Arab Emirates",
     "Q265": "Uzbekistan",
     "Q881": "Vietnam",
-    "Q805": "Yemen",
-    "Q148": "People's Republic of China",
-    "Q865": "Taiwan",
-    "Q801": "Israel",
-    "Q1246": "Kosovo"
+    "Q805": "Yemen"
 }

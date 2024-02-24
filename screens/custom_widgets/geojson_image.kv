@@ -1,0 +1,19 @@
+#:kivy 2.2.1
+
+<GeojsonImage>:
+
+    fit_mode:"contain"
+
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            pos:self.pos
+            size:self.size
+    
+    canvas.after:
+        Color:
+            rgba: self.primary_color
+        Line:
+            width:BUTTON_OUTLINE_WIDTH*self.font_ratio
+            rectangle: [self.x,self.y,self.width,self.height]

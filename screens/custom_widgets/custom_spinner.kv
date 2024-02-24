@@ -1,6 +1,6 @@
 #:kivy 2.2.1
 #:import PATH_TEXT_FONT tools.path.PATH_TEXT_FONT
-#:import MAIN_BUTTON_FONT_SIZE tools.constants.MAIN_BUTTON_FONT_SIZE
+#:import SPINNER_BUTTON_FONT_SIZE tools.constants.SPINNER_BUTTON_FONT_SIZE
 #:import BUTTON_FONT_SIZE tools.constants.BUTTON_FONT_SIZE
 #:set TRIANGLE_REL_WIDTH 0.07
 #:set TRIANGLE_REL_OFFSET 0.85
@@ -37,20 +37,18 @@
 
     # Background
     canvas:
-        # Border
-        Color:
-            rgba: root.border_color
-        RoundedRectangle:
-            pos: self.pos
-            size: self.size
-            radius: [12*self.font_ratio]
-        # Rounded rectangle
         Color:
             rgba: root.background_color
         RoundedRectangle:
-            pos: (self.x +OUTLINE_RECTANGLE//2, self.y+OUTLINE_RECTANGLE//2)
-            size: (self.size[0]-OUTLINE_RECTANGLE,self.size[1]-OUTLINE_RECTANGLE)
+            pos: (self.pos[0]+OUTLINE_RECTANGLE/2,self.pos[1]+OUTLINE_RECTANGLE/2)
+            size: (self.size[0]-OUTLINE_RECTANGLE, self.size[1]-OUTLINE_RECTANGLE)
             radius: [12*self.font_ratio]
+        # Border
+        Color:
+            rgba: root.border_color
+        Line:
+            rounded_rectangle: [self.x+OUTLINE_RECTANGLE/2,self.y+OUTLINE_RECTANGLE/2,self.size[0]-OUTLINE_RECTANGLE,self.size[1]-OUTLINE_RECTANGLE,12*self.font_ratio]
+            width: BUTTON_OUTLINE_WIDTH*self.font_ratio
 
 <CustomSpinner>:
     # Background
@@ -65,19 +63,25 @@
             spread_radius: -10, -10
             blur_radius: 30
         # Border
-        Color:
-            rgba: root.border_color
-        RoundedRectangle:
-            pos: (self.x -self.font_ratio*OUTLINE_RECTANGLE//2, self.y-self.font_ratio*OUTLINE_RECTANGLE//2)
-            size: (self.size[0]+self.font_ratio*OUTLINE_RECTANGLE,self.size[1]+self.font_ratio*OUTLINE_RECTANGLE)
-            radius: [12*self.font_ratio]
+        # Color:
+        #     rgba: root.border_color
+        # RoundedRectangle:
+        #     pos: (self.x -self.font_ratio*OUTLINE_RECTANGLE//2, self.y-self.font_ratio*OUTLINE_RECTANGLE//2)
+        #     size: (self.size[0]+self.font_ratio*OUTLINE_RECTANGLE,self.size[1]+self.font_ratio*OUTLINE_RECTANGLE)
+        #     radius: [12*self.font_ratio]
         # Rounded rectangle
         Color:
             rgba: root.background_color
         RoundedRectangle:
-            pos:self.pos
-            size:self.size
+            pos: (self.pos[0]-OUTLINE_RECTANGLE/2,self.pos[1]-OUTLINE_RECTANGLE/2)
+            size: (self.size[0]+OUTLINE_RECTANGLE, self.size[1]+OUTLINE_RECTANGLE)
             radius: [12*self.font_ratio]
+        # Border
+        Color:
+            rgba: root.border_color
+        Line:
+            rounded_rectangle: [self.x-OUTLINE_RECTANGLE/2,self.y-OUTLINE_RECTANGLE/2,self.size[0]+OUTLINE_RECTANGLE,self.size[1]+OUTLINE_RECTANGLE,12*self.font_ratio]
+            width: BUTTON_OUTLINE_WIDTH*self.font_ratio
         # Triangle
         Color:
             rgba: root.border_color
@@ -85,11 +89,11 @@
             points: [self.x + self.width*TRIANGLE_REL_OFFSET,self.y + self.height*0.5 + self.width*TRIANGLE_REL_WIDTH/2, self.x + self.width*(TRIANGLE_REL_OFFSET+TRIANGLE_REL_WIDTH),self.y + self.height*0.5 + self.width*TRIANGLE_REL_WIDTH/2, self.x + self.width*(TRIANGLE_REL_OFFSET+TRIANGLE_REL_WIDTH/2),self.y + self.height*0.5 - self.width*TRIANGLE_REL_WIDTH/2]
     Label:
         pos: root.pos
-        size: root.size
-        font_size: root.font_ratio * MAIN_BUTTON_FONT_SIZE
+        size: root.size[0] - 2*root.width*TRIANGLE_REL_WIDTH, root.size[1]
+        font_size: root.font_ratio * SPINNER_BUTTON_FONT_SIZE
         shorten: False
         text: root.text
-        text_size: (root.size[0]*0.8,root.size[1])
+        text_size: (root.size[0]*0.7,root.size[1])
         font_name: PATH_TEXT_FONT
         halign: "left"
         valign: "center"

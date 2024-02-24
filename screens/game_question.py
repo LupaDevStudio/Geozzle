@@ -34,7 +34,7 @@ from tools.constants import (
     TIME_CHANGE_BACKGROUND,
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED
 )
-from tools.kivy_tools import ImprovedScreen
+from screens.custom_widgets import ImprovedScreenWithAds
 from tools import (
     game
 )
@@ -47,7 +47,7 @@ from screens.custom_widgets import (
 #############
 
 
-class GameQuestionScreen(ImprovedScreen):
+class GameQuestionScreen(ImprovedScreenWithAds):
 
     previous_screen_name = StringProperty()
     code_continent = StringProperty(LIST_CONTINENTS[0])
@@ -121,17 +121,7 @@ class GameQuestionScreen(ImprovedScreen):
 
     def add_clue(self, hint):
         # Add the clue in the class
-        value_hint = game.add_clue(hint)
-        if value_hint is None:
-            popup = MessagePopup(
-                primary_color=self.continent_color,
-                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
-                title=TEXT.game_question["no_connexion_title"],
-                center_label_text=TEXT.game_question["no_connexion_message"],
-                font_ratio=self.font_ratio
-                )
-            popup.open()
-            return
+        game.select_clue(hint)
 
         # Change screen
         self.go_to_game_summary(hint)

@@ -41,7 +41,7 @@
         text: root.congrats_defeat_message
         font_name: PATH_TITLE_FONT
         font_size: HIGHSCORE_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.55}
+        pos_hint: {"center_x":0.5, "center_y":0.575}
         outline_width: max(SUBTITLE_OUTLINE_WIDTH * root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
         color: root.continent_color
@@ -54,28 +54,47 @@
 
     ThreeLives:
         continent_color: root.continent_color
-        pos_hint: {"center_x":0.5, "center_y":0.45}
+        pos_hint: {"center_x":0.5, "center_y":0.475}
         size_hint: (0.5, 0.15)
         number_lives_on: root.number_lives_on
+        release_function: root.open_buy_life_popup
+
+    # Score indication
+    Label:
+        text: root.score_label
+        font_name: PATH_TITLE_FONT
+        font_size: HIGHSCORE_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.375}
+        outline_width: max(SUBTITLE_OUTLINE_WIDTH * root.font_ratio,1)
+        outline_color: TITLE_OUTLINE_COLOR
+        color: root.continent_color
+        size: self.size
+        text_size: (root.width*0.9,None)
+        shorten: False
+        halign: "center"
+        valign: "center"
+        line_height: 1
 
     # Validate button
     ColoredRoundedButton:
         id: validate_button
         text: root.validate_label
         background_color: root.continent_color
-        font_size: BUTTON_FONT_SIZE * root.font_ratio
+        font_size: BUTTON_FONT_SIZE
         pos_hint: {"center_x":0.5, "center_y":0.25}
         size_hint: (0.45, 0.075)
         color_label: root.background_color
         release_function: root.submit_country
+        font_ratio: root.font_ratio
 
     # Continue game button
     ColoredRoundedButton:
         id: continue_button
         background_color: root.background_color
         text: root.continue_game_label
-        font_size: BUTTON_FONT_SIZE * root.font_ratio
+        font_size: BUTTON_FONT_SIZE
         pos_hint: {"center_x":0.5, "center_y":0.1}
         size_hint: (0.45, 0.075)
         color_label: root.continent_color
         release_function: root.go_to_next_screen
+        font_ratio: root.font_ratio

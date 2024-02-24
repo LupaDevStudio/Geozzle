@@ -11,15 +11,20 @@
         "watch_ad": "Watch",
         "cancel": "Cancel",
         "buy_life_message": "You don't have any lives left at the moment. Would you like to watch an ad to continue playing?",
-        "buy_life_title": "Lives depleted"
+        "buy_life_title": "Lives depleted",
+        "ask_restart_title": "Restart the continent",
+        "ask_restart_message": "Do you really want to start this continent all over again? You won't be able to retrieve your current data.",
+        "restart": "Restart"
     },
     "popup": {
         "buy_life_title": "Life Reload",
         "next_life_in": "Your next life will recharge in [TIME] min.",
         "buy_life_text": "If you wish to recharge a life more quickly, you can watch an advertisement.",
-        "full_life_text": "You have all your lives, so start a game to guess a new country!",
+        "full_life_text": "Congratulations, you have all your lives, so try to guess a new country!",
         "watch_ad": "Watch",
-        "close": "Close"
+        "close": "Close",
+        "yes": "Yes",
+        "no": "No"
     },
     "game_over": {
         "title": "Which country is it?",
@@ -37,22 +42,42 @@
     },
     "game_question": {
         "title": "Choose a clue from the provided options",
-        "no_more_clues": "You don't have any clue left to guess this country.",
-        "no_connexion_title": "Request error",
-        "no_connexion_message": "The request failed, please connect to the Internet and try again."
+        "no_more_clues": "You don't have any clue left to guess this country."
     },
     "game_summary": {
         "i_found": "I've found!",
         "new_hint": "New hint",
-        "title": "Which country is it?"
+        "title": "Which country is it?",
+        "zoom_flag_title": "Flag",
+        "zoom_geojson_title": "Country shape"
     },
     "clues": {
+        "no_connexion_title": "Request error",
+        "no_connexion_message": "The request failed, please connect to the Internet and try again.",
         "official_language": "Official language",
         "motto": "Motto",
         "anthem": "Anthem",
-        "flag": "Flag"
+        "capital": "Capital",
+        "flag": "Flag",
+        "currency": "Currency",
+        "age_of_majority": "Age of majority",
+        "human_development_index": "Human Development Index",
+        "median_income": "Median income",
+        "country_calling_code": "Country calling code",
+        "license_plate_code": "License plate code",
+        "nominal_GDP": "Nominal GDP",
+        "head_of_state": "Head of state",
+        "head_of_government": "Head of government",
+        "top_level_internet_domain": "Internet domain",
+        "driving_side": "Driving side",
+        "area": "Area",
+        "population": "Population",
+        "ISO_3_code": "Country shape",
+        "years": " years",
+        "inhabitants": " inhabitants"
     },
     "tutorial": {
+        "tutorial_title": "Tutorial",
         "next": "Next",
         "previous": "Previous",
         "close": "Close",

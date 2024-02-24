@@ -65,6 +65,15 @@
         release_function: root.play_game
         font_ratio: root.font_ratio
 
+    # Restart button
+    CustomButton:
+        id: restart_button
+        text: root.restart_label
+        pos_hint: {"center_x":0.5, "center_y":0.2}
+        size_hint: (0.55, 0.075)
+        release_function: root.ask_restart_game
+        font_ratio: root.font_ratio
+
     # Highscore for the label
     Label:
         text: root.highscore

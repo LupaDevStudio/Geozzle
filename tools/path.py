@@ -51,6 +51,7 @@ PATH_DICT_HINTS_INFORMATION = PATH_RESOURCES_FOLDER + "hints_information.json"
 PATH_TEMP_IMAGE = PATH_APP_FOLDER + "temp_image.svg"
 PATH_IMAGES_FLAG = PATH_IMAGES + "flag_"
 PATH_IMAGES_FLAG_UNKNOWN = PATH_IMAGES + "flag_unknown.png"
+PATH_IMAGES_GEOJSON = PATH_IMAGES + "countries_shape/"
 
 # Path for the fonts
 PATH_TEXT_FONT = PATH_FONTS + "Oxanium-Bold.ttf"

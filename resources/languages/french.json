@@ -11,15 +11,20 @@
         "watch_ad": "Regarder",
         "cancel": "Annuler",
         "buy_life_message": "Vous n'avez plus de vies pour l'instant, souhaitez-vous regarder une publicité pour continuer à jouer ?",
-        "buy_life_title": "Vies épuisées"
+        "buy_life_title": "Vies épuisées",
+        "ask_restart_title": "Recommencer le continent",
+        "ask_restart_message": "Voulez-vous vraiment recommencer ce continent depuis le début ? Vous ne pourrez plus récupérer vos données actuelles.",
+        "restart": "Recommencer"
     },
     "popup": {
         "buy_life_title": "Rechargement des vies",
         "next_life_in": "Votre prochaine vie se rechargera dans [TIME] min.",
         "buy_life_text": "Si vous souhaitez recharger une vie plus rapidement, vous pouvez regarder une publicité.",
-        "full_life_text": "Vous avez toutes vos vies, lancez donc une partie pour deviner un nouveau pays !",
+        "full_life_text": "Bravo, vous avez toutes vos vies, essayez donc de deviner un nouveau pays !",
         "watch_ad": "Regarder",
-        "close": "Fermer"
+        "close": "Fermer",
+        "yes": "Oui",
+        "no": "Non"
     },
     "game_over": {
         "title": "Quel pays est-ce ?",
@@ -37,22 +42,42 @@
     },
     "game_question": {
         "title": "Choisissez un nouvel indice parmi ceux proposés",
-        "no_more_clues": "Vous n'avez plus d'indices à disposition pour deviner ce pays.",
-        "no_connexion_title": "Erreur dans la requête",
-        "no_connexion_message": "La requête a échoué, veuillez vérifier votre connexion puis réessayer."
+        "no_more_clues": "Vous n'avez plus d'indices à disposition pour deviner ce pays."
     },
     "game_summary": {
         "i_found": "J'ai trouvé !",
         "new_hint": "Nouvel indice",
-        "title": "Quel pays est-ce ?"
+        "title": "Quel pays est-ce ?",
+        "zoom_flag_title": "Drapeau",
+        "zoom_geojson_title": "Forme du pays"
     },
     "clues": {
+        "no_connexion_title": "Erreur dans la requête",
+        "no_connexion_message": "La requête a échoué, veuillez vérifier votre connexion puis réessayer.",
         "official_language": "Langue officielle",
         "motto": "Devise",
         "anthem": "Hymne",
-        "flag": "Drapeau"
+        "flag": "Drapeau",
+        "capital": "Capitale",
+        "currency": "Monnaie",
+        "age_of_majority": "Age de la majorité",
+        "human_development_index": "Index de Développement Humain",
+        "median_income": "Revenu moyen",
+        "country_calling_code": "Code téléphonique",
+        "license_plate_code": "Code de plaque d'immatriculation",
+        "nominal_GDP": "PIB moyen",
+        "head_of_state": "Chef de l'État",
+        "head_of_government": "Chef du gouvernement",
+        "top_level_internet_domain": "Domaine internet",
+        "driving_side": "Sens de conduite",
+        "area": "Superficie",
+        "population": "Population",
+        "ISO_3_code": "Forme du pays",
+        "years": " ans",
+        "inhabitants": " habitants"
     },
     "tutorial": {
+        "tutorial_title": "Tutoriel",
         "next": "Suivant",
         "previous": "Précédent",
         "close": "Fermer",
