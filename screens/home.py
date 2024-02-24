@@ -55,7 +55,7 @@ from screens.custom_widgets import (
     MessagePopup
 )
 from tools.geozzle import (
-    watch_ad
+    AD_CONTAINER
 )
 
 #############
@@ -324,7 +324,7 @@ class HomeScreen(ImprovedScreenWithAds):
                 font_ratio=self.font_ratio
             )
             watch_ad_with_callback = partial(
-                watch_ad, partial(self.ad_callback, popup))
+                AD_CONTAINER.watch_ad, partial(self.ad_callback, popup))
             popup.right_release_function = watch_ad_with_callback
             popup.open()
 

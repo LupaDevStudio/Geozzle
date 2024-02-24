@@ -46,7 +46,7 @@ from screens.custom_widgets import (
     MessagePopup
 )
 from tools.geozzle import (
-    watch_ad
+    AD_CONTAINER
 )
 
 #############
@@ -261,7 +261,7 @@ class GameOverScreen(ImprovedScreenWithAds):
                         font_ratio=self.font_ratio
                     )
                     watch_ad_with_callback = partial(
-                        watch_ad, partial(self.ad_callback, popup))
+                        AD_CONTAINER.watch_ad, partial(self.ad_callback, popup))
                     popup.right_release_function = watch_ad_with_callback
                     popup.left_release_function = partial(
                         self.go_to_home_and_dismiss, popup)
