@@ -11,7 +11,11 @@
             "current_country": {
                 "country": "Q31",
                 "number_lives_used_game": 0,
-                "list_current_hints": [],
+                "list_current_hints": [
+                    "country_calling_code",
+                    "head_of_state",
+                    "driving_side"
+                ],
                 "dict_clues": {
                     "french": {
                         "currency": "\u2013 Monnaie : Euro",
@@ -22,7 +26,8 @@
                         "head_of_government": "\u2013 Chef du gouvernement : Alexander De Croo",
                         "nominal_GDP": "\u2013 PIB moyen : 599 Mrd $",
                         "area": "\u2013 Superficie : 30 688 km\u00b2",
-                        "age_of_majority": "\u2013 Age de la majorit\u00e9 : 18 ans"
+                        "age_of_majority": "\u2013 Age de la majorit\u00e9 : 18 ans",
+                        "motto": "\u2013 Devise : L'union fait la force"
                     },
                     "english": {
                         "currency": "\u2013 Currency : Euro",
