@@ -73,7 +73,8 @@
         "population": "Population",
         "ISO_3_code": "Country shape",
         "years": " years",
-        "inhabitants": " inhabitants"
+        "inhabitants": " inhabitants",
+        "billion": " b"
     },
     "tutorial": {
         "tutorial_title": "Tutorial",

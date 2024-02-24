@@ -136,6 +136,14 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
 
     name_key = TEXT.clues[code_clue]
 
+    # Separate the unit from the value
+    if code_clue in ["nominal_GDP", "area"]:
+        list_separated = value_clue.split(" ")
+        value_clue = list_separated[0]
+        unit = list_separated[1]
+        if unit == "US-$":
+            unit = "$"
+
     # Delete odd characters
     try:
         value_clue = value_clue.replace("ʻ", "'")
@@ -164,10 +172,11 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
                 else:
                     mean_gdp += int(float(gdp))
             mean_gdp /= len(list_gdp)
-            if mean_gdp >= 1000000:
-                value_clue = str(int(mean_gdp / 1000000))
+            billion = 1000000000
+            if mean_gdp >= billion:
+                value_clue = str(int(mean_gdp / billion))
             else:
-                value_clue = str(mean_gdp / 1000000)
+                value_clue = str(mean_gdp / billion)
     except:
         pass
 
@@ -183,7 +192,7 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
 
     # Add spaces between the numbers
     try:
-        if code_clue in ["area", "population", "nominal_GDP", "median_income"]:
+        if code_clue in ["area", "population", "nominal_GDP"]:
             value_clue = insert_space_numbers(value_clue, language)
     except:
         pass
@@ -201,9 +210,9 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
 
     # Add the units when needed
     if code_clue == "area":
-        value_clue += " km²"
+        value_clue += " " + unit
     if code_clue == "nominal_GDP":
-        value_clue += " M$"
+        value_clue += TEXT.clues["billion"] + unit
     if code_clue == "age_of_majority":
         value_clue += TEXT.clues["years"]
     if code_clue == "population":

@@ -1,6 +1,5 @@
 {
-    "language": "english",
-    "has_seen_tutorial": false,
+    "language": "french",
     "continents": {
         "Europe": {
             "highscore": 0,
@@ -10,16 +9,75 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q31",
                 "number_lives_used_game": 0,
                 "list_current_hints": [],
                 "dict_clues": {
-                    "french": {},
-                    "english": {}
+                    "french": {
+                        "currency": "\u2013 Monnaie : Euro",
+                        "flag": "flag_europe.png",
+                        "capital": "\u2013 Capitale : Ville de Bruxelles",
+                        "human_development_index": "\u2013 Index de D\u00e9veloppement Humain : 0.937",
+                        "license_plate_code": "\u2013 Code de plaque d'immatriculation : B",
+                        "head_of_government": "\u2013 Chef du gouvernement : Alexander De Croo",
+                        "nominal_GDP": "\u2013 PIB moyen : 599 Mrd $",
+                        "area": "\u2013 Superficie : 30 688 km\u00b2",
+                        "age_of_majority": "\u2013 Age de la majorit\u00e9 : 18 ans"
+                    },
+                    "english": {
+                        "currency": "\u2013 Currency : Euro",
+                        "flag": "flag_europe.png",
+                        "capital": "\u2013 Capital : City of Brussels",
+                        "human_development_index": "\u2013 Human Development Index : 0.937",
+                        "license_plate_code": "\u2013 License plate code : B",
+                        "head_of_government": "\u2013 Head of government : Alexander De Croo",
+                        "nominal_GDP": "\u2013 Nominal GDP : 599 b$",
+                        "area": "\u2013 Area : 30,688 km\u00b2"
+                    }
                 },
                 "dict_all_clues": {
-                    "french": {},
-                    "english": {}
+                    "english": {
+                        "area": "30688 km\u00b2",
+                        "nominal_GDP": "599880000000 US-$",
+                        "capital": "City of Brussels",
+                        "official_language": "German, French, Dutch",
+                        "head_of_government": "Alexander De Croo",
+                        "motto": "Unity makes strength",
+                        "anthem": "The Braban\u00e7onne",
+                        "head_of_state": "Philippe of Belgium",
+                        "top_level_internet_domain": ".be",
+                        "driving_side": "right",
+                        "currency": "euro",
+                        "license_plate_code": "B",
+                        "ISO_2_code": "BE",
+                        "ISO_3_code": "BEL",
+                        "human_development_index": "0.937",
+                        "country_calling_code": "+32",
+                        "age_of_majority": "18",
+                        "population": "11584008",
+                        "flag": "flag_europe.png"
+                    },
+                    "french": {
+                        "ISO_3_code": "BEL",
+                        "country_calling_code": "+32",
+                        "license_plate_code": "B",
+                        "age_of_majority": "18",
+                        "ISO_2_code": "BE",
+                        "population": "11584008",
+                        "human_development_index": "0.937",
+                        "flag": "flag_europe.png",
+                        "area": "30688 km\u00b2",
+                        "nominal_GDP": "599880000000 US-$",
+                        "capital": "Ville de Bruxelles",
+                        "official_language": "allemand, fran\u00e7ais, n\u00e9erlandais",
+                        "head_of_state": "Philippe Ier de Belgique",
+                        "anthem": "La Braban\u00e7onne",
+                        "head_of_government": "Alexander De Croo",
+                        "top_level_internet_domain": ".be",
+                        "currency": "euro",
+                        "driving_side": "droite",
+                        "motto": "L'union fait la force"
+                    }
                 }
             }
         },
@@ -128,5 +186,6 @@
                 }
             }
         }
-    }
+    },
+    "has_seen_tutorial": true
 }
