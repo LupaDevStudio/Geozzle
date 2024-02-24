@@ -55,7 +55,7 @@ Warning: https://github.com/kivy/kivy-ios/issues/513
 
 Warning after the install of firebase using `pod install`, the following command should be used.
 
-`open geozzle-ios/geozzle/xcworkspace`
+`open geozzle-ios/Geozzle.xcworkspace`
 
 ### Add a library to Xcode
 
