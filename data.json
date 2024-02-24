@@ -1,62 +1,25 @@
 {
     "language": "english",
+    "has_seen_tutorial": false,
     "continents": {
         "Europe": {
-            "highscore": 844.9074074074074,
-            "percentage": 10,
-            "countries_unlocked": [
-                "Q224",
-                "Q233",
-                "Q43",
-                "Q229",
-                "Q39"
-            ],
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q228",
+                "country": "",
                 "number_lives_used_game": 0,
                 "list_current_hints": [],
                 "dict_clues": {
                     "french": {},
-                    "english": {
-                        "country_calling_code": "\u2013 Country calling code : +376",
-                        "license_plate_code": "\u2013 License plate code : AND",
-                        "nominal_GDP": "\u2013 Nominal GDP : 33,520,327,37 ,US-,$, ,332,514,540,7 U,S-$ M$",
-                        "capital": "\u2013 Capital : Andorra la Vella",
-                        "human_development_index": "\u2013 Human Development Index : 0.858",
-                        "top_level_internet_domain": "\u2013 Internet domain : .ad",
-                        "driving_side": "\u2013 Driving side : Right",
-                        "currency": "\u2013 Currency : Euro",
-                        "population": "\u2013 Population : 81,588 inhabitants",
-                        "area": "\u2013 Area : 4,68 ,km\u00b2 km\u00b2",
-                        "ISO_3_code": "AND",
-                        "head_of_state": "\u2013 Head of state : Emmanuel Macron, Joan Enric Vives Sic\u00edlia",
-                        "official_language": "\u2013 Official language : Catalan",
-                        "head_of_government": "\u2013 Head of government : Xavier Espot Zamora",
-                        "anthem": "\u2013 Anthem : El gran Carlemany"
-                    }
+                    "english": {}
                 },
                 "dict_all_clues": {
-                    "english": {
-                        "official_language": "Catalan",
-                        "capital": "Andorra la Vella",
-                        "head_of_government": "Xavier Espot Zamora",
-                        "anthem": "El gran Carlemany",
-                        "head_of_state": "Emmanuel Macron, Joan Enric Vives Sic\u00edlia",
-                        "driving_side": "right",
-                        "currency": "euro",
-                        "top_level_internet_domain": ".ad",
-                        "license_plate_code": "AND",
-                        "human_development_index": "0.858",
-                        "ISO_2_code": "AD",
-                        "population": "81588",
-                        "country_calling_code": "+376",
-                        "ISO_3_code": "AND",
-                        "nominal_GDP": "3352032737 US-$, 3325145407 US-$",
-                        "area": "468 km\u00b2"
-                    }
+                    "french": {},
+                    "english": {}
                 }
             }
         },
@@ -165,6 +128,5 @@
                 }
             }
         }
-    },
-    "has_seen_tutorial": true
+    }
 }

@@ -224,21 +224,7 @@ WITH {
         BIND(wd:$Q_country AS ?country).  # bind `?country` for readability
         BIND(rdfs:label AS ?label_property).  # bind `rdfs:label` for query compression when sending the GET request
 
-        {  # median income
-              BIND("median_income" AS ?hint_).
-              BIND(?income AS ?value_).
-
-              ?country wdt:P3529 ?income.  # force statement to be the preferred statement
-              ?country p:P3529 ?statement.  # median income in the country
-
-              ?statement psv:P3529 ?value_node.  # get the value node
-              ?value_node wikibase:quantityAmount ?income.  # get the income value
-              ?value_node wikibase:quantityUnit ?unit_.  # get the income unit
-
-              ?unit_ ?label_property ?unit_label.  # do not factor this otherwise the optimizer messes up
-        }
-
-        UNION {  # area in km^2
+        {  # area in km^2
             BIND("area" AS ?hint_).
             BIND(?area AS ?value_).
             BIND(wd:Q712226 AS ?unit_).  # output in km^2
@@ -432,7 +418,6 @@ def download_png_from_svg_url(svg_url: str, code_continent: str):
 
         png_url = png_url.replace("https://upload.wikimedia.org/wikipedia/commons/",
                                   "https://upload.wikimedia.org/wikipedia/commons/thumb/")
-
         url = png_url
 
         headers = {
@@ -499,7 +484,7 @@ def post_treat_request(data, code_continent: str):
         if type_hint != "flag":
             dict_all_clues[type_hint] = format_list_string(list_data=dict_all_clues[type_hint])
         else:
-            has_success = post_treat_flag(dict_all_clues[type_hint][0], code_continent)
+            has_success = post_treat_flag(dict_all_clues[type_hint][0][0], code_continent)
             if not has_success:
                 hints_to_delete.append(type_hint)
             else:
