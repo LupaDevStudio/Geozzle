@@ -164,6 +164,15 @@ During gameplay, a country is randomly chosen from the continent the player is c
 | - Area | - Driving side | - Currency |
 
 
+TODO : sinon, il y a quelques trucs dans la query pour rendre les résultats plus pertinents :
+- enlever les langues des signes des langues officielles car les noms sont pas intéressants, genre South African Sign Language
+- enlever les groupes de langues régionnaux et ses sous-classes des langues officielles car en les noms sont pas intéressants, genre languages of China
+- enlever les capitales "de facto"
+- conversion des aires en km^2
+- renommage pour les unités courantes
+- enlever des résultats avec un "end-time" car ils ne sont plus d'actualité
+- filtres quand il y a pas de valeurs ou de labels pour pas avoir l'URI ou l'indentifier qui ressort
+
 ### Clues post-processing 
 
 #### Removing empty fields
@@ -185,7 +194,7 @@ Displaying flags poses a specific challenge because the request provides a URL t
 
 With the ISO 3 code obtained from the request, we created a python file that convert this geojson file to a PNG file in `extras/convert_geojson_to_png.py`. 
 
-TODO : 1 ou 2 phrases pour dire comment la conversion est faite
+The function scans the geojson file containing the geographical coordinates of each country's territory blocks. For each country, it creates a white image on which the aforementioned blocks are traced using pillow's polygon tracing function. The result is then stored in a folder as a png.
 
 The output PNG file contains country shapes that are white with no backgrounds. This format is necessary for displaying the map in our graphical interface, kivy, which can only draw on white spaces. Therefore, having the country shapes in white ensures compatibility with kivy.
 
@@ -197,7 +206,7 @@ The `format_clue`and `request_all_clues` functions are called in the `Game` clas
 
 ## Graphical interface
 
-TODO : Kivy : fonctionnement kv/python, fonctionnement en écrans managés par un screen manager, fonctionnement avec custom widget, fonctionneent en classes
+TODO : Kivy : fonctionnement kv/python, fonctionnement en écrans managés par un screen manager, fonctionnement avec custom widget, fonctionnement en classes.
 
 <table align="center">
     <tr>
@@ -213,10 +222,10 @@ TODO : Kivy : fonctionnement kv/python, fonctionnement en écrans managés par u
         <td align="center">game_over.kv and game_over.py</td>
     </tr>
     <tr>
-        <td align="center"><img src="resources/images/tuto/home_screen_en.png?raw=true" alt="some text" width=500></td>
-        <td align="center"><img src="resources/images/tuto/game_question_en.png?raw=true" alt="some text" width=500></td>
-        <td align="center"><img src="resources/images/tuto/game_summary_en.png?raw=true" alt="some text" width=500></td>
-        <td align="center"><img src="resources/images/tuto/game_over_en.png?raw=true" alt="some text" width=500></td>
+        <td align="center"><img src="resources/images/tuto/home_screen_en.png?raw=true" alt="some text" width=200></td>
+        <td align="center"><img src="resources/images/tuto/game_question_en.png?raw=true" alt="some text" width=200></td>
+        <td align="center"><img src="resources/images/tuto/game_summary_en.png?raw=true" alt="some text" width=200></td>
+        <td align="center"><img src="resources/images/tuto/game_over_en.png?raw=true" alt="some text" width=200></td>
     </tr>
 
 </table>
