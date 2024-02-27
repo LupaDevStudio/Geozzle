@@ -1,7 +1,10 @@
 # Geozzle
 
-*Geozzle* is a geography quizz with requests to WikiData in order to get the questions.
-ETOFFER UN PEU ICI
+*Geozzle* is a geography quizz using requests to WikiData to gather all available clues for different countries. Players can choose the continent they want to play and attempt to guess all countries within it using as few clues as possible. The objective of the game is simple: collect all countries of each continent.
+
+
+This game was developped as a school project for the *Connaissances et Raisonnement* class at CentraleSupélec.
+
 
 - [Geozzle](#geozzle)
   - [Installation](#installation)
@@ -9,9 +12,11 @@ ETOFFER UN PEU ICI
     - [Creation of a virtual environment](#creation-of-a-virtual-environment)
     - [Installation of the necessary librairies](#installation-of-the-necessary-librairies)
     - [Launch the code](#launch-the-code)
-  - [Utilisation](#utilisation)
+  - [Utilization](#utilization)
   - [Architecture of the project](#architecture-of-the-project)
   - [Requests to *Wikidata*](#requests-to-wikidata)
+    - [Request to get all countries of each continent](#request-to-get-all-countries-of-each-continent)
+    - [Request to get all available clues of a country](#request-to-get-all-available-clues-of-a-country)
   - [Contributors](#contributors)
   - [License](#license)
 
@@ -61,7 +66,7 @@ The main code can be launched by running the following command:
 python main.py
 ```
 
-## Utilisation
+## Utilization
 
 <table align="center">
     <tr>
@@ -107,8 +112,32 @@ It also contains the following files:
 
 ## Requests to *Wikidata*
 
-TU POURRAS REDIRE OU SE TROUVENT LES REQUETES (résultats des requêtes dans queries de resources, et l'implémentation en Python quand sparql.py de tools) Je l'ai dit dans la partie d'avant mais il y a beaucoup de trucs ^^'
-EXPLIQUER ICI LES CHOIX QU'ON A FAITS
+All our requests are implemented in python in the `tools/sparql.py` file. Their results are stored in `resources/queries`. We used to main request on Wikidata for this game :
+
+- a request to get all countries of each continent
+- a request to get all available clues of a country
+
+### Request to get all countries of each continent 
+
+This request is implemented in the `request_countries_continent` function. The results are store in `resources/queries/continents` in the form of JSON files. We created two files for each continent : one for French and one for English. Each file is a dictionary containing the Wikidata code and name of each country.
+
+This request is created as follow : for a continent, we gather every countries and states, then remove any instance of 'fictional country', 'fictional state', 'historical country', 'disputed country', or any of their subclasses. This allowed us to have the the cleanest list of countries with minimal post-processing required.
+
+For our post-processing, we created the `resources/queries/continents/exceptions.json` file. It contains two dictionaries: one for countries to remove (to_remove), which includes the codes of countries to be excluded for each continent, and another for countries to add (to_add), which lists additional codes and country names to include in our JSON files. 
+
+For example, China and Taiwan were excluded in our initial request as they are both disputed countries. We manually added them during the post-processing.
+
+This `exceptions.json`in used in the `request_countries_continent` function to adjust the lists of countries accordingly.
+
+These JSON files are generated ahead of gaming. You can recreated them by running the sparql.py file, specifying the language argument as either French ('fr') or English ('en').
+
+### Request to get all available clues of a country
+
+This request is employed during gameplay, leading to a short loading time when switching countries. However, it ensures that the clues offered are current and accurate, which was the primary motivation behind its creation.
+
+
+TODO
+
 
 ## Contributors
 
