@@ -216,6 +216,8 @@ WITH {
 
             ?country wdt:P395 ?code.  # license plate code of the country
         }
+
+        FILTER(?hint_ = "flag" || !isIRI(?value_))
     }
 } AS %dimensionless_valued_hints
 
@@ -316,6 +318,7 @@ COMPRESSED_HINTS_QUERY = (
     .replace("?value_", "?y")
     .replace("?label_property", "?x")
     .replace("?unit_", "?w")
+    .replace("?country", "?v")
     .replace("%entity_valued_hints", "%z")
     .replace("%dimensionless_valued_hints", "%y")
     .replace("%dimension_valued_hints", "%x")

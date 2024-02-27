@@ -176,6 +176,8 @@ WITH {
 
             ?country wdt:P395 ?code.  # license plate code of the country
         }
+
+        FILTER(?hint_ = "flag" || !isIRI(?value_))
     }
 } AS %dimensionless_valued_hints
 
