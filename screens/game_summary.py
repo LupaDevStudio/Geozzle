@@ -127,10 +127,6 @@ class GameSummaryScreen(ImprovedScreenWithAds):
         self.get_new_hint = TEXT.game_summary["new_hint"]
         self.title_label = TEXT.game_summary["title"]
 
-    def reset_screen(self):
-        self.ids.scrollview_layout.reset_screen()
-        self.dict_scrollview_widgets = {}
-
     def update_images(self):
         # Update the flag image
         if "flag" in game.dict_clues[TEXT.language]:
