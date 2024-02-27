@@ -177,7 +177,7 @@ WITH {
             ?country wdt:P395 ?code.  # license plate code of the country
         }
 
-        FILTER(?hint_ = "flag" || !isIRI(?value_))
+        FILTER(?hint_ = "flag" || !isIRI(?value_)).  # except for the flag, verify that the value is not an IRI (mostly the case for "unknown value")
     }
 } AS %dimensionless_valued_hints
 
@@ -221,7 +221,10 @@ WITH {
             ?unit_ ?label_property ?unit_label.  # do not factor this otherwise this optimizer messes up
         }
 
+        FILTER(!isIRI(?value_)).  # verify that the value is not an IRI (mostly the case for "unknown value")
+
         FILTER(LANG(?unit_label) = "$output_language").  # filter the language of the labels
+        FILTER(!REGEX(?unit_label, "^Q[1-9][0-9]*$")).  # do not take the label if it is the identifier of the unit
 
         BIND (  # custom abbreviations for most common units
             COALESCE(
