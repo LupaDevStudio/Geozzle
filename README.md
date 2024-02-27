@@ -5,6 +5,11 @@
 
 This game was developped as a school project for the *Connaissances et Raisonnement* class at CentraleSupélec.
 
+The game is available for download on both the PlayStore and the AppStore :
+
+- [Geozzle on the PlayStore](https://play.google.com/store/apps/details?id=lupadevstudio.com.geozzle)
+- [Geozzle on the AppStore](https://apps.apple.com/us/app/geozzle/id6478439292)
+
 
 - [Geozzle](#geozzle)
   - [Installation](#installation)
@@ -13,10 +18,12 @@ This game was developped as a school project for the *Connaissances et Raisonnem
     - [Installation of the necessary librairies](#installation-of-the-necessary-librairies)
     - [Launch the code](#launch-the-code)
   - [Utilization](#utilization)
-  - [Architecture of the project](#architecture-of-the-project)
+  - [Project organization](#project-organization)
+  - [Project architecture](#project-architecture)
   - [Requests to *Wikidata*](#requests-to-wikidata)
     - [Request to get all countries of each continent](#request-to-get-all-countries-of-each-continent)
     - [Request to get all available clues of a country](#request-to-get-all-available-clues-of-a-country)
+    - [Clues post-processing](#clues-post-processing)
   - [Graphical interface](#graphical-interface)
   - [Contributors](#contributors)
   - [License](#license)
@@ -78,7 +85,16 @@ python main.py
 
 </table>
 
-## Architecture of the project
+## Project organization
+
+When we began working on this project, we initially conceptualized its concept : collecting clues to guess all the countries of a given continent. We then decided on its design and started work on the graphical interface accordingly. 
+
+We conceived the idea of incorporating several picture of famous places for each continent. We used [Stable Diffusion](https://huggingface.co/spaces/prodia/sdxl-stable-diffusion-xl) to generate all of the game images with textual prompts such as "beautiful lavender field, higly render, 4k". All of our generated images are store in the `resources/images` folder.
+
+Additionally, we decided to offer the game in two languages: French and English. Consequently, we created two JSON files (english.json and french.json) in resources/languages. These files contain dictionaries of dictionaries for all continents, pop-ups, tutorials, and clue names. This structure allows us to easily manage language switching within the game.
+
+
+## Project architecture
 
 The project is divided into several folders:
 
@@ -136,7 +152,7 @@ These JSON files are generated ahead of gaming. You can recreated them by runnin
 
 This request is employed during gameplay, leading to a short loading time when switching countries. However, it ensures that the clues offered are current and accurate, which was the primary motivation behind its creation.
 
-During gameplay, a country is randomly chosen from the continent the player is currently playing. Then, our second request, written in `HINTS_QUERY` (compressed in `COMPRESSED_HINTS_QUERY`) and implemented in the `request_all_clues`function is used to gather all availables clues for that country. 
+During gameplay, a country is randomly chosen from the continent the player is currently playing. Then, our second request, written in `HINTS_QUERY` (compressed in `COMPRESSED_HINTS_QUERY`) and implemented in the `request_all_clues` function is used to gather all availables clues for that country. 
 
 | List of all clues |  |  | 
 | --- | --- | --- |
@@ -147,16 +163,41 @@ During gameplay, a country is randomly chosen from the continent the player is c
 | - Capital | - Nominal GPD | -  Internet domain |
 | - Area | - Driving side | - Currency |
 
+
+### Clues post-processing 
+
+#### Removing empty fields
+
 In the post-processing phase of this request, all empty fields are removed, eliminating clues for which there is no value in Wikidata.The `request_all_clues` function returns a dictionary containing all available clues for the selected country.
 
+(A COMPLETER, parler de la dernière update de la requête?)
+
+#### Formatting 
 Futher formatting is then realized in the `format_clue` function in `tools/geozzle.py`, for instance the formatting of numbers and the units.
 
-This function and the request are called in the `Game` class defined in `tools/geozzle.py`. The clues are subsequently stored in the `data.json` file along with all other player data including the number of lives, information of the current country (country code, list of current hints), list of already guessed countries, their highscore and more. 
+(A COMPLETER, parler de la dernière update de la requête?)
+
+#### The flag image
+
+Displaying flags poses a specific challenge because the request provides a URL to an SVG file. Since SVG files cannot be directly shown using the `kivy` library, we created another request to obtain the corresponding PNG image from the SVG URL. This functionality is implemented in the `download_png_from_svg_url` function within `tools/sparql.py`.
+
+#### Country shape (ISO 3 code)
+
+With the ISO 3 code obtained from the request, we created a python file that convert this geojson file to a PNG file in `extras/convert_geojson_to_png.py`. 
+
+TODO : 1 ou 2 phrases pour dire comment la conversion est faite
+
+The output PNG file contains country shapes that are white with no backgrounds. This format is necessary for displaying the map in our graphical interface, kivy, which can only draw on white spaces. Therefore, having the country shapes in white ensures compatibility with kivy.
+
+
+
+
+The `format_clue`and `request_all_clues` functions are called in the `Game` class defined in `tools/geozzle.py`. The clues are subsequently stored in the `data.json` file along with all other player data including the number of lives, information of the current country (country code, list of current hints), list of already guessed countries, their highscore and more. 
 
 
 ## Graphical interface
 
-TODO
+TODO : Kivy : fonctionnement kv/python, fonctionnement en écrans managés par un screen manager, fonctionnement avec custom widget, fonctionneent en classes
 
 <table align="center">
     <tr>
