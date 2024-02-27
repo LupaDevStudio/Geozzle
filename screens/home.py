@@ -288,7 +288,7 @@ class HomeScreen(ImprovedScreenWithAds):
             # Reset the screen of game_summary
             has_success = game.create_new_game(self.code_continent)
             if has_success:
-                self.manager.get_screen("game_summary").reset_screen()
+                self.manager.get_screen("game_summary").reset_scroll_view()
                 self.manager.get_screen(
                     "game_question").code_continent = self.code_continent
                 self.manager.get_screen(
