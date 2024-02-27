@@ -17,6 +17,7 @@ This game was developped as a school project for the *Connaissances et Raisonnem
   - [Requests to *Wikidata*](#requests-to-wikidata)
     - [Request to get all countries of each continent](#request-to-get-all-countries-of-each-continent)
     - [Request to get all available clues of a country](#request-to-get-all-available-clues-of-a-country)
+  - [Graphical interface](#graphical-interface)
   - [Contributors](#contributors)
   - [License](#license)
 
@@ -70,7 +71,7 @@ python main.py
 
 <table align="center">
     <tr>
-        <td align="justify">A tutorial has been written inside the game and when the user launches the game for the first time, the tutorial is displayed. The user can also see it again by clicking on the information button on the bottom-left hand corner of the home screen. 
+        <td align="justify">A tutorial has been written inside the game; when the user launches the game for the first time, the tutorial is displayed. The user can also see it again by clicking on the information button on the bottom-left hand corner of the home screen. 
         The default language is English, but if the player prefers to play in French, they can switch the game language by clicking on the flag button in the top-right corner of the home screen.</td>
         <td align="center"><img src="resources/images/tuto/home_screen_en.png?raw=true" alt="some text" width=800></td>
     </tr>
@@ -112,22 +113,22 @@ It also contains the following files:
 
 ## Requests to *Wikidata*
 
-All our requests are implemented in python in the `tools/sparql.py` file. Their results are stored in `resources/queries`. We used to main request on Wikidata for this game :
+All our requests are implemented in Python in the `tools/sparql.py` file. We used two main requests on Wikidata for this game:
 
 - a request to get all countries of each continent
 - a request to get all available clues of a country
 
 ### Request to get all countries of each continent 
 
-This request is implemented in the `request_countries_continent` function. The results are store in `resources/queries/continents` in the form of JSON files. We created two files for each continent : one for French and one for English. Each file is a dictionary containing the Wikidata code and name of each country.
+This request is implemented in the `request_countries_continent` function. The results are stored in `resources/queries/continents` in the form of JSON files. We created two files for each continent: one for French and one for English. Each file is a dictionary containing the Wikidata code and name of each country.
 
-This request is created as follow : for a continent, we gather every countries and states, then remove any instance of 'fictional country', 'fictional state', 'historical country', 'disputed country', or any of their subclasses. This allowed us to have the the cleanest list of countries with minimal post-processing required.
+This request is created as follow : for a continent, we gather every countries and states, then remove any instance of 'fictional country', 'fictional state', 'historical country', 'disputed country', or any of their subclasses. This allowed us to have the cleanest list of countries with minimal post-processing required.
 
 For our post-processing, we created the `resources/queries/continents/exceptions.json` file. It contains two dictionaries: one for countries to remove (to_remove), which includes the codes of countries to be excluded for each continent, and another for countries to add (to_add), which lists additional codes and country names to include in our JSON files. 
 
 For example, China and Taiwan were excluded in our initial request as they are both disputed countries. We manually added them during the post-processing.
 
-This `exceptions.json`in used in the `request_countries_continent` function to adjust the lists of countries accordingly.
+This `exceptions.json` is used in the `request_countries_continent` function (in `sparql.py`) to adjust the lists of countries accordingly.
 
 These JSON files are generated ahead of gaming. You can recreated them by running the sparql.py file, specifying the language argument as either French ('fr') or English ('en').
 
@@ -139,21 +140,21 @@ During gameplay, a country is randomly chosen from the continent the player is c
 
 | List of all clues |  |  | 
 | --- | --- | --- |
-| - Official Langage  | - Age of majority | - ISO 3 code |
+| - Official Langage  | - Age of majority | - ISO 3 code (for the country shape) |
 | - Anthem  | - Population | - Human development index  |
 | - Motto | - Country calling code | -  License plate code|
 | - Flag | - Head of state | - Head of government |
 | - Capital | - Nominal GPD | -  Internet domain |
 | - Area | - Driving side | - Currency |
 
-In the post-processing phase of this request, all empty fields are removed, eliminating clues for which there is no value in Wikidata.The request_all_clues function returns a dictionary containing all available clues for the selected country.
+In the post-processing phase of this request, all empty fields are removed, eliminating clues for which there is no value in Wikidata.The `request_all_clues` function returns a dictionary containing all available clues for the selected country.
 
-Futher formatting in then realized in the `format_clue` function in `tools/geozzle.py`.
+Futher formatting is then realized in the `format_clue` function in `tools/geozzle.py`, for instance the formatting of numbers and the units.
 
-This function and the request are called in the Game class defined in `tools/geozzle.py`. The clues are subsequently stored in the `data.json` file along with all other player data including the number of lives, information of the curren country (country code, list of current hints), list of already guessed countries, their highscore and more. 
+This function and the request are called in the `Game` class defined in `tools/geozzle.py`. The clues are subsequently stored in the `data.json` file along with all other player data including the number of lives, information of the current country (country code, list of current hints), list of already guessed countries, their highscore and more. 
 
 
-## Kivy part (à renommer)
+## Graphical interface
 
 TODO
 
