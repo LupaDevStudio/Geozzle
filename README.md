@@ -135,8 +135,49 @@ These JSON files are generated ahead of gaming. You can recreated them by runnin
 
 This request is employed during gameplay, leading to a short loading time when switching countries. However, it ensures that the clues offered are current and accurate, which was the primary motivation behind its creation.
 
+During gameplay, a country is randomly chosen from the continent the player is currently playing. Then, our second request, written in `HINTS_QUERY` (compressed in `COMPRESSED_HINTS_QUERY`) and implemented in the `request_all_clues`function is used to gather all availables clues for that country. 
+
+| List of all clues |  |  | 
+| --- | --- | --- |
+| - Official Langage  | - Age of majority | - ISO 3 code |
+| - Anthem  | - Population | - Human development index  |
+| - Motto | - Country calling code | -  License plate code|
+| - Flag | - Head of state | - Head of government |
+| - Capital | - Nominal GPD | -  Internet domain |
+| - Area | - Driving side | - Currency |
+
+In the post-processing phase of this request, all empty fields are removed, eliminating clues for which there is no value in Wikidata.The request_all_clues function returns a dictionary containing all available clues for the selected country.
+
+Futher formatting in then realized in the `format_clue` function in `tools/geozzle.py`.
+
+This function and the request are called in the Game class defined in `tools/geozzle.py`. The clues are subsequently stored in the `data.json` file along with all other player data including the number of lives, information of the curren country (country code, list of current hints), list of already guessed countries, their highscore and more. 
+
+
+## Kivy part (à renommer)
 
 TODO
+
+<table align="center">
+    <tr>
+        <td align="center">Home Screen</td>
+        <td align="center">Game Question Screen</td>
+        <td align="center">Game Summary Screen</td>
+        <td align="center">Game Over Screen</td>
+    </tr>
+    <tr>
+        <td align="center">home.kv and home.py </td>
+        <td align="center">game_question.kv and game_question.py</td>
+        <td align="center">game_summary.kv and game_summary.py</td>
+        <td align="center">game_over.kv and game_over.py</td>
+    </tr>
+    <tr>
+        <td align="center"><img src="resources/images/tuto/home_screen_en.png?raw=true" alt="some text" width=500></td>
+        <td align="center"><img src="resources/images/tuto/game_question_en.png?raw=true" alt="some text" width=500></td>
+        <td align="center"><img src="resources/images/tuto/game_summary_en.png?raw=true" alt="some text" width=500></td>
+        <td align="center"><img src="resources/images/tuto/game_over_en.png?raw=true" alt="some text" width=500></td>
+    </tr>
+
+</table>
 
 
 ## Contributors
