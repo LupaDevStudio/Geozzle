@@ -1,5 +1,5 @@
 {
-    "language": "french",
+    "language": "english",
     "continents": {
         "Europe": {
             "highscore": 0,
@@ -11,13 +11,34 @@
             "current_country": {
                 "country": "Q219",
                 "number_lives_used_game": 0,
-                "list_current_hints": [],
+                "list_current_hints": [
+                    "population",
+                    "head_of_state",
+                    "currency"
+                ],
                 "dict_clues": {
                     "french": {
                         "ISO_3_code": "BGR",
-                        "age_of_majority": "\u2013 Age de la majorit\u00e9 : 18 ans"
+                        "age_of_majority": "\u2013 Age de la majorit\u00e9 : 18 ans",
+                        "country_calling_code": "\u2013 Code t\u00e9l\u00e9phonique : +359",
+                        "license_plate_code": "\u2013 Code de plaque d'immatriculation : BG",
+                        "human_development_index": "\u2013 Index de D\u00e9veloppement Humain : 0.795",
+                        "area": "\u2013 Superficie : 110 993 km\u00b2",
+                        "motto": "\u2013 Devise : L'union fait la force",
+                        "driving_side": "\u2013 Sens de conduite : Droite",
+                        "nominal_GDP": "\u2013 PIB moyen : 86 Mrd $"
                     },
-                    "english": {}
+                    "english": {
+                        "ISO_3_code": "BGR",
+                        "age_of_majority": "\u2013 Age of majority : 18 years",
+                        "country_calling_code": "\u2013 Country calling code : +359",
+                        "license_plate_code": "\u2013 License plate code : BG",
+                        "human_development_index": "\u2013 Human Development Index : 0.795",
+                        "area": "\u2013 Area : 110,993 km\u00b2",
+                        "motto": "\u2013 Motto : Unity makes strength",
+                        "driving_side": "\u2013 Driving side : Right",
+                        "nominal_GDP": "\u2013 Nominal GDP : 86 b$"
+                    }
                 },
                 "dict_all_clues": {
                     "french": {
@@ -40,6 +61,27 @@
                         "anthem": "Mila Rodino",
                         "driving_side": "droite",
                         "motto": "L'union fait la force"
+                    },
+                    "english": {
+                        "area": "110993.6 km\u00b2",
+                        "nominal_GDP": "89040398406 US-$, 84061395658 US-$",
+                        "capital": "Sofia",
+                        "official_language": "Bulgarian",
+                        "anthem": "Mila Rodino",
+                        "currency": "Bulgarian lev",
+                        "driving_side": "right",
+                        "head_of_state": "Rumen Radev",
+                        "head_of_government": "Nikolay Denkov",
+                        "top_level_internet_domain": ".bg, .\u0431\u0433",
+                        "motto": "Unity makes strength",
+                        "license_plate_code": "BG",
+                        "ISO_3_code": "BGR",
+                        "ISO_2_code": "BG",
+                        "country_calling_code": "+359",
+                        "population": "7000039",
+                        "flag": "flag_europe.png",
+                        "human_development_index": "0.795",
+                        "age_of_majority": "18"
                     }
                 }
             }
