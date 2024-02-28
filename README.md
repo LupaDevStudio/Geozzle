@@ -217,27 +217,7 @@ Hence, each one of our screens is defined in a kv and in a python file (as shown
 *Kivy* works by utilizing widgets, which are a fundamental *Kivy* building block for extending and customizing the framework's functionality to meet our application needs. Custom widgets are created to have reusable components with custom appearance, behavior, and interactivity. In Geozzle, we developed many custom widgets, wich can be accessed in the `screens/custom_widgets` folder.
 
 
-<table align="center">
-    <tr>
-        <td align="center">Home Screen</td>
-        <td align="center">Game Question Screen</td>
-        <td align="center">Game Summary Screen</td>
-        <td align="center">Game Over Screen</td>
-    </tr>
-    <tr>
-        <td align="center">home.kv and home.py </td>
-        <td align="center">game_question.kv and game_question.py</td>
-        <td align="center">game_summary.kv and game_summary.py</td>
-        <td align="center">game_over.kv and game_over.py</td>
-    </tr>
-    <tr>
-        <td align="center"><img src="resources/images/tuto/home_screen_en.png?raw=true" alt="some text" width=200></td>
-        <td align="center"><img src="resources/images/tuto/game_question_en.png?raw=true" alt="some text" width=200></td>
-        <td align="center"><img src="resources/images/tuto/game_summary_en.png?raw=true" alt="some text" width=200></td>
-        <td align="center"><img src="resources/images/tuto/game_over_en.png?raw=true" alt="some text" width=200></td>
-    </tr>
-
-</table>
+![](resources/images/readme_screens_table.png)
 
 
 ## Contributors
