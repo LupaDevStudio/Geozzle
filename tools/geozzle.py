@@ -170,8 +170,6 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
                 value = list_separated[0]
                 unit = list_separated[1]
                 list_gdp[counter_gdp_unit] = value
-                if unit == "US-$":
-                    unit = "$"
 
             mean_gdp = 0
             for gdp in list_gdp:

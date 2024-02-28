@@ -176,7 +176,7 @@ In our request, we included some processing to improve the quality of our result
 - We removed the regional languages group and its subclasses from the list of official languages. For instance, "languages of China" was removed.
 - We excluded all de facto capitals from the list of capitals. De facto capitals are not officially designated as such by law, but they may host some or all of the governmental institutions and the majority of embassies.
 - We directly converted the area into square kilometers using the request.
-- We renamed common units; for instance, we changed "united states dollars" to "US-D" and "square kilometers" to "km²", while retaining the names of specific units.
+- We renamed common units; for instance, we changed "united states dollars" to "$" and "square kilometers" to "km²", while retaining the names of specific units.
 - We filtered out all results that had an "end-time," ensuring that our game always provides up-to-date clues.
 - The request is filtered to exclude empty values, ensuring that we do not receive *URI* or identifiers in our results.
 

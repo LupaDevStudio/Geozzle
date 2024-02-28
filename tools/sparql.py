@@ -269,7 +269,7 @@ WITH {
         BIND (  # custom abbreviations for most common units
             COALESCE(
                 IF(?unit_ = wd:Q712226, "km²", 1/0),
-                IF(?unit_ = wd:Q4917, "US-$", 1/0),
+                IF(?unit_ = wd:Q4917, "$", 1/0),
                 IF(?unit_ = wd:Q4916, "€", 1/0),
                 IF(?unit_ = wd:Q25224, "£", 1/0),
                 IF(?unit_ = wd:Q1104069, "CA-$", 1/0),
