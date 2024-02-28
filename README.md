@@ -140,13 +140,13 @@ This request is implemented in the `request_countries_continent` function. The r
 
 This request is created as follow : for a continent, we gather every countries and states, then remove any instance of 'fictional country', 'fictional state', 'historical country', 'disputed country', or any of their subclasses. This allowed us to have the cleanest list of countries with minimal post-processing required.
 
-For our post-processing, we created the `resources/queries/continents/exceptions.json` file. It contains two dictionaries: one for countries to remove (to_remove), which includes the codes of countries to be excluded for each continent, and another for countries to add (to_add), which lists additional codes and country names to include in our JSON files. 
+For our post-processing, we created the `resources/queries/continents/exceptions.json` file. It contains two dictionaries: one for countries to remove (to_remove), which includes the codes of countries to be excluded for each continent, and another for countries to add (to_add), which lists additional codes and country names to include in our *json* files. 
 
 For example, China and Taiwan were excluded in our initial request as they are both disputed countries. We manually added them during the post-processing.
 
 This `exceptions.json` is used in the `request_countries_continent` function (in `sparql.py`) to adjust the lists of countries accordingly.
 
-These JSON files are generated ahead of gaming. You can recreated them by running the sparql.py file, specifying the language argument as either French ('fr') or English ('en').
+These JSON files are generated ahead of gaming. You can recreated them by running the sparql.py file, specifying the language argument as either French ('fr') or English ('en') and setting the BOOL_CREATE_DICT_CONTINENTS constant as True (default value is False).
 
 ### Request to get all available clues of a country
 
@@ -167,7 +167,7 @@ During gameplay, a country is randomly chosen from the continent the player is c
 TODO : sinon, il y a quelques trucs dans la query pour rendre les résultats plus pertinents :
 - enlever les langues des signes des langues officielles car les noms sont pas intéressants, genre South African Sign Language
 - enlever les groupes de langues régionnaux et ses sous-classes des langues officielles car en les noms sont pas intéressants, genre languages of China
-- enlever les capitales "de facto"
+- enlever les capitales "de facto" (La capitale de fait n'est pas désignée comme telle dans la loi, mais regroupe tout ou partie des institutions et la majorité des ambassades)
 - conversion des aires en km^2
 - renommage pour les unités courantes
 - enlever des résultats avec un "end-time" car ils ne sont plus d'actualité
@@ -188,15 +188,15 @@ Futher formatting is then realized in the `format_clue` function in `tools/geozz
 
 #### The flag image
 
-Displaying flags poses a specific challenge because the request provides a URL to an SVG file. Since SVG files cannot be directly shown using the `kivy` library, we created another request to obtain the corresponding PNG image from the SVG URL. This functionality is implemented in the `download_png_from_svg_url` function within `tools/sparql.py`.
+Displaying flags poses a specific challenge because the request provides a *url* to an *svg* file. Since *svg* files cannot be directly shown using the *Kivy* library, we created another request to obtain the corresponding *png* image from the *svg url*. This functionality is implemented in the `download_png_from_svg_url` function within `tools/sparql.py`.
 
 #### Country shape (ISO 3 code)
 
-With the ISO 3 code obtained from the request, we created a python file that convert this geojson file to a PNG file in `extras/convert_geojson_to_png.py`. 
+With the ISO 3 code obtained from the request, we created a python file that convert this geojson file to a *png* file in `extras/convert_geojson_to_png.py`. 
 
-The function scans the geojson file containing the geographical coordinates of each country's territory blocks. For each country, it creates a white image on which the aforementioned blocks are traced using pillow's polygon tracing function. The result is then stored in a folder as a png.
+The function scans the *geojson* file containing the geographical coordinates of each country's territory blocks. For each country, it creates a white image on which the aforementioned blocks are traced using pillow's polygon tracing function. The result is then stored in a folder as a png.
 
-The output PNG file contains country shapes that are white with no backgrounds. This format is necessary for displaying the map in our graphical interface, kivy, which can only draw on white spaces. Therefore, having the country shapes in white ensures compatibility with kivy.
+The output *png* file contains country shapes that are white with no backgrounds. This format is necessary for displaying the map in our graphical interface, *Kivy*, which can only draw on white spaces. Therefore, having the country shapes in white ensures compatibility with *Kivy*.
 
 
 
