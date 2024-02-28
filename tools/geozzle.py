@@ -136,14 +136,6 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
 
     name_key = TEXT.clues[code_clue]
 
-    # Separate the unit from the value
-    if code_clue in ["nominal_GDP", "area"]:
-        list_separated = value_clue.split(" ")
-        value_clue = list_separated[0]
-        unit = list_separated[1]
-        if unit == "US-$":
-            unit = "$"
-
     # Delete odd characters
     try:
         value_clue = value_clue.replace("ʻ", "'")
@@ -161,10 +153,26 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
     if code_clue in ["driving_side", "currency", "official_language"]:
         value_clue = value_clue.capitalize()
 
+    # Separate the unit from the value
+    unit = ""
+    if code_clue == "area":
+        list_separated = value_clue.split(" ")
+        value_clue = list_separated[0]
+        unit = list_separated[1]
+
     # Take the mean of the GDP values
     try:
         if code_clue == "nominal_GDP":
             list_gdp = value_clue.split(", ")
+            
+            for counter_gdp_unit in range(len(list_gdp)):
+                list_separated = list_gdp[counter_gdp_unit].split(" ")
+                value = list_separated[0]
+                unit = list_separated[1]
+                list_gdp[counter_gdp_unit] = value
+                if unit == "US-$":
+                    unit = "$"
+
             mean_gdp = 0
             for gdp in list_gdp:
                 if not "." in gdp:
