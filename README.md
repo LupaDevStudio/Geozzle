@@ -11,7 +11,10 @@ The game is available for download on both the PlayStore and the AppStore :
 - [Geozzle on the AppStore](https://apps.apple.com/us/app/geozzle/id6478439292)
 
 
+## Table of contents
+
 - [Geozzle](#geozzle)
+  - [Table of contents](#table-of-contents)
   - [Installation](#installation)
     - [Cloning the repository](#cloning-the-repository)
     - [Creation of a virtual environment](#creation-of-a-virtual-environment)
@@ -24,6 +27,9 @@ The game is available for download on both the PlayStore and the AppStore :
     - [Request to get all countries of each continent](#request-to-get-all-countries-of-each-continent)
     - [Request to get all available clues of a country](#request-to-get-all-available-clues-of-a-country)
     - [Clues post-processing](#clues-post-processing)
+      - [Formatting](#formatting)
+      - [The flag image](#the-flag-image)
+      - [Country shape](#country-shape-iso-3-code)
   - [Graphical interface](#graphical-interface)
   - [Contributors](#contributors)
   - [License](#license)
@@ -164,27 +170,24 @@ During gameplay, a country is randomly chosen from the continent the player is c
 | - Area | - Driving side | - Currency |
 
 
-TODO : sinon, il y a quelques trucs dans la query pour rendre les résultats plus pertinents :
-- enlever les langues des signes des langues officielles car les noms sont pas intéressants, genre South African Sign Language
-- enlever les groupes de langues régionnaux et ses sous-classes des langues officielles car en les noms sont pas intéressants, genre languages of China
-- enlever les capitales "de facto" (La capitale de fait n'est pas désignée comme telle dans la loi, mais regroupe tout ou partie des institutions et la majorité des ambassades)
-- conversion des aires en km^2
-- renommage pour les unités courantes
-- enlever des résultats avec un "end-time" car ils ne sont plus d'actualité
-- filtres quand il y a pas de valeurs ou de labels pour pas avoir l'URI ou l'indentifier qui ressort
+In our request, we included some processing to improve the quality of our results:
+
+- We removed all sign languages from the list of official languages, as their names where not pertinent. For instance, "South African Sign Language" was excluded.
+- We removed the regional languages group and its subclasses from the list of official languages. For instance, "languages of China" was removed.
+- We excluded all de facto capitals from the list of capitals. De facto capitals are not officially designated as such by law, but they may host some or all of the governmental institutions and the majority of embassies.
+- We directly converted the area into square kilometers using the request.
+- We renamed common units; for instance, we changed "united states dollars" to "US-D" and "square kilometers" to "km²", while retaining the names of specific units.
+- We filtered out all results that had an "end-time," ensuring that our game always provides up-to-date clues.
+- The request is filtered to exclude empty values, ensuring that we do not receive *URI* or identifiers in our results.
+
+
+These steps enable the `request_all_clues` function to return a clean dictionary containing all available clues for the selected country.
 
 ### Clues post-processing 
 
-#### Removing empty fields
-
-In the post-processing phase of this request, all empty fields are removed, eliminating clues for which there is no value in Wikidata.The `request_all_clues` function returns a dictionary containing all available clues for the selected country.
-
-(A COMPLETER, parler de la dernière update de la requête?)
-
 #### Formatting 
-Futher formatting is then realized in the `format_clue` function in `tools/geozzle.py`, for instance the formatting of numbers and the units.
 
-(A COMPLETER, parler de la dernière update de la requête?)
+Futher formatting is then realized in the `format_clue` function in `tools/geozzle.py`; for instance the formatting of numbers, adding the units if needed, capitalizing some clues and deleting odd characters.
 
 #### The flag image
 
@@ -197,16 +200,22 @@ With the ISO 3 code obtained from the request, we created a python file that con
 The function scans the *geojson* file containing the geographical coordinates of each country's territory blocks. For each country, it creates a white image on which the aforementioned blocks are traced using pillow's polygon tracing function. The result is then stored in a folder as a png.
 
 The output *png* file contains country shapes that are white with no backgrounds. This format is necessary for displaying the map in our graphical interface, *Kivy*, which can only draw on white spaces. Therefore, having the country shapes in white ensures compatibility with *Kivy*.
-
-
-
+___
 
 The `format_clue`and `request_all_clues` functions are called in the `Game` class defined in `tools/geozzle.py`. The clues are subsequently stored in the `data.json` file along with all other player data including the number of lives, information of the current country (country code, list of current hints), list of already guessed countries, their highscore and more. 
 
 
 ## Graphical interface
 
-TODO : Kivy : fonctionnement kv/python, fonctionnement en écrans managés par un screen manager, fonctionnement avec custom widget, fonctionnement en classes.
+TODO : fonctionnement en classes.
+
+We used the *Kivy* library as can be compiled for both Android ans IOS systems.
+
+*Kivy* uses a combination of Kv language for user interface (UI) design and Python for application logic. Kv files describe the structure and appearance of the UI, while Python code defines the behavior and functionality of the application. 
+Hence, each one of our screens is defined in a kv and in a python file (as shown in the table bellow). The ScreenManager manages the visibility and transition between screens, allowing only one screen to be active and visible at a time. Python code interacts with the ScreenManager and individual screens to control their behavior and handle events.
+
+*Kivy* works by utilizing widgets, which are a fundamental *Kivy* building block for extending and customizing the framework's functionality to meet our application needs. Custom widgets are created to have reusable components with custom appearance, behavior, and interactivity. In Geozzle, we developed many custom widgets, wich can be accessed in the `screens/custom_widgets` folder.
+
 
 <table align="center">
     <tr>
