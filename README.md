@@ -11,6 +11,8 @@ The game is available for download on both the PlayStore and the AppStore :
 - [Geozzle on the AppStore](https://apps.apple.com/us/app/geozzle/id6478439292)
 
 
+Feel free to share it with your friends and family without any hesitation!
+
 ## Table of contents
 
 - [Geozzle](#geozzle)
@@ -140,6 +142,9 @@ All our requests are implemented in Python in the `tools/sparql.py` file. We use
 - a request to get all countries of each continent
 - a request to get all available clues of a country
 
+The `format_clue`and `request_all_clues` functions (described bellow) are called in the `Game` class defined in `tools/geozzle.py`. The clues are subsequently stored in the `data.json` file along with all other player data including the number of lives, information of the current country (country code, list of current hints), list of already guessed countries, their highscore and more. 
+
+
 ### Request to get all countries of each continent 
 
 This request is implemented in the `request_countries_continent` function. The results are stored in `resources/queries/continents` in the form of JSON files. We created two files for each continent: one for French and one for English. Each file is a dictionary containing the Wikidata code and name of each country.
@@ -203,9 +208,6 @@ With the ISO 3 code obtained from the request, we created a Python file which co
 The function scans the *geojson* file containing the geographical coordinates of each country's territory blocks. For each country, it creates a white image on which the aforementioned blocks are traced using *Pillow*'s polygon tracing function. The result is then stored in a folder as a *png*.
 
 The output *png* file contains country shapes that are white with no backgrounds. This format is necessary for displaying the map in our graphical interface, *Kivy*, which can only draw on white spaces. Therefore, having the country shapes in white ensures compatibility with *Kivy*.
-___
-
-The `format_clue`and `request_all_clues` functions are called in the `Game` class defined in `tools/geozzle.py`. The clues are subsequently stored in the `data.json` file along with all other player data including the number of lives, information of the current country (country code, list of current hints), list of already guessed countries, their highscore and more. 
 
 
 ## Graphical interface
