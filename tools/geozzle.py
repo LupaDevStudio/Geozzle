@@ -151,7 +151,14 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
 
     # Capitalize some clues
     if code_clue in ["driving_side", "currency", "official_language"]:
-        value_clue = value_clue.capitalize()
+        if ", " in value_clue:
+            list_clues = value_clue.split(", ")
+            value_clue = ""
+            for clue in list_clues:
+                value_clue += clue.capitalize() + ", "
+            value_clue = value_clue[:-2]
+        else:
+            value_clue = value_clue.capitalize()
 
     # Separate the unit from the value
     unit = ""
