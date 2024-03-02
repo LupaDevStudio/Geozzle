@@ -146,7 +146,15 @@ WITH {
         UNION {  # head of government
             BIND("head_of_government" AS ?hint_).
 
-            ?country wdt:P6 ?head_of_government.  # head of government of the country
+            ?country wdt:P6 ?head_of_government.  # force statement to be the preferred statement
+            ?country p:P6 ?statement.  # head of government statement of the country
+            ?statement ps:P6 ?head_of_government.
+
+            OPTIONAL {
+                 ?statement pq:P582 ?endtime.  # statement end-time
+            }
+
+            FILTER(!BOUND(?endtime)).
 
             ?head_of_government ?label_property ?value_.  # do not factor this otherwise the optimizer messes up
         }
@@ -172,7 +180,15 @@ WITH {
             BIND("age_of_majority" AS ?hint_).
             BIND(?age AS ?value_).
 
-            ?country wdt:P2997 ?age.  # age of majority of the country
+            ?country wdt:P2997 ?age.  # force statement to be the preferred statement
+            ?country p:P2997 ?statement.  # age of majority statement of the country
+            ?statement ps:P2997 ?age.
+
+            OPTIONAL {
+                 ?statement pq:P582 ?endtime.  # statement end-time
+            }
+
+            FILTER(!BOUND(?endtime)).
         }
 
         UNION {  # human development index
@@ -269,7 +285,7 @@ WITH {
         BIND (  # custom abbreviations for most common units
             COALESCE(
                 IF(?unit_ = wd:Q712226, "km²", 1/0),
-                IF(?unit_ = wd:Q4917, "$", 1/0),
+                IF(?unit_ = wd:Q4917, "US-$", 1/0),
                 IF(?unit_ = wd:Q4916, "€", 1/0),
                 IF(?unit_ = wd:Q25224, "£", 1/0),
                 IF(?unit_ = wd:Q1104069, "CA-$", 1/0),
