@@ -32,7 +32,7 @@ Feel free to share it with your friends and family without any hesitation!
       - [Formatting](#formatting)
       - [The flag image](#the-flag-image)
       - [Country shape (ISO 3 code)](#country-shape-iso-3-code)
-    - [The Game class](#the-game-class)
+  - [The Game class](#the-game-class)
   - [Graphical interface](#graphical-interface)
   - [Contributors](#contributors)
   - [License](#license)
