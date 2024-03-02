@@ -218,6 +218,8 @@ The Game class, defined in `tools/geozzle.py`, has many attributes and methods c
 
 ![](resources/images/uml_diagram.png)
 
+All the methods have their goals described in their respective docstrings.
+
 This class interacts with the data.json file where all the game data is stored and updated at each action of the player. It is a dictionary with 6 sub-dictionaries, one for each continent. These dictionaries contain:
 - Highscore based on the number of hints used and the number of lives lost.
 - Percentage of guessed countries based on the number of countries in the continent.json file created ahead of gaming with the request to get all countries of each continent
