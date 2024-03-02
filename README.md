@@ -157,10 +157,10 @@ For example, China and Taiwan were excluded in our initial request as they are b
 
 This `exceptions.json` is used in the `request_countries_continent` function (in `sparql.py`) to adjust the lists of countries accordingly.
 
-!!! note Results of this request
-    These JSON files are generated ahead of gaming.
+> 🖊️ **Results of this request**  
+> These JSON files are generated ahead of gaming.
     
-    You can recreate them by running the `sparql.py` file, specifying the language argument as either French ('fr') or English ('en') and setting the `BOOL_CREATE_DICT_CONTINENTS` constant as True (default value is False).
+You can recreate them by running the `sparql.py` file, specifying the language argument as either French ('fr') or English ('en') and setting the `BOOL_CREATE_DICT_CONTINENTS` constant as True (default value is False).
 
 ### Request to get all available clues of a country
 
