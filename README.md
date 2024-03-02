@@ -32,6 +32,7 @@ Feel free to share it with your friends and family without any hesitation!
       - [Formatting](#formatting)
       - [The flag image](#the-flag-image)
       - [Country shape (ISO 3 code)](#country-shape-iso-3-code)
+    - [The Game class](#the-game-class)
   - [Graphical interface](#graphical-interface)
   - [Contributors](#contributors)
   - [License](#license)
@@ -99,7 +100,7 @@ When we began working on this project, we initially conceptualized its concept: 
 
 We conceived the idea of incorporating several pictures of famous places for each continent as backgrounds. We used [Stable Diffusion](https://huggingface.co/spaces/prodia/sdxl-stable-diffusion-xl) to generate all of the game images with textual prompts such as "beautiful lavender field, highly detailed, render, 4k". All of our generated images are store in the `resources/images` folder.
 
-Additionally, we decided to offer the game in two languages: French and English. Consequently, we created two JSON files (`english.json` and `french.json`) in `resources/languages`. These files contain dictionaries of dictionaries for all continents, popups, tutorials, and clue names. This structure allows us to easily manage language switching within the game.
+Additionally, we decided to offer the game in two languages: French and English. Consequently, we created two *json* files (`english.json` and `french.json`) in `resources/languages`. These files contain dictionaries of dictionaries for all continents, popups, tutorials, and clue names. This structure allows us to easily manage language switching within the game.
 
 
 ## Project architecture
@@ -147,18 +148,18 @@ The `format_clue`and `request_all_clues` functions (described bellow) are called
 
 ### Request to get all countries of each continent 
 
-This request is implemented in the `request_countries_continent` function. The results are stored in `resources/queries/continents` in the form of JSON files. We created two files for each continent: one for French and one for English. Each file is a dictionary containing the Wikidata code and name of each country.
+This request is implemented in the `request_countries_continent` function. The results are stored in `resources/queries/continents` in the form of *json* files. We created two files for each continent: one for French and one for English. Each file is a dictionary containing the Wikidata code and name of each country.
 
 This request is created as follow: for a continent, we gather every countries and states, then remove any instance of 'fictional country', 'fictional state', 'historical country', 'disputed country', or any of their subclasses. This allowed us to have the cleanest list of countries with minimal post-processing required.
 
-For our post-processing, we created the `resources/queries/continents/exceptions.json` file. It contains two dictionaries: one for countries to remove (to_remove), which includes the codes of countries to be excluded for each continent, and another for countries to add (to_add), which lists additional codes and country names to include in our JSON files. 
+For our post-processing, we created the `resources/queries/continents/exceptions.json` file. It contains two dictionaries: one for countries to remove (to_remove), which includes the codes of countries to be excluded for each continent, and another for countries to add (to_add), which lists additional codes and country names to include in our *json* files. 
 
 For example, China and Taiwan were excluded in our initial request as they are both disputed countries. We manually added them during the post-processing.
 
 This `exceptions.json` is used in the `request_countries_continent` function (in `sparql.py`) to adjust the lists of countries accordingly.
 
 > 🖊️ **Results of this request**  
-> These JSON files are generated ahead of gaming.
+> These *json* files are generated ahead of gaming.
     
 You can recreate them by running the `sparql.py` file, specifying the language argument as either French ('fr') or English ('en') and setting the `BOOL_CREATE_DICT_CONTINENTS` constant as True (default value is False).
 
@@ -174,9 +175,11 @@ During gameplay, a country is randomly chosen from the continent the player is c
 | - Anthem  | - Population | - Human development index  |
 | - Motto | - Country calling code | -  License plate code|
 | - Flag | - Head of state | - Head of government |
-| - Capital | - Nominal GPD | -  Internet domain |
+| - Capital | - Nominal GPD <sup>1</sup>| -  Internet domain |
 | - Area | - Driving side | - Currency |
 
+
+Nominal GPD <sup>1</sup> : Nominal Gross Domestic Product
 
 In our request, we included some processing to improve the quality of our results:
 
@@ -209,13 +212,28 @@ The function scans the *geojson* file containing the geographical coordinates of
 
 The output *png* file contains country shapes that are white with no backgrounds. This format is necessary for displaying the map in our graphical interface, *Kivy*, which can only draw on white spaces. Therefore, having the country shapes in white ensures compatibility with *Kivy*.
 
+## The Game class
+
+The Game class, defined in `tools/geozzle.py`, has many attributes and methods created to define the game. They are illustrated in the following UML diagram :
+
+![](resources/images/uml_diagram.png)
+
+This class interacts with the data.json file where all the game data is stored and updated at each action of the player. It is a dictionary with 6 sub-dictionaries, one for each continent. These dictionaries contain:
+- Highscore based on the number of hints used and the number of lives lost.
+- Percentage of guessed countries based on the number of countries in the continent.json file created ahead of gaming with the request to get all countries of each continent
+- A list of unlocked countries
+- The number of lives
+- The number of lives used
+- Information on the current country.
+
+
 
 ## Graphical interface
 
-We used the *Kivy* library as it can be compiled for both Android ans IOS systems.
+We used the *Kivy* library as it can be compiled for both Android and IOS systems.
 
 *Kivy* uses a combination of kv language for user interface (UI) design and Python for application logic. Kv files describe the structure and appearance of the UI, while Python code defines the behavior and functionality of the application. 
-Hence, each one of our screens is defined in a kv and in a Python file (as shown in the table bellow). The `ScreenManager` class manages the transitions between screens also represented by classes, allowing only one screen to be active and visible at a time. Python code interacts with the `ScreenManager` and individual screens to control their behavior and handle events.
+Hence, each one of our screens is defined in a kv and in a Python file (as shown in the table bellow). The `ScreenManager` class, defined in `main.py`, manages the transitions between screens also represented by classes, allowing only one screen to be active and visible at a time. Python code interacts with the `ScreenManager` and individual screens to control their behavior and handle events.
 
 *Kivy* works by utilizing widgets, which are a fundamental *Kivy* building block for extending and customizing the framework's functionality to meet our application needs. Custom widgets are created to have reusable components with custom appearance, behavior, and interactivity. In Geozzle, we developed many custom widgets, which can be accessed in the `screens/custom_widgets` folder.
 
