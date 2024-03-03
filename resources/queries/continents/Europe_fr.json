@@ -8,7 +8,6 @@
     "Q225": "Bosnie-Herz\u00e9govine",
     "Q219": "Bulgarie",
     "Q229": "Chypre",
-    "Q237": "Cit\u00e9 du Vatican",
     "Q224": "Croatie",
     "Q35": "Danemark",
     "Q29": "Espagne",
@@ -16,7 +15,6 @@
     "Q33": "Finlande",
     "Q142": "France",
     "Q41": "Gr\u00e8ce",
-    "Q230": "G\u00e9orgie",
     "Q28": "Hongrie",
     "Q27": "Irlande",
     "Q189": "Islande",
@@ -37,7 +35,6 @@
     "Q218": "Roumanie",
     "Q29999": "Royaume des Pays-Bas",
     "Q145": "Royaume-Uni",
-    "Q159": "Russie",
     "Q213": "R\u00e9publique Tch\u00e8que",
     "Q238": "Saint-Marin",
     "Q403": "Serbie",
@@ -45,6 +42,6 @@
     "Q215": "Slov\u00e9nie",
     "Q39": "Suisse",
     "Q34": "Su\u00e8de",
-    "Q43": "Turquie",
-    "Q212": "Ukraine"
+    "Q212": "Ukraine",
+    "Q237": "Vatican"
 }

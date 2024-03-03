@@ -35,7 +35,7 @@ from tools.path import (
 ### Constants ###
 #################
 
-BOOL_CREATE_DICT_CONTINENTS = False
+BOOL_CREATE_DICT_CONTINENTS = True
 
 HINTS_QUERY = """
 # Replace `$Q_country` with the identifier of the country with the "Q"
@@ -540,5 +540,5 @@ def request_all_clues(wikidata_code_country: str, code_continent: str, language 
 if __name__ == "__main__":
     if BOOL_CREATE_DICT_CONTINENTS:
        for code_continent in DICT_WIKIDATA_CONTINENTS:
-           request_countries_continent(code_continent=code_continent, language="en")
+           request_countries_continent(code_continent=code_continent, language="fr")
     print(request_all_clues("Q236", "Europe"))
