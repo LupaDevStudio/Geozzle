@@ -139,10 +139,11 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
     # Delete odd characters
     try:
         value_clue = value_clue.replace("ʻ", "'")
+        value_clue = value_clue.replace("ə", "e")
         list_odd_characters = []
         for counter_character in range(len(value_clue)):
             character = value_clue[counter_character]
-            if ord(character) >= 700:
+            if ord(character) >= 550:
                 list_odd_characters.append(character)
         for character in list_odd_characters:
             value_clue = value_clue.replace(character, "")
