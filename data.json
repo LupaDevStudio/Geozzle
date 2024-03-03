@@ -9,225 +9,115 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q219",
+                "country": "Q217",
                 "number_lives_used_game": 0,
-                "list_current_hints": [
-                    "head_of_state",
-                    "flag",
-                    "top_level_internet_domain"
-                ],
+                "list_current_hints": [],
                 "dict_clues": {
-                    "french": {
-                        "ISO_3_code": "BGR",
-                        "age_of_majority": "\u2013 Age de la majorit\u00e9 : 18 ans",
-                        "country_calling_code": "\u2013 Code t\u00e9l\u00e9phonique : +359",
-                        "license_plate_code": "\u2013 Code de plaque d'immatriculation : BG",
-                        "human_development_index": "\u2013 Index de D\u00e9veloppement Humain : 0.795",
-                        "area": "\u2013 Superficie : 110 993 km\u00b2",
-                        "motto": "\u2013 Devise : L'union fait la force",
-                        "driving_side": "\u2013 Sens de conduite : Droite",
-                        "nominal_GDP": "\u2013 PIB moyen : 86 Mrd $",
-                        "currency": "\u2013 Monnaie : Lev bulgare",
-                        "head_of_government": "\u2013 Chef du gouvernement : Nikolay Denkov",
-                        "population": "\u2013 Population : 7 000 039 habitants",
-                        "anthem": "\u2013 Hymne : Mila Rodino",
-                        "official_language": "\u2013 Langue officielle : Bulgare"
-                    },
+                    "french": {},
                     "english": {
-                        "ISO_3_code": "BGR",
-                        "age_of_majority": "\u2013 Age of majority : 18 years",
-                        "country_calling_code": "\u2013 Country calling code : +359",
-                        "license_plate_code": "\u2013 License plate code : BG",
-                        "human_development_index": "\u2013 Human Development Index : 0.795",
-                        "area": "\u2013 Area : 110,993 km\u00b2",
-                        "motto": "\u2013 Motto : Unity makes strength",
+                        "anthem": "\u2013 Anthem : Limba noastr\u0103",
+                        "human_development_index": "\u2013 Human Development Index : 0.767",
                         "driving_side": "\u2013 Driving side : Right",
-                        "nominal_GDP": "\u2013 Nominal GDP : 86 bUS-$",
-                        "currency": "\u2013 Currency : Bulgarian lev",
-                        "head_of_government": "\u2013 Head of government : Nikolay Denkov",
-                        "population": "\u2013 Population : 7,000,039 inhabitants",
-                        "anthem": "\u2013 Anthem : Mila Rodino",
-                        "official_language": "\u2013 Official language : Bulgarian"
+                        "nominal_GDP": "\u2013 Nominal GDP : 14 bUS-$",
+                        "capital": "\u2013 Capital : Chi\u0219in\u0103u",
+                        "country_calling_code": "\u2013 Country calling code : +373",
+                        "currency": "\u2013 Currency : Moldovan leu",
+                        "license_plate_code": "\u2013 License plate code : MD",
+                        "flag": "flag_europe.png",
+                        "area": "\u2013 Area : 33,843 km\u00b2",
+                        "population": "\u2013 Population : 2,603,813 inhabitants",
+                        "age_of_majority": "\u2013 Age of majority : 18 years",
+                        "official_language": "\u2013 Official language : Romanian",
+                        "top_level_internet_domain": "\u2013 Internet domain : .md",
+                        "head_of_government": "\u2013 Head of government : Dorin Recean",
+                        "ISO_3_code": "MDA",
+                        "head_of_state": "\u2013 Head of state : Maia Sandu"
                     }
                 },
                 "dict_all_clues": {
-                    "french": {
-                        "area": "110993.6 km\u00b2",
-                        "nominal_GDP": "89040398406 US-$, 84061395658 US-$",
-                        "ISO_3_code": "BGR",
-                        "license_plate_code": "BG",
-                        "ISO_2_code": "BG",
-                        "country_calling_code": "+359",
-                        "population": "7000039",
-                        "age_of_majority": "18",
-                        "human_development_index": "0.795",
-                        "flag": "flag_europe.png",
-                        "capital": "Sofia",
-                        "official_language": "bulgare",
-                        "head_of_state": "Roumen Radev",
-                        "head_of_government": "Nikolay Denkov",
-                        "currency": "lev bulgare",
-                        "top_level_internet_domain": ".bg, .\u0431\u0433",
-                        "anthem": "Mila Rodino",
-                        "driving_side": "droite",
-                        "motto": "L'union fait la force"
-                    },
                     "english": {
-                        "area": "110993.6 km\u00b2",
-                        "nominal_GDP": "89040398406 US-$, 84061395658 US-$",
-                        "capital": "Sofia",
-                        "official_language": "Bulgarian",
-                        "anthem": "Mila Rodino",
-                        "currency": "Bulgarian lev",
+                        "area": "33843.5 km\u00b2",
+                        "nominal_GDP": "14420947884 US-$, 13692230147 US-$",
+                        "capital": "Chi\u0219in\u0103u",
+                        "official_language": "Romanian",
+                        "head_of_state": "Maia Sandu",
+                        "head_of_government": "Dorin Recean",
+                        "currency": "Moldovan leu",
                         "driving_side": "right",
-                        "head_of_state": "Rumen Radev",
-                        "head_of_government": "Nikolay Denkov",
-                        "top_level_internet_domain": ".bg, .\u0431\u0433",
-                        "motto": "Unity makes strength",
-                        "license_plate_code": "BG",
-                        "ISO_3_code": "BGR",
-                        "ISO_2_code": "BG",
-                        "country_calling_code": "+359",
-                        "population": "7000039",
-                        "flag": "flag_europe.png",
-                        "human_development_index": "0.795",
-                        "age_of_majority": "18"
+                        "anthem": "Limba noastr\u0103",
+                        "top_level_internet_domain": ".md",
+                        "ISO_3_code": "MDA",
+                        "ISO_2_code": "MD",
+                        "country_calling_code": "+373",
+                        "license_plate_code": "MD",
+                        "age_of_majority": "18",
+                        "population": "2603813",
+                        "human_development_index": "0.767",
+                        "flag": "flag_europe.png"
                     }
                 }
             }
         },
         "Asia": {
-            "highscore": 579.7101449275362,
-            "percentage": 6,
-            "countries_unlocked": [
-                "Q423",
-                "Q836",
-                "Q17"
-            ],
-            "number_lives": 2,
-            "number_lives_used_game": 0,
-            "lost_live_date": 1709385467.874593,
-            "current_country": {
-                "country": "Q865",
-                "number_lives_used_game": 0,
-                "list_current_hints": [],
-                "dict_clues": {
-                    "french": {},
-                    "english": {
-                        "currency": "\u2013 Currency : New taiwan dollar",
-                        "flag": "flag_asia.png",
-                        "driving_side": "\u2013 Driving side : Right",
-                        "official_language": "\u2013 Official language : Taiwanese hokkien, Rukai, Bunun, Atayal, Yami"
-                    }
-                },
-                "dict_all_clues": {
-                    "english": {
-                        "area": "36193 km\u00b2",
-                        "ISO_3_code": "TWN",
-                        "human_development_index": "0.911",
-                        "ISO_2_code": "TW",
-                        "country_calling_code": "+886",
-                        "age_of_majority": "20",
-                        "population": "23593794",
-                        "flag": "flag_asia.png",
-                        "capital": "Taipei",
-                        "official_language": "Taiwanese Hokkien, Rukai, Bunun, Atayal, Yami",
-                        "top_level_internet_domain": ".tw",
-                        "driving_side": "right",
-                        "currency": "New Taiwan dollar",
-                        "head_of_state": "Tsai Ing-wen",
-                        "head_of_government": "Chen Chien-jen",
-                        "anthem": "National Anthem of the Republic of China"
-                    }
-                }
-            }
-        },
-        "Africa": {
-            "highscore": 92.5925925925926,
-            "percentage": 1,
-            "countries_unlocked": [
-                "Q1014"
-            ],
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q962",
+                "country": "",
                 "number_lives_used_game": 0,
                 "list_current_hints": [],
-                "dict_clues": {
-                    "french": {},
-                    "english": {
-                        "currency": "\u2013 Currency : West african cfa franc",
-                        "capital": "\u2013 Capital : Porto-Novo",
-                        "official_language": "\u2013 Official language : French"
-                    }
-                },
-                "dict_all_clues": {
-                    "english": {
-                        "capital": "Porto-Novo",
-                        "official_language": "French",
-                        "head_of_government": "Patrice Talon",
-                        "head_of_state": "Patrice Talon",
-                        "driving_side": "right",
-                        "currency": "West African CFA franc",
-                        "top_level_internet_domain": ".bj",
-                        "anthem": "L'Aube Nouvelle",
-                        "area": "114763 km\u00b2",
-                        "nominal_GDP": "17690083520 $, 17401746309 $",
-                        "ISO_3_code": "BEN",
-                        "license_plate_code": "DY",
-                        "ISO_2_code": "BJ",
-                        "country_calling_code": "+229",
-                        "human_development_index": "0.525",
-                        "population": "11175692",
-                        "flag": "flag_africa.png"
-                    }
-                }
-            }
-        },
-        "North_America": {
-            "highscore": 393.51851851851853,
-            "percentage": 4,
-            "countries_unlocked": [
-                "Q800"
-            ],
-            "number_lives": 3,
-            "number_lives_used_game": 0,
-            "lost_live_date": null,
-            "current_country": {
-                "country": "Q754",
-                "number_lives_used_game": 0,
-                "list_current_hints": [
-                    "human_development_index",
-                    "license_plate_code",
-                    "currency"
-                ],
                 "dict_clues": {
                     "french": {},
                     "english": {}
                 },
                 "dict_all_clues": {
-                    "french": {
-                        "capital": "Port-d'Espagne",
-                        "official_language": "anglais",
-                        "head_of_government": "Keith Rowley",
-                        "driving_side": "gauche",
-                        "head_of_state": "Christine Kangaloo",
-                        "top_level_internet_domain": ".tt",
-                        "anthem": "Forged from the Love of Liberty",
-                        "currency": "Dollar de Trinit\u00e9-et-Tobago",
-                        "area": "5128 km\u00b2",
-                        "nominal_GDP": "27899082337 $, 24460196270 $",
-                        "ISO_3_code": "TTO",
-                        "country_calling_code": "+1868",
-                        "license_plate_code": "TT",
-                        "ISO_2_code": "TT",
-                        "population": "1369125",
-                        "human_development_index": "0.81",
-                        "age_of_majority": "18",
-                        "flag": "flag_north_america.png"
-                    }
+                    "french": {},
+                    "english": {}
+                }
+            }
+        },
+        "Africa": {
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
+            "number_lives": 3,
+            "number_lives_used_game": 0,
+            "lost_live_date": null,
+            "current_country": {
+                "country": "",
+                "number_lives_used_game": 0,
+                "list_current_hints": [],
+                "dict_clues": {
+                    "french": {},
+                    "english": {}
+                },
+                "dict_all_clues": {
+                    "french": {},
+                    "english": {}
+                }
+            }
+        },
+        "North_America": {
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
+            "number_lives": 3,
+            "number_lives_used_game": 0,
+            "lost_live_date": null,
+            "current_country": {
+                "country": "",
+                "number_lives_used_game": 0,
+                "list_current_hints": [],
+                "dict_clues": {
+                    "french": {},
+                    "english": {}
+                },
+                "dict_all_clues": {
+                    "french": {},
+                    "english": {}
                 }
             }
         },
@@ -239,57 +129,23 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q739",
+                "country": "",
                 "number_lives_used_game": 0,
                 "list_current_hints": [],
                 "dict_clues": {
-                    "french": {
-                        "age_of_majority": "\u2013 Age de la majorit\u00e9 : 18 ans",
-                        "capital": "\u2013 Capitale : Bogota",
-                        "nominal_GDP": "\u2013 PIB moyen : 331 Mrd $",
-                        "currency": "\u2013 Monnaie : Peso colombien",
-                        "area": "\u2013 Superficie : 1 141 748 km\u00b2",
-                        "population": "\u2013 Population : 49 065 615 habitants",
-                        "driving_side": "\u2013 Sens de conduite : Droite",
-                        "human_development_index": "\u2013 Index de D\u00e9veloppement Humain : 0.752",
-                        "country_calling_code": "\u2013 Code t\u00e9l\u00e9phonique : +57",
-                        "ISO_3_code": "COL",
-                        "head_of_state": "\u2013 Chef de l'\u00c9tat : Gustavo Petro",
-                        "flag": "flag_south_america.png"
-                    },
+                    "french": {},
                     "english": {}
                 },
                 "dict_all_clues": {
-                    "french": {
-                        "area": "1141748 km\u00b2",
-                        "nominal_GDP": "318511813577 $, 343939445259 $",
-                        "capital": "Bogota",
-                        "official_language": "espagnol",
-                        "head_of_government": "Gustavo Petro",
-                        "head_of_state": "Gustavo Petro",
-                        "driving_side": "droite",
-                        "currency": "peso colombien",
-                        "top_level_internet_domain": ".co",
-                        "anthem": "Hymne national de la Colombie",
-                        "age_of_majority": "18",
-                        "country_calling_code": "+57",
-                        "license_plate_code": "CO",
-                        "human_development_index": "0.752",
-                        "population": "49065615",
-                        "ISO_2_code": "CO",
-                        "ISO_3_code": "COL",
-                        "flag": "flag_south_america.png"
-                    }
+                    "french": {},
+                    "english": {}
                 }
             }
         },
         "Oceania": {
-            "highscore": 937.5,
-            "percentage": 12,
-            "countries_unlocked": [
-                "Q672",
-                "Q695"
-            ],
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,

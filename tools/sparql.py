@@ -35,7 +35,7 @@ from tools.path import (
 ### Constants ###
 #################
 
-BOOL_CREATE_DICT_CONTINENTS = True
+BOOL_CREATE_DICT_CONTINENTS = False
 
 HINTS_QUERY = """
 # Replace `$Q_country` with the identifier of the country with the "Q"
@@ -285,7 +285,7 @@ WITH {
         BIND (  # custom abbreviations for most common units
             COALESCE(
                 IF(?unit_ = wd:Q712226, "km²", 1/0),
-                IF(?unit_ = wd:Q4917, "US-$", 1/0),
+                IF(?unit_ = wd:Q4917, "$", 1/0),
                 IF(?unit_ = wd:Q4916, "€", 1/0),
                 IF(?unit_ = wd:Q25224, "£", 1/0),
                 IF(?unit_ = wd:Q1104069, "CA-$", 1/0),
