@@ -1,0 +1,151 @@
+{
+    "language": "english",
+    "continents": {
+        "Europe": {
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
+            "number_lives": 3,
+            "number_lives_used_game": 0,
+            "lost_live_date": null,
+            "current_country": {
+                "country": "",
+                "number_lives_used_game": 0,
+                "list_current_hints": [],
+                "dict_clues": {
+                    "french": {},
+                    "english": {}
+                },
+                "dict_all_clues": {
+                    "french": {},
+                    "english": {}
+                }
+            }
+        },
+        "Asia": {
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
+            "number_lives": 3,
+            "number_lives_used_game": 0,
+            "lost_live_date": null,
+            "current_country": {
+                "country": "",
+                "number_lives_used_game": 0,
+                "list_current_hints": [],
+                "dict_clues": {
+                    "french": {},
+                    "english": {}
+                },
+                "dict_all_clues": {
+                    "french": {},
+                    "english": {}
+                }
+            }
+        },
+        "Africa": {
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
+            "number_lives": 3,
+            "number_lives_used_game": 0,
+            "lost_live_date": null,
+            "current_country": {
+                "country": "Q1007",
+                "number_lives_used_game": 0,
+                "list_current_hints": [],
+                "dict_clues": {
+                    "french": {},
+                    "english": {
+                        "head_of_government": "\u2013 Head of government : Nuno Nabiam",
+                        "capital": "\u2013 Capital : Bissau"
+                    }
+                },
+                "dict_all_clues": {
+                    "english": {
+                        "area": "36125 km\u00b2",
+                        "nominal_GDP": "1638517607 $, 1633559092 $",
+                        "ISO_3_code": "GNB",
+                        "country_calling_code": "+245",
+                        "ISO_2_code": "GW",
+                        "human_development_index": "0.483",
+                        "population": "1861283",
+                        "flag": "flag_africa.png",
+                        "capital": "Bissau",
+                        "official_language": "Portuguese",
+                        "head_of_government": "Nuno Nabiam",
+                        "head_of_state": "Umaro Sissoco Embal\u00f3",
+                        "driving_side": "right",
+                        "anthem": "Esta \u00e9 a Nossa P\u00e1tria bem Amada",
+                        "top_level_internet_domain": ".gw",
+                        "currency": "West African CFA franc"
+                    }
+                }
+            }
+        },
+        "North_America": {
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
+            "number_lives": 3,
+            "number_lives_used_game": 0,
+            "lost_live_date": null,
+            "current_country": {
+                "country": "",
+                "number_lives_used_game": 0,
+                "list_current_hints": [],
+                "dict_clues": {
+                    "french": {},
+                    "english": {}
+                },
+                "dict_all_clues": {
+                    "french": {},
+                    "english": {}
+                }
+            }
+        },
+        "South_America": {
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
+            "number_lives": 3,
+            "number_lives_used_game": 0,
+            "lost_live_date": null,
+            "current_country": {
+                "country": "",
+                "number_lives_used_game": 0,
+                "list_current_hints": [],
+                "dict_clues": {
+                    "french": {},
+                    "english": {}
+                },
+                "dict_all_clues": {
+                    "french": {},
+                    "english": {}
+                }
+            }
+        },
+        "Oceania": {
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
+            "number_lives": 3,
+            "number_lives_used_game": 0,
+            "lost_live_date": null,
+            "current_country": {
+                "country": "",
+                "number_lives_used_game": 0,
+                "list_current_hints": [],
+                "dict_clues": {
+                    "french": {},
+                    "english": {}
+                },
+                "dict_all_clues": {
+                    "french": {},
+                    "english": {}
+                }
+            }
+        }
+    },
+    "has_seen_tutorial": true
+}

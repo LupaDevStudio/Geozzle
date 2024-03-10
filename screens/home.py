@@ -21,7 +21,8 @@ from kivy.clock import Clock
 from kivy.properties import (
     StringProperty,
     ColorProperty,
-    NumericProperty
+    NumericProperty,
+    BooleanProperty
 )
 
 ### Local imports ###
@@ -42,12 +43,15 @@ from tools.constants import (
     MAIN_MUSIC_NAME,
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
     LIFE_RELOAD_TIME,
-    CURRENT_COUNTRY_INIT
+    CURRENT_COUNTRY_INIT,
+    MUSIC_VOLUME,
+    SOUND_VOLUME
 )
 
 from tools import (
     music_mixer,
-    game
+    game,
+    sound_mixer
 )
 from screens.custom_widgets import (
     TutorialPopup,
@@ -79,6 +83,7 @@ class HomeScreen(ImprovedScreenWithAds):
     play_label = StringProperty()
     restart_label = StringProperty()
     number_lives_on = NumericProperty(3)
+    is_mute = BooleanProperty(False)
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
@@ -376,3 +381,15 @@ class HomeScreen(ImprovedScreenWithAds):
         None
         """
         webbrowser.open("https://lupadevstudio.com", 2)
+
+    def change_mute_state(self):
+        """
+        Mute or unmute the volume.
+        """
+        if self.is_mute:
+            music_mixer.change_volume(MUSIC_VOLUME)
+            sound_mixer.change_volume(SOUND_VOLUME)
+        else:
+            music_mixer.change_volume(0)
+            sound_mixer.change_volume(0)
+        self.is_mute = not (self.is_mute)

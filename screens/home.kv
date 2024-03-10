@@ -109,3 +109,12 @@
         height: self.width
         colors: root.continent_color
         on_release: root.launch_tutorial()
+
+    # Sound button
+    RoundedButtonImage:
+        image_path: PATH_IMAGES + "volume_off.png" if root.is_mute else PATH_IMAGES + "volume_on.png"
+        pos_hint: {"right":0.95, "y":0.025}
+        size_hint: (0.1, None)
+        height: self.width
+        colors: root.continent_color
+        on_release: root.change_mute_state()

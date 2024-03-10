@@ -231,7 +231,7 @@ class SoundMixer():
             for i in range(self.channel_number):
                 self.sounds[name][i].volume = new_volume
         else:
-            for key in self.musics:
+            for key in self.sounds:
                 for i in range(self.channel_number):
                     self.sounds[key][i].volume = new_volume
 
