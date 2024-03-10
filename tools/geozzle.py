@@ -172,7 +172,7 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
     try:
         if code_clue == "nominal_GDP":
             list_gdp = value_clue.split(", ")
-            
+
             for counter_gdp_unit in range(len(list_gdp)):
                 list_separated = list_gdp[counter_gdp_unit].split(" ")
                 value = list_separated[0]
@@ -693,8 +693,11 @@ class Game():
             nb_clues=len(self.dict_clues[TEXT.language])
         )
 
+        # Set the max score to 10 000
+        new_score = min(10000, highscore + current_score)
+
         # Save the changes in the USER_DATA
-        USER_DATA.continents[self.code_continent]["highscore"] = highscore + current_score
+        USER_DATA.continents[self.code_continent]["highscore"] = new_score
         USER_DATA.save_changes()
 
         return current_score
