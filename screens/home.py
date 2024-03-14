@@ -115,7 +115,7 @@ class HomeScreen(ImprovedScreenWithAds):
         if not USER_DATA.has_seen_tutorial:
             USER_DATA.has_seen_tutorial = True
             USER_DATA.save_changes()
-            self.launch_tutorial()
+            self.launch_tutorial(first_time=True)
 
         return super().on_enter(*args)
 
@@ -360,12 +360,13 @@ class HomeScreen(ImprovedScreenWithAds):
         popup.right_release_function = partial(self.restart_game, popup)
         popup.open()
 
-    def launch_tutorial(self):
+    def launch_tutorial(self, first_time=False):
         popup = TutorialPopup(
             primary_color=self.continent_color,
             secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
             tutorial_content=TEXT.tutorial["tutorial_content"],
-            font_ratio=self.font_ratio)
+            font_ratio=self.font_ratio,
+            first_time=first_time)
         popup.open()
 
     def open_lupa_website(self):
