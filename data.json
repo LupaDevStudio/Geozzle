@@ -1,5 +1,5 @@
 {
-    "language": "french",
+    "language": "english",
     "continents": {
         "Europe": {
             "highscore": 0,
@@ -9,65 +9,170 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q215",
                 "number_lives_used_game": 0,
                 "list_current_hints": [],
                 "dict_clues": {
                     "french": {},
-                    "english": {}
+                    "english": {
+                        "age_of_majority": "\u2013 Age of majority : 18 years",
+                        "flag": "flag_europe.png",
+                        "area": "\u2013 Area : 20,271 km\u00b2",
+                        "population": "\u2013 Population : 2,066,880 inhabitants",
+                        "head_of_government": "\u2013 Head of government : Robert Golob",
+                        "ISO_3_code": "SVN"
+                    }
                 },
                 "dict_all_clues": {
-                    "french": {},
-                    "english": {}
+                    "french": {
+                        "area": "20271 km\u00b2",
+                        "nominal_GDP": "62117768015 $, 61748586535 $",
+                        "head_of_government": "Robert Golob",
+                        "head_of_state": "Nata\u0161a Pirc Musar",
+                        "capital": "Ljubljana",
+                        "official_language": "slov\u00e8ne",
+                        "currency": "euro",
+                        "driving_side": "droite",
+                        "top_level_internet_domain": ".si",
+                        "anthem": "Zdravljica",
+                        "age_of_majority": "18",
+                        "country_calling_code": "+386",
+                        "ISO_3_code": "SVN",
+                        "ISO_2_code": "SI",
+                        "license_plate_code": "SLO",
+                        "population": "2066880",
+                        "human_development_index": "0.918",
+                        "flag": "flag_europe.png"
+                    },
+                    "english": {
+                        "area": "20271 km\u00b2",
+                        "nominal_GDP": "62117768015 $, 61748586535 $",
+                        "official_language": "Slovene",
+                        "capital": "Ljubljana",
+                        "head_of_government": "Robert Golob",
+                        "currency": "euro",
+                        "top_level_internet_domain": ".si",
+                        "head_of_state": "Nata\u0161a Pirc Musar",
+                        "anthem": "Zdravljica",
+                        "driving_side": "right",
+                        "ISO_3_code": "SVN",
+                        "age_of_majority": "18",
+                        "license_plate_code": "SLO",
+                        "ISO_2_code": "SI",
+                        "country_calling_code": "+386",
+                        "population": "2066880",
+                        "flag": "flag_europe.png",
+                        "human_development_index": "0.918"
+                    }
                 }
             }
         },
         "Asia": {
-            "highscore": 0,
-            "percentage": 0,
-            "countries_unlocked": [],
+            "highscore": 340.13605442176873,
+            "percentage": 4,
+            "countries_unlocked": [
+                "Q843",
+                "Q711"
+            ],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q819",
                 "number_lives_used_game": 0,
-                "list_current_hints": [],
+                "list_current_hints": [
+                    "nominal_GDP",
+                    "population",
+                    "currency"
+                ],
                 "dict_clues": {
                     "french": {},
                     "english": {}
                 },
                 "dict_all_clues": {
-                    "french": {},
-                    "english": {}
+                    "english": {
+                        "area": "236800 km\u00b2",
+                        "nominal_GDP": "15724383783 $, 18827148530 $",
+                        "capital": "Vientiane",
+                        "official_language": "Lao",
+                        "head_of_government": "Phankham Viphavan",
+                        "head_of_state": "Thongloun Sisoulith",
+                        "top_level_internet_domain": ".la",
+                        "driving_side": "right",
+                        "anthem": "Pheng Xat Lao",
+                        "currency": "Lao kip",
+                        "age_of_majority": "18",
+                        "ISO_2_code": "LA",
+                        "license_plate_code": "LAO",
+                        "ISO_3_code": "LAO",
+                        "country_calling_code": "+856",
+                        "population": "6858160",
+                        "human_development_index": "0.607",
+                        "flag": "flag_asia.png"
+                    }
                 }
             }
         },
         "Africa": {
-            "highscore": 0,
-            "percentage": 0,
-            "countries_unlocked": [],
+            "highscore": 144.0329218106996,
+            "percentage": 1,
+            "countries_unlocked": [
+                "Q924"
+            ],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q1006",
                 "number_lives_used_game": 0,
-                "list_current_hints": [],
+                "list_current_hints": [
+                    "motto",
+                    "nominal_GDP",
+                    "human_development_index"
+                ],
                 "dict_clues": {
                     "french": {},
-                    "english": {}
+                    "english": {
+                        "flag": "flag_africa.png",
+                        "capital": "\u2013 Capital : Conakry",
+                        "head_of_state": "\u2013 Head of state : Mamadi Doumbouya",
+                        "country_calling_code": "\u2013 Country calling code : +224",
+                        "age_of_majority": "\u2013 Age of majority : 18 years",
+                        "area": "\u2013 Area : 245,857 km\u00b2",
+                        "driving_side": "\u2013 Driving side : Right"
+                    }
                 },
                 "dict_all_clues": {
-                    "french": {},
-                    "english": {}
+                    "english": {
+                        "capital": "Conakry",
+                        "official_language": "French",
+                        "head_of_state": "Mamadi Doumbouya",
+                        "head_of_government": "Ibrahima Kassory Fofana",
+                        "driving_side": "right",
+                        "currency": "Guinean franc",
+                        "anthem": "Libert\u00e9",
+                        "top_level_internet_domain": ".gn",
+                        "motto": "Work, Justice, Solidarity",
+                        "area": "245857 km\u00b2",
+                        "nominal_GDP": "21227749389 $, 16091817842 $",
+                        "ISO_2_code": "GN",
+                        "license_plate_code": "RG",
+                        "ISO_3_code": "GIN",
+                        "age_of_majority": "18",
+                        "human_development_index": "0.465",
+                        "population": "12717176",
+                        "country_calling_code": "+224",
+                        "flag": "flag_africa.png"
+                    }
                 }
             }
         },
         "North_America": {
-            "highscore": 0,
-            "percentage": 0,
-            "countries_unlocked": [],
+            "highscore": 370.3703703703704,
+            "percentage": 4,
+            "countries_unlocked": [
+                "Q760"
+            ],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
@@ -86,9 +191,12 @@
             }
         },
         "South_America": {
-            "highscore": 0,
-            "percentage": 0,
-            "countries_unlocked": [],
+            "highscore": 1250.0,
+            "percentage": 16,
+            "countries_unlocked": [
+                "Q750",
+                "Q414"
+            ],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
@@ -107,23 +215,52 @@
             }
         },
         "Oceania": {
-            "highscore": 0,
-            "percentage": 0,
-            "countries_unlocked": [],
+            "highscore": 486.1111111111111,
+            "percentage": 6,
+            "countries_unlocked": [
+                "Q686"
+            ],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q709",
                 "number_lives_used_game": 0,
-                "list_current_hints": [],
+                "list_current_hints": [
+                    "human_development_index",
+                    "driving_side",
+                    "top_level_internet_domain"
+                ],
                 "dict_clues": {
                     "french": {},
-                    "english": {}
+                    "english": {
+                        "area": "\u2013 Area : 181 km\u00b2",
+                        "capital": "\u2013 Capital : Majuro",
+                        "nominal_GDP": "\u2013 Nominal GDP : 0.26 b$",
+                        "population": "\u2013 Population : 53,127 inhabitants",
+                        "country_calling_code": "\u2013 Country calling code : +692",
+                        "flag": "flag_oceania.png"
+                    }
                 },
                 "dict_all_clues": {
-                    "french": {},
-                    "english": {}
+                    "english": {
+                        "area": "181.43 km\u00b2",
+                        "nominal_GDP": "279667900 $, 259538700 $",
+                        "capital": "Majuro",
+                        "official_language": "Marshallese, English",
+                        "head_of_government": "Hilda C. Heine",
+                        "head_of_state": "Hilda C. Heine",
+                        "currency": "United States dollar, SOV",
+                        "anthem": "Forever Marshall Islands",
+                        "driving_side": "right",
+                        "top_level_internet_domain": ".mh",
+                        "ISO_2_code": "MH",
+                        "country_calling_code": "+692",
+                        "ISO_3_code": "MHL",
+                        "population": "53127",
+                        "human_development_index": "0.639",
+                        "flag": "flag_oceania.png"
+                    }
                 }
             }
         }
