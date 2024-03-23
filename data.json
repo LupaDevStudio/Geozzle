@@ -2,19 +2,22 @@
     "language": "english",
     "continents": {
         "Europe": {
-            "highscore": 0,
-            "percentage": 0,
-            "countries_unlocked": [],
+            "highscore": 382.71604938271605,
+            "percentage": 4,
+            "countries_unlocked": [
+                "Q212",
+                "Q215"
+            ],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q212",
+                "country": "Q238",
                 "number_lives_used_game": 0,
                 "list_current_hints": [
+                    "nominal_GDP",
                     "human_development_index",
-                    "driving_side",
-                    "head_of_government"
+                    "capital"
                 ],
                 "dict_clues": {
                     "french": {},
@@ -22,24 +25,23 @@
                 },
                 "dict_all_clues": {
                     "english": {
-                        "area": "603550 km\u00b2",
-                        "nominal_GDP": "199765856765 $, 160502739236 $",
-                        "capital": "Kyiv",
-                        "official_language": "Ukrainian",
-                        "head_of_state": "Volodymyr Zelenskyy",
-                        "head_of_government": "Denys Shmyhal",
-                        "anthem": "Shche ne vmerla Ukrainy i slava, i volia",
-                        "currency": "Hryvnia",
+                        "capital": "San Marino",
+                        "official_language": "Italian",
+                        "head_of_government": "Francesco Mussoni, Giacomo Simoncini",
+                        "head_of_state": "Adele Tonnini, Alessandro Scarano",
+                        "anthem": "Inno Nazionale della Repubblica",
                         "driving_side": "right",
-                        "top_level_internet_domain": ".ua",
-                        "license_plate_code": "UA",
-                        "country_calling_code": "+380",
-                        "ISO_3_code": "UKR",
-                        "ISO_2_code": "UA",
-                        "population": "41167335",
-                        "age_of_majority": "18",
-                        "flag": "flag_europe.png",
-                        "human_development_index": "0.773"
+                        "currency": "Euro",
+                        "top_level_internet_domain": ".sm",
+                        "area": "61.2 km\u00b2",
+                        "nominal_GDP": "1855382833 $",
+                        "ISO_3_code": "SMR",
+                        "country_calling_code": "+378",
+                        "license_plate_code": "RSM",
+                        "ISO_2_code": "SM",
+                        "human_development_index": "0.853",
+                        "population": "33607",
+                        "flag": "flag_europe.png"
                     }
                 }
             }

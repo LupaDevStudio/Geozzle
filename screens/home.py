@@ -345,9 +345,6 @@ class HomeScreen(ImprovedScreenWithAds):
             my_thread = Thread(target=self.thread_request)
             my_thread.start()
 
-            # Reset the screen of game_summary
-            # has_success = game.create_new_game(self.code_continent)
-
         else:
             popup = TwoButtonsPopup(
                 primary_color=self.continent_color,
