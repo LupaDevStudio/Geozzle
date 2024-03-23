@@ -1,0 +1,27 @@
+#:kivy 2.2.1
+
+
+
+<LoadingPopup>:
+    
+    RelativeLayout:
+        id: popup_layout
+        
+        Label:
+            id: center_label
+            # size_hint: (0.8,0.7)
+            pos_hint: {"center_x":0.5,"center_y":0.1}
+            font_size: SUB_TEXT_FONT_SIZE * root.font_ratio
+            font_name: PATH_TEXT_FONT
+            text: root.center_text
+            color: (0,0,0,1)
+            halign: "center"
+            valign: "middle"
+        
+        Image:
+            id: loading_image
+            size_hint: (0.8,0.7)
+            pos_hint: {"center_x":0.5,"center_y":0.6}
+            fit_mode: "contain"
+            source: PATH_IMAGES + "loading.gif"
+            anim_delay: 0.04

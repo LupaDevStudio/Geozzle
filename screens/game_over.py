@@ -125,7 +125,7 @@ class GameOverScreen(ImprovedScreenWithAds):
         self.validate_label = TEXT.game_over["validate"]
         self.continue_game_label = TEXT.game_over["button_back"]
 
-    def update_countries(self):
+    def update_countries(self, *_):
         self.ids.country_spinner.text = ""
         self.list_countries = []
         for wikidata_code_country in game.list_countries_left:

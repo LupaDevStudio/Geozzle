@@ -24,7 +24,9 @@
         "watch_ad": "Watch",
         "close": "Close",
         "yes": "Yes",
-        "no": "No"
+        "no": "No",
+        "loading": "Loading...",
+        "loading_title": "Loading"
     },
     "game_over": {
         "title": "Which country is it?",

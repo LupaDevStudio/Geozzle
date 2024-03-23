@@ -24,7 +24,9 @@
         "watch_ad": "Regarder",
         "close": "Fermer",
         "yes": "Oui",
-        "no": "Non"
+        "no": "Non",
+        "loading": "Chargement...",
+        "loading_title": "Chargement"
     },
     "game_over": {
         "title": "Quel pays est-ce ?",

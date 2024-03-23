@@ -383,6 +383,25 @@ class Game():
         has_success = self.load_data()
         return has_success
 
+    def is_already_loaded(self) -> bool:
+        """
+        Indicate if the game is already loaded or not.
+
+        Returns
+        -------
+        bool
+            _description_
+        """
+        user_data_continent = USER_DATA.continents[self.code_continent]
+        last_country = user_data_continent["current_country"]
+        if last_country["country"] != "":
+            if TEXT.language not in last_country["dict_all_clues"]:
+                return False
+            else:
+                return True
+        else:
+            return False
+
     def load_data(self) -> bool:
         """
         Load the data for a new game.
