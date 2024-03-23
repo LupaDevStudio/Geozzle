@@ -148,7 +148,7 @@ class GameSummaryScreen(ImprovedScreenWithAds):
             self.ids.geojson_image.source = PATH_IMAGES_FLAG_UNKNOWN
             self.ids.geojson_image.disable_button = True
 
-    def reset_scroll_view(self):
+    def reset_scroll_view(self, *_):
         """
         Remove all the labels in the scrollview.
 

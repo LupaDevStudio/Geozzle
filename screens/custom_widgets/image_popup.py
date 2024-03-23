@@ -8,7 +8,6 @@ Module to create a popup with a custom style.
 
 ### Kivy imports ###
 
-from email.mime import image
 from kivy.properties import (
     ColorProperty,
     NumericProperty,

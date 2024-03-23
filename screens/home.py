@@ -14,10 +14,11 @@ import random as rd
 import time
 from functools import partial
 import copy
+from threading import Thread
 
 ### Kivy imports ###
 
-from kivy.clock import Clock
+from kivy.clock import Clock, mainthread
 from kivy.properties import (
     StringProperty,
     ColorProperty,
@@ -56,7 +57,8 @@ from tools import (
 from screens.custom_widgets import (
     TutorialPopup,
     TwoButtonsPopup,
-    MessagePopup
+    MessagePopup,
+    LoadingPopup,
 )
 from tools.geozzle import (
     AD_CONTAINER
@@ -274,6 +276,44 @@ class HomeScreen(ImprovedScreenWithAds):
         # Change the language icon
         self.update_language_image()
 
+    def prepare_gui_to_play_game(self, has_success, *_):
+        if self.loading_popup is not None:
+            self.loading_popup.dismiss()
+        if has_success:
+            Clock.schedule_once(
+                self.manager.get_screen("game_summary").reset_scroll_view
+            )
+
+            self.manager.get_screen(
+                "game_question").code_continent = self.code_continent
+            self.manager.get_screen(
+                "game_question").previous_screen_name = "home"
+            self.manager.get_screen(
+                "game_summary").code_continent = self.code_continent
+            self.manager.get_screen(
+                "game_over").code_continent = self.code_continent
+            self.manager.get_screen(
+                "game_over").update_countries()
+
+            # Go to the screen game question
+            self.manager.current = "game_question"
+
+        else:
+            popup = MessagePopup(
+                primary_color=self.continent_color,
+                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                    self.code_continent],
+                title=TEXT.clues["no_connexion_title"],
+                center_label_text=TEXT.clues["no_connexion_message"],
+                font_ratio=self.font_ratio
+            )
+            popup.open()
+
+    def thread_request(self):
+        has_success = game.create_new_game(self.code_continent)
+        Clock.schedule_once(
+            partial(self.prepare_gui_to_play_game, has_success))
+
     def play_game(self):
         """
         Start the game for one continent.
@@ -290,34 +330,19 @@ class HomeScreen(ImprovedScreenWithAds):
 
         if self.number_lives_on > 0:
 
-            # Reset the screen of game_summary
-            has_success = game.create_new_game(self.code_continent)
-            if has_success:
-                self.manager.get_screen("game_summary").reset_scroll_view()
-                self.manager.get_screen(
-                    "game_question").code_continent = self.code_continent
-                self.manager.get_screen(
-                    "game_question").previous_screen_name = "home"
-                self.manager.get_screen(
-                    "game_summary").code_continent = self.code_continent
-                self.manager.get_screen(
-                    "game_over").code_continent = self.code_continent
-                self.manager.get_screen(
-                    "game_over").update_countries()
-
-                # Go to the screen game question
-                self.manager.current = "game_question"
-
+            # Display the loading popup
+            if not game.is_already_loaded():
+                self.loading_popup = LoadingPopup(font_ratio=self.font_ratio)
+                self.loading_popup.open()
             else:
-                popup = MessagePopup(
-                    primary_color=self.continent_color,
-                    secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
-                        self.code_continent],
-                    title=TEXT.clues["no_connexion_title"],
-                    center_label_text=TEXT.clues["no_connexion_message"],
-                    font_ratio=self.font_ratio
-                )
-                popup.open()
+                self.loading_popup = None
+
+            # Start thread
+            my_thread = Thread(target=self.thread_request)
+            my_thread.start()
+
+            # Reset the screen of game_summary
+            # has_success = game.create_new_game(self.code_continent)
 
         else:
             popup = TwoButtonsPopup(
