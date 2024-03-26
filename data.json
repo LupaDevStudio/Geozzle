@@ -160,16 +160,36 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q710",
                 "number_lives_used_game": 0,
-                "list_current_hints": [],
+                "list_current_hints": [
+                    "population",
+                    "nominal_GDP",
+                    "area"
+                ],
                 "dict_clues": {
                     "french": {},
                     "english": {}
                 },
                 "dict_all_clues": {
-                    "french": {},
-                    "english": {}
+                    "english": {
+                        "capital": "South Tarawa",
+                        "official_language": "Gilbertese, English",
+                        "head_of_government": "Taneti Maamau",
+                        "driving_side": "left",
+                        "currency": "Australian dollar, Kiribati dollar",
+                        "head_of_state": "Taneti Maamau",
+                        "top_level_internet_domain": ".ki",
+                        "anthem": "Kunan Kiribati",
+                        "area": "811 km\u00b2",
+                        "nominal_GDP": "223352943 $, 227610035 $",
+                        "ISO_3_code": "KIR",
+                        "ISO_2_code": "KI",
+                        "country_calling_code": "+686",
+                        "human_development_index": "0.624",
+                        "population": "119438",
+                        "flag": "flag_oceania.png"
+                    }
                 }
             }
         }
