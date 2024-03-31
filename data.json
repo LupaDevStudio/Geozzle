@@ -1,46 +1,48 @@
 {
-    "language": "english",
+    "language": "french",
     "continents": {
         "Europe": {
-            "highscore": 382.71604938271605,
-            "percentage": 4,
+            "highscore": 604.9382716049383,
+            "percentage": 6,
             "countries_unlocked": [
                 "Q212",
-                "Q215"
+                "Q215",
+                "Q238"
             ],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q238",
+                "country": "Q28",
                 "number_lives_used_game": 0,
                 "list_current_hints": [
-                    "nominal_GDP",
-                    "human_development_index",
-                    "capital"
+                    "currency",
+                    "license_plate_code",
+                    "area"
                 ],
                 "dict_clues": {
                     "french": {},
                     "english": {}
                 },
                 "dict_all_clues": {
-                    "english": {
-                        "capital": "San Marino",
-                        "official_language": "Italian",
-                        "head_of_government": "Francesco Mussoni, Giacomo Simoncini",
-                        "head_of_state": "Adele Tonnini, Alessandro Scarano",
-                        "anthem": "Inno Nazionale della Repubblica",
-                        "driving_side": "right",
-                        "currency": "Euro",
-                        "top_level_internet_domain": ".sm",
-                        "area": "61.2 km\u00b2",
-                        "nominal_GDP": "1855382833 $",
-                        "ISO_3_code": "SMR",
-                        "country_calling_code": "+378",
-                        "license_plate_code": "RSM",
-                        "ISO_2_code": "SM",
-                        "human_development_index": "0.853",
-                        "population": "33607",
+                    "french": {
+                        "capital": "Budapest",
+                        "official_language": "hongrois",
+                        "head_of_government": "Viktor Orb\u00e1n",
+                        "anthem": "Himnusz",
+                        "driving_side": "droite",
+                        "head_of_state": "Tam\u00e1s Sulyok",
+                        "currency": "forint",
+                        "top_level_internet_domain": ".hu",
+                        "area": "93011.4 km\u00b2",
+                        "nominal_GDP": "181848022230 $",
+                        "license_plate_code": "H",
+                        "ISO_3_code": "HUN",
+                        "age_of_majority": "18",
+                        "ISO_2_code": "HU",
+                        "country_calling_code": "+36",
+                        "population": "9603634, 9599744",
+                        "human_development_index": "0.846",
                         "flag": "flag_europe.png"
                     }
                 }
@@ -85,6 +87,26 @@
                         "human_development_index": "0.939",
                         "population": "5866139",
                         "flag": "flag_asia.png"
+                    },
+                    "french": {
+                        "area": "719.1 km\u00b2",
+                        "nominal_GDP": "466788539652 $, 423796995373 $",
+                        "capital": "Singapour",
+                        "official_language": "malais, tamoul, mandarin standard, anglais",
+                        "driving_side": "gauche",
+                        "head_of_state": "Tharman Shanmugaratnam",
+                        "head_of_government": "Lee Hsien Loong",
+                        "anthem": "Majulah Singapura",
+                        "currency": "dollar de Singapour",
+                        "top_level_internet_domain": ".sg",
+                        "ISO_3_code": "SGP",
+                        "age_of_majority": "21",
+                        "ISO_2_code": "SG",
+                        "country_calling_code": "+65",
+                        "license_plate_code": "SGP",
+                        "human_development_index": "0.939",
+                        "population": "5866139",
+                        "flag": "flag_asia.png"
                     }
                 }
             }
@@ -97,16 +119,56 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q1014",
                 "number_lives_used_game": 0,
-                "list_current_hints": [],
+                "list_current_hints": [
+                    "human_development_index",
+                    "area",
+                    "country_calling_code"
+                ],
                 "dict_clues": {
                     "french": {},
                     "english": {}
                 },
                 "dict_all_clues": {
-                    "french": {},
-                    "english": {}
+                    "english": {
+                        "area": "111369 km\u00b2",
+                        "nominal_GDP": "3509000000 $, 4001047150 $",
+                        "capital": "Monrovia",
+                        "official_language": "English",
+                        "head_of_government": "George Weah",
+                        "head_of_state": "George Weah",
+                        "top_level_internet_domain": ".lr",
+                        "currency": "Liberian dollar",
+                        "anthem": "All Hail, Liberia, Hail!",
+                        "driving_side": "right",
+                        "license_plate_code": "LB",
+                        "country_calling_code": "+231",
+                        "human_development_index": "0.481",
+                        "ISO_3_code": "LBR",
+                        "ISO_2_code": "LR",
+                        "population": "5214030",
+                        "flag": "flag_africa.png"
+                    },
+                    "french": {
+                        "area": "111369 km\u00b2",
+                        "nominal_GDP": "3509000000 $, 4001047150 $",
+                        "capital": "Monrovia",
+                        "official_language": "anglais",
+                        "head_of_government": "George Weah",
+                        "head_of_state": "George Weah",
+                        "top_level_internet_domain": ".lr",
+                        "driving_side": "droite",
+                        "currency": "dollar lib\u00e9rien",
+                        "anthem": "All Hail, Liberia Hail",
+                        "ISO_2_code": "LR",
+                        "country_calling_code": "+231",
+                        "ISO_3_code": "LBR",
+                        "license_plate_code": "LB",
+                        "human_development_index": "0.481",
+                        "population": "5214030",
+                        "flag": "flag_africa.png"
+                    }
                 }
             }
         },
@@ -118,16 +180,38 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q774",
                 "number_lives_used_game": 0,
-                "list_current_hints": [],
+                "list_current_hints": [
+                    "human_development_index",
+                    "age_of_majority",
+                    "head_of_government"
+                ],
                 "dict_clues": {
                     "french": {},
                     "english": {}
                 },
                 "dict_all_clues": {
-                    "french": {},
-                    "english": {}
+                    "french": {
+                        "capital": "Guatemala",
+                        "official_language": "espagnol",
+                        "head_of_government": "Bernardo Ar\u00e9valo",
+                        "head_of_state": "Bernardo Ar\u00e9valo",
+                        "top_level_internet_domain": ".gt",
+                        "driving_side": "droite",
+                        "anthem": "Guatemala Feliz",
+                        "currency": "Quetzal",
+                        "area": "108889 km\u00b2",
+                        "nominal_GDP": "95003333381 $, 86053079767 $",
+                        "age_of_majority": "18",
+                        "ISO_3_code": "GTM",
+                        "ISO_2_code": "GT",
+                        "country_calling_code": "+502",
+                        "human_development_index": "0.627",
+                        "population": "17263239",
+                        "license_plate_code": "GCA",
+                        "flag": "flag_north_america.png"
+                    }
                 }
             }
         },
@@ -139,16 +223,38 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "",
+                "country": "Q298",
                 "number_lives_used_game": 0,
-                "list_current_hints": [],
+                "list_current_hints": [
+                    "license_plate_code",
+                    "human_development_index",
+                    "capital"
+                ],
                 "dict_clues": {
                     "french": {},
                     "english": {}
                 },
                 "dict_all_clues": {
-                    "french": {},
-                    "english": {}
+                    "french": {
+                        "capital": "Santiago",
+                        "official_language": "espagnol",
+                        "head_of_state": "Gabriel Boric",
+                        "head_of_government": "Gabriel Boric",
+                        "anthem": "hymne national du Chili",
+                        "top_level_internet_domain": ".cl",
+                        "currency": "peso chilien",
+                        "driving_side": "droite",
+                        "area": "756102 km\u00b2",
+                        "nominal_GDP": "316713577509 $, 301025249438 $",
+                        "license_plate_code": "RCH",
+                        "ISO_3_code": "CHL",
+                        "age_of_majority": "18",
+                        "ISO_2_code": "CL",
+                        "country_calling_code": "+56",
+                        "human_development_index": "0.855",
+                        "population": "19458000",
+                        "flag": "flag_south_america.png"
+                    }
                 }
             }
         },
@@ -181,6 +287,24 @@
                         "head_of_state": "Taneti Maamau",
                         "top_level_internet_domain": ".ki",
                         "anthem": "Kunan Kiribati",
+                        "area": "811 km\u00b2",
+                        "nominal_GDP": "223352943 $, 227610035 $",
+                        "ISO_3_code": "KIR",
+                        "ISO_2_code": "KI",
+                        "country_calling_code": "+686",
+                        "human_development_index": "0.624",
+                        "population": "119438",
+                        "flag": "flag_oceania.png"
+                    },
+                    "french": {
+                        "capital": "Tarawa-Sud",
+                        "official_language": "gilbertin, anglais",
+                        "head_of_government": "Taneti Maamau",
+                        "head_of_state": "Taneti Maamau",
+                        "currency": "dollar australien, dollar des Kiribati",
+                        "driving_side": "gauche",
+                        "anthem": "Kunan Kiribati",
+                        "top_level_internet_domain": ".ki",
                         "area": "811 km\u00b2",
                         "nominal_GDP": "223352943 $, 227610035 $",
                         "ISO_3_code": "KIR",
