@@ -14,14 +14,13 @@
             "current_country": {
                 "country": "Q238",
                 "number_lives_used_game": 0,
-                "list_current_hints": [
-                    "nominal_GDP",
-                    "human_development_index",
-                    "capital"
-                ],
+                "list_current_hints": [],
                 "dict_clues": {
                     "french": {},
-                    "english": {}
+                    "english": {
+                        "capital": "\u2013 Capital : San Marino",
+                        "ISO_3_code": "SMR"
+                    }
                 },
                 "dict_all_clues": {
                     "english": {
