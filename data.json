@@ -2,23 +2,25 @@
     "language": "french",
     "continents": {
         "Europe": {
-            "highscore": 604.9382716049383,
-            "percentage": 6,
+            "highscore": 1049.3827160493827,
+            "percentage": 11,
             "countries_unlocked": [
                 "Q212",
                 "Q215",
-                "Q238"
+                "Q238",
+                "Q28",
+                "Q228"
             ],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q28",
+                "country": "Q27",
                 "number_lives_used_game": 0,
                 "list_current_hints": [
-                    "currency",
-                    "license_plate_code",
-                    "area"
+                    "capital",
+                    "official_language",
+                    "country_calling_code"
                 ],
                 "dict_clues": {
                     "french": {},
@@ -26,24 +28,24 @@
                 },
                 "dict_all_clues": {
                     "french": {
-                        "capital": "Budapest",
-                        "official_language": "hongrois",
-                        "head_of_government": "Viktor Orb\u00e1n",
-                        "anthem": "Himnusz",
-                        "driving_side": "droite",
-                        "head_of_state": "Tam\u00e1s Sulyok",
-                        "currency": "forint",
-                        "top_level_internet_domain": ".hu",
-                        "area": "93011.4 km\u00b2",
-                        "nominal_GDP": "181848022230 $",
-                        "license_plate_code": "H",
-                        "ISO_3_code": "HUN",
+                        "capital": "Dublin",
+                        "official_language": "irlandais, anglais",
+                        "top_level_internet_domain": ".ie",
+                        "head_of_government": "Leo Varadkar",
+                        "driving_side": "gauche",
+                        "anthem": "Amhr\u00e1n na bhFiann",
+                        "head_of_state": "Michael D. Higgins",
+                        "currency": "euro",
+                        "area": "69797 km\u00b2",
+                        "nominal_GDP": "504182603276 $, 529244870223 $",
+                        "ISO_3_code": "IRL",
+                        "ISO_2_code": "IE",
+                        "license_plate_code": "IRL",
                         "age_of_majority": "18",
-                        "ISO_2_code": "HU",
-                        "country_calling_code": "+36",
-                        "population": "9603634, 9599744",
-                        "human_development_index": "0.846",
-                        "flag": "flag_europe.png"
+                        "human_development_index": "0.945",
+                        "population": "5123536",
+                        "flag": "flag_europe.png",
+                        "country_calling_code": "+353"
                     }
                 }
             }
