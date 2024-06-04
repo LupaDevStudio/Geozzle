@@ -1,5 +1,5 @@
 {
-    "language": "french",
+    "language": "english",
     "continents": {
         "Europe": {
             "highscore": 0,
@@ -9,92 +9,53 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q215",
+                "country": "Q238",
                 "number_lives_used_game": 0,
-                "list_current_hints": [
-                    "country_calling_code",
-                    "nominal_GDP",
-                    "anthem"
-                ],
+                "list_current_hints": [],
                 "dict_clues": {
-                    "french": {
-                        "age_of_majority": "\u2013 Age de la majorit\u00e9 : 18 ans",
-                        "flag": "flag_europe.png",
-                        "area": "\u2013 Superficie : 20 271 km\u00b2",
-                        "population": "\u2013 Population : 2 066 880 habitants",
-                        "head_of_government": "\u2013 Chef du gouvernement : Robert Golob",
-                        "ISO_3_code": "SVN"
-                    },
+                    "french": {},
                     "english": {
-                        "age_of_majority": "\u2013 Age of majority : 18 years",
-                        "flag": "flag_europe.png",
-                        "area": "\u2013 Area : 20,271 km\u00b2",
-                        "population": "\u2013 Population : 2,066,880 inhabitants",
-                        "head_of_government": "\u2013 Head of government : Robert Golob",
-                        "ISO_3_code": "SVN"
+                        "capital": "\u2013 Capital : San Marino",
+                        "ISO_3_code": "SMR"
                     }
                 },
                 "dict_all_clues": {
-                    "french": {
-                        "area": "20271 km\u00b2",
-                        "nominal_GDP": "62117768015 $, 61748586535 $",
-                        "head_of_government": "Robert Golob",
-                        "head_of_state": "Nata\u0161a Pirc Musar",
-                        "capital": "Ljubljana",
-                        "official_language": "slov\u00e8ne",
-                        "currency": "euro",
-                        "driving_side": "droite",
-                        "top_level_internet_domain": ".si",
-                        "anthem": "Zdravljica",
-                        "age_of_majority": "18",
-                        "country_calling_code": "+386",
-                        "ISO_3_code": "SVN",
-                        "ISO_2_code": "SI",
-                        "license_plate_code": "SLO",
-                        "population": "2066880",
-                        "human_development_index": "0.918",
-                        "flag": "flag_europe.png"
-                    },
                     "english": {
-                        "area": "20271 km\u00b2",
-                        "nominal_GDP": "62117768015 $, 61748586535 $",
-                        "official_language": "Slovene",
-                        "capital": "Ljubljana",
-                        "head_of_government": "Robert Golob",
-                        "currency": "euro",
-                        "top_level_internet_domain": ".si",
-                        "head_of_state": "Nata\u0161a Pirc Musar",
-                        "anthem": "Zdravljica",
+                        "capital": "San Marino",
+                        "official_language": "Italian",
+                        "head_of_government": "Francesco Mussoni, Giacomo Simoncini",
+                        "head_of_state": "Adele Tonnini, Alessandro Scarano",
+                        "anthem": "Inno Nazionale della Repubblica",
                         "driving_side": "right",
-                        "ISO_3_code": "SVN",
-                        "age_of_majority": "18",
-                        "license_plate_code": "SLO",
-                        "ISO_2_code": "SI",
-                        "country_calling_code": "+386",
-                        "population": "2066880",
-                        "flag": "flag_europe.png",
-                        "human_development_index": "0.918"
+                        "currency": "Euro",
+                        "top_level_internet_domain": ".sm",
+                        "area": "61.2 km\u00b2",
+                        "nominal_GDP": "1855382833 $",
+                        "ISO_3_code": "SMR",
+                        "country_calling_code": "+378",
+                        "license_plate_code": "RSM",
+                        "ISO_2_code": "SM",
+                        "human_development_index": "0.853",
+                        "population": "33607",
+                        "flag": "flag_europe.png"
                     }
                 }
             }
         },
         "Asia": {
-            "highscore": 340.13605442176873,
-            "percentage": 4,
-            "countries_unlocked": [
-                "Q843",
-                "Q711"
-            ],
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q819",
+                "country": "Q334",
                 "number_lives_used_game": 0,
                 "list_current_hints": [
-                    "nominal_GDP",
                     "population",
-                    "currency"
+                    "human_development_index",
+                    "driving_side"
                 ],
                 "dict_clues": {
                     "french": {},
@@ -102,192 +63,105 @@
                 },
                 "dict_all_clues": {
                     "english": {
-                        "area": "236800 km\u00b2",
-                        "nominal_GDP": "15724383783 $, 18827148530 $",
-                        "capital": "Vientiane",
-                        "official_language": "Lao",
-                        "head_of_government": "Phankham Viphavan",
-                        "head_of_state": "Thongloun Sisoulith",
-                        "top_level_internet_domain": ".la",
-                        "driving_side": "right",
-                        "anthem": "Pheng Xat Lao",
-                        "currency": "Lao kip",
-                        "age_of_majority": "18",
-                        "ISO_2_code": "LA",
-                        "license_plate_code": "LAO",
-                        "ISO_3_code": "LAO",
-                        "country_calling_code": "+856",
-                        "population": "6858160",
-                        "human_development_index": "0.607",
+                        "capital": "Singapore",
+                        "official_language": "Tamil, Malay, Standard Mandarin, English",
+                        "head_of_state": "Tharman Shanmugaratnam",
+                        "head_of_government": "Lee Hsien Loong",
+                        "currency": "Singapore dollar",
+                        "driving_side": "left",
+                        "top_level_internet_domain": ".sg",
+                        "anthem": "Onward Singapore",
+                        "area": "719.1 km\u00b2",
+                        "nominal_GDP": "466788539652 $, 423796995373 $",
+                        "ISO_2_code": "SG",
+                        "license_plate_code": "SGP",
+                        "age_of_majority": "21",
+                        "country_calling_code": "+65",
+                        "ISO_3_code": "SGP",
+                        "human_development_index": "0.939",
+                        "population": "5866139",
                         "flag": "flag_asia.png"
-                    },
-                    "french": {
-                        "ISO_3_code": "LAO",
-                        "age_of_majority": "18",
-                        "ISO_2_code": "LA",
-                        "license_plate_code": "LAO",
-                        "population": "6858160",
-                        "country_calling_code": "+856",
-                        "human_development_index": "0.607",
-                        "flag": "flag_asia.png",
-                        "capital": "Vientiane",
-                        "official_language": "lao",
-                        "head_of_state": "Thongloun Sisoulith",
-                        "top_level_internet_domain": ".la",
-                        "head_of_government": "Phankham Viphavanh",
-                        "anthem": "Pheng Xat Lao",
-                        "driving_side": "droite",
-                        "currency": "Kip laotien",
-                        "area": "236800 km\u00b2",
-                        "nominal_GDP": "15724383783 $, 18827148530 $"
                     }
                 }
             }
         },
         "Africa": {
-            "highscore": 144.0329218106996,
-            "percentage": 1,
-            "countries_unlocked": [
-                "Q924"
-            ],
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q1006",
+                "country": "",
                 "number_lives_used_game": 0,
-                "list_current_hints": [
-                    "motto",
-                    "nominal_GDP",
-                    "human_development_index"
-                ],
+                "list_current_hints": [],
                 "dict_clues": {
-                    "french": {
-                        "flag": "flag_africa.png",
-                        "capital": "\u2013 Capitale : Conakry",
-                        "head_of_state": "\u2013 Chef de l'\u00c9tat : Mamadi Doumbouya",
-                        "country_calling_code": "\u2013 Code t\u00e9l\u00e9phonique : +224",
-                        "age_of_majority": "\u2013 Age de la majorit\u00e9 : 18 ans",
-                        "area": "\u2013 Superficie : 245 857 km\u00b2",
-                        "driving_side": "\u2013 Sens de conduite : Droite"
-                    },
-                    "english": {
-                        "flag": "flag_africa.png",
-                        "capital": "\u2013 Capital : Conakry",
-                        "head_of_state": "\u2013 Head of state : Mamadi Doumbouya",
-                        "country_calling_code": "\u2013 Country calling code : +224",
-                        "age_of_majority": "\u2013 Age of majority : 18 years",
-                        "area": "\u2013 Area : 245,857 km\u00b2",
-                        "driving_side": "\u2013 Driving side : Right"
-                    }
+                    "french": {},
+                    "english": {}
                 },
                 "dict_all_clues": {
-                    "english": {
-                        "capital": "Conakry",
-                        "official_language": "French",
-                        "head_of_state": "Mamadi Doumbouya",
-                        "head_of_government": "Ibrahima Kassory Fofana",
-                        "driving_side": "right",
-                        "currency": "Guinean franc",
-                        "anthem": "Libert\u00e9",
-                        "top_level_internet_domain": ".gn",
-                        "motto": "Work, Justice, Solidarity",
-                        "area": "245857 km\u00b2",
-                        "nominal_GDP": "21227749389 $, 16091817842 $",
-                        "ISO_2_code": "GN",
-                        "license_plate_code": "RG",
-                        "ISO_3_code": "GIN",
-                        "age_of_majority": "18",
-                        "human_development_index": "0.465",
-                        "population": "12717176",
-                        "country_calling_code": "+224",
-                        "flag": "flag_africa.png"
-                    },
-                    "french": {
-                        "area": "245857 km\u00b2",
-                        "nominal_GDP": "21227749389 $, 16091817842 $",
-                        "capital": "Conakry",
-                        "official_language": "fran\u00e7ais",
-                        "head_of_state": "Mamadi Doumbouya",
-                        "head_of_government": "Bah Oury",
-                        "driving_side": "droite",
-                        "currency": "franc guin\u00e9en",
-                        "top_level_internet_domain": ".gn",
-                        "anthem": "Libert\u00e9",
-                        "motto": "Travail, Justice, Solidarit\u00e9",
-                        "ISO_2_code": "GN",
-                        "country_calling_code": "+224",
-                        "age_of_majority": "18",
-                        "ISO_3_code": "GIN",
-                        "population": "12717176",
-                        "license_plate_code": "RG",
-                        "human_development_index": "0.465",
-                        "flag": "flag_africa.png"
-                    }
+                    "french": {},
+                    "english": {}
                 }
             }
         },
         "North_America": {
-            "highscore": 370.3703703703704,
-            "percentage": 4,
-            "countries_unlocked": [
-                "Q760"
-            ],
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q241",
+                "country": "",
                 "number_lives_used_game": 0,
-                "list_current_hints": [
-                    "human_development_index",
-                    "official_language",
-                    "currency"
-                ],
+                "list_current_hints": [],
                 "dict_clues": {
                     "french": {},
                     "english": {}
                 },
                 "dict_all_clues": {
-                    "english": {
-                        "area": "109884 km\u00b2",
-                        "capital": "Havana",
-                        "official_language": "Spanish",
-                        "anthem": "El Himno de Bayamo",
-                        "currency": "convertible peso, Cuban peso",
-                        "head_of_state": "Miguel D\u00edaz-Canel",
-                        "head_of_government": "Manuel Marrero Cruz",
-                        "top_level_internet_domain": ".cu",
-                        "driving_side": "right",
-                        "ISO_3_code": "CUB",
-                        "country_calling_code": "+53",
-                        "ISO_2_code": "CU",
-                        "age_of_majority": "18",
-                        "license_plate_code": "C",
-                        "population": "11181595, 10985974",
-                        "flag": "flag_north_america.png",
-                        "human_development_index": "0.764"
-                    }
+                    "french": {},
+                    "english": {}
                 }
             }
         },
         "South_America": {
-            "highscore": 1250.0,
-            "percentage": 16,
-            "countries_unlocked": [
-                "Q750",
-                "Q414"
-            ],
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
             "number_lives": 3,
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q733",
+                "country": "",
+                "number_lives_used_game": 0,
+                "list_current_hints": [],
+                "dict_clues": {
+                    "french": {},
+                    "english": {}
+                },
+                "dict_all_clues": {
+                    "french": {},
+                    "english": {}
+                }
+            }
+        },
+        "Oceania": {
+            "highscore": 0,
+            "percentage": 0,
+            "countries_unlocked": [],
+            "number_lives": 3,
+            "number_lives_used_game": 0,
+            "lost_live_date": null,
+            "current_country": {
+                "country": "Q710",
                 "number_lives_used_game": 0,
                 "list_current_hints": [
-                    "head_of_state",
+                    "population",
                     "nominal_GDP",
-                    "currency"
+                    "area"
                 ],
                 "dict_clues": {
                     "french": {},
@@ -295,117 +169,22 @@
                 },
                 "dict_all_clues": {
                     "english": {
-                        "area": "406756 km\u00b2",
-                        "nominal_GDP": "39950899733 $, 41722295362 $",
-                        "capital": "Asunci\u00f3n",
-                        "official_language": "Guarani, Spanish",
-                        "head_of_state": "Santiago Pe\u00f1a Palacios",
-                        "top_level_internet_domain": ".py",
-                        "driving_side": "right",
-                        "anthem": "national anthem of Paraguay",
-                        "currency": "Paraguayan guaran\u00ed",
-                        "license_plate_code": "PY",
-                        "population": "6811297",
-                        "country_calling_code": "+595",
-                        "ISO_3_code": "PRY",
-                        "ISO_2_code": "PY",
-                        "human_development_index": "0.717",
-                        "age_of_majority": "18",
-                        "flag": "flag_south_america.png"
-                    },
-                    "french": {
-                        "area": "406756 km\u00b2",
-                        "nominal_GDP": "39950899733 $, 41722295362 $",
-                        "capital": "Asuncion",
-                        "official_language": "guarani, espagnol",
-                        "driving_side": "droite",
-                        "head_of_state": "Santiago Pe\u00f1a Palacios",
-                        "anthem": "Paraguayos, Rep\u00fablica o muerte",
-                        "top_level_internet_domain": ".py",
-                        "currency": "Guaran\u00ed",
-                        "ISO_3_code": "PRY",
-                        "age_of_majority": "18",
-                        "ISO_2_code": "PY",
-                        "country_calling_code": "+595",
-                        "human_development_index": "0.717",
-                        "population": "6811297",
-                        "license_plate_code": "PY",
-                        "flag": "flag_south_america.png"
-                    }
-                }
-            }
-        },
-        "Oceania": {
-            "highscore": 486.1111111111111,
-            "percentage": 6,
-            "countries_unlocked": [
-                "Q686"
-            ],
-            "number_lives": 3,
-            "number_lives_used_game": 0,
-            "lost_live_date": null,
-            "current_country": {
-                "country": "Q709",
-                "number_lives_used_game": 0,
-                "list_current_hints": [
-                    "human_development_index",
-                    "driving_side",
-                    "top_level_internet_domain"
-                ],
-                "dict_clues": {
-                    "french": {
-                        "area": "\u2013 Superficie : 181 km\u00b2",
-                        "capital": "\u2013 Capitale : Majuro",
-                        "nominal_GDP": "\u2013 PIB moyen : 0.26 Mrd $",
-                        "population": "\u2013 Population : 53 127 habitants",
-                        "country_calling_code": "\u2013 Code t\u00e9l\u00e9phonique : +692",
+                        "capital": "South Tarawa",
+                        "official_language": "Gilbertese, English",
+                        "head_of_government": "Taneti Maamau",
+                        "driving_side": "left",
+                        "currency": "Australian dollar, Kiribati dollar",
+                        "head_of_state": "Taneti Maamau",
+                        "top_level_internet_domain": ".ki",
+                        "anthem": "Kunan Kiribati",
+                        "area": "811 km\u00b2",
+                        "nominal_GDP": "223352943 $, 227610035 $",
+                        "ISO_3_code": "KIR",
+                        "ISO_2_code": "KI",
+                        "country_calling_code": "+686",
+                        "human_development_index": "0.624",
+                        "population": "119438",
                         "flag": "flag_oceania.png"
-                    },
-                    "english": {
-                        "area": "\u2013 Area : 181 km\u00b2",
-                        "capital": "\u2013 Capital : Majuro",
-                        "nominal_GDP": "\u2013 Nominal GDP : 0.26 b$",
-                        "population": "\u2013 Population : 53,127 inhabitants",
-                        "country_calling_code": "\u2013 Country calling code : +692",
-                        "flag": "flag_oceania.png"
-                    }
-                },
-                "dict_all_clues": {
-                    "english": {
-                        "area": "181.43 km\u00b2",
-                        "nominal_GDP": "279667900 $, 259538700 $",
-                        "capital": "Majuro",
-                        "official_language": "Marshallese, English",
-                        "head_of_government": "Hilda C. Heine",
-                        "head_of_state": "Hilda C. Heine",
-                        "currency": "United States dollar, SOV",
-                        "anthem": "Forever Marshall Islands",
-                        "driving_side": "right",
-                        "top_level_internet_domain": ".mh",
-                        "ISO_2_code": "MH",
-                        "country_calling_code": "+692",
-                        "ISO_3_code": "MHL",
-                        "population": "53127",
-                        "human_development_index": "0.639",
-                        "flag": "flag_oceania.png"
-                    },
-                    "french": {
-                        "area": "181.43 km\u00b2",
-                        "nominal_GDP": "279667900 $, 259538700 $",
-                        "capital": "Majuro",
-                        "official_language": "marshallais, anglais",
-                        "head_of_government": "Hilda Heine",
-                        "head_of_state": "Hilda Heine",
-                        "currency": "SOV, dollar am\u00e9ricain",
-                        "driving_side": "droite",
-                        "top_level_internet_domain": ".mh",
-                        "anthem": "Forever Marshall Islands",
-                        "ISO_3_code": "MHL",
-                        "ISO_2_code": "MH",
-                        "country_calling_code": "+692",
-                        "human_development_index": "0.639",
-                        "flag": "flag_oceania.png",
-                        "population": "53127"
                     }
                 }
             }

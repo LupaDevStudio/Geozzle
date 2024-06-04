@@ -13,7 +13,7 @@ package.domain = lupadevstudio.com
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas,json,txt,ttf,wav,ico,ogg,otf,mp3
+source.include_exts = py,png,jpg,kv,atlas,json,txt,ttf,wav,ico,ogg,otf,mp3,gif
 
 # (list) List of inclusions using pattern matching
 #source.include_patterns = assets/*,images/*.png
@@ -37,7 +37,7 @@ version.filename = tools/constants.py
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3, kivy, androidstorage4kivy
+requirements = python3, kivy, androidstorage4kivy, Pillow
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes

@@ -11,6 +11,7 @@ Module to create the game over screen.
 import random as rd
 import os
 from functools import partial
+from threading import Thread
 
 ### Kivy imports ###
 
@@ -43,7 +44,8 @@ from tools import (
 )
 from screens.custom_widgets import (
     TwoButtonsPopup,
-    MessagePopup
+    MessagePopup,
+    LoadingPopup
 )
 from tools.geozzle import (
     AD_CONTAINER
@@ -168,33 +170,51 @@ class GameOverScreen(ImprovedScreenWithAds):
             "home").code_continent = self.code_continent
         self.manager.current = "home"
 
+    def prepare_gui_to_play_game(self, has_success, *_):
+        self.loading_popup.dismiss()
+        if has_success:
+
+            self.manager.get_screen(
+                "game_question").previous_screen_name = "game_over"
+            self.manager.get_screen(
+                "game_question").code_continent = self.code_continent
+            self.manager.get_screen(
+                "game_summary").reset_scroll_view()
+            self.manager.get_screen(
+                "game_summary").update_images()
+            self.manager.current = "game_question"
+            self.update_countries()
+
+        else:
+            popup = MessagePopup(
+                primary_color=self.continent_color,
+                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                    self.code_continent],
+                title=TEXT.clues["no_connexion_title"],
+                center_label_text=TEXT.clues["no_connexion_message"],
+                font_ratio=self.font_ratio
+            )
+            popup.open()
+
+    def thread_request(self):
+        has_success = game.create_new_game(self.code_continent)
+        Clock.schedule_once(
+            partial(self.prepare_gui_to_play_game, has_success))
+
     def go_to_next_screen(self):
         if self.continue_game_label == TEXT.game_over["next_country"]:
-            # Create a new game
-            has_success = game.create_new_game(self.code_continent)
-            if has_success:
 
-                self.manager.get_screen(
-                    "game_question").previous_screen_name = "game_over"
-                self.manager.get_screen(
-                    "game_question").code_continent = self.code_continent
-                self.manager.get_screen(
-                    "game_summary").reset_scroll_view()
-                self.manager.get_screen(
-                    "game_summary").update_images()
-                self.manager.current = "game_question"
-                self.update_countries()
+            # Display the loading popup
+            self.loading_popup = LoadingPopup(
+                primary_color=self.continent_color,
+                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                    self.code_continent],
+                font_ratio=self.font_ratio)
+            self.loading_popup.open()
 
-            else:
-                popup = MessagePopup(
-                    primary_color=self.continent_color,
-                    secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
-                        self.code_continent],
-                    title=TEXT.clues["no_connexion_title"],
-                    center_label_text=TEXT.clues["no_connexion_message"],
-                    font_ratio=self.font_ratio
-                )
-                popup.open()
+            # Start thread
+            my_thread = Thread(target=self.thread_request)
+            my_thread.start()
 
         elif self.continue_game_label in [TEXT.game_over["continue"], TEXT.game_over["button_back"]]:
             self.manager.get_screen(

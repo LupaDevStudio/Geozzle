@@ -361,7 +361,11 @@ class HomeScreen(ImprovedScreenWithAds):
 
             # Display the loading popup
             if not game.is_already_loaded():
-                self.loading_popup = LoadingPopup(font_ratio=self.font_ratio)
+                self.loading_popup = LoadingPopup(
+                    primary_color=self.continent_color,
+                    secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                        self.code_continent],
+                    font_ratio=self.font_ratio)
                 self.loading_popup.open()
             else:
                 self.loading_popup = None
@@ -369,9 +373,6 @@ class HomeScreen(ImprovedScreenWithAds):
             # Start thread
             my_thread = Thread(target=self.thread_request)
             my_thread.start()
-
-            # Reset the screen of game_summary
-            # has_success = game.create_new_game(self.code_continent)
 
         else:
             popup = TwoButtonsPopup(
