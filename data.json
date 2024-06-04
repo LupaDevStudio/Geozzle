@@ -3,7 +3,7 @@
     "continents": {
         "Europe": {
             "highscore": 0,
-            "percentage": 0,
+            "percentage": 100,
             "countries_unlocked": [],
             "number_lives": 3,
             "number_lives_used_game": 0,
@@ -411,5 +411,6 @@
             }
         }
     },
-    "has_seen_tutorial": true
+    "has_seen_tutorial": true,
+    "has_seen_popup_linconym": true
 }

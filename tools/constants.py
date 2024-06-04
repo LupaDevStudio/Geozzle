@@ -143,6 +143,17 @@ class UserData():
         self.language = data["language"]
         self.continents = data["continents"]
         self.has_seen_tutorial = data["has_seen_tutorial"]
+        if "has_seen_popup_linconym" not in data:
+            self.has_seen_popup_linconym = False
+        else:
+            self.has_seen_popup_linconym = data["has_seen_popup_linconym"]
+
+    def has_finished_one_continent(self) -> bool:
+        for continent_name in self.continents:
+            continent = self.continents[continent_name]
+            if continent["percentage"] == 100:
+                return True
+        return False
 
     def save_changes(self) -> None:
         """
@@ -162,6 +173,7 @@ class UserData():
         data["language"] = self.language
         data["continents"] = self.continents
         data["has_seen_tutorial"] = self.has_seen_tutorial
+        data["has_seen_popup_linconym"] = self.has_seen_popup_linconym
 
         # Save this dictionary
         save_json_file(

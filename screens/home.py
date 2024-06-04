@@ -32,7 +32,8 @@ from tools.path import (
     PATH_BACKGROUNDS,
     PATH_CONTINENTS_IMAGES,
     PATH_LANGUAGES_IMAGES,
-    PATH_TEXT_FONT
+    PATH_TEXT_FONT,
+    PATH_IMAGES
 )
 from screens.custom_widgets import ImprovedScreenWithAds
 from tools.constants import (
@@ -46,7 +47,9 @@ from tools.constants import (
     LIFE_RELOAD_TIME,
     CURRENT_COUNTRY_INIT,
     MUSIC_VOLUME,
-    SOUND_VOLUME
+    SOUND_VOLUME,
+    ANDROID_MODE,
+    IOS_MODE
 )
 
 from tools import (
@@ -57,6 +60,7 @@ from tools import (
 from screens.custom_widgets import (
     TutorialPopup,
     TwoButtonsPopup,
+    TwoButtonsImagePopup,
     MessagePopup,
     LoadingPopup,
 )
@@ -119,7 +123,32 @@ class HomeScreen(ImprovedScreenWithAds):
             USER_DATA.save_changes()
             self.launch_tutorial(first_time=True)
 
+        # If the user has finished at least one continent, display the ad popup for Linconym
+        if USER_DATA.has_finished_one_continent() and not USER_DATA.has_seen_popup_linconym:
+            popup = TwoButtonsImagePopup(
+                title="Linconym, the new game of LupaDevStudio",
+                center_label_text="LupaDevStudio is pleased to present you its new game!\n\nDiscover Linconym, a letter game where your goal is to link words together by rearranging letters to form new ones.",
+                image_source=PATH_IMAGES + "linconym_banner.png",
+                left_button_label="Cancel",
+                right_button_label="Discover",
+                font_ratio=self.font_ratio,
+                primary_color=self.continent_color,
+                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+            )
+            popup.right_release_function = partial(self.go_to_linconym, popup)
+            USER_DATA.has_seen_popup_linconym = True
+            USER_DATA.save_changes()
+            popup.open()
+
         return super().on_enter(*args)
+
+    def go_to_linconym(self, popup: TwoButtonsImagePopup):
+        popup.dismiss()
+        if ANDROID_MODE:
+            webbrowser.open("https://play.google.com/store/apps/details?id=lupadevstudio.com.linconym&pli=1", 2)
+        elif IOS_MODE:
+            # TODO change Link
+            webbrowser.open("https://lupadevstudio.com", 2)
 
     def regenerate_lives(self):
         for code_continent in LIST_CONTINENTS:

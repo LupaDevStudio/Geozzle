@@ -23,3 +23,4 @@ from screens.custom_widgets.two_buttons_popup import TwoButtonsPopup
 from screens.custom_widgets.message_popup import MessagePopup
 from screens.custom_widgets.loading_popup import LoadingPopup
 from screens.custom_widgets.improved_screen_with_ads import ImprovedScreenWithAds
+from screens.custom_widgets.two_buttons_image_popup import TwoButtonsImagePopup
