@@ -40,7 +40,7 @@ from tools.basic_tools import (
 
 ### Version ###
 
-__version__ = "1.0.7"
+__version__ = "1.0.8"
 
 ### Mode ###
 
