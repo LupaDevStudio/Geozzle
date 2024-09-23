@@ -1,5 +1,6 @@
 {
-    "language": "english",
+    "language": "french",
+    "game": {},
     "continents": {
         "Europe": {
             "highscore": 0,
@@ -9,35 +10,37 @@
             "number_lives_used_game": 0,
             "lost_live_date": null,
             "current_country": {
-                "country": "Q238",
+                "country": "Q27",
                 "number_lives_used_game": 0,
-                "list_current_hints": [],
+                "list_current_hints": [
+                    "country_calling_code",
+                    "nominal_GDP",
+                    "area"
+                ],
                 "dict_clues": {
                     "french": {},
-                    "english": {
-                        "capital": "\u2013 Capital : San Marino",
-                        "ISO_3_code": "SMR"
-                    }
+                    "english": {}
                 },
                 "dict_all_clues": {
                     "english": {
-                        "capital": "San Marino",
-                        "official_language": "Italian",
-                        "head_of_government": "Francesco Mussoni, Giacomo Simoncini",
-                        "head_of_state": "Adele Tonnini, Alessandro Scarano",
-                        "anthem": "Inno Nazionale della Repubblica",
-                        "driving_side": "right",
+                        "capital": "Dublin",
+                        "official_language": "Irish, English",
+                        "head_of_government": "Leo Varadkar",
+                        "anthem": "Amhr\u00e1n na bhFiann",
+                        "driving_side": "left",
+                        "head_of_state": "Michael D. Higgins",
+                        "top_level_internet_domain": ".ie",
                         "currency": "Euro",
-                        "top_level_internet_domain": ".sm",
-                        "area": "61.2 km\u00b2",
-                        "nominal_GDP": "1855382833 $",
-                        "ISO_3_code": "SMR",
-                        "country_calling_code": "+378",
-                        "license_plate_code": "RSM",
-                        "ISO_2_code": "SM",
-                        "human_development_index": "0.853",
-                        "population": "33607",
-                        "flag": "flag_europe.png"
+                        "country_calling_code": "+353",
+                        "license_plate_code": "IRL",
+                        "ISO_3_code": "IRL",
+                        "ISO_2_code": "IE",
+                        "human_development_index": "0.945",
+                        "age_of_majority": "18",
+                        "population": "5149139",
+                        "flag": "flag_europe.png",
+                        "area": "69797 km\u00b2",
+                        "nominal_GDP": "504182603276 $, 529244870223 $"
                     }
                 }
             }

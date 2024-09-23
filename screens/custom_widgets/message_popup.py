@@ -17,7 +17,7 @@ from kivy.properties import (
 ### Local imports ###
 
 from screens.custom_widgets.custom_popup import CustomPopup
-from tools.constants import (
+from tools.geozzle import (
     TEXT
 )
 

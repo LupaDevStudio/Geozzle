@@ -18,3 +18,6 @@ The following list includes all the references of the assets used by this applic
 - <a href="https://www.flaticon.com/free-icons/planet" title="planet icons">Planet icons created by SeyfDesigner - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/mute" title="mute icons">Mute icons created by Bharat Icons - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/mute" title="mute icons">Mute icons created by Bharat Icons - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/settings" title="settings icons">Settings icons created by Pixel perfect - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/trophy" title="trophy icons">Trophy icons created by Design View - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/retail" title="retail icons">Retail icons created by Frey Wazza - Flaticon</a>

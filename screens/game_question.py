@@ -30,14 +30,14 @@ from tools.path import (
 from tools.constants import (
     DICT_CONTINENTS,
     LIST_CONTINENTS,
-    TEXT,
     TIME_CHANGE_BACKGROUND,
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED
 )
-from screens.custom_widgets import ImprovedScreenWithAds
-from tools import (
-    game
+from tools.geozzle import (
+    TEXT,
+    USER_DATA    
 )
+from screens.custom_widgets import ImprovedScreenWithAds
 from screens.custom_widgets import (
     MessagePopup
 )
@@ -83,7 +83,7 @@ class GameQuestionScreen(ImprovedScreenWithAds):
         Clock.schedule_interval(
             self.manager.change_background, TIME_CHANGE_BACKGROUND)
 
-        self.number_lives_on = game.number_lives
+        self.number_lives_on = USER_DATA.game.number_lives
 
         return super().on_enter(*args)
 
@@ -121,7 +121,7 @@ class GameQuestionScreen(ImprovedScreenWithAds):
 
     def add_clue(self, hint):
         # Add the clue in the class
-        game.select_clue(hint)
+        USER_DATA.game.select_clue(hint)
 
         # Change screen
         self.go_to_game_summary(hint)
@@ -147,7 +147,7 @@ class GameQuestionScreen(ImprovedScreenWithAds):
         None
         """
         # Pick randomly three clues
-        hint_1, hint_2, hint_3 = game.choose_three_clues()
+        hint_1, hint_2, hint_3 = USER_DATA.game.choose_three_clues()
 
         # Display the first clue if it exists
         if not hint_1 is None:

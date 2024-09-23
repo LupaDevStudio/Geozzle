@@ -15,9 +15,9 @@ import copy
 ### Local imports ###
 
 from tools.constants import (
-    USER_DATA,
+    PATH_LANGUAGE,
+    PATH_USER_DATA,
     MAX_HIGHSCORE,
-    TEXT,
     DICT_COUNTRIES,
     DICT_HINTS_INFORMATION,
     CURRENT_COUNTRY_INIT,
@@ -27,7 +27,10 @@ from tools.constants import (
     LIST_CLUES_EXCEPTIONS,
     DICT_WIKIDATA_LANGUAGE
 )
-
+from tools.basic_tools import (
+    load_json_file,
+    save_json_file
+)
 from tools.sparql import (
     request_all_clues
 )
@@ -348,7 +351,25 @@ class AdContainer():
 AD_CONTAINER = AdContainer()
 
 
+############
+### Game ###
+############
+
 class Game():
+    # Number of lives left for this game
+    number_lives: int
+    # Number of lives used for this country
+    number_lives_used_country: int
+    # Number of credits left to use
+    number_credits: int
+
+    def __init__(self, dict_to_load: dict) -> None:
+        pass
+
+    def export_as_dict(self) -> dict:
+        return {}
+
+class OldGame():
     # Number of lives left for the continent
     number_lives: int
     # Number of lives used for this game
@@ -631,7 +652,7 @@ class Game():
 
     def reset_data_game_over(self):
         """
-        When the user is in game over, the dict of clues is resetted.
+        When the user is in game over, the dict of clues is reset.
 
         Parameters
         ----------
@@ -754,7 +775,7 @@ class Game():
             # Check if the clue has not already been selected
             if not type_clue in self.dict_clues[TEXT.language] and not type_clue in LIST_CLUES_EXCEPTIONS:
                 # Get the probability of the clue
-                dict_probabilities[type_clue] = DICT_HINTS_INFORMATION[type_clue]
+                dict_probabilities[type_clue] = DICT_HINTS_INFORMATION[type_clue]["probability"]
 
         if dict_probabilities != {}:
             # Sum all probabilities
@@ -798,7 +819,7 @@ class Game():
         Returns
         -------
         str
-            Name of the randomly choosen clue.
+            Name of the randomly chosen clue.
         """
         probability = rd.random()
         sum_probabilities = 0
@@ -825,3 +846,99 @@ class Game():
         if self.number_lives == 3:
             USER_DATA.continents[self.code_continent]["lost_live_date"] = None
         USER_DATA.save_changes()
+
+#################
+### User data ###
+#################
+
+class UserData():
+    """
+    A class to store the user data.
+    """
+
+    def __init__(self) -> None:
+        data = load_json_file(PATH_USER_DATA)
+        self.language = data["language"]
+        self.game: Game = Game(data.get("game", {}))
+        self.continents = data["continents"]
+        self.has_seen_tutorial = data["has_seen_tutorial"]
+        if "has_seen_popup_linconym" not in data:
+            self.has_seen_popup_linconym = False
+        else:
+            self.has_seen_popup_linconym = data["has_seen_popup_linconym"]
+
+    def has_finished_one_continent(self) -> bool:
+        for continent_name in self.continents:
+            continent = self.continents[continent_name]
+            if continent["percentage"] == 100:
+                return True
+        return False
+
+    def save_changes(self) -> None:
+        """
+        Save the changes in the data.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+
+        # Create the dictionary of data
+        data = {}
+        data["language"] = self.language
+        data["game"] = self.game.export_as_dict()
+        data["continents"] = self.continents
+        data["has_seen_tutorial"] = self.has_seen_tutorial
+        data["has_seen_popup_linconym"] = self.has_seen_popup_linconym
+
+        # Save this dictionary
+        save_json_file(
+            file_path=PATH_USER_DATA,
+            dict_to_save=data)
+
+
+USER_DATA = UserData()
+
+############
+### Text ###
+############
+
+class Text():
+    def __init__(self, language) -> None:
+        self.language = language
+        self.change_language(language)
+
+    def change_language(self, language):
+        """
+        Change the language of the text contained in the class.
+
+        Parameters
+        ----------
+        language : str
+            Code of the desired language.
+
+        Returns
+        -------
+        None
+        """
+        # Change the language
+        self.language = language
+
+        # Load the json file
+        data = load_json_file(PATH_LANGUAGE + language + ".json")
+
+        # Split the text contained in the screens
+        self.home = data["home"]
+        self.game_question = data["game_question"]
+        self.game_summary = data["game_summary"]
+        self.game_over = data["game_over"]
+        self.clues = data["clues"]
+        self.tutorial = data["tutorial"]
+        self.popup = data["popup"]
+
+
+TEXT = Text(language=USER_DATA.language)

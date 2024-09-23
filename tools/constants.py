@@ -130,59 +130,6 @@ if not os.path.exists(PATH_USER_DATA):
     }
     save_json_file(PATH_USER_DATA, default_user_data)
 
-# Load the data of the user
-
-
-class UserData():
-    """
-    A class to store the user data.
-    """
-
-    def __init__(self) -> None:
-        data = load_json_file(PATH_USER_DATA)
-        self.language = data["language"]
-        self.continents = data["continents"]
-        self.has_seen_tutorial = data["has_seen_tutorial"]
-        if "has_seen_popup_linconym" not in data:
-            self.has_seen_popup_linconym = False
-        else:
-            self.has_seen_popup_linconym = data["has_seen_popup_linconym"]
-
-    def has_finished_one_continent(self) -> bool:
-        for continent_name in self.continents:
-            continent = self.continents[continent_name]
-            if continent["percentage"] == 100:
-                return True
-        return False
-
-    def save_changes(self) -> None:
-        """
-        Save the changes in the data.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-
-        # Create the dictionary of data
-        data = {}
-        data["language"] = self.language
-        data["continents"] = self.continents
-        data["has_seen_tutorial"] = self.has_seen_tutorial
-        data["has_seen_popup_linconym"] = self.has_seen_popup_linconym
-
-        # Save this dictionary
-        save_json_file(
-            file_path=PATH_USER_DATA,
-            dict_to_save=data)
-
-
-USER_DATA = UserData()
-
 ### Language ###
 
 DICT_LANGUAGE_CORRESPONDANCE = {
@@ -194,43 +141,6 @@ DICT_LANGUAGE_NAME_TO_CODE = {
     "English": "english"
 }
 LANGUAGES_LIST = tuple(DICT_LANGUAGE_CORRESPONDANCE.values())
-
-
-class Text():
-    def __init__(self, language) -> None:
-        self.language = language
-        self.change_language(language)
-
-    def change_language(self, language):
-        """
-        Change the language of the text contained in the class.
-
-        Parameters
-        ----------
-        language : str
-            Code of the desired language.
-
-        Returns
-        -------
-        None
-        """
-        # Change the language
-        self.language = language
-
-        # Load the json file
-        data = load_json_file(PATH_LANGUAGE + language + ".json")
-
-        # Split the text contained in the screens
-        self.home = data["home"]
-        self.game_question = data["game_question"]
-        self.game_summary = data["game_summary"]
-        self.game_over = data["game_over"]
-        self.clues = data["clues"]
-        self.tutorial = data["tutorial"]
-        self.popup = data["popup"]
-
-
-TEXT = Text(language=USER_DATA.language)
 
 ### Graphics ###
 

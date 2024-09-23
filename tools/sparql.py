@@ -21,10 +21,8 @@ from tools.basic_tools.json import (
 from tools.constants import (
     DICT_WIKIDATA_CONTINENTS,
     DICT_WIKIDATA_LANGUAGE,
-    URL_WIKIDATA,
-    USER_DATA
+    URL_WIKIDATA
 )
-
 from tools.path import (
     PATH_QUERIES_CONTINENT,
     PATH_DICT_EXCEPTIONS_COUNTRIES,
@@ -517,7 +515,7 @@ def post_treat_request(data, code_continent: str):
 
     return dict_all_clues
 
-def request_all_clues(wikidata_code_country: str, code_continent: str, language = DICT_WIKIDATA_LANGUAGE[USER_DATA.language]):
+def request_all_clues(wikidata_code_country: str, code_continent: str, language):
     query = (
         COMPRESSED_HINTS_QUERY
              .replace("$Q_country", wikidata_code_country)
@@ -541,4 +539,4 @@ if __name__ == "__main__":
     if BOOL_CREATE_DICT_CONTINENTS:
        for code_continent in DICT_WIKIDATA_CONTINENTS:
            request_countries_continent(code_continent=code_continent, language="fr")
-    print(request_all_clues("Q236", "Europe"))
+    print(request_all_clues("Q236", "Europe", "english"))

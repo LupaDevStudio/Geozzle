@@ -39,8 +39,6 @@ from screens.custom_widgets import ImprovedScreenWithAds
 from tools.constants import (
     LIST_CONTINENTS,
     DICT_CONTINENTS,
-    TEXT,
-    USER_DATA,
     TIME_CHANGE_BACKGROUND,
     MAIN_MUSIC_NAME,
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
@@ -51,10 +49,12 @@ from tools.constants import (
     ANDROID_MODE,
     IOS_MODE
 )
-
+from tools.geozzle import (
+    USER_DATA,
+    TEXT
+)
 from tools import (
     music_mixer,
-    game,
     sound_mixer
 )
 from screens.custom_widgets import (
@@ -243,8 +243,8 @@ class HomeScreen(ImprovedScreenWithAds):
             USER_DATA.continents[self.code_continent]["percentage"]) + " %"
 
         self.number_lives_on = USER_DATA.continents[self.code_continent]["number_lives"]
-        game.number_lives = self.number_lives_on
-        game.code_continent = self.code_continent
+        USER_DATA.game.number_lives = self.number_lives_on
+        USER_DATA.game.code_continent = self.code_continent
 
         # Decide the mode of the game between restart and play
         if self.completion_value == 100:
@@ -339,7 +339,7 @@ class HomeScreen(ImprovedScreenWithAds):
             popup.open()
 
     def thread_request(self):
-        has_success = game.create_new_game(self.code_continent)
+        has_success = USER_DATA.game.create_new_game(self.code_continent)
         Clock.schedule_once(
             partial(self.prepare_gui_to_play_game, has_success))
 
@@ -360,7 +360,7 @@ class HomeScreen(ImprovedScreenWithAds):
         if self.number_lives_on > 0:
 
             # Display the loading popup
-            if not game.is_already_loaded():
+            if not USER_DATA.game.is_already_loaded():
                 self.loading_popup = LoadingPopup(
                     primary_color=self.continent_color,
                     secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[

@@ -37,13 +37,13 @@ from tools.constants import (
     DICT_CONTINENTS,
     LIST_CONTINENTS,
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
-    TIME_CHANGE_BACKGROUND,
+    TIME_CHANGE_BACKGROUND
+)
+from tools.geozzle import (
+    USER_DATA,
     TEXT
 )
 from screens.custom_widgets import ImprovedScreenWithAds
-from tools import (
-    game
-)
 
 #############
 ### Class ###
@@ -89,14 +89,14 @@ class GameSummaryScreen(ImprovedScreenWithAds):
 
     def on_enter(self, *args):
 
-        if len(game.dict_clues[TEXT.language]) < 2:
+        if len(USER_DATA.game.dict_clues[TEXT.language]) < 2:
             self.ids.scrollview.scroll_y = 1
 
         # Schedule the change of background
         Clock.schedule_interval(
             self.manager.change_background, TIME_CHANGE_BACKGROUND)
 
-        self.number_lives_on = game.number_lives
+        self.number_lives_on = USER_DATA.game.number_lives
 
         return super().on_enter(*args)
 
@@ -129,7 +129,7 @@ class GameSummaryScreen(ImprovedScreenWithAds):
 
     def update_images(self):
         # Update the flag image
-        if "flag" in game.dict_clues[TEXT.language]:
+        if "flag" in USER_DATA.game.dict_clues[TEXT.language]:
             self.ids.flag_image.reload()
             self.ids.flag_image.source = PATH_IMAGES_FLAG + self.code_continent.lower() + \
                 ".png"
@@ -139,9 +139,9 @@ class GameSummaryScreen(ImprovedScreenWithAds):
             self.ids.flag_image.disable_button = True
 
         # Update the geojson image
-        if "ISO_3_code" in game.dict_clues[TEXT.language]:
+        if "ISO_3_code" in USER_DATA.game.dict_clues[TEXT.language]:
             self.ids.geojson_image.reload()
-            self.ids.geojson_image.source = PATH_IMAGES_GEOJSON + game.dict_clues[TEXT.language]["ISO_3_code"] + \
+            self.ids.geojson_image.source = PATH_IMAGES_GEOJSON + USER_DATA.game.dict_clues[TEXT.language]["ISO_3_code"] + \
                 ".png"
             self.ids.geojson_image.disable_button = False
         else:
@@ -175,14 +175,14 @@ class GameSummaryScreen(ImprovedScreenWithAds):
         -------
         None
         """
-        for key in game.dict_clues[TEXT.language]:
+        for key in USER_DATA.game.dict_clues[TEXT.language]:
             if not key in ["flag", "ISO_3_code"]:
 
                 # Add the labels which are not already in the scrollview
                 if not key in self.dict_scrollview_widgets:
 
                     label_clue = ScrollViewLabel(
-                        text=game.dict_clues[TEXT.language][key],
+                        text=USER_DATA.game.dict_clues[TEXT.language][key],
                         color=self.continent_color,
                         font_name=self.font_name,
                         font_size=17 * self.font_ratio,
@@ -237,7 +237,7 @@ class GameSummaryScreen(ImprovedScreenWithAds):
             image_source = PATH_IMAGES_FLAG + self.code_continent.lower() + ".png"
         elif mode == "geojson":
             image_source = PATH_IMAGES_GEOJSON + \
-                game.dict_clues[TEXT.language]["ISO_3_code"] + ".png"
+                USER_DATA.game.dict_clues[TEXT.language]["ISO_3_code"] + ".png"
             print(image_source)
         popup = ImagePopup(
             primary_color=self.continent_color,
