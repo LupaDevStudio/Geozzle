@@ -15,15 +15,12 @@ import random as rd
 
 from kivy.properties import (
     StringProperty,
-    ColorProperty,
-    NumericProperty,
-    BooleanProperty
+    NumericProperty
 )
 
 ### Local imports ###
 
 from tools.path import (
-    PATH_LANGUAGES_IMAGES,
     PATH_TEXT_FONT
 )
 from screens.custom_widgets import GeozzleScreen
@@ -43,11 +40,7 @@ from tools import (
     sound_mixer
 )
 from screens.custom_widgets import (
-    TutorialPopup,
-    TwoButtonsPopup,
-    TwoButtonsImagePopup,
-    MessagePopup,
-    LoadingPopup,
+    TutorialPopup
 )
 
 #############
@@ -57,12 +50,15 @@ from screens.custom_widgets import (
 
 class SettingsScreen(GeozzleScreen):
 
+    language_label = StringProperty()
     music_volume_label = StringProperty()
     sound_volume_label = StringProperty()
-    language_label = StringProperty()
     tutorial_label = StringProperty()
     credits_label = StringProperty()
     code_language = StringProperty(TEXT.language)
+
+    music_volume = NumericProperty(USER_DATA.music_volume)
+    sound_volume = NumericProperty(USER_DATA.sound_volume)
 
     dict_type_screen = {
         SCREEN_TITLE: "settings",
@@ -76,6 +72,9 @@ class SettingsScreen(GeozzleScreen):
             **kwargs)
 
         self.reload_language()
+
+        self.ids.sound_slider.bind(value=self.update_sound_volume)
+        self.ids.music_slider.bind(value=self.update_music_volume)
 
     def reload_language(self):
         """
@@ -105,7 +104,8 @@ class SettingsScreen(GeozzleScreen):
 
         Parameters
         ----------
-        None
+        code_language: str, optional (default is "english")
+            Code of the new language.
 
         Returns
         -------
@@ -120,6 +120,18 @@ class SettingsScreen(GeozzleScreen):
         USER_DATA.language = TEXT.language
         USER_DATA.save_changes()
 
+    def update_music_volume(self, widget, value):
+        self.music_volume = value
+        music_mixer.change_volume(self.music_volume)
+        USER_DATA.music_volume = self.music_volume
+        USER_DATA.save_changes()
+
+    def update_sound_volume(self, widget, value):
+        self.sound_volume = value
+        sound_mixer.change_volume(self.sound_volume)
+        USER_DATA.sound_volume = self.sound_volume
+        USER_DATA.save_changes()
+
     def launch_tutorial(self):
         popup = TutorialPopup(
             primary_color=BLACK,
@@ -127,6 +139,10 @@ class SettingsScreen(GeozzleScreen):
             tutorial_content=TEXT.tutorial["tutorial_content"],
             font_ratio=self.font_ratio)
         popup.open()
+
+    def go_to_credits(self):
+        # TODO
+        pass
 
     def open_lupa_website(self):
         """
