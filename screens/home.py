@@ -151,10 +151,11 @@ class HomeScreen(GeozzleScreen):
     def go_to_linconym(self, popup: TwoButtonsImagePopup):
         popup.dismiss()
         if ANDROID_MODE:
-            webbrowser.open("https://play.google.com/store/apps/details?id=lupadevstudio.com.linconym&pli=1", 2)
+            webbrowser.open(
+                "https://play.google.com/store/apps/details?id=lupadevstudio.com.linconym&pli=1", 2)
         elif IOS_MODE:
-            # TODO change Link
-            webbrowser.open("https://lupadevstudio.com", 2)
+            webbrowser.open(
+                "https://apps.apple.com/app/linconym/id6503208610", 2)
 
     def regenerate_lives(self):
         for code_continent in LIST_CONTINENTS:
