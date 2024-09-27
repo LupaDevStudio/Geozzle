@@ -59,7 +59,8 @@ class OpeningScreen(ImprovedScreen):
             HomeScreen,
             GameOverScreen,
             GameQuestionScreen,
-            GameSummaryScreen
+            GameSummaryScreen,
+            SettingsScreen
         )
 
         screen_files = [file for file in os.listdir(
@@ -76,6 +77,7 @@ class OpeningScreen(ImprovedScreen):
         self.GameOverScreen = GameOverScreen
         self.GameSummaryScreen = GameSummaryScreen
         self.GameQuestionScreen = GameQuestionScreen
+        self.SettingsScreen = SettingsScreen
 
         Clock.schedule_once(self.load_other_screens)
 
@@ -93,4 +95,6 @@ class OpeningScreen(ImprovedScreen):
         self.manager.add_widget(game_question_screen)
         game_over_screen = self.GameOverScreen(name="game_over")
         self.manager.add_widget(game_over_screen)
+        settings_screen = self.SettingsScreen(name="settings")
+        self.manager.add_widget(settings_screen)
         Clock.schedule_once(self.switch_to_menu)

@@ -7,8 +7,13 @@ Module to create custom buttons with round transparent white background.
 ###############
 
 ### Kivy imports ###
+
 from kivy.uix.image import Image
 from kivy.uix.behaviors import ButtonBehavior
+from kivy.properties import (
+    BooleanProperty,
+    NumericProperty
+)
 
 ### Local imports ###
 
@@ -26,6 +31,9 @@ class CircleIconButton(ButtonBehavior, Image):
     """
     A custom button with a white round rectangle background.
     """
+
+    is_selected = BooleanProperty(False)
+    font_ratio = NumericProperty(1)
 
     def __init__(
             self,

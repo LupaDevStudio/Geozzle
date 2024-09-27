@@ -1,5 +1,4 @@
 #:kivy 2.2.1
-#:set LOGO_SIZE 0.1
 
 <HomeScreen>:
     Label:
@@ -7,25 +6,9 @@
         font_name: PATH_TITLE_FONT
         font_size: MAIN_TITLE_FONT_SIZE * root.font_ratio
         pos_hint: {"center_x":0.5, "center_y":0.8}
-        outline_width: max(TITLE_OUTLINE_WIDTH * root.font_ratio,1)
+        outline_width: max(TITLE_OUTLINE_WIDTH * root.font_ratio, 1)
         outline_color: TITLE_OUTLINE_COLOR
         color: TEXT_FONT_COLOR
-
-    # # Lupa button
-    # CircleIconButton:
-    #     source: PATH_IMAGES + "lupa_logo.png"
-    #     pos_hint: {"center_x":0.1, "center_y":0.95}
-    #     size_hint: (LOGO_SIZE, None)
-    #     height: self.width
-    #     release_function: root.open_lupa_website
-
-    # # Language button
-    # CircleIconButton:
-    #     source: root.language_image
-    #     pos_hint: {"center_x":0.9, "center_y":0.95}
-    #     size_hint: (LOGO_SIZE, None)
-    #     height: self.width
-    #     release_function: root.change_language
 
     # # Continent logo in the center
     # CircleProgressBar:
@@ -36,25 +19,6 @@
     #     progress: root.completion_value
     #     circle_color: root.continent_color
     #     font_ratio: root.font_ratio
-    
-    # # Three lives
-    # ThreeLives:
-    #     id: three_lives
-    #     continent_color: root.continent_color
-    #     pos_hint: {"center_x":0.5, "center_y":0.3}
-    #     size_hint: (0.35, 0.1)
-    #     number_lives_on: root.number_lives_on
-    #     release_function: root.open_buy_life_popup
-
-    # # Label with the name of the continent
-    # Label:
-    #     text: root.continent_name
-    #     font_name: root.font_name
-    #     font_size: MAIN_TEXT_FONT_SIZE * root.font_ratio
-    #     pos_hint: {"center_x":0.5, "center_y":0.7}
-    #     outline_width: max(SUBTITLE_OUTLINE_WIDTH * root.font_ratio,1)
-    #     outline_color: TITLE_OUTLINE_COLOR
-    #     color: root.continent_color
 
     # Play button
     CustomButton:
@@ -66,7 +30,7 @@
         font_ratio: root.font_ratio
         font_size: MAIN_TEXT_FONT_SIZE
 
-    # Highscore for the label
+    # Highscore label
     Label:
         text: root.highscore_label
         font_name: root.font_name
@@ -75,38 +39,3 @@
         outline_width: max(SUBTITLE_OUTLINE_WIDTH* root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
         color: BLACK
-
-    # # Arrows to navigate between continents
-    # RoundedButtonImage:
-    #     image_path: PATH_IMAGES + "left_arrow.png"
-    #     pos_hint: {"center_x":0.1, "center_y":0.5}
-    #     size_hint: (0.15, None)
-    #     height: self.width
-    #     colors: root.continent_color
-    #     on_release: root.change_continent("left")
-
-    # RoundedButtonImage:
-    #     image_path: PATH_IMAGES + "right_arrow.png"
-    #     pos_hint: {"center_x":0.9, "center_y":0.5}
-    #     size_hint: (0.15, None)
-    #     height: self.width
-    #     colors: root.continent_color
-    #     on_release: root.change_continent("right")
-
-    # # Tutorial button
-    # RoundedButtonImage:
-    #     image_path: PATH_IMAGES + "tutorial.png"
-    #     pos_hint: {"x":0.05, "y":0.025}
-    #     size_hint: (0.1, None)
-    #     height: self.width
-    #     colors: root.continent_color
-    #     on_release: root.launch_tutorial()
-
-    # # Sound button
-    # RoundedButtonImage:
-    #     image_path: PATH_IMAGES + "volume_off.png" if root.is_mute else PATH_IMAGES + "volume_on.png"
-    #     pos_hint: {"right":0.95, "y":0.025}
-    #     size_hint: (0.1, None)
-    #     height: self.width
-    #     colors: root.continent_color
-    #     on_release: root.change_mute_state()

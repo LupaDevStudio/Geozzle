@@ -37,7 +37,6 @@ class TutorialPopup(CustomPopup):
     side_label_text = StringProperty()
     side_image_source = StringProperty()
     side_image_disabled = BooleanProperty()
-    first_time = BooleanProperty()
     title = StringProperty(TEXT.tutorial["tutorial_title"])
 
     def __init__(self, tutorial_content, **kwargs):
@@ -52,13 +51,7 @@ class TutorialPopup(CustomPopup):
         # Change the names of the buttons
         if self.page_id == 0:
             self.previous_button_label = TEXT.tutorial["close"]
-            if self.first_time:
-                self.ids.previous_button.opacity = 0
-                self.previous_button_disabled = True
         else:
-            if self.first_time:
-                self.ids.previous_button.opacity = 1
-                self.previous_button_disabled = False
             self.previous_button_label = TEXT.tutorial["previous"]
         if self.page_id == self.nb_pages - 1:
             self.next_button_label = TEXT.tutorial["close"]

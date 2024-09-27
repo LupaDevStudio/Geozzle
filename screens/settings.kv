@@ -1,0 +1,41 @@
+#:kivy 2.2.1
+
+<SettingsScreen>:
+
+    # Lupa button
+    CircleIconButton:
+        source: PATH_IMAGES + "lupa_logo.png"
+        pos_hint: {"right":0.95, "top":0.975}
+        size_hint: (LOGO_SIZE, None)
+        height: self.width
+        release_function: root.open_lupa_website
+
+    # Language label
+    Label:
+        text: root.language_label
+        font_name: root.font_name
+        font_size: SUB_TEXT_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.75}
+        outline_width: max(SUBTITLE_OUTLINE_WIDTH* root.font_ratio,1)
+        outline_color: TITLE_OUTLINE_COLOR
+        color: BLACK
+
+    # Language button
+    CircleIconButton:
+        source: PATH_LANGUAGES_IMAGES + "english.png"
+        pos_hint: {"x":0.3, "center_y":0.675}
+        size_hint: (LOGO_SIZE, None)
+        height: self.width
+        release_function: root.change_language
+        is_selected: root.code_language == "english"
+        font_ratio: root.font_ratio
+
+    # Language button
+    CircleIconButton:
+        source: PATH_LANGUAGES_IMAGES + "french.png"
+        pos_hint: {"right":0.7, "center_y":0.675}
+        size_hint: (LOGO_SIZE, None)
+        height: self.width
+        release_function: root.change_language_to_french
+        is_selected: root.code_language == "french"
+        font_ratio: root.font_ratio

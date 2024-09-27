@@ -907,6 +907,7 @@ class UserData():
         # Choose randomly the continent and the background
         code_continent = rd.choice(list(DICT_CONTINENTS.keys()))
         code_background = rd.choice(os.listdir(PATH_BACKGROUNDS + code_continent))
+        self.unlocked_backgrounds.append(code_background)
 
         # Add them in the shared data
         SHARED_DATA.add_new_background(
@@ -980,6 +981,7 @@ class Text():
         # Split the text contained in the screens
         self.titles = data["titles"]
         self.home = data["home"]
+        self.settings = data["settings"]
         self.game_question = data["game_question"]
         self.game_summary = data["game_summary"]
         self.game_over = data["game_over"]

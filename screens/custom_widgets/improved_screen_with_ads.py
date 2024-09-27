@@ -110,6 +110,8 @@ class GeozzleScreen(ImprovedScreenWithAds):
     Improved screen class for Geozzle.
     """
 
+    previous_screen_name = StringProperty()
+
     # Configuration of the main widgets
     dict_type_screen: dict = {}
     title_screen = StringProperty()
@@ -119,7 +121,7 @@ class GeozzleScreen(ImprovedScreenWithAds):
 
         # Display the title or not
         if SCREEN_TITLE in self.dict_type_screen:
-            self.title_screen = TEXT.general[self.dict_type_screen[SCREEN_TITLE]]
+            self.title_screen = TEXT.titles[self.dict_type_screen[SCREEN_TITLE]]
         else:
             self.remove_widget(self.ids.title)
 

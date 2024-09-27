@@ -4,6 +4,13 @@
         "stats": "Statistics",
         "gallery": "Gallery"
     },
+    "settings": {
+        "music": "Music volume",
+        "sound": "Sound effects volume",
+        "language": "Language",
+        "tutorial": "Tutorial",
+        "credits": "Credits"
+    },
     "home": {
         "Europe": "Europe",
         "Asia": "Asia",

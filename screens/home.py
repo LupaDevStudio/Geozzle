@@ -77,7 +77,6 @@ from screens.custom_widgets import (
 
 class HomeScreen(GeozzleScreen):
 
-    previous_screen_name = StringProperty()
     highscore_label = StringProperty()
     play_label = StringProperty()
 
@@ -125,8 +124,9 @@ class HomeScreen(GeozzleScreen):
             music_mixer.play(MAIN_MUSIC_NAME, loop=True)
 
         # Schedule the change of background
-        Clock.schedule_interval(
-            self.manager.change_background, TIME_CHANGE_BACKGROUND)
+        if self.previous_screen_name in ["", "game_summary", "game_question", "game_over"]:
+            Clock.schedule_interval(
+                self.manager.change_background, TIME_CHANGE_BACKGROUND)
 
         # Maybe one day we'll use again this popup to present our next game
         if False:
@@ -177,97 +177,6 @@ class HomeScreen(GeozzleScreen):
         USER_DATA.save_changes()
         self.number_lives_on = USER_DATA.continents[self.code_continent]["number_lives"]
 
-    def on_pre_leave(self, *args):
-
-        # Unschedule the clock updates
-        Clock.unschedule(self.manager.change_background,
-                         TIME_CHANGE_BACKGROUND)
-
-        return super().on_pre_leave(*args)
-
-    def change_continent(self, side: str):
-        """
-        Change the continent displayed on the screen.
-
-        Parameters
-        ----------
-        side : str, can be "left" or "right"
-            String which indicates the rotation side.
-
-        Returns
-        -------
-        None
-        """
-        # Update the counter
-        if side == "left":
-            self.counter_continents -= 1
-            if self.counter_continents < 0:
-                self.counter_continents = len(LIST_CONTINENTS) - 1
-        elif side == "right":
-            self.counter_continents += 1
-            if self.counter_continents >= len(LIST_CONTINENTS):
-                self.counter_continents = 0
-
-        self.load_continent_data()
-        Clock.unschedule(self.manager.change_background,
-                         TIME_CHANGE_BACKGROUND)
-        Clock.schedule_interval(
-            self.manager.change_background, TIME_CHANGE_BACKGROUND)
-        self.manager.change_background()
-
-    def load_continent_data(self):
-
-        # Change the colors and the name of the continent
-        self.code_continent = LIST_CONTINENTS[self.counter_continents]
-        self.continent_name = TEXT.home[self.code_continent]
-        self.continent_color = DICT_CONTINENTS[self.code_continent]
-        self.continent_image = PATH_CONTINENTS_IMAGES + \
-            LIST_CONTINENTS[self.counter_continents] + ".jpg"
-
-        # Change the score and the completion percentage of the user
-        self.highscore_label = TEXT.home["highscore"] + \
-            str(int(USER_DATA.continents[self.code_continent]["highscore"]))
-        self.completion_value = USER_DATA.continents[self.code_continent]["percentage"]
-        self.completion_percentage_text = str(
-            USER_DATA.continents[self.code_continent]["percentage"]) + " %"
-
-        self.number_lives_on = USER_DATA.continents[self.code_continent]["number_lives"]
-        USER_DATA.game.number_lives = self.number_lives_on
-        USER_DATA.game.code_continent = self.code_continent
-
-        # Decide the mode of the game between restart and play
-        if self.completion_value == 100:
-            self.disable_widget("play_button")
-            self.disable_widget("three_lives")
-            try:
-                self.enable_widget("restart_button")
-            except:
-                pass
-        else:
-            self.disable_widget("restart_button")
-            try:
-                self.enable_widget("play_button")
-                self.enable_widget("three_lives")
-            except:
-                pass
-
-    def update_language_image(self):
-        """
-        Update the image of the language on the top right hand corner.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        if TEXT.language == "french":
-            self.language_image = PATH_LANGUAGES_IMAGES + "english.png"
-        else:
-            self.language_image = PATH_LANGUAGES_IMAGES + "french.png"
-
     def change_language(self):
         """
         Change the language of the application.
@@ -315,6 +224,10 @@ class HomeScreen(GeozzleScreen):
 
             # Go to the screen game question
             self.manager.current = "game_question"
+
+            # Unschedule the clock updates
+            Clock.unschedule(self.manager.change_background,
+                         TIME_CHANGE_BACKGROUND)
 
         else:
             popup = MessagePopup(
@@ -376,65 +289,3 @@ class HomeScreen(GeozzleScreen):
                 AD_CONTAINER.watch_ad, partial(self.ad_callback, popup))
             popup.right_release_function = watch_ad_with_callback
             popup.open()
-
-    def restart_game(self, popup: TwoButtonsPopup):
-        popup.dismiss()
-        USER_DATA.continents[self.code_continent] = {
-            "highscore": 0,
-            "percentage": 0,
-            "countries_unlocked": [],
-            "number_lives": 3,
-            "number_lives_used_game": 0,
-            "lost_live_date": None,
-            "current_country": copy.deepcopy(CURRENT_COUNTRY_INIT)
-        }
-        USER_DATA.save_changes()
-        self.load_continent_data()
-
-    def ask_restart_game(self):
-        popup = TwoButtonsPopup(
-            primary_color=self.continent_color,
-            secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
-            title=TEXT.home["ask_restart_title"],
-            center_label_text=TEXT.home["ask_restart_message"],
-            font_ratio=self.font_ratio,
-            right_button_label=TEXT.popup["yes"],
-            left_button_label=TEXT.popup["no"]
-        )
-        popup.right_release_function = partial(self.restart_game, popup)
-        popup.open()
-
-    def launch_tutorial(self, first_time=False):
-        popup = TutorialPopup(
-            primary_color=self.continent_color,
-            secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
-            tutorial_content=TEXT.tutorial["tutorial_content"],
-            font_ratio=self.font_ratio,
-            first_time=first_time)
-        popup.open()
-
-    def open_lupa_website(self):
-        """
-        Open LupaDevStudio website.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        webbrowser.open("https://lupadevstudio.com", 2)
-
-    def change_mute_state(self):
-        """
-        Mute or unmute the volume.
-        """
-        if self.is_mute:
-            music_mixer.change_volume(MUSIC_VOLUME)
-            sound_mixer.change_volume(SOUND_VOLUME)
-        else:
-            music_mixer.change_volume(0)
-            sound_mixer.change_volume(0)
-        self.is_mute = not (self.is_mute)
