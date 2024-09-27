@@ -1,0 +1,36 @@
+#:kivy 2.2.1
+
+<CustomScrollview>:
+
+
+    # Background
+    canvas.before:
+        # Shadow
+        Color:
+            rgba: BLACK if self.background_mode else TRANSPARENT
+        BoxShadow:
+            pos: self.pos
+            size: self.size
+            offset: 5*self.font_ratio, -5*self.font_ratio
+            spread_radius: -10*self.font_ratio, -10*self.font_ratio
+            blur_radius: 20*self.font_ratio
+            border_radius: [12*root.font_ratio,12*root.font_ratio,12*root.font_ratio,12*root.font_ratio]
+        # Rounded rectangle
+        Color:
+            rgba: WHITE if self.background_mode else TRANSPARENT
+        RoundedRectangle:
+            pos:self.pos
+            size:self.size
+            radius: [12*self.font_ratio]
+    
+    canvas.after:
+        # Border
+        Color:
+            rgba: root.bar_color if self.background_mode else TRANSPARENT
+        Line:
+            rounded_rectangle: [self.pos[0]+BUTTON_OUTLINE_WIDTH/2*self.font_ratio, self.pos[1]+BUTTON_OUTLINE_WIDTH/2*self.font_ratio, self.size[0]-BUTTON_OUTLINE_WIDTH*self.font_ratio,self.size[1]-BUTTON_OUTLINE_WIDTH*self.font_ratio,12*self.font_ratio]
+            width: BUTTON_OUTLINE_WIDTH*self.font_ratio
+
+    bar_margin: 0
+    scroll_type:['bars', 'content']
+    scroll_distance: 10

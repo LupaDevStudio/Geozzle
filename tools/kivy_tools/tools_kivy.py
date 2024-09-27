@@ -238,27 +238,6 @@ class ImprovedPopup(Popup):
 #     button.focus = True
 
 
-####################
-### Scroll views ###
-####################
-
-
-class MyScrollViewLayout(GridLayout):
-    """
-    Class corresponding to the layout inside the scroll view
-    """
-
-    def __init__(self, **kwargs):
-        super(MyScrollViewLayout, self).__init__(**kwargs)
-        self.size_hint_y = (None)
-        self.bind(minimum_height=self.setter('height'))
-
-    def reset_screen(self):
-        list_widgets = self.children[:]
-        for element in list_widgets:
-            self.remove_widget(element)
-
-
 #######################
 ### Focusable items ###
 #######################

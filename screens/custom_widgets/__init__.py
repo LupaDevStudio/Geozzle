@@ -25,3 +25,4 @@ from screens.custom_widgets.loading_popup import LoadingPopup
 from screens.custom_widgets.improved_screen_with_ads import GeozzleScreen
 from screens.custom_widgets.two_buttons_image_popup import TwoButtonsImagePopup
 from screens.custom_widgets.custom_slider import CustomSlider
+from screens.custom_widgets.custom_scrollview import CustomScrollview, MyScrollViewLayout, MyScrollViewVerticalLayout
