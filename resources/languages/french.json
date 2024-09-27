@@ -1,4 +1,9 @@
 {
+    "titles": {
+        "settings": "Paramètres",
+        "stats": "Statistiques",
+        "gallery": "Galerie"
+    },
     "home": {
         "Europe": "Europe",
         "Asia": "Asie",
@@ -6,15 +11,12 @@
         "North_America": "Amérique du Nord",
         "South_America": "Amérique du Sud",
         "Oceania": "Océanie",
-        "highscore": "Score : ",
+        "highscore": "Meilleur score : ",
         "play": "Jouer",
         "watch_ad": "Regarder",
         "cancel": "Annuler",
         "buy_life_message": "Vous n'avez plus de vies pour l'instant, souhaitez-vous regarder une publicité pour continuer à jouer ?",
-        "buy_life_title": "Vies épuisées",
-        "ask_restart_title": "Recommencer le continent",
-        "ask_restart_message": "Voulez-vous vraiment recommencer ce continent depuis le début ? Vous ne pourrez plus récupérer vos données actuelles.",
-        "restart": "Recommencer"
+        "buy_life_title": "Vies épuisées"
     },
     "popup": {
         "buy_life_title": "Rechargement des vies",

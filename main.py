@@ -35,6 +35,9 @@ from tools.constants import (
     FPS,
     MSAA_LEVEL
 )
+from tools.geozzle import (
+    SHARED_DATA
+)
 import screens.opening
 
 ###############
@@ -97,30 +100,26 @@ class WindowManager(ScreenManager):
 
         # Change the image of the background
         if current_screen.opacity_state == "main":
-            image = rd.choice(os.listdir(PATH_BACKGROUNDS +
-                              current_screen.code_continent))
+            image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
 
             # verify that the new image is not the same as the current one
-            while image == current_screen.back_image_path.split("/")[-1]:
-                image = rd.choice(os.listdir(
-                    PATH_BACKGROUNDS + current_screen.code_continent))
+            while image == current_screen.back_image_path:
+                image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
 
             current_screen.set_back_image_path(
-                back_image_path=PATH_BACKGROUNDS + current_screen.code_continent + "/" + image,
+                back_image_path=image,
                 mode="second"
             )
 
         else:
-            image = rd.choice(os.listdir(PATH_BACKGROUNDS +
-                              current_screen.code_continent))
+            image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
 
             # verify that the new image is not the same as the current one
-            while image == current_screen.second_back_image_path.split("/")[-1]:
-                image = rd.choice(os.listdir(
-                    PATH_BACKGROUNDS + current_screen.code_continent))
+            while image == current_screen.second_back_image_path:
+                image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
 
             current_screen.set_back_image_path(
-                back_image_path=PATH_BACKGROUNDS + current_screen.code_continent + "/" + image,
+                back_image_path=image,
                 mode="main"
             )
 

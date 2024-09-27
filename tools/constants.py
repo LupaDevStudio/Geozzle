@@ -68,87 +68,28 @@ CURRENT_COUNTRY_INIT = {
 }
 # Create the user data json if it does not exist
 if not os.path.exists(PATH_USER_DATA):
-    default_user_data = {
-        "language": "english",
-        "has_seen_tutorial": False,
-        "continents": {
-            "Europe": {
-                "highscore": 0,
-                "percentage": 0,
-                "countries_unlocked": [],
-                "number_lives": 3,
-                "number_lives_used_game": 0,
-                "lost_live_date": None,
-                "current_country": CURRENT_COUNTRY_INIT
-            },
-            "Asia": {
-                "highscore": 0,
-                "percentage": 0,
-                "countries_unlocked": [],
-                "number_lives": 3,
-                "number_lives_used_game": 0,
-                "lost_live_date": None,
-                "current_country": CURRENT_COUNTRY_INIT
-            },
-            "Africa": {
-                "highscore": 0,
-                "percentage": 0,
-                "countries_unlocked": [],
-                "number_lives": 3,
-                "number_lives_used_game": 0,
-                "lost_live_date": None,
-                "current_country": CURRENT_COUNTRY_INIT
-            },
-            "North_America": {
-                "highscore": 0,
-                "percentage": 0,
-                "countries_unlocked": [],
-                "number_lives": 3,
-                "number_lives_used_game": 0,
-                "lost_live_date": None,
-                "current_country": CURRENT_COUNTRY_INIT
-            },
-            "South_America": {
-                "highscore": 0,
-                "percentage": 0,
-                "countries_unlocked": [],
-                "number_lives": 3,
-                "number_lives_used_game": 0,
-                "lost_live_date": None,
-                "current_country": CURRENT_COUNTRY_INIT
-            },
-            "Oceania": {
-                "highscore": 0,
-                "percentage": 0,
-                "countries_unlocked": [],
-                "number_lives": 3,
-                "number_lives_used_game": 0,
-                "lost_live_date": None,
-                "current_country": CURRENT_COUNTRY_INIT
-            }
-        }
-    }
+    default_user_data = {}
     save_json_file(PATH_USER_DATA, default_user_data)
 
 ### Language ###
 
-DICT_LANGUAGE_CORRESPONDANCE = {
+DICT_LANGUAGE_CODE_TO_NAME = {
     "french": "Français",
     "english": "English"
 }
-DICT_LANGUAGE_NAME_TO_CODE = {
-    "Français": "french",
-    "English": "english"
-}
-LANGUAGES_LIST = tuple(DICT_LANGUAGE_CORRESPONDANCE.values())
+DICT_LANGUAGE_NAME_TO_CODE = {}
+for code_language in DICT_LANGUAGE_CODE_TO_NAME:
+    DICT_LANGUAGE_NAME_TO_CODE[DICT_LANGUAGE_CODE_TO_NAME[code_language]] = code_language
+
+LANGUAGES_LIST = tuple(DICT_LANGUAGE_CODE_TO_NAME.values())
 
 ### Graphics ###
 
 CUSTOM_BUTTON_BACKGROUND_COLOR = (1, 1, 1, 0.7)
 
 OPACITY_ON_BUTTON_PRESS = 0.8
-
-TEXT_FONT_COLOR = (0, 0, 0, 1)
+BLACK = (0, 0, 0, 1)
+TEXT_FONT_COLOR = BLACK
 TITLE_OUTLINE_WIDTH = 2
 TITLE_OUTLINE_COLOR = (1, 1, 1, 1)
 BOTTOM_BAR_HEIGHT = 0.12
@@ -159,7 +100,8 @@ BUTTON_OUTLINE_WIDTH = 1.5
 
 ### Font sizes ###
 
-TITLE_FONT_SIZE = 60
+MAIN_TITLE_FONT_SIZE = 60
+TITLE_FONT_SIZE = 45
 MAIN_TEXT_FONT_SIZE = 30
 MAIN_BUTTON_FONT_SIZE = 22
 HIGHSCORE_FONT_SIZE = 25
@@ -171,6 +113,19 @@ SMALL_BUTTON_FONT_SIZE = 15
 ### Ads code ###
 
 REWARD_INTERSTITIAL = "ca-app-pub-2909842258525517/8121987815"
+NUMBER_CREDITS = 1
+
+### Gallery ###
+
+PRICE_BACKGROUND = 200 # TODO change
+
+### Screen ###
+
+SCREEN_TITLE = "screen_title"
+SCREEN_ICON_LEFT_UP = "screen_icon_left_up"
+SCREEN_ICON_RIGHT_UP = "screen_icon_right_up"
+SCREEN_ICON_LEFT_DOWN = "screen_icon_left_down"
+SCREEN_ICON_RIGHT_DOWN = "screen_icon_right_down"
 
 ### Continents ###
 

@@ -40,7 +40,7 @@ from tools.geozzle import (
     TEXT,
     USER_DATA
 )
-from screens.custom_widgets import ImprovedScreenWithAds
+from screens.custom_widgets import GeozzleScreen
 from screens.custom_widgets import (
     TwoButtonsPopup,
     MessagePopup,
@@ -55,7 +55,7 @@ from tools.geozzle import (
 #############
 
 
-class GameOverScreen(ImprovedScreenWithAds):
+class GameOverScreen(GeozzleScreen):
 
     previous_screen_name = StringProperty()
     code_continent = StringProperty(LIST_CONTINENTS[0])

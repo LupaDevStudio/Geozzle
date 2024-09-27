@@ -14,6 +14,9 @@ from functools import partial
 ### Kivy imports ###
 
 from kivy.clock import mainthread
+from kivy.properties import (
+    StringProperty
+)
 
 ### Local imports ###
 
@@ -25,7 +28,16 @@ from screens.custom_widgets import (
 )
 
 from tools.constants import (
-    DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED
+    DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
+    SCREEN_ICON_LEFT_DOWN,
+    SCREEN_TITLE,
+    SCREEN_ICON_LEFT_UP,
+    SCREEN_ICON_RIGHT_DOWN,
+    SCREEN_ICON_RIGHT_UP,
+    BLACK
+)
+from tools.path import (
+    PATH_IMAGES
 )
 from tools.geozzle import (
     USER_DATA,
@@ -92,3 +104,83 @@ class ImprovedScreenWithAds(ImprovedScreen):
             font_ratio=self.font_ratio,
             title=TEXT.clues["no_connexion_title"])
         error_popup.open()
+
+class GeozzleScreen(ImprovedScreenWithAds):
+    """
+    Improved screen class for Geozzle.
+    """
+
+    # Configuration of the main widgets
+    dict_type_screen: dict = {}
+    title_screen = StringProperty()
+
+    def __init__(self, back_image_path=None, **kw):
+        super().__init__(back_image_path=back_image_path, **kw)
+
+        # Display the title or not
+        if SCREEN_TITLE in self.dict_type_screen:
+            self.title_screen = TEXT.general[self.dict_type_screen[SCREEN_TITLE]]
+        else:
+            self.remove_widget(self.ids.title)
+
+        # Display the icon in the left up corner
+        if SCREEN_ICON_LEFT_UP in self.dict_type_screen:
+            dict_details = self.dict_type_screen[SCREEN_ICON_LEFT_UP]
+            self.ids.icon_left_up.image_path = PATH_IMAGES + dict_details.get("image_path", "home") + ".png"
+            self.ids.icon_left_up.colors = dict_details.get("colors", BLACK)
+            self.ids.icon_left_up.on_release = dict_details.get("on_release", self.go_to_home)
+        else:
+            self.remove_widget(self.ids.icon_left_up)
+
+        # Display the icon in the left down corner
+        if SCREEN_ICON_LEFT_DOWN in self.dict_type_screen:
+            dict_details = self.dict_type_screen[SCREEN_ICON_LEFT_DOWN]
+            self.ids.icon_left_down.image_path = PATH_IMAGES + dict_details.get("image_path", "stats") + ".png"
+            self.ids.icon_left_down.colors = dict_details.get("colors", BLACK)
+            self.ids.icon_left_down.on_release = dict_details.get("on_release", self.go_to_stats)
+        else:
+            self.remove_widget(self.ids.icon_left_down)
+
+        # Display the icon in the right up corner
+        if SCREEN_ICON_RIGHT_UP in self.dict_type_screen:
+            dict_details = self.dict_type_screen[SCREEN_ICON_RIGHT_UP]
+            self.ids.icon_right_up.image_path = PATH_IMAGES + dict_details.get("image_path", "settings") + ".png"
+            self.ids.icon_right_up.colors = dict_details.get("colors", BLACK)
+            self.ids.icon_right_up.on_release = dict_details.get("on_release", self.go_to_settings)
+        else:
+            self.remove_widget(self.ids.icon_right_up)
+
+        # Display the icon in the right down corner
+        if SCREEN_ICON_RIGHT_DOWN in self.dict_type_screen:
+            dict_details = self.dict_type_screen[SCREEN_ICON_RIGHT_DOWN]
+            self.ids.icon_right_down.image_path = PATH_IMAGES + dict_details.get("image_path", "gallery") + ".png"
+            self.ids.icon_right_down.colors = dict_details.get("colors", BLACK)
+            self.ids.icon_right_down.on_release = dict_details.get("on_release", self.go_to_gallery)
+        else:
+            self.remove_widget(self.ids.icon_right_down)
+
+        self.reload_language()
+
+    def on_pre_enter(self, *args):
+        super().on_pre_enter(*args)
+        self.reload_language()
+
+    def reload_language(self):
+        if SCREEN_TITLE in self.dict_type_screen:
+            self.title_screen = self.title_screen = TEXT.titles[self.dict_type_screen[SCREEN_TITLE]]
+
+    def go_to_home(self):
+        self.manager.get_screen("home").previous_screen_name = self.manager.current
+        self.manager.current = "home"
+
+    def go_to_stats(self):
+        self.manager.get_screen("stats").previous_screen_name = self.manager.current
+        self.manager.current = "stats"
+
+    def go_to_settings(self):
+        self.manager.get_screen("settings").previous_screen_name = self.manager.current
+        self.manager.current = "settings"
+
+    def go_to_gallery(self):
+        self.manager.get_screen("gallery").previous_screen_name = self.manager.current
+        self.manager.current = "gallery"

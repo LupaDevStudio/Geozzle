@@ -11,6 +11,8 @@ Module of the main backend of Geozzle.
 import random as rd
 import time
 import copy
+import os
+from typing import Literal
 
 ### Local imports ###
 
@@ -25,7 +27,13 @@ from tools.constants import (
     IOS_MODE,
     REWARD_INTERSTITIAL,
     LIST_CLUES_EXCEPTIONS,
-    DICT_WIKIDATA_LANGUAGE
+    DICT_WIKIDATA_LANGUAGE,
+    NUMBER_CREDITS,
+    DICT_CONTINENTS,
+    PRICE_BACKGROUND
+)
+from tools.path import (
+    PATH_BACKGROUNDS
 )
 from tools.basic_tools import (
     load_json_file,
@@ -362,9 +370,26 @@ class Game():
     number_lives_used_country: int
     # Number of credits left to use
     number_credits: int
+    # List of countries to guess
+    list_countries_to_guess: list[str]
+    # Dict of countries already guessed
+    dict_guessed_countries: dict # {"code_country": {"list_clues": ["clue_1" ,"clue_2"], "number_lives_used": 1, "guessed": True}}
 
     def __init__(self, dict_to_load: dict) -> None:
-        pass
+        self.number_lives = dict_to_load.get("number_lives", 3)
+        self.number_lives_used_country = dict_to_load.get(
+            "number_lives_used_country", 0)
+        self.number_credits = dict_to_load.get("number_credits", NUMBER_CREDITS)
+        
+        
+        self.list_countries_to_guess = dict_to_load.get(
+            "list_countries_to_guess", [])
+        if self.list_countries_to_guess == []:
+            self.build_list_countries()
+
+    def build_list_countries(self):
+        self.list_countries_to_guess = []
+        # TODO choisir un pays de chaque continent
 
     def export_as_dict(self) -> dict:
         return {}
@@ -856,23 +881,43 @@ class UserData():
     A class to store the user data.
     """
 
+    @ property
+    def can_buy_background(self):
+        return self.points >= PRICE_BACKGROUND
+
     def __init__(self) -> None:
         data = load_json_file(PATH_USER_DATA)
-        self.language = data["language"]
         self.game: Game = Game(data.get("game", {}))
-        self.continents = data["continents"]
-        self.has_seen_tutorial = data["has_seen_tutorial"]
-        if "has_seen_popup_linconym" not in data:
-            self.has_seen_popup_linconym = False
-        else:
-            self.has_seen_popup_linconym = data["has_seen_popup_linconym"]
+        self.language: Literal["english", "french"] = data.get("language", "english")
+        self.sound_volume: float = data.get("sound_volume", 0.5)
+        self.music_volume: float = data.get("music_volume", 0.5)
+        self.highscore: int = data.get("highscore", 0)
+        self.points: int = data.get("points", 0)
+        self.unlocked_backgrounds: list[str] = data.get("unlocked_backgrounds", [])
+        if self.unlocked_backgrounds == []:
+            self.init_backgrounds()
 
-    def has_finished_one_continent(self) -> bool:
-        for continent_name in self.continents:
-            continent = self.continents[continent_name]
-            if continent["percentage"] == 100:
-                return True
-        return False
+    def init_backgrounds(self):
+        for code_continent in list(DICT_CONTINENTS.keys()):
+            code_background = rd.choice(os.listdir(PATH_BACKGROUNDS + code_continent))
+            self.unlocked_backgrounds.append(code_background)
+        self.save_changes()
+
+    def buy_new_background(self):
+        # Choose randomly the continent and the background
+        code_continent = rd.choice(list(DICT_CONTINENTS.keys()))
+        code_background = rd.choice(os.listdir(PATH_BACKGROUNDS + code_continent))
+
+        # Add them in the shared data
+        SHARED_DATA.add_new_background(
+            code_background=code_background,
+            code_continent=code_continent)
+        
+        # Reduce the number of points
+        self.points -= PRICE_BACKGROUND
+        
+        # Save the changes
+        self.save_changes()
 
     def save_changes(self) -> None:
         """
@@ -891,15 +936,16 @@ class UserData():
         data = {}
         data["language"] = self.language
         data["game"] = self.game.export_as_dict()
-        data["continents"] = self.continents
-        data["has_seen_tutorial"] = self.has_seen_tutorial
-        data["has_seen_popup_linconym"] = self.has_seen_popup_linconym
+        data["points"] = self.points
+        data["highscore"] = self.highscore
+        data["music_volume"] = self.music_volume
+        data["sound_volume"] = self.sound_volume
+        data["unlocked_backgrounds"] = self.unlocked_backgrounds
 
         # Save this dictionary
         save_json_file(
             file_path=PATH_USER_DATA,
             dict_to_save=data)
-
 
 USER_DATA = UserData()
 
@@ -932,6 +978,7 @@ class Text():
         data = load_json_file(PATH_LANGUAGE + language + ".json")
 
         # Split the text contained in the screens
+        self.titles = data["titles"]
         self.home = data["home"]
         self.game_question = data["game_question"]
         self.game_summary = data["game_summary"]
@@ -940,5 +987,28 @@ class Text():
         self.tutorial = data["tutorial"]
         self.popup = data["popup"]
 
-
 TEXT = Text(language=USER_DATA.language)
+
+
+###################
+### Backgrounds ###
+###################
+
+class SharedData():
+    list_unlocked_backgrounds: list[str] # list of the path of the images
+
+    def __init__(self) -> None:
+        self.list_unlocked_backgrounds = []
+        for code_continent in list(DICT_CONTINENTS.keys()):
+            for code_background in os.listdir(PATH_BACKGROUNDS + code_continent):
+                if code_background in USER_DATA.unlocked_backgrounds:
+                    self.add_new_background(
+                        code_background=code_background,
+                        code_continent=code_continent)
+
+    def add_new_background(self, code_background: str, code_continent: str):
+        self.list_unlocked_backgrounds.append(
+            PATH_BACKGROUNDS + code_continent + "/" + code_background
+        )
+
+SHARED_DATA = SharedData()

@@ -37,7 +37,7 @@ from tools.geozzle import (
     TEXT,
     USER_DATA    
 )
-from screens.custom_widgets import ImprovedScreenWithAds
+from screens.custom_widgets import GeozzleScreen
 from screens.custom_widgets import (
     MessagePopup
 )
@@ -47,7 +47,7 @@ from screens.custom_widgets import (
 #############
 
 
-class GameQuestionScreen(ImprovedScreenWithAds):
+class GameQuestionScreen(GeozzleScreen):
 
     previous_screen_name = StringProperty()
     code_continent = StringProperty(LIST_CONTINENTS[0])
@@ -113,11 +113,6 @@ class GameQuestionScreen(ImprovedScreenWithAds):
         self.continent_color = DICT_CONTINENTS[self.code_continent]
         self.background_color = DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
             self.code_continent]
-
-    def go_back_to_home(self):
-        self.manager.get_screen(
-            "home").previous_screen_name = "game_question"
-        self.manager.current = "home"
 
     def add_clue(self, hint):
         # Add the clue in the class

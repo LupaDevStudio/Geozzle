@@ -35,7 +35,7 @@ from tools.path import (
     PATH_TEXT_FONT,
     PATH_IMAGES
 )
-from screens.custom_widgets import ImprovedScreenWithAds
+from screens.custom_widgets import GeozzleScreen
 from tools.constants import (
     LIST_CONTINENTS,
     DICT_CONTINENTS,
@@ -47,11 +47,16 @@ from tools.constants import (
     MUSIC_VOLUME,
     SOUND_VOLUME,
     ANDROID_MODE,
-    IOS_MODE
+    IOS_MODE,
+    SCREEN_ICON_LEFT_DOWN,
+    SCREEN_ICON_RIGHT_DOWN,
+    SCREEN_ICON_RIGHT_UP
 )
 from tools.geozzle import (
     USER_DATA,
-    TEXT
+    TEXT,
+    AD_CONTAINER,
+    SHARED_DATA
 )
 from tools import (
     music_mixer,
@@ -64,48 +69,53 @@ from screens.custom_widgets import (
     MessagePopup,
     LoadingPopup,
 )
-from tools.geozzle import (
-    AD_CONTAINER
-)
 
 #############
 ### Class ###
 #############
 
 
-class HomeScreen(ImprovedScreenWithAds):
+class HomeScreen(GeozzleScreen):
 
     previous_screen_name = StringProperty()
-    counter_continents = 0
-    code_continent = LIST_CONTINENTS[counter_continents]
-    continent_name = StringProperty()
-    highscore = StringProperty()
-    completion_value = NumericProperty()
-    completion_percentage_text = StringProperty()
-    continent_color = ColorProperty(DICT_CONTINENTS[code_continent])
-    continent_image = StringProperty(
-        PATH_CONTINENTS_IMAGES + LIST_CONTINENTS[counter_continents] + ".jpg")
-    language_image = StringProperty()
+    highscore_label = StringProperty()
     play_label = StringProperty()
-    restart_label = StringProperty()
-    number_lives_on = NumericProperty(3)
-    is_mute = BooleanProperty(False)
+
+    dict_type_screen = {
+        SCREEN_ICON_LEFT_DOWN: {},
+        SCREEN_ICON_RIGHT_DOWN: {},
+        SCREEN_ICON_RIGHT_UP: {}
+    }
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
-            back_image_path=PATH_BACKGROUNDS + self.code_continent + "/" +
-            rd.choice(os.listdir(PATH_BACKGROUNDS + self.code_continent)),
+            back_image_path=rd.choice(SHARED_DATA.list_unlocked_backgrounds),
             font_name=PATH_TEXT_FONT,
             **kwargs)
-        self.update_text()
-        self.update_language_image()
-        self.load_continent_data()
+
+        self.reload_language()
 
     def on_pre_enter(self, *args):
-        self.regenerate_lives()
-        self.load_continent_data()
+        # TODO uncomment when fixed in the backend
+        # self.regenerate_lives()
 
         return super().on_pre_enter(*args)
+
+    def reload_language(self):
+        """
+        Update the labels depending on the language.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
+        super().reload_language()
+        self.play_label = TEXT.home["play"]
+        self.highscore_label = TEXT.home["highscore"] + str(USER_DATA.highscore)
 
     def on_enter(self, *args):
         if self.previous_screen_name == "":
@@ -118,27 +128,23 @@ class HomeScreen(ImprovedScreenWithAds):
         Clock.schedule_interval(
             self.manager.change_background, TIME_CHANGE_BACKGROUND)
 
-        if not USER_DATA.has_seen_tutorial:
-            USER_DATA.has_seen_tutorial = True
-            USER_DATA.save_changes()
-            self.launch_tutorial(first_time=True)
-
-        # If the user has finished at least one continent, display the ad popup for Linconym
-        if USER_DATA.has_finished_one_continent() and not USER_DATA.has_seen_popup_linconym:
-            popup = TwoButtonsImagePopup(
-                title="Linconym, the new game of LupaDevStudio",
-                center_label_text="LupaDevStudio is pleased to present you its new game!\n\nDiscover Linconym, a letter game where your goal is to link words together by rearranging letters to form new ones.",
-                image_source=PATH_IMAGES + "linconym_banner.png",
-                left_button_label="Cancel",
-                right_button_label="Discover",
-                font_ratio=self.font_ratio,
-                primary_color=self.continent_color,
-                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
-            )
-            popup.right_release_function = partial(self.go_to_linconym, popup)
-            USER_DATA.has_seen_popup_linconym = True
-            USER_DATA.save_changes()
-            popup.open()
+        # Maybe one day we'll use again this popup to present our next game
+        if False:
+            if USER_DATA.has_finished_one_continent() and not USER_DATA.has_seen_popup_linconym:
+                popup = TwoButtonsImagePopup(
+                    title="Linconym, the new game of LupaDevStudio",
+                    center_label_text="LupaDevStudio is pleased to present you its new game!\n\nDiscover Linconym, a letter game where your goal is to link words together by rearranging letters to form new ones.",
+                    image_source=PATH_IMAGES + "linconym_banner.png",
+                    left_button_label="Cancel",
+                    right_button_label="Discover",
+                    font_ratio=self.font_ratio,
+                    primary_color=self.continent_color,
+                    secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                )
+                popup.right_release_function = partial(self.go_to_linconym, popup)
+                USER_DATA.has_seen_popup_linconym = True
+                USER_DATA.save_changes()
+                popup.open()
 
         return super().on_enter(*args)
 
@@ -176,25 +182,7 @@ class HomeScreen(ImprovedScreenWithAds):
         Clock.unschedule(self.manager.change_background,
                          TIME_CHANGE_BACKGROUND)
 
-        return super().on_leave(*args)
-
-    def update_text(self):
-        """
-        Update the labels depending on the language.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        self.continent_name = TEXT.home[self.code_continent]
-        self.play_label = TEXT.home["play"]
-        self.restart_label = TEXT.home["restart"]
-        self.highscore = TEXT.home["highscore"] + \
-            str(int(USER_DATA.continents[self.code_continent]["highscore"]))
+        return super().on_pre_leave(*args)
 
     def change_continent(self, side: str):
         """
@@ -236,7 +224,7 @@ class HomeScreen(ImprovedScreenWithAds):
             LIST_CONTINENTS[self.counter_continents] + ".jpg"
 
         # Change the score and the completion percentage of the user
-        self.highscore = TEXT.home["highscore"] + \
+        self.highscore_label = TEXT.home["highscore"] + \
             str(int(USER_DATA.continents[self.code_continent]["highscore"]))
         self.completion_value = USER_DATA.continents[self.code_continent]["percentage"]
         self.completion_percentage_text = str(
@@ -296,7 +284,7 @@ class HomeScreen(ImprovedScreenWithAds):
             TEXT.change_language("french")
         else:
             TEXT.change_language("english")
-        self.update_text()
+        self.reload_language()
 
         # Save the choice of the language
         USER_DATA.language = TEXT.language

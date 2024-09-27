@@ -43,7 +43,7 @@ from tools.geozzle import (
     USER_DATA,
     TEXT
 )
-from screens.custom_widgets import ImprovedScreenWithAds
+from screens.custom_widgets import GeozzleScreen
 
 #############
 ### Class ###
@@ -54,7 +54,7 @@ class ScrollViewLabel(Label):
     pass
 
 
-class GameSummaryScreen(ImprovedScreenWithAds):
+class GameSummaryScreen(GeozzleScreen):
 
     previous_screen_name = StringProperty()
     code_continent = StringProperty(LIST_CONTINENTS[0])
@@ -226,11 +226,6 @@ class GameSummaryScreen(ImprovedScreenWithAds):
         self.manager.get_screen(
             "game_question").previous_screen_name = "game_summary"
         self.manager.current = "game_question"
-
-    def go_back_to_home(self):
-        self.manager.get_screen(
-            "home").previous_screen_name = "game_summary"
-        self.manager.current = "home"
 
     def open_popup_image(self, mode: Literal["flag", "geojson"]):
         if mode == "flag":

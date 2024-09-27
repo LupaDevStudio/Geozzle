@@ -1,0 +1,37 @@
+#:kivy 2.2.1
+
+<GeozzleScreen>:
+
+    Label:
+        id: title
+        text: root.title_screen
+        font_name: PATH_TITLE_FONT
+        font_size: TITLE_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.85}
+        outline_width: max(TITLE_OUTLINE_WIDTH * root.font_ratio,1)
+        outline_color: TITLE_OUTLINE_COLOR
+        color: TEXT_FONT_COLOR
+
+    RoundedButtonImage:
+        id: icon_left_up
+        pos_hint: {"x":0.05, "top":0.975}
+        size_hint: (0.15, None)
+        height: self.width
+
+    RoundedButtonImage:
+        id: icon_left_down
+        pos_hint: {"x":0.05, "y":0.025}
+        size_hint: (0.15, None)
+        height: self.width
+
+    RoundedButtonImage:
+        id: icon_right_up
+        pos_hint: {"right":0.95, "top":0.975}
+        size_hint: (0.15, None)
+        height: self.width
+
+    RoundedButtonImage:
+        id: icon_right_down
+        pos_hint: {"right":0.95, "y":0.025}
+        size_hint: (0.15, None)
+        height: self.width
