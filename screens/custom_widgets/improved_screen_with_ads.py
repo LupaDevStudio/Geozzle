@@ -130,7 +130,7 @@ class GeozzleScreen(ImprovedScreenWithAds):
             dict_details = self.dict_type_screen[SCREEN_ICON_LEFT_UP]
             self.ids.icon_left_up.image_path = PATH_IMAGES + dict_details.get("image_path", "home") + ".png"
             self.ids.icon_left_up.colors = dict_details.get("colors", BLACK)
-            self.ids.icon_left_up.on_release = dict_details.get("on_release", self.go_to_home)
+            self.ids.icon_left_up.release_function = dict_details.get("release_function", self.go_to_home)
         else:
             self.remove_widget(self.ids.icon_left_up)
 
@@ -139,7 +139,7 @@ class GeozzleScreen(ImprovedScreenWithAds):
             dict_details = self.dict_type_screen[SCREEN_ICON_LEFT_DOWN]
             self.ids.icon_left_down.image_path = PATH_IMAGES + dict_details.get("image_path", "stats") + ".png"
             self.ids.icon_left_down.colors = dict_details.get("colors", BLACK)
-            self.ids.icon_left_down.on_release = dict_details.get("on_release", self.go_to_stats)
+            self.ids.icon_left_down.release_function = dict_details.get("release_function", self.go_to_stats)
         else:
             self.remove_widget(self.ids.icon_left_down)
 
@@ -148,7 +148,7 @@ class GeozzleScreen(ImprovedScreenWithAds):
             dict_details = self.dict_type_screen[SCREEN_ICON_RIGHT_UP]
             self.ids.icon_right_up.image_path = PATH_IMAGES + dict_details.get("image_path", "settings") + ".png"
             self.ids.icon_right_up.colors = dict_details.get("colors", BLACK)
-            self.ids.icon_right_up.on_release = dict_details.get("on_release", self.go_to_settings)
+            self.ids.icon_right_up.release_function = dict_details.get("release_function", self.go_to_settings)
         else:
             self.remove_widget(self.ids.icon_right_up)
 
@@ -157,7 +157,7 @@ class GeozzleScreen(ImprovedScreenWithAds):
             dict_details = self.dict_type_screen[SCREEN_ICON_RIGHT_DOWN]
             self.ids.icon_right_down.image_path = PATH_IMAGES + dict_details.get("image_path", "gallery") + ".png"
             self.ids.icon_right_down.colors = dict_details.get("colors", BLACK)
-            self.ids.icon_right_down.on_release = dict_details.get("on_release", self.go_to_gallery)
+            self.ids.icon_right_down.release_function = dict_details.get("release_function", self.go_to_gallery)
         else:
             self.remove_widget(self.ids.icon_right_down)
 

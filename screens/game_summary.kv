@@ -23,14 +23,6 @@
         valign: "center"
         line_height: 1
 
-    RoundedButtonImage:
-        image_path: PATH_IMAGES + "home.png"
-        pos_hint: {"x":0.05, "top":0.975}
-        size_hint: (0.1, None)
-        height: self.width
-        colors: root.continent_color
-        on_release: root.go_back_to_home()
-
     ThreeLives:
         continent_color: root.continent_color
         pos_hint: {"x":0.57, "top":0.98}

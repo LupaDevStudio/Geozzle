@@ -32,6 +32,7 @@ class CircleIconButton(ButtonBehavior, Image):
     A custom button with a white round rectangle background.
     """
 
+    disable_button = BooleanProperty(False)
     is_selected = BooleanProperty(False)
     font_ratio = NumericProperty(1)
 
@@ -43,9 +44,12 @@ class CircleIconButton(ButtonBehavior, Image):
         self.always_release = True
 
     def on_press(self):
-        self.opacity = OPACITY_ON_BUTTON_PRESS
-        sound_mixer.play("click")
+        if not self.disable_button:
+            self.opacity = OPACITY_ON_BUTTON_PRESS
+            sound_mixer.play("click")
 
     def on_release(self):
-        self.release_function()
-        self.opacity = 1
+        if not self.disable_button:
+            if self.collide_point(self.last_touch.x, self.last_touch.y):
+                self.release_function()
+            self.opacity = 1

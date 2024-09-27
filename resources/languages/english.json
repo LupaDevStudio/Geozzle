@@ -11,6 +11,9 @@
         "tutorial": "Tutorial",
         "credits": "Credits"
     },
+    "gallery": {
+        "points": "Points: [POINTS]"
+    },
     "home": {
         "Europe": "Europe",
         "Asia": "Asia",

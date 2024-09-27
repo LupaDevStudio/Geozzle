@@ -17,14 +17,6 @@
         valign: "center"
         line_height: 1
 
-    RoundedButtonImage:
-        image_path: PATH_IMAGES + "home.png"
-        pos_hint: {"x":0.05, "top":0.975}
-        size_hint: (0.1, None)
-        height: self.width
-        colors: root.continent_color
-        on_release: root.go_to_home()
-    
     CustomSpinner:
         id: country_spinner
         pos_hint: {"center_x":0.5, "center_y":0.7}
