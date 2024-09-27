@@ -94,16 +94,19 @@ class WindowManager(ScreenManager):
                     screen.set_back_image_path(
                         current_screen.second_back_image_path, "second")
 
-    def change_background(self, *args):
+    def change_background(self, *args, background_path=None):
         # Get current screen to change its background
         current_screen = self.get_screen(self.current)
 
         # Change the image of the background
         if current_screen.opacity_state == "main":
-            image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
+            if background_path is not None:
+                image = background_path
+            else:
+                image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
 
             # verify that the new image is not the same as the current one
-            while image == current_screen.back_image_path:
+            while image == current_screen.back_image_path and background_path is not None:
                 image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
 
             current_screen.set_back_image_path(
@@ -112,10 +115,13 @@ class WindowManager(ScreenManager):
             )
 
         else:
-            image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
+            if background_path is not None:
+                image = background_path
+            else:
+                image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
 
             # verify that the new image is not the same as the current one
-            while image == current_screen.second_back_image_path:
+            while image == current_screen.second_back_image_path and background_path is not None:
                 image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
 
             current_screen.set_back_image_path(

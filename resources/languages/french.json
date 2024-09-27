@@ -12,7 +12,10 @@
         "credits": "Crédits"
     },
     "gallery": {
-        "points": "Points : [POINTS]"
+        "points": "Points : [POINTS]",
+        "buy_background": "Acheter 1 fond aléatoire\n[POINTS] points",
+        "new_background": "Bravo ! Tu as obtenu un nouveau fond !",
+        "already_bought_background": "Dommage, tu avais déjà ce fond..."
     },
     "home": {
         "Europe": "Europe",

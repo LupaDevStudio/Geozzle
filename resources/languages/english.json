@@ -12,7 +12,10 @@
         "credits": "Credits"
     },
     "gallery": {
-        "points": "Points: [POINTS]"
+        "points": "Points: [POINTS]",
+        "buy_background": "Buy 1 random background\n[POINTS] points",
+        "new_background": "Congrats! You've got a new background!",
+        "already_bought_background": "Bad luck, you've already had this background..."
     },
     "home": {
         "Europe": "Europe",

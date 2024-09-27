@@ -30,12 +30,15 @@ from tools.geozzle import (
 class ImagePopup(CustomPopup):
 
     ok_button_label = StringProperty(TEXT.home["cancel"])
-    release_function = ObjectProperty()
+    release_function = ObjectProperty(lambda: 1 + 1)
     image_source = StringProperty()
-    mode = StringProperty()
+    mode = StringProperty("image")
 
     def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         if not "release_function" in kwargs:
-            super().__init__(release_function=self.dismiss, **kwargs)
-        else:
-            super().__init__(**kwargs)
+            self.release_function = self.dismiss
+
+    def close_popup(self):
+        self.dismiss()
+        self.release_function()

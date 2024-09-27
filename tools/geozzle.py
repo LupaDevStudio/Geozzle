@@ -903,22 +903,35 @@ class UserData():
             self.unlocked_backgrounds.append(code_background)
         self.save_changes()
 
-    def buy_new_background(self):
+    def buy_new_background(self) -> dict:
+        dict_return = {}
+
+        # Reduce the number of points
+        self.points -= PRICE_BACKGROUND
+
         # Choose randomly the continent and the background
         code_continent = rd.choice(list(DICT_CONTINENTS.keys()))
         code_background = rd.choice(os.listdir(PATH_BACKGROUNDS + code_continent))
-        self.unlocked_backgrounds.append(code_background)
+        
+        # If the background bought is new
+        if code_background not in self.unlocked_backgrounds:
+            self.unlocked_backgrounds.append(code_background)
+            dict_return["is_new"] = True
+        else:
+            dict_return["is_new"] = False
 
-        # Add them in the shared data
-        SHARED_DATA.add_new_background(
+        # Add the background in the shared data
+        full_path = SHARED_DATA.add_new_background(
             code_background=code_background,
             code_continent=code_continent)
         
-        # Reduce the number of points
-        self.points -= PRICE_BACKGROUND
-        
         # Save the changes
         self.save_changes()
+
+        dict_return["code_continent"] = code_continent
+        dict_return["full_path"] = full_path
+
+        return dict_return
 
     def save_changes(self) -> None:
         """
@@ -1009,9 +1022,10 @@ class SharedData():
                         code_background=code_background,
                         code_continent=code_continent)
 
-    def add_new_background(self, code_background: str, code_continent: str):
-        self.list_unlocked_backgrounds.append(
-            PATH_BACKGROUNDS + code_continent + "/" + code_background
-        )
+    def add_new_background(self, code_background: str, code_continent: str) -> str:
+        full_path = PATH_BACKGROUNDS + code_continent + "/" + code_background
+        if full_path not in self.list_unlocked_backgrounds:
+            self.list_unlocked_backgrounds.append(full_path)
+        return full_path
 
 SHARED_DATA = SharedData()

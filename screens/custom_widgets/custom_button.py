@@ -37,7 +37,7 @@ class CustomButton(ButtonBehavior, Widget):
     A custom button with a white round rectangle background.
     """
 
-    background_color = CUSTOM_BUTTON_BACKGROUND_COLOR
+    background_color = ColorProperty(CUSTOM_BUTTON_BACKGROUND_COLOR)
     text = StringProperty()
     text_filling_ratio = NumericProperty()
     font_size = NumericProperty()

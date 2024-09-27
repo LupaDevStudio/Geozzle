@@ -11,3 +11,13 @@
         outline_width: max(SUBTITLE_OUTLINE_WIDTH* root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
         color: BLACK
+
+    # Buy background button
+    CustomButton:
+        id: buy_background_button
+        text: root.buy_background_label
+        pos_hint: {"center_x":0.5, "center_y":0.68}
+        size_hint: (0.75, 0.09)
+        release_function: root.buy_background
+        font_ratio: root.font_ratio
+        font_size: BUTTON_FONT_SIZE

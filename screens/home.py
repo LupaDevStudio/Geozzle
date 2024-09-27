@@ -124,7 +124,7 @@ class HomeScreen(GeozzleScreen):
             music_mixer.play(MAIN_MUSIC_NAME, loop=True)
 
         # Schedule the change of background
-        if self.previous_screen_name in ["", "game_summary", "game_question", "game_over"]:
+        if self.previous_screen_name in ["", "gallery", "game_summary", "game_question", "game_over"]:
             Clock.schedule_interval(
                 self.manager.change_background, TIME_CHANGE_BACKGROUND)
 

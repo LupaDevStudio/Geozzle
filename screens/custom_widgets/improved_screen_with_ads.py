@@ -13,7 +13,7 @@ from functools import partial
 
 ### Kivy imports ###
 
-from kivy.clock import mainthread
+from kivy.clock import mainthread, Clock
 from kivy.properties import (
     StringProperty
 )
@@ -34,7 +34,8 @@ from tools.constants import (
     SCREEN_ICON_LEFT_UP,
     SCREEN_ICON_RIGHT_DOWN,
     SCREEN_ICON_RIGHT_UP,
-    BLACK
+    BLACK,
+    TIME_CHANGE_BACKGROUND
 )
 from tools.path import (
     PATH_IMAGES
@@ -186,3 +187,7 @@ class GeozzleScreen(ImprovedScreenWithAds):
     def go_to_gallery(self):
         self.manager.get_screen("gallery").previous_screen_name = self.manager.current
         self.manager.current = "gallery"
+
+        # Unschedule the clock updates
+        Clock.unschedule(self.manager.change_background,
+            TIME_CHANGE_BACKGROUND)
