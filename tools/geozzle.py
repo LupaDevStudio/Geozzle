@@ -366,17 +366,40 @@ AD_CONTAINER = AdContainer()
 class Game():
     # Number of lives left for this game
     number_lives: int
+    # Number of lives used for this country
+    number_lives_used_country: int
     # Number of credits left to use
     number_credits: int
-    # List of countries to guess
+    # List of countries to guess (wikidata codes)
     list_countries_to_guess: list[str]
-    list_continents: list
     # Dict of countries encountered during the game
     # {"code_country": {"list_clues": ["clue_1" ,"clue_2"], "multiplicator": 1.2, "guessed": True}}
     dict_guessed_countries: dict
+    # List of the codes of the current clues
+    list_current_clues: list[str]
+    # Dict of the results of the request for each country
+    # {"english": {"capital": "London", ...}, "french": {"capital": "Londres", ...}}
+    dict_details_country: dict
+
+    @ property
+    def has_lives(self) -> bool:
+        return self.number_lives > 0
+
+    @ property
+    def can_watch_ad(self) -> bool:
+        return self.number_credits > 0    
+
+    @ property
+    def current_guess_country(self) -> str | None:
+        """Wikidata code of the country to guess currently"""
+        for code_country in self.dict_guessed_countries:
+            if not self.dict_guessed_countries[code_country]["guessed"]:
+                return code_country
+        return None
 
     def __init__(self, dict_to_load: dict) -> None:
         self.number_lives = dict_to_load.get("number_lives", 3)
+        self.number_lives_used_country = dict_to_load.get("number_lives_used_country", 0)
         self.number_credits = dict_to_load.get(
             "number_credits", NUMBER_CREDITS)
 
@@ -385,15 +408,104 @@ class Game():
         if self.list_countries_to_guess == []:
             self.build_list_countries()
 
+        self.dict_guessed_countries = dict_to_load.get(
+            "dict_guessed_countries", {
+                country_code: {
+                    "list_clues": [],
+                    "multiplicator": 1,
+                    "guessed": False} for country_code in self.list_countries_to_guess})
+
+        self.list_current_clues = dict_to_load.get(
+            "list_current_clues", [])
+        
+        self.dict_details_country = dict_to_load.get(
+            "dict_details_country", {})
+        if self.dict_details_country == {}:
+            self.build_dict_details_country()
+
     def build_list_countries(self):
         self.list_countries_to_guess = []
-        # TODO choisir un pays de chaque continent
+        # TODO Paul choisir un pays de chaque continent parmi ceux qui ont été les moins devinés
+
+    def build_dict_details_country(self):
+        # TODO Paul faire la requête et construire le dictionnaire des détails sur le pays dict_details_country dans la langue correspondante.
+        # Il faut faire la requête sur self.current_guess_country
+        pass
+
+    def choose_clues(self):
+        # TODO Paul écrire une fonction qui permet de choisir les quatre indices, les trois premiers 1 de chaque catégorie (1 étoile, 2 étoiles, 3 étoiles) et le dernier random, parmi ceux qui n'ont pas encore été demandés dans le dict_guessed_countries
+        # TODO update self.list_current_clues
+        pass
+
+    def ask_clue(self, number_clue: int):
+        code_clue = self.list_current_clues[number_clue]
+        # TODO Paul retourner le bel affichage de l'indice
+
+    def watch_ad(self):
+        self.number_lives += 1
+        self.number_credits -= 1
+
+    def check_country(self, guessed_country: str) -> bool:
+        """
+        Check if the country proposed by the user is the correct one.
+
+        Parameters
+        ----------
+        guessed_country : str
+            Name of the country proposed by the user.
+
+        Returns
+        -------
+        bool
+            Boolean according to which the country proposed by the user is correct or not.
+        """
+        # TODO Paul (peut-être se resservir de la fonction qui avait déjà été codée avant)
+        pass
+
+    def go_to_next_country(self):
+        # TODO Paul mettre à jour le dictionnaire dict_guessed_countries quand le joueur a deviné un pays, avec aussi le multiplicateur pour le prochain pays à deviner.
+
+
+        # TODO update before this line
+
+        # Check the end of the game or not
+        if self.current_guess_country is None:
+            self.end_game()
+        else:
+            self.build_dict_details_country()
+
+    def end_game(self):
+        """
+        End the current game and reset the class.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
+        score = self.compute_final_game_score()
+        USER_DATA.update_points_and_score(score=score)
+        USER_DATA.update_stats() # TODO (et il faudra aussi update les statistiques de la classe user data, par exemple les statistiques de chaque pays avec le nombre d'étoiles)
+        
+        # TODO Paul reset le jeu une fois que tout est terminé 
+
+    def compute_final_game_score(self) -> int:
+        # TODO Paul calculer le score avec ta fonction et le retourner
+        pass
 
     def export_as_dict(self) -> dict:
-        return {}
-
-    def compute_final_game_score(self):
-        pass
+        return {
+            "number_lives": self.number_lives,
+            "number_lives_used_country": self.number_lives_used_country,
+            "number_credits": self.number_credits,
+            "list_countries_to_guess": self.list_countries_to_guess,
+            "dict_guessed_countries": self.dict_guessed_countries,
+            "list_current_clues": self.list_current_clues,
+            "dict_details_country": self.dict_details_country
+        }
 
 
 class OldGame():
@@ -1012,6 +1124,21 @@ class UserData():
                          (3 * nb_countries_on_continent))
 
         return percentage
+
+    def update_points_and_score(self, score: int):
+        # Update the number of points
+        self.points += score
+
+        # Update the highscore if needed
+        if score > self.highscore:
+            self.highscore = score
+
+        # Save the changes
+        self.save_changes()
+
+    def update_stats(self):
+        pass 
+        # TODO Paul
 
     def buy_new_background(self) -> dict:
         dict_return = {}

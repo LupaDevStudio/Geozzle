@@ -124,7 +124,7 @@ NUMBER_CREDITS = 1
 
 ### Gallery ###
 
-PRICE_BACKGROUND = 200  # TODO change
+PRICE_BACKGROUND = 2000
 
 ### Screen ###
 
