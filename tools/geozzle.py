@@ -1109,6 +1109,7 @@ class Text():
         self.home = data["home"]
         self.settings = data["settings"]
         self.gallery = data["gallery"]
+        self.stats = data["stats"]
         self.game_question = data["game_question"]
         self.game_summary = data["game_summary"]
         self.game_over = data["game_over"]

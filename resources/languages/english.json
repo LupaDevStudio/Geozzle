@@ -17,6 +17,10 @@
         "new_background": "Congrats! You've got a new background!",
         "already_bought_background": "Bad luck, you've already had this background..."
     },
+    "stats": {
+        "highscore": "Highscore: [HIGHSCORE]",
+        "details": "Details"
+    },
     "home": {
         "Europe": "Europe",
         "Asia": "Asia",
