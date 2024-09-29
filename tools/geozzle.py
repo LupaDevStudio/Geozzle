@@ -911,6 +911,17 @@ class UserData():
             "unlocked_backgrounds", [])
         if self.unlocked_backgrounds == []:
             self.init_backgrounds()
+        self.save_changes()
+
+    def init_backgrounds(self):
+        """
+        Give a background for each continent when the user starts playing for the first time.
+        """
+
+        for code_continent in list(DICT_CONTINENTS.keys()):
+            code_background = rd.choice(os.listdir(
+                PATH_BACKGROUNDS + code_continent))
+            self.unlocked_backgrounds.append(code_background)
 
     def get_nb_countries_with_stars(self, continent: str, target_nb_stars: int):
         """
@@ -1002,17 +1013,6 @@ class UserData():
 
         return percentage
 
-    def init_backgrounds(self):
-        """
-        Give a background for each continent when the user starts playing for the first time.
-        """
-
-        for code_continent in list(DICT_CONTINENTS.keys()):
-            code_background = rd.choice(os.listdir(
-                PATH_BACKGROUNDS + code_continent))
-            self.unlocked_backgrounds.append(code_background)
-        self.save_changes()
-
     def buy_new_background(self) -> dict:
         dict_return = {}
 
@@ -1061,6 +1061,7 @@ class UserData():
         data = {}
         data["language"] = self.language
         data["game"] = self.game.export_as_dict()
+        data["stats"] = self.stats
         data["points"] = self.points
         data["highscore"] = self.highscore
         data["music_volume"] = self.music_volume

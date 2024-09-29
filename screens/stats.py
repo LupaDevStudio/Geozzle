@@ -127,18 +127,27 @@ class StatsScreen(GeozzleScreen):
                 pos_hint={"center_y": 0.5},
                 font_ratio=self.font_ratio,
                 circle_color=DICT_CONTINENTS[code_continent],
-                progress=10 # TODO
+                progress=USER_DATA.get_continent_progress(continent=code_continent)
             )
             progress_circle.bind(width=progress_circle.setter("height"))
             layout.add_widget(progress_circle)
 
             # Stats layout
+            number_countries = USER_DATA.get_nb_countries(
+                continent=code_continent)
+            text = ""
+            for i in range(1, 4):
+                number_countries_stars = USER_DATA.get_nb_countries_with_stars(
+                    continent=code_continent,
+                    target_nb_stars=i)
+                text += f"{number_countries_stars} / {number_countries}\n"
+            text = text[:-1]
             stats_layout = StatsLayout(
                 font_ratio=self.font_ratio,
                 size_hint=(0.6, None),
                 height=height_layout*0.9,
                 pos_hint={"center_y": 0.5, "x": 0.4},
-                text="2 / 20\n2 / 20\n2 / 20",
+                text=text,
                 text_button=TEXT.stats["details"],
                 color_label=DICT_CONTINENTS[code_continent],
                 background_button_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[code_continent],

@@ -2,38 +2,23 @@
     "language": "english",
     "game": {},
     "stats": {
-        "Europe": {
-            "Q222": {
-                "nb_stars": 3,
-                "nb_times_played": 1
-            }
-        }
+        "Europe": {},
+        "Asia": {},
+        "Africa": {},
+        "North_America": {},
+        "South_America": {},
+        "Oceania": {}
     },
-    "points": 17600,
+    "points": 0,
     "highscore": 0,
-    "music_volume": 0.5071090047393365,
-    "sound_volume": 0.4928909952606635,
+    "music_volume": 0.5,
+    "sound_volume": 0.5,
     "unlocked_backgrounds": [
-        "europe_france2.jpg",
-        "asia_CA_2023_15G.jpg",
-        "africa_marrakech.jpg",
-        "north_statueliberty2.jpg",
-        "south_old_temples_peru2.jpg",
-        "oceania_newzealand3.jpg",
-        "oceania_australia2.jpg",
-        "north_death_valley.jpg",
+        "europe_venice.jpg",
+        "asia_bamboo.jpg",
+        "africa_djene.jpg",
         "north_tikal.jpg",
-        "africa_okavangodelta.jpg",
-        "africa_savanna_2.jpg",
-        "south_america2.jpg",
-        "south_amazon_forest.jpg",
-        "oceania_sydney.jpg",
-        "asia_china_mountains.jpg",
-        "africa_nile2.jpg",
-        "europe_eiffel.jpg",
-        "oceania_greatbarrier.jpg",
-        "asia_lantern.jpg",
-        "asia_gobi.jpg",
-        "asia_tajmahal2.jpg"
+        "south_america.jpg",
+        "oceania_australia2.jpg"
     ]
 }
