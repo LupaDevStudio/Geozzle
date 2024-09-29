@@ -366,22 +366,20 @@ AD_CONTAINER = AdContainer()
 class Game():
     # Number of lives left for this game
     number_lives: int
-    # Number of lives used for this country
-    number_lives_used_country: int
     # Number of credits left to use
     number_credits: int
     # List of countries to guess
     list_countries_to_guess: list[str]
-    # Dict of countries already guessed
-    dict_guessed_countries: dict # {"code_country": {"list_clues": ["clue_1" ,"clue_2"], "number_lives_used": 1, "guessed": True}}
+    list_continents: list
+    # Dict of countries encountered during the game
+    # {"code_country": {"list_clues": ["clue_1" ,"clue_2"], "multiplicator": 1.2, "guessed": True}}
+    dict_guessed_countries: dict
 
     def __init__(self, dict_to_load: dict) -> None:
         self.number_lives = dict_to_load.get("number_lives", 3)
-        self.number_lives_used_country = dict_to_load.get(
-            "number_lives_used_country", 0)
-        self.number_credits = dict_to_load.get("number_credits", NUMBER_CREDITS)
-        
-        
+        self.number_credits = dict_to_load.get(
+            "number_credits", NUMBER_CREDITS)
+
         self.list_countries_to_guess = dict_to_load.get(
             "list_countries_to_guess", [])
         if self.list_countries_to_guess == []:
@@ -393,6 +391,10 @@ class Game():
 
     def export_as_dict(self) -> dict:
         return {}
+
+    def compute_final_game_score(self):
+        pass
+
 
 class OldGame():
     # Number of lives left for the continent
@@ -876,30 +878,138 @@ class OldGame():
 ### User data ###
 #################
 
+
 class UserData():
     """
     A class to store the user data.
     """
 
-    @ property
+    @property
     def can_buy_background(self):
         return self.points >= PRICE_BACKGROUND
 
     def __init__(self) -> None:
         data = load_json_file(PATH_USER_DATA)
         self.game: Game = Game(data.get("game", {}))
-        self.language: Literal["english", "french"] = data.get("language", "english")
+        self.language: Literal["english", "french"] = data.get(
+            "language", "english")
         self.sound_volume: float = data.get("sound_volume", 0.5)
         self.music_volume: float = data.get("music_volume", 0.5)
         self.highscore: int = data.get("highscore", 0)
         self.points: int = data.get("points", 0)
-        self.unlocked_backgrounds: list[str] = data.get("unlocked_backgrounds", [])
+        self.stats: int = data.get(
+            "stats",
+            {
+                "Europe": {},
+                "Asia": {},
+                "Africa": {},
+                "North_America": {},
+                "South_America": {},
+                "Oceania": {},
+            })
+        self.unlocked_backgrounds: list[str] = data.get(
+            "unlocked_backgrounds", [])
         if self.unlocked_backgrounds == []:
             self.init_backgrounds()
 
+    def get_nb_countries_with_stars(self, continent: str, target_nb_stars: int):
+        """
+        Compute the number of countries for a given continent with the target number of stars.
+
+        Parameters
+        ----------
+        continent : str
+            Continent code.
+        target_nb_stars : int
+            Number of stars to target.
+
+        Returns
+        -------
+        int
+            Number of countries
+        """
+
+        nb_countries = 0
+        for country in self.stats[continent]:
+            nb_stars = self.stats[continent][country]["nb_stars"]
+            if nb_stars == target_nb_stars:
+                nb_countries += 1
+
+        return nb_countries
+
+    def get_nb_countries(self, continent: str):
+        """
+        Compute the number of countries in a given continent.
+
+        Parameters
+        ----------
+        continent : str
+            Continent code.
+
+        Returns
+        -------
+        int
+            Number of countries
+        """
+
+        return len(DICT_COUNTRIES["english"][continent])
+
+    def get_nb_stars_on_continent(self, continent: str):
+        """
+        Return the number of stars obtained on a given continent.
+
+        Parameters
+        ----------
+        continent : str
+            Continent code.
+
+        Returns
+        -------
+        int
+            Number of stars obtained on the continent.
+        """
+
+        nb_stars_on_continent = 0
+        for country in self.stats[continent]:
+            nb_stars = self.stats[continent][country]["nb_stars"]
+            nb_stars_on_continent += nb_stars
+
+        return nb_stars_on_continent
+
+    def get_continent_progress(self, continent: str):
+        """
+        Return the progress of the continent in percent.
+        This number corresponds to the number of stars obtained divided by the total number of stars.
+
+        Parameters
+        ----------
+        continent : str
+            Continent code.
+
+        Returns
+        -------
+        int
+            Percentage of progress.
+        """
+
+        # Extract the data
+        nb_stars_on_continent = self.get_nb_stars_on_continent(continent)
+        nb_countries_on_continent = self.get_nb_countries(continent)
+
+        # Compute the percentage
+        percentage = int(nb_stars_on_continent /
+                         (3 * nb_countries_on_continent))
+
+        return percentage
+
     def init_backgrounds(self):
+        """
+        Give a background for each continent when the user starts playing for the first time.
+        """
+
         for code_continent in list(DICT_CONTINENTS.keys()):
-            code_background = rd.choice(os.listdir(PATH_BACKGROUNDS + code_continent))
+            code_background = rd.choice(os.listdir(
+                PATH_BACKGROUNDS + code_continent))
             self.unlocked_backgrounds.append(code_background)
         self.save_changes()
 
@@ -911,8 +1021,9 @@ class UserData():
 
         # Choose randomly the continent and the background
         code_continent = rd.choice(list(DICT_CONTINENTS.keys()))
-        code_background = rd.choice(os.listdir(PATH_BACKGROUNDS + code_continent))
-        
+        code_background = rd.choice(os.listdir(
+            PATH_BACKGROUNDS + code_continent))
+
         # If the background bought is new
         if code_background not in self.unlocked_backgrounds:
             self.unlocked_backgrounds.append(code_background)
@@ -924,7 +1035,7 @@ class UserData():
         full_path = SHARED_DATA.add_new_background(
             code_background=code_background,
             code_continent=code_continent)
-        
+
         # Save the changes
         self.save_changes()
 
@@ -961,11 +1072,13 @@ class UserData():
             file_path=PATH_USER_DATA,
             dict_to_save=data)
 
+
 USER_DATA = UserData()
 
 ############
 ### Text ###
 ############
+
 
 class Text():
     def __init__(self, language) -> None:
@@ -1003,6 +1116,7 @@ class Text():
         self.tutorial = data["tutorial"]
         self.popup = data["popup"]
 
+
 TEXT = Text(language=USER_DATA.language)
 
 
@@ -1011,7 +1125,7 @@ TEXT = Text(language=USER_DATA.language)
 ###################
 
 class SharedData():
-    list_unlocked_backgrounds: list[str] # list of the path of the images
+    list_unlocked_backgrounds: list[str]  # list of the path of the images
 
     def __init__(self) -> None:
         self.list_unlocked_backgrounds = []
@@ -1027,5 +1141,6 @@ class SharedData():
         if full_path not in self.list_unlocked_backgrounds:
             self.list_unlocked_backgrounds.append(full_path)
         return full_path
+
 
 SHARED_DATA = SharedData()

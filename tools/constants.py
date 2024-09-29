@@ -40,7 +40,7 @@ from tools.basic_tools import (
 
 ### Version ###
 
-__version__ = "1.0.8"
+__version__ = "1.1"
 
 ### Mode ###
 
@@ -79,7 +79,8 @@ DICT_LANGUAGE_CODE_TO_NAME = {
 }
 DICT_LANGUAGE_NAME_TO_CODE = {}
 for code_language in DICT_LANGUAGE_CODE_TO_NAME:
-    DICT_LANGUAGE_NAME_TO_CODE[DICT_LANGUAGE_CODE_TO_NAME[code_language]] = code_language
+    DICT_LANGUAGE_NAME_TO_CODE[DICT_LANGUAGE_CODE_TO_NAME[code_language]
+                               ] = code_language
 
 LANGUAGES_LIST = tuple(DICT_LANGUAGE_CODE_TO_NAME.values())
 
@@ -123,7 +124,7 @@ NUMBER_CREDITS = 1
 
 ### Gallery ###
 
-PRICE_BACKGROUND = 200 # TODO change
+PRICE_BACKGROUND = 200  # TODO change
 
 ### Screen ###
 

@@ -114,7 +114,8 @@ class HomeScreen(GeozzleScreen):
         """
         super().reload_language()
         self.play_label = TEXT.home["play"]
-        self.highscore_label = TEXT.home["highscore"] + str(USER_DATA.highscore)
+        self.highscore_label = TEXT.home["highscore"] + \
+            str(USER_DATA.highscore)
 
     def on_enter(self, *args):
         if self.previous_screen_name == "":
@@ -139,9 +140,11 @@ class HomeScreen(GeozzleScreen):
                     right_button_label="Discover",
                     font_ratio=self.font_ratio,
                     primary_color=self.continent_color,
-                    secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                    secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                        self.code_continent],
                 )
-                popup.right_release_function = partial(self.go_to_linconym, popup)
+                popup.right_release_function = partial(
+                    self.go_to_linconym, popup)
                 USER_DATA.has_seen_popup_linconym = True
                 USER_DATA.save_changes()
                 popup.open()
@@ -227,7 +230,7 @@ class HomeScreen(GeozzleScreen):
 
             # Unschedule the clock updates
             Clock.unschedule(self.manager.change_background,
-                         TIME_CHANGE_BACKGROUND)
+                             TIME_CHANGE_BACKGROUND)
 
         else:
             popup = MessagePopup(
@@ -259,33 +262,31 @@ class HomeScreen(GeozzleScreen):
         None
         """
 
-        if self.number_lives_on > 0:
-
-            # Display the loading popup
-            if not USER_DATA.game.is_already_loaded():
-                self.loading_popup = LoadingPopup(
-                    primary_color=self.continent_color,
-                    secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
-                        self.code_continent],
-                    font_ratio=self.font_ratio)
-                self.loading_popup.open()
-            else:
-                self.loading_popup = None
-
-            # Start thread
-            my_thread = Thread(target=self.thread_request)
-            my_thread.start()
-
-        else:
-            popup = TwoButtonsPopup(
+        # Display the loading popup
+        if not USER_DATA.game.is_already_loaded():
+            self.loading_popup = LoadingPopup(
                 primary_color=self.continent_color,
-                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
-                right_button_label=TEXT.home["watch_ad"],
-                title=TEXT.home["buy_life_title"],
-                center_label_text=TEXT.home["buy_life_message"],
-                font_ratio=self.font_ratio
-            )
-            watch_ad_with_callback = partial(
-                AD_CONTAINER.watch_ad, partial(self.ad_callback, popup))
-            popup.right_release_function = watch_ad_with_callback
-            popup.open()
+                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                    self.code_continent],
+                font_ratio=self.font_ratio)
+            self.loading_popup.open()
+        else:
+            self.loading_popup = None
+
+        # Start thread
+        my_thread = Thread(target=self.thread_request)
+        my_thread.start()
+
+        # else:
+        #     popup = TwoButtonsPopup(
+        #         primary_color=self.continent_color,
+        #         secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+        #         right_button_label=TEXT.home["watch_ad"],
+        #         title=TEXT.home["buy_life_title"],
+        #         center_label_text=TEXT.home["buy_life_message"],
+        #         font_ratio=self.font_ratio
+        #     )
+        #     watch_ad_with_callback = partial(
+        #         AD_CONTAINER.watch_ad, partial(self.ad_callback, popup))
+        #     popup.right_release_function = watch_ad_with_callback
+        #     popup.open()

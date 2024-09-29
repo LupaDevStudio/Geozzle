@@ -1,0 +1,11 @@
+thème = 2000 pts
+
+2000 pts --> bonne partie
+
+
+Moyen de gagner des points:
+- en devinant un pays :
+	- 150 pts pour avoir deviné
+	- total intermédiaire : 1 pour 3 étoiles, 2 pour 2 étoiles, 4 pour 1 étoile, le max possible 3*4 + 8*2 + 6*1 = 36 --> donne 0 pts, si deviné avec uniquement indice 3 étoiles 150pts
+- à la fin de la partie +100pts par vie
+- booster si enchainement de pays deviné sans erreur, 1.2 puis 1.4 etc

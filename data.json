@@ -1,10 +1,18 @@
 {
     "language": "english",
     "game": {},
-    "points": 18200,
+    "stats": {
+        "Europe": {
+            "Q222": {
+                "nb_stars": 3,
+                "nb_times_played": 1
+            }
+        }
+    },
+    "points": 17600,
     "highscore": 0,
-    "music_volume": 0.44549763033175355,
-    "sound_volume": 0.5,
+    "music_volume": 0.5071090047393365,
+    "sound_volume": 0.4928909952606635,
     "unlocked_backgrounds": [
         "europe_france2.jpg",
         "asia_CA_2023_15G.jpg",
@@ -25,6 +33,7 @@
         "europe_eiffel.jpg",
         "oceania_greatbarrier.jpg",
         "asia_lantern.jpg",
-        "asia_gobi.jpg"
+        "asia_gobi.jpg",
+        "asia_tajmahal2.jpg"
     ]
 }
