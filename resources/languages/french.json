@@ -17,6 +17,10 @@
         "new_background": "Bravo ! Tu as obtenu un nouveau fond !",
         "already_bought_background": "Dommage, tu avais déjà ce fond..."
     },
+    "stats": {
+        "highscore": "Meilleur score : [HIGHSCORE]",
+        "details": "Détails"
+    },
     "home": {
         "Europe": "Europe",
         "Asia": "Asie",

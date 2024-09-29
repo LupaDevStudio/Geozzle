@@ -1,0 +1,85 @@
+#:kivy 2.2.1
+#:set OUTLINE_RECTANGLE 6
+
+<StatsLayout>:
+
+    # Background
+    canvas.before:
+        # Shadow
+        Color:
+            rgba: 0, 0, 0, 1        
+        BoxShadow:
+            pos: (0, 0)
+            size: self.size
+            offset: 5*self.font_ratio, -5*self.font_ratio
+            spread_radius: -10*self.font_ratio, -10*self.font_ratio
+            blur_radius: 20*self.font_ratio
+            border_radius: [12*root.font_ratio,12*root.font_ratio,12*root.font_ratio,12*root.font_ratio]
+        # Rounded rectangle
+        Color:
+            rgba: root.background_color
+        RoundedRectangle:
+            pos:(0, 0)
+            size:self.size
+            radius: [12*self.font_ratio]
+        # Border
+        Color:
+            rgba: root.color_label
+        Line:
+            rounded_rectangle: [0,0,self.size[0],self.size[1],12*self.font_ratio]
+            width: BUTTON_OUTLINE_WIDTH*self.font_ratio
+
+    # Stars
+    ThreeStars:
+        id: three_stars_1
+        pos_hint: {"x": 0.1, "y": 0.775}
+        size_hint: (0.3, 0.125)
+        nb_stars: 1
+        primary_color: WHITE
+        secondary_color: root.color_label
+        contour_color: root.color_label
+
+    # Stars
+    ThreeStars:
+        id: three_stars_2
+        pos_hint: {"x": 0.1, "y": 0.625}
+        size_hint: (0.3, 0.125)
+        nb_stars: 2
+        primary_color: WHITE
+        secondary_color: root.color_label
+        contour_color: root.color_label
+
+    # Stars
+    ThreeStars:
+        id: three_stars_3
+        pos_hint: {"x": 0.1, "y": 0.475}
+        size_hint: (0.3, 0.125)
+        nb_stars: 3
+        primary_color: WHITE
+        secondary_color: root.color_label
+        contour_color: root.color_label
+
+    # Main text
+    Label:
+        text: root.text
+        font_size: root.font_ratio * root.font_size
+        size_hint: (1, 0.45)
+        pos_hint: {"right": 0.9, "y": 0.45}
+        shorten: False
+        text_size: (root.width*root.text_filling_ratio,None)
+        font_name: root.text_font_name
+        halign: "right"
+        valign: "middle"
+        line_height: 1
+        color: root.color_label
+        line_height: 1.3
+
+    ColoredRoundedButton:
+        text: root.text_button
+        background_color: root.background_button_color
+        font_size: root.font_size
+        pos_hint: {"center_x":0.5, "y":0.1}
+        size_hint: (0.5, 0.25)
+        color_label: root.color_label
+        release_function: root.release_function
+        font_ratio: root.font_ratio
