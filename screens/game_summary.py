@@ -37,7 +37,9 @@ from tools.constants import (
     DICT_CONTINENTS,
     LIST_CONTINENTS,
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
-    TIME_CHANGE_BACKGROUND
+    TIME_CHANGE_BACKGROUND,
+    SCREEN_TITLE,
+    SCREEN_ICON_LEFT_UP
 )
 from tools.geozzle import (
     USER_DATA,
@@ -56,7 +58,6 @@ class ScrollViewLabel(Label):
 
 class GameSummaryScreen(GeozzleScreen):
 
-    previous_screen_name = StringProperty()
     code_continent = StringProperty(LIST_CONTINENTS[0])
     continent_color = ColorProperty(DICT_CONTINENTS[LIST_CONTINENTS[0]])
     background_color = ColorProperty(
@@ -68,6 +69,11 @@ class GameSummaryScreen(GeozzleScreen):
     get_new_hint = StringProperty()
     title_label = StringProperty()
 
+    dict_type_screen = {
+        SCREEN_TITLE: {},
+        SCREEN_ICON_LEFT_UP: {}
+    }
+
     def __init__(self, **kwargs) -> None:
         super().__init__(
             back_image_path=PATH_BACKGROUNDS + self.code_continent + "/" +
@@ -76,16 +82,13 @@ class GameSummaryScreen(GeozzleScreen):
             **kwargs)
 
         self.bind(code_continent=self.update_color)
-        self.bind(current_hint=self.bind_function)
-        self.update_text()
 
     def on_pre_enter(self, *args):
+        super().on_pre_enter(*args)
+
         self.update_font_ratio()
         self.update_scroll_view()
-        self.update_text()
         self.update_images()
-
-        return super().on_pre_enter(*args)
 
     def on_enter(self, *args):
 
@@ -108,10 +111,7 @@ class GameSummaryScreen(GeozzleScreen):
 
         return super().on_leave(*args)
 
-    def bind_function(self, base_widget, value):
-        pass
-
-    def update_text(self):
+    def reload_language(self):
         """
         Update the labels depending on the language.
 
@@ -123,9 +123,15 @@ class GameSummaryScreen(GeozzleScreen):
         -------
         None
         """
+        self.dict_type_screen[SCREEN_TITLE]["title"] = TEXT.home[self.code_continent]
+        self.dict_type_screen[SCREEN_TITLE]["colors"] = DICT_CONTINENTS[self.code_continent]
+        self.dict_type_screen[SCREEN_ICON_LEFT_UP]["colors"] = DICT_CONTINENTS[self.code_continent]
+
         self.text_found_country = TEXT.game_summary["i_found"]
         self.get_new_hint = TEXT.game_summary["new_hint"]
         self.title_label = TEXT.game_summary["title"]
+
+        super().reload_language()
 
     def update_images(self):
         # Update the flag image

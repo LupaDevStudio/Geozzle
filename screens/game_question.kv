@@ -26,18 +26,19 @@
         valign: "center"
         line_height: 1
 
-    ColoredRoundedButton:
+    ColoredRoundedHintButton:
         id: hint_1_button
         background_color: root.background_color
         text: root.hint_1
         font_size: BUTTON_FONT_SIZE
-        pos_hint: {"center_x":0.5, "center_y":0.6}
+        pos_hint: {"center_x":0.5, "center_y":0.55}
         size_hint: (0.75, 0.10)
         color_label: root.continent_color
         on_release: root.add_clue(root.hint_1)
         font_ratio: root.font_ratio
+        number_stars: root.number_stars_1
 
-    ColoredRoundedButton:
+    ColoredRoundedHintButton:
         id: hint_2_button
         background_color: root.background_color
         border: root.continent_color
@@ -48,17 +49,31 @@
         color_label: root.continent_color
         on_release: root.add_clue(root.hint_2)
         font_ratio: root.font_ratio
+        number_stars: root.number_stars_2
 
-    ColoredRoundedButton:
+    ColoredRoundedHintButton:
         id: hint_3_button
         background_color: root.background_color
         text: root.hint_3
         font_size: BUTTON_FONT_SIZE
-        pos_hint: {"center_x":0.5, "center_y":0.2}
+        pos_hint: {"center_x":0.5, "center_y":0.25}
         size_hint: (0.75, 0.10)
         color_label: root.continent_color
         on_release: root.add_clue(root.hint_3)
         font_ratio: root.font_ratio
+        number_stars: root.number_stars_3
+
+    ColoredRoundedHintButton:
+        id: hint_4_button
+        background_color: root.background_color
+        text: root.hint_4
+        font_size: BUTTON_FONT_SIZE
+        pos_hint: {"center_x":0.5, "center_y":0.1}
+        size_hint: (0.75, 0.10)
+        color_label: root.continent_color
+        on_release: root.add_clue(root.hint_4)
+        font_ratio: root.font_ratio
+        number_stars: root.number_stars_4
 
     # Arrow to skip hints
     RoundedButtonImage:

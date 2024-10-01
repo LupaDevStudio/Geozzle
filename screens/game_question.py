@@ -31,7 +31,9 @@ from tools.constants import (
     DICT_CONTINENTS,
     LIST_CONTINENTS,
     TIME_CHANGE_BACKGROUND,
-    DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED
+    DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
+    SCREEN_ICON_LEFT_UP,
+    SCREEN_TITLE
 )
 from tools.geozzle import (
     TEXT,
@@ -49,7 +51,6 @@ from screens.custom_widgets import (
 
 class GameQuestionScreen(GeozzleScreen):
 
-    previous_screen_name = StringProperty()
     code_continent = StringProperty(LIST_CONTINENTS[0])
     continent_color = ColorProperty(DICT_CONTINENTS[LIST_CONTINENTS[0]])
     background_color = ColorProperty(
@@ -59,7 +60,17 @@ class GameQuestionScreen(GeozzleScreen):
     hint_1 = StringProperty()
     hint_2 = StringProperty()
     hint_3 = StringProperty()
+    hint_4 = StringProperty()
+    number_stars_1 = NumericProperty(1)
+    number_stars_2 = NumericProperty(2)
+    number_stars_3 = NumericProperty(3)
+    number_stars_4 = NumericProperty(1)
     clue = StringProperty()
+
+    dict_type_screen = {
+        SCREEN_TITLE: {},
+        SCREEN_ICON_LEFT_UP: {}
+    }
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
@@ -70,10 +81,6 @@ class GameQuestionScreen(GeozzleScreen):
 
         # The function is called each time code_continent of the class changes
         self.bind(code_continent=self.update_color)
-        self.bind(previous_screen_name=self.bind_function)
-
-    def bind_function(self, *args):
-        pass
 
     def on_enter(self, *args):
         # Change the labels
@@ -129,7 +136,7 @@ class GameQuestionScreen(GeozzleScreen):
                 "game_summary").current_hint = hint
         self.manager.current = "game_summary"
 
-    def update_labels(self):
+    def reload_language(self):
         """
         Update the labels depending on the language.
 
@@ -141,6 +148,10 @@ class GameQuestionScreen(GeozzleScreen):
         -------
         None
         """
+        self.dict_type_screen[SCREEN_TITLE]["title"] = TEXT.home[self.code_continent]
+        self.dict_type_screen[SCREEN_TITLE]["colors"] = DICT_CONTINENTS[self.code_continent]
+        self.dict_type_screen[SCREEN_ICON_LEFT_UP]["colors"] = DICT_CONTINENTS[self.code_continent]
+
         # Pick randomly three clues
         hint_1, hint_2, hint_3 = USER_DATA.game.choose_three_clues()
 
@@ -178,3 +189,5 @@ class GameQuestionScreen(GeozzleScreen):
         else:
             self.hint_3 = ""
             self.disable_widget("hint_3_button")
+
+        super().reload_language()

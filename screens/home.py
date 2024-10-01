@@ -33,13 +33,15 @@ from tools.path import (
 )
 from screens.custom_widgets import GeozzleScreen
 from tools.constants import (
-    LIST_CONTINENTS,
+    DICT_CONTINENTS,
     TIME_CHANGE_BACKGROUND,
     MAIN_MUSIC_NAME,
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
     SCREEN_ICON_LEFT_DOWN,
     SCREEN_ICON_RIGHT_DOWN,
-    SCREEN_ICON_RIGHT_UP
+    SCREEN_ICON_RIGHT_UP,
+    BLACK,
+    WHITE
 )
 from tools.geozzle import (
     USER_DATA,
@@ -77,12 +79,6 @@ class HomeScreen(GeozzleScreen):
             back_image_path=rd.choice(SHARED_DATA.list_unlocked_backgrounds),
             font_name=PATH_TEXT_FONT,
             **kwargs)
-
-    def on_pre_enter(self, *args):
-        # TODO uncomment when fixed in the backend
-        # self.regenerate_lives()
-
-        return super().on_pre_enter(*args)
 
     def reload_language(self):
         """
@@ -144,53 +140,6 @@ class HomeScreen(GeozzleScreen):
             webbrowser.open(
                 "https://apps.apple.com/app/linconym/id6503208610", 2)
 
-    def regenerate_lives(self):
-        LIFE_RELOAD_TIME = 15
-        for code_continent in LIST_CONTINENTS:
-            current_continent_data = USER_DATA.continents[code_continent]
-            if current_continent_data["number_lives"] < 3:
-                current_time = time.time()
-                diff_time = int(
-                    current_time - current_continent_data["lost_live_date"])
-                diff_minutes = diff_time // 60
-                max_number_lives_to_regenerate = diff_minutes // LIFE_RELOAD_TIME
-                max_number_lives_to_regenerate = min(
-                    3 - current_continent_data["number_lives"], max_number_lives_to_regenerate)
-                current_continent_data["number_lives"] += max_number_lives_to_regenerate
-                if current_continent_data["number_lives"] == 3:
-                    current_continent_data["lost_live_date"] = None
-                else:
-                    current_continent_data["lost_live_date"] = current_continent_data["lost_live_date"] + \
-                        LIFE_RELOAD_TIME * 60 * max_number_lives_to_regenerate
-        USER_DATA.save_changes()
-        self.number_lives_on = USER_DATA.continents[self.code_continent]["number_lives"]
-
-    def change_language(self):
-        """
-        Change the language of the application.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        # Change the language in the text
-        if TEXT.language == "english":
-            TEXT.change_language("french")
-        else:
-            TEXT.change_language("english")
-        self.reload_language()
-
-        # Save the choice of the language
-        USER_DATA.language = TEXT.language
-        USER_DATA.save_changes()
-
-        # Change the language icon
-        self.update_language_image()
-
     def prepare_gui_to_play_game(self, has_success, *_):
         if self.loading_popup is not None:
             self.loading_popup.dismiss()
@@ -200,13 +149,13 @@ class HomeScreen(GeozzleScreen):
             )
 
             self.manager.get_screen(
-                "game_question").code_continent = self.code_continent
+                "game_question").code_continent = USER_DATA.game.current_guess_continent
             self.manager.get_screen(
                 "game_question").previous_screen_name = "home"
             self.manager.get_screen(
-                "game_summary").code_continent = self.code_continent
+                "game_summary").code_continent = self.current_guess_continent
             self.manager.get_screen(
-                "game_over").code_continent = self.code_continent
+                "game_over").code_continent = self.current_guess_continent
             self.manager.get_screen(
                 "game_over").update_countries()
 
@@ -215,13 +164,14 @@ class HomeScreen(GeozzleScreen):
 
             # Unschedule the clock updates
             Clock.unschedule(self.manager.change_background,
-                             TIME_CHANGE_BACKGROUND)
+                TIME_CHANGE_BACKGROUND)
 
         else:
+            code_continent = USER_DATA.game.current_guess_continent
             popup = MessagePopup(
-                primary_color=self.continent_color,
+                primary_color=DICT_CONTINENTS[code_continent],
                 secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
-                    self.code_continent],
+                    code_continent],
                 title=TEXT.clues["no_connexion_title"],
                 center_label_text=TEXT.clues["no_connexion_message"],
                 font_ratio=self.font_ratio
@@ -229,7 +179,7 @@ class HomeScreen(GeozzleScreen):
             popup.open()
 
     def thread_request(self):
-        has_success = USER_DATA.game.create_new_game(self.code_continent)
+        has_success = USER_DATA.game.create_new_game()
         Clock.schedule_once(
             partial(self.prepare_gui_to_play_game, has_success))
 
@@ -250,9 +200,8 @@ class HomeScreen(GeozzleScreen):
         # Display the loading popup
         if not USER_DATA.game.is_already_loaded():
             self.loading_popup = LoadingPopup(
-                primary_color=self.continent_color,
-                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
-                    self.code_continent],
+                primary_color=BLACK,
+                secondary_color=WHITE,
                 font_ratio=self.font_ratio)
             self.loading_popup.open()
         else:
@@ -261,17 +210,3 @@ class HomeScreen(GeozzleScreen):
         # Start thread
         my_thread = Thread(target=self.thread_request)
         my_thread.start()
-
-        # else:
-        #     popup = TwoButtonsPopup(
-        #         primary_color=self.continent_color,
-        #         secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
-        #         right_button_label=TEXT.home["watch_ad"],
-        #         title=TEXT.home["buy_life_title"],
-        #         center_label_text=TEXT.home["buy_life_message"],
-        #         font_ratio=self.font_ratio
-        #     )
-        #     watch_ad_with_callback = partial(
-        #         AD_CONTAINER.watch_ad, partial(self.ad_callback, popup))
-        #     popup.right_release_function = watch_ad_with_callback
-        #     popup.open()

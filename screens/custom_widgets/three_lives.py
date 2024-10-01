@@ -14,7 +14,8 @@ from kivy.properties import (
     StringProperty,
     NumericProperty,
     ColorProperty,
-    ObjectProperty
+    ObjectProperty,
+    BooleanProperty
 )
 
 ### Local imports ###
@@ -44,20 +45,18 @@ class ThreeLives(ButtonBehavior, RelativeLayout):
     image_path_1 = StringProperty(PATH_IMAGES + "life_on.png")
     image_path_2 = StringProperty(PATH_IMAGES + "life_on.png")
     image_path_3 = StringProperty(PATH_IMAGES + "life_on.png")
+    release_function = ObjectProperty(lambda: 1 + 1)
+    disable_button = BooleanProperty(False)
 
-    def __init__(
-            self,
-            release_function=lambda: 1 + 1,
-            ** kwargs):
+    def __init__(self, ** kwargs):
         super().__init__(**kwargs)
 
         self.always_release = True
 
-        self.release_function = release_function
-
         self.bind(number_lives_on=self.update_lives)
+        self.update_lives()
 
-    def update_lives(self, base_widget, value):
+    def update_lives(self, *args):
         if self.number_lives_on >= 1:
             self.image_path_3 = PATH_IMAGES + "life_on.png"
         else:
@@ -74,11 +73,12 @@ class ThreeLives(ButtonBehavior, RelativeLayout):
             self.image_path_1 = PATH_IMAGES + "life_off.png"
 
     def on_press(self):
-        if not self.disabled:
+        if not self.disable_button:
             self.opacity = OPACITY_ON_BUTTON_PRESS
             sound_mixer.play("click")
 
     def on_release(self):
-        self.release_function()
-        self.opacity = 1
-        return super().on_release()
+        if not self.disable_button:
+            if self.collide_point(self.last_touch.x, self.last_touch.y):
+                self.release_function()
+            self.opacity = 1

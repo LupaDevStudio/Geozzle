@@ -42,3 +42,54 @@
         valign: "center"
         line_height: 1
         color: root.color_label
+
+<ColoredRoundedHintButton>:
+
+    # Background
+    canvas.before:
+        # Shadow
+        Color:
+            rgba: 0, 0, 0, 1        
+        BoxShadow:
+            pos: (0, 0)
+            size: self.size
+            offset: 5*self.font_ratio, -5*self.font_ratio
+            spread_radius: -10*self.font_ratio, -10*self.font_ratio
+            blur_radius: 20*self.font_ratio
+            border_radius: [12*root.font_ratio,12*root.font_ratio,12*root.font_ratio,12*root.font_ratio]
+        # Rounded rectangle
+        Color:
+            rgba: root.background_color
+        RoundedRectangle:
+            pos:(0, 0)
+            size:self.size
+            radius: [12*self.font_ratio]
+        # Border
+        Color:
+            rgba: root.color_label
+        Line:
+            rounded_rectangle: [0,0,self.size[0],self.size[1],12*self.font_ratio]
+            width: BUTTON_OUTLINE_WIDTH*self.font_ratio
+
+    # Main text
+    Label:
+        text: root.text
+        font_size: root.font_ratio * root.font_size
+        pos_hint: {"x": 0, "center_y": 0.5}
+        size_hint: (0.6, 1)
+        shorten: False
+        text_size: (root.width*root.text_filling_ratio,None)
+        font_name: root.text_font_name
+        halign: "center"
+        valign: "center"
+        line_height: 1
+        color: root.color_label
+
+    # Stars
+    ThreeStars:
+        pos_hint: {"center_x": 0.8, "center_y": 0.5}
+        size_hint: (0.3, 0.8)
+        nb_stars: root.number_stars
+        primary_color: WHITE
+        secondary_color: root.color_label
+        contour_color: root.color_label
