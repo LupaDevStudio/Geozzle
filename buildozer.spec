@@ -47,7 +47,7 @@ requirements = python3, kivy, androidstorage4kivy, Pillow
 #presplash.filename = ./resources/logo_collector_1024.png
 
 # (str) Icon of the application
-icon.filename = ./resources/images/logo.png
+#icon.filename = ./resources/images/logo.png
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 orientation = portrait
@@ -90,8 +90,8 @@ android.presplash_color = #e6e6e6
 android.presplash_lottie = resources/presplash.json
 
 # (str) Adaptive icon of the application (used if Android API level is 26+ at runtime)
-#icon.adaptive_foreground.filename = %(source.dir)s/data/icon_fg.png
-#icon.adaptive_background.filename = %(source.dir)s/data/icon_bg.png
+icon.adaptive_foreground.filename = ./resources/images/adaptive_logo_front.png
+icon.adaptive_background.filename = ./resources/images/adaptive_logo_back.png
 
 # (list) Permissions
 android.permissions = INTERNET, ACCESS_NETWORK_STATE
