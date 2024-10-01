@@ -63,3 +63,34 @@ class ColoredRoundedButton(ButtonBehavior, RelativeLayout):
             if self.collide_point(self.last_touch.x, self.last_touch.y):
                 self.release_function()
             self.opacity = 1
+
+class ColoredRoundedHintButton(ButtonBehavior, RelativeLayout):
+    """
+    A custom button with a colored round rectangle background and the number of stars for each hint.
+    """
+
+    background_color = ColorProperty()
+    text = StringProperty()
+    text_font_name = StringProperty(PATH_TEXT_FONT)
+    text_filling_ratio = NumericProperty(0.8)
+    font_size = NumericProperty(MAIN_BUTTON_FONT_SIZE)
+    font_ratio = NumericProperty(1)
+    disable_button = BooleanProperty(False)
+    color_label = ColorProperty(BLACK)
+    release_function = ObjectProperty(lambda: 1 + 1)
+    number_stars = NumericProperty(1)
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.always_release = True
+
+    def on_press(self):
+        if not self.disable_button:
+            self.opacity = OPACITY_ON_BUTTON_PRESS
+            sound_mixer.play("click")
+
+    def on_release(self):
+        if not self.disable_button:
+            if self.collide_point(self.last_touch.x, self.last_touch.y):
+                self.release_function()
+            self.opacity = 1

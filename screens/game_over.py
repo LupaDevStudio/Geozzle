@@ -34,7 +34,9 @@ from tools.constants import (
     DICT_CONTINENTS,
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
     TIME_CHANGE_BACKGROUND,
-    DICT_COUNTRIES
+    DICT_COUNTRIES,
+    SCREEN_ICON_LEFT_UP,
+    SCREEN_TITLE
 )
 from tools.geozzle import (
     TEXT,
@@ -57,7 +59,6 @@ from tools.geozzle import (
 
 class GameOverScreen(GeozzleScreen):
 
-    previous_screen_name = StringProperty()
     code_continent = StringProperty(LIST_CONTINENTS[0])
     continent_color = ColorProperty(DICT_CONTINENTS[LIST_CONTINENTS[0]])
     background_color = ColorProperty(
@@ -70,6 +71,11 @@ class GameOverScreen(GeozzleScreen):
     number_lives_on = NumericProperty()
     list_countries = ListProperty([])
 
+    dict_type_screen = {
+        SCREEN_TITLE: {},
+        SCREEN_ICON_LEFT_UP: {}
+    }
+
     def __init__(self, **kwargs) -> None:
         super().__init__(
             back_image_path=PATH_BACKGROUNDS + self.code_continent + "/" +
@@ -78,20 +84,15 @@ class GameOverScreen(GeozzleScreen):
             **kwargs)
 
         self.bind(code_continent=self.update_color)
-        self.update_text()
 
     def on_pre_enter(self, *args):
-
-        # Change the labels
-        self.update_text()
+        super().on_pre_enter(*args)
 
         self.number_lives_on = USER_DATA.game.number_lives
         self.congrats_defeat_message = ""
         self.score_label = ""
         self.ids.validate_button.disable_button = False
         self.ids.validate_button.background_color[-1] = 1
-
-        return super().on_pre_enter(*args)
 
     def on_enter(self, *args):
 
@@ -109,7 +110,7 @@ class GameOverScreen(GeozzleScreen):
 
         return super().on_leave(*args)
 
-    def update_text(self):
+    def reload_language(self):
         """
         Update the labels depending on the language.
 
@@ -121,28 +122,42 @@ class GameOverScreen(GeozzleScreen):
         -------
         None
         """
+        self.dict_type_screen[SCREEN_TITLE]["title"] = TEXT.home[self.code_continent]
+        self.dict_type_screen[SCREEN_TITLE]["colors"] = DICT_CONTINENTS[self.code_continent]
+        self.dict_type_screen[SCREEN_ICON_LEFT_UP]["colors"] = DICT_CONTINENTS[self.code_continent]
+
         self.title_label = TEXT.game_over["title"]
         self.congrats_defeat_message = TEXT.game_over["congrats"]
         self.validate_label = TEXT.game_over["validate"]
         self.continue_game_label = TEXT.game_over["button_back"]
 
+        super().reload_language()
+
     def update_countries(self, *_):
+        """
+        Update the list of countries displayed in the spinner.
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
         self.ids.country_spinner.text = ""
         self.list_countries = []
-        for wikidata_code_country in USER_DATA.game.list_countries_left:
+        for wikidata_code_country in USER_DATA.list_countries_in_spinner:
             self.list_countries.append(
                 DICT_COUNTRIES[USER_DATA.language][self.code_continent][wikidata_code_country])
 
-    def update_color(self, base_widget, value):
+    def update_color(self, *args):
         """
         Update the code of the continent and its related attributes.
 
         Parameters
         ----------
-        base_widget : kivy.uix.widget
-            Self
-        value : string
-            Value of code_continent
+        None
 
         Returns
         -------
@@ -299,6 +314,6 @@ class GameOverScreen(GeozzleScreen):
 
     @mainthread
     def ad_callback(self, popup: TwoButtonsPopup):
-        USER_DATA.game.add_life()
+        USER_DATA.game.watch_ad()
         self.number_lives_on = USER_DATA.game.number_lives
         popup.dismiss()

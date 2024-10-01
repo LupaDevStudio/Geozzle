@@ -11,7 +11,7 @@
             rgba: WHITE if self.is_selected else TRANSPARENT
         Ellipse:
             pos: (self.pos[0] - OFFSET/2*self.font_ratio, self.pos[1] - OFFSET/2*self.font_ratio)
-            size: (self.size[0] + OFFSET, self.size[1] + OFFSET)
+            size: (self.size[0] + OFFSET*self.font_ratio, self.size[1] + OFFSET*self.font_ratio)
 
         Color:
             rgba: self.color

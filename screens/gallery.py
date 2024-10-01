@@ -47,6 +47,9 @@ from tools.constants import (
     SUBTITLE_OUTLINE_WIDTH,
     WHITE
 )
+from tools.kivy_tools import (
+    ImageButton
+)
 from tools.geozzle import (
     USER_DATA,
     TEXT,
@@ -173,13 +176,17 @@ class GalleryScreen(GeozzleScreen):
                 full_path = PATH_BACKGROUNDS + code_continent + "/" + background
                 if not full_path in SHARED_DATA.list_unlocked_backgrounds:
                     full_path = PATH_BACKGROUNDS + "unknown_background.jpg"
-                image = Image(
+                    release_function = lambda: 1 + 1
+                else:
+                    release_function = partial(self.manager.change_background, background_path=full_path)
+                image = ImageButton(
                     source=full_path,
                     size_hint=(None, None),
                     height=sv_height-15*self.font_ratio*2-8*self.font_ratio,
                     width=80*self.font_ratio,
                     pos_hint={"center_y": 0.5},
-                    fit_mode="cover"
+                    fit_mode="cover",
+                    release_function=release_function
                 )
                 if not full_path in SHARED_DATA.list_unlocked_backgrounds:
                     image.color = DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[code_continent]
