@@ -28,7 +28,9 @@ from kivy.properties import (
 from tools.basic_tools import get_image_size
 from tools.constants import (
     FPS,
-    RATE_CHANGE_OPACITY,
+    RATE_CHANGE_OPACITY
+)
+from tools.path import (
     ANDROID_MODE,
     IOS_MODE
 )

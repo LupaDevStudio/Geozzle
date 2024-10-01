@@ -4,6 +4,14 @@
         "number_lives": 3,
         "number_lives_used_country": 0,
         "number_credits": 1,
+        "list_continents": [
+            "Africa",
+            "Europe",
+            "Oceania",
+            "Asia",
+            "South_America",
+            "North_America"
+        ],
         "list_countries_to_guess": [],
         "dict_guessed_countries": {},
         "list_current_clues": [],

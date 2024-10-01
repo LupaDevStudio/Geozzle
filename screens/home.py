@@ -18,33 +18,25 @@ from threading import Thread
 
 ### Kivy imports ###
 
-from kivy.clock import Clock, mainthread
+from kivy.clock import Clock
 from kivy.properties import (
-    StringProperty,
-    ColorProperty,
-    NumericProperty,
-    BooleanProperty
+    StringProperty
 )
 
 ### Local imports ###
 
 from tools.path import (
-    PATH_BACKGROUNDS,
-    PATH_CONTINENTS_IMAGES,
-    PATH_LANGUAGES_IMAGES,
     PATH_TEXT_FONT,
-    PATH_IMAGES
+    PATH_IMAGES,
+    ANDROID_MODE,
+    IOS_MODE
 )
 from screens.custom_widgets import GeozzleScreen
 from tools.constants import (
     LIST_CONTINENTS,
-    DICT_CONTINENTS,
     TIME_CHANGE_BACKGROUND,
     MAIN_MUSIC_NAME,
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
-    CURRENT_COUNTRY_INIT,
-    ANDROID_MODE,
-    IOS_MODE,
     SCREEN_ICON_LEFT_DOWN,
     SCREEN_ICON_RIGHT_DOWN,
     SCREEN_ICON_RIGHT_UP
@@ -52,7 +44,6 @@ from tools.constants import (
 from tools.geozzle import (
     USER_DATA,
     TEXT,
-    AD_CONTAINER,
     SHARED_DATA
 )
 from tools import (
@@ -60,11 +51,9 @@ from tools import (
     sound_mixer
 )
 from screens.custom_widgets import (
-    TutorialPopup,
-    TwoButtonsPopup,
     TwoButtonsImagePopup,
     MessagePopup,
-    LoadingPopup,
+    LoadingPopup
 )
 
 #############

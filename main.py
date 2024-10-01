@@ -27,11 +27,10 @@ from kivy.clock import Clock
 
 from tools.path import (
     PATH_IMAGES,
-    PATH_BACKGROUNDS
+    ANDROID_MODE,
+    IOS_MODE
 )
 from tools.constants import (
-    ANDROID_MODE,
-    IOS_MODE,
     FPS,
     MSAA_LEVEL
 )
