@@ -23,3 +23,4 @@ The following list includes all the references of the assets used by this applic
 - <a href="https://www.flaticon.com/free-icons/retail" title="retail icons">Retail icons created by Frey Wazza - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/picture" title="picture icons">Picture icons created by Pixel perfect - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/statistics" title="statistics icons">Statistics icons created by Freepik - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/like" title="like icons">Like icons created by Cuputo - Flaticon</a>

@@ -28,3 +28,4 @@ from screens.custom_widgets.custom_slider import CustomSlider
 from screens.custom_widgets.custom_scrollview import CustomScrollview, MyScrollViewLayout, MyScrollViewVerticalLayout
 from screens.custom_widgets.stats_layout import StatsLayout, CountryStatCard
 from screens.custom_widgets.three_stars import ThreeStars
+from screens.custom_widgets.continent_progress_bar import ContinentProgressBar
