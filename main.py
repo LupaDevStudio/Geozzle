@@ -104,8 +104,8 @@ class WindowManager(ScreenManager):
             else:
                 image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
 
-            # verify that the new image is not the same as the current one
-            while image == current_screen.back_image_path and background_path is not None:
+            # Verify that the new image is not the same as the current one
+            while image == current_screen.back_image_path and background_path is None:
                 image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
 
             current_screen.set_back_image_path(
@@ -119,8 +119,8 @@ class WindowManager(ScreenManager):
             else:
                 image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
 
-            # verify that the new image is not the same as the current one
-            while image == current_screen.second_back_image_path and background_path is not None:
+            # Verify that the new image is not the same as the current one
+            while image == current_screen.second_back_image_path and background_path is None:
                 image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
 
             current_screen.set_back_image_path(

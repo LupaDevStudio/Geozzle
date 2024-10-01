@@ -1,5 +1,5 @@
 {
-    "language": "french",
+    "language": "english",
     "game": {
         "number_lives": 3,
         "number_lives_used_country": 0,
@@ -25,16 +25,13 @@
         "South_America": {},
         "Oceania": {}
     },
-    "points": 0,
+    "points": 792000,
     "highscore": 0,
     "music_volume": 0.4928909952606635,
     "sound_volume": 0.5,
     "unlocked_backgrounds": [
         "europe_venice.jpg",
         "asia_bamboo.jpg",
-        "africa_djene.jpg",
-        "north_tikal.jpg",
-        "south_america.jpg",
-        "oceania_australia2.jpg"
+        "asia_rice_fields2.jpg"
     ]
 }
