@@ -19,7 +19,6 @@ from typing import Literal
 from tools.constants import (
     PATH_LANGUAGE,
     PATH_USER_DATA,
-    MAX_HIGHSCORE,
     DICT_COUNTRIES,
     DICT_HINTS_INFORMATION,
     CURRENT_COUNTRY_INIT,
@@ -30,7 +29,8 @@ from tools.constants import (
     DICT_WIKIDATA_LANGUAGE,
     NUMBER_CREDITS,
     DICT_CONTINENTS,
-    PRICE_BACKGROUND
+    PRICE_BACKGROUND,
+    LIST_CONTINENTS
 )
 from tools.path import (
     PATH_BACKGROUNDS
@@ -245,6 +245,12 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
 
     return value_clue
 
+def get_nb_stars(list_clues: list[str]) -> int:
+    nb_stars = 3
+    for code_clue in list_clues:
+        if DICT_HINTS_INFORMATION[code_clue]["category"] < nb_stars:
+            nb_stars = DICT_HINTS_INFORMATION[code_clue]["category"]
+    return nb_stars
 
 def calculate_score_clues(part_highscore: float, nb_clues: int) -> int:
     """
@@ -370,6 +376,8 @@ class Game():
     number_lives_used_country: int
     # Number of credits left to use
     number_credits: int
+    # List of the continents
+    list_continents: list[str]
     # List of countries to guess (wikidata codes)
     list_countries_to_guess: list[str]
     # Dict of countries encountered during the game
@@ -377,7 +385,7 @@ class Game():
     dict_guessed_countries: dict
     # List of the codes of the current clues
     list_current_clues: list[str]
-    # Dict of the results of the request for each country
+    # Dict of the results of the request for the current country
     # {"english": {"capital": "London", ...}, "french": {"capital": "Londres", ...}}
     dict_details_country: dict
 
@@ -402,6 +410,11 @@ class Game():
         self.number_lives_used_country = dict_to_load.get("number_lives_used_country", 0)
         self.number_credits = dict_to_load.get(
             "number_credits", NUMBER_CREDITS)
+        
+        self.list_continents = dict_to_load.get(
+            "list_continents", [])
+        if self.list_continents == []:
+            self.build_list_continents()
 
         self.list_countries_to_guess = dict_to_load.get(
             "list_countries_to_guess", [])
@@ -422,6 +435,10 @@ class Game():
             "dict_details_country", {})
         if self.dict_details_country == {}:
             self.build_dict_details_country()
+
+    def build_list_continents(self):
+        self.list_continents = LIST_CONTINENTS.copy()
+        rd.shuffle(self.list_continents)
 
     def build_list_countries(self):
         self.list_countries_to_guess = []
@@ -488,7 +505,9 @@ class Game():
         """
         score = self.compute_final_game_score()
         USER_DATA.update_points_and_score(score=score)
-        USER_DATA.update_stats() # TODO (et il faudra aussi update les statistiques de la classe user data, par exemple les statistiques de chaque pays avec le nombre d'étoiles)
+        USER_DATA.update_stats(
+            dict_guessed_countries=self.dict_guessed_countries,
+            list_continents=self.list_continents)
         
         # TODO Paul reset le jeu une fois que tout est terminé 
 
@@ -501,6 +520,7 @@ class Game():
             "number_lives": self.number_lives,
             "number_lives_used_country": self.number_lives_used_country,
             "number_credits": self.number_credits,
+            "list_continents": self.list_continents,
             "list_countries_to_guess": self.list_countries_to_guess,
             "dict_guessed_countries": self.dict_guessed_countries,
             "list_current_clues": self.list_current_clues,
@@ -859,7 +879,7 @@ class OldGame():
         """
         current_score = 0
         highscore = USER_DATA.continents[self.code_continent]["highscore"]
-        part_highscore = MAX_HIGHSCORE / len(self.list_all_countries)
+        part_highscore = 10000 / len(self.list_all_countries)
         half_part_highscore = part_highscore / 2
 
         # Depending on the number of lives => half the score
@@ -1136,9 +1156,25 @@ class UserData():
         # Save the changes
         self.save_changes()
 
-    def update_stats(self):
-        pass 
-        # TODO Paul
+    def update_stats(self, dict_guessed_countries: dict, list_continents: list[str]):
+        counter = 0
+        for code_country in dict_guessed_countries:
+            dict_details = dict_guessed_countries[code_country]
+            if dict_details["guessed"]:
+                code_continent = list_continents[counter]
+                if not code_country in self.stats[code_continent]:
+                    self.stats[code_continent][code_country] = {
+                        "nb_times_played": 0,
+                        "nb_stars": 1
+                    }
+                self.stats[code_continent][code_country]["nb_times_played"] += 1
+                number_stars = get_nb_stars(
+                    list_clues=dict_details["list_clues"])
+                if number_stars > self.stats[code_continent][code_country]["nb_stars"]:
+                    self.stats[code_continent][code_country]["nb_stars"] = number_stars
+            else:
+                break
+            counter += 1
 
     def buy_new_background(self) -> dict:
         dict_return = {}

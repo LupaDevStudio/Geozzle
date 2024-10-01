@@ -18,16 +18,12 @@ ANDROID_MODE : bool
 
 import os
 
-
 ### Local imports ###
 
 from tools.path import (
     PATH_USER_DATA,
-    PATH_LANGUAGE,
     PATH_QUERIES_CONTINENT,
-    PATH_DICT_HINTS_INFORMATION,
-    ANDROID_MODE,
-    IOS_MODE
+    PATH_DICT_HINTS_INFORMATION
 )
 from tools.basic_tools import (
     load_json_file,
@@ -40,7 +36,7 @@ from tools.basic_tools import (
 
 ### Version ###
 
-__version__ = "1.1"
+__version__ = "2.0"
 
 ### Mode ###
 
@@ -192,13 +188,6 @@ DICT_COUNTRIES = {
 DICT_HINTS_INFORMATION = load_json_file(file_path=PATH_DICT_HINTS_INFORMATION)
 LIST_CLUES_EXCEPTIONS = ["ISO_2_code"]
 
-### Gameplay ###
-
-MAX_HIGHSCORE = 10000
-LIFE_RELOAD_TIME = 15
-
 ### Musics ###
 
-MUSIC_VOLUME = 0.5
-SOUND_VOLUME = 1
 MAIN_MUSIC_NAME = "world_travel"

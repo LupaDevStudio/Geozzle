@@ -11,8 +11,6 @@ from tools.path import (
     PATH_SOUNDS
 )
 from tools.constants import (
-    MUSIC_VOLUME,
-    SOUND_VOLUME,
     MAIN_MUSIC_NAME
 )
 from tools.game_tools import (
@@ -21,9 +19,9 @@ from tools.game_tools import (
     load_sounds
 )
 
-MUSIC_DICT = load_sounds([MAIN_MUSIC_NAME + ".mp3"], PATH_MUSICS, MUSIC_VOLUME)
-SOUND_DICT = load_sounds(["click" + ".mp3"], PATH_SOUNDS, SOUND_VOLUME)
+MUSIC_DICT = load_sounds([MAIN_MUSIC_NAME + ".mp3"], PATH_MUSICS, 0.5)
+SOUND_DICT = load_sounds(["click" + ".mp3"], PATH_SOUNDS, 0.5)
 
 # Create the mixer
-music_mixer = DynamicMusicMixer(MUSIC_DICT, MUSIC_VOLUME)
-sound_mixer = SoundMixer(SOUND_DICT, SOUND_VOLUME)
+music_mixer = DynamicMusicMixer(MUSIC_DICT, 0.5)
+sound_mixer = SoundMixer(SOUND_DICT, 0.5)

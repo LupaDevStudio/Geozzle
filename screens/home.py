@@ -42,10 +42,7 @@ from tools.constants import (
     TIME_CHANGE_BACKGROUND,
     MAIN_MUSIC_NAME,
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
-    LIFE_RELOAD_TIME,
     CURRENT_COUNTRY_INIT,
-    MUSIC_VOLUME,
-    SOUND_VOLUME,
     ANDROID_MODE,
     IOS_MODE,
     SCREEN_ICON_LEFT_DOWN,
@@ -159,6 +156,7 @@ class HomeScreen(GeozzleScreen):
                 "https://apps.apple.com/app/linconym/id6503208610", 2)
 
     def regenerate_lives(self):
+        LIFE_RELOAD_TIME = 15
         for code_continent in LIST_CONTINENTS:
             current_continent_data = USER_DATA.continents[code_continent]
             if current_continent_data["number_lives"] < 3:
