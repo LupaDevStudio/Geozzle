@@ -12,7 +12,7 @@ import random as rd
 import time
 import copy
 import os
-from typing import Literal
+from typing import Literal, Callable
 
 ### Local imports ###
 
@@ -30,7 +30,8 @@ from tools.constants import (
     DICT_WIKIDATA_LANGUAGE,
     NUMBER_CREDITS,
     DICT_CONTINENTS,
-    PRICE_BACKGROUND
+    PRICE_BACKGROUND,
+    REWARD_AD,
 )
 from tools.path import (
     PATH_BACKGROUNDS
@@ -47,7 +48,9 @@ from tools.kivyreview import (
 )
 if ANDROID_MODE:
     from tools.kivads import (
-        RewardedInterstitial
+        RewardedInterstitial,
+        RewardedAd,
+        TestID
     )
 
 if IOS_MODE:
@@ -276,70 +279,45 @@ def calculate_score_clues(part_highscore: float, nb_clues: int) -> int:
     return part_highscore
 
 
-# # Create the ad instance
-# if ANDROID_MODE:
-#     ad = RewardedInterstitial(REWARD_INTERSTITIAL, on_reward=None)
-# elif IOS_MODE:
-#     ad = autoclass("adInterstitial").alloc().init()
-# else:
-#     ad = None
-
-
-# def load_ad():
-#     global ad
-#     if ANDROID_MODE:
-#         ad = RewardedInterstitial(REWARD_INTERSTITIAL, on_reward=None)
-#     elif IOS_MODE:
-#         ad = autoclass("adInterstitial").alloc().init()
-#     else:
-#         ad = None
-
-
-# def watch_ad(ad_callback, ad_fail=lambda: 1 + 1):
-#     global ad
-#     if ANDROID_MODE:
-#         print("try to show ads")
-#         print("Ad is loaded", ad.is_loaded())
-#         if not ad.is_loaded():
-#             ad_fail()
-#             ad = None
-#             load_ad()
-#         else:
-#             ad.on_reward = ad_callback
-#             ad.show()
-#     elif IOS_MODE:
-#         ad.InterstitialView()
-#         ad_callback()
-#     else:
-#         print("No ads to show outside mobile mode")
-#         ad_callback()
-
 #############
 ### Class ###
 #############
 
-
 class AdContainer():
+
+    nb_max_reload = 3
+
     def __init__(self) -> None:
-        self.ads_list = []
+        self.current_ad = None
         self.load_ad()
         print("Ad container initialization")
 
-    def watch_ad(self, ad_callback, ad_fail=lambda: 1 + 1):
-        current_ad = self.ads_list[-1]
+    def watch_ad(self, ad_callback: Callable, ad_fail: Callable = lambda: 1 + 1):
+        reload_id = 0
         if ANDROID_MODE:
-            current_ad: RewardedInterstitial
+            self.current_ad: RewardedAd
             print("try to show ads")
-            print("Ad is loaded", current_ad.is_loaded())
-            if not current_ad.is_loaded():
+            print("Ad state:", self.current_ad.is_loaded())
+
+            # Reload ads if fail
+            while not self.current_ad.is_loaded() and reload_id < self.nb_max_reload:
+                self.current_ad = None
+                self.load_ad()
+                time.sleep(0.3)
+                reload_id += 1
+                print("Reload ad", reload_id)
+
+            # Check if ads is finally loaded
+            if not self.current_ad.is_loaded():
                 ad_fail()
-                current_ad = None
+                self.current_ad = None
                 self.load_ad()
             else:
-                current_ad.on_reward = ad_callback
-                current_ad.show()
+                self.current_ad.on_reward = ad_callback
+                self.current_ad.show()
         elif IOS_MODE:
-            current_ad.InterstitialView()
+            # self.current_ad.RewardedView()
+            self.current_ad.InterstitialView()
             ad_callback()
         else:
             print("No ads to show outside mobile mode")
@@ -348,20 +326,24 @@ class AdContainer():
     def load_ad(self):
         print("try to load ad")
         if ANDROID_MODE:
-            self.ads_list.append(RewardedInterstitial(
-                REWARD_INTERSTITIAL, on_reward=None))
+            self.current_ad = RewardedAd(
+                # REWARD_INTERSTITIAL,
+                # TestID.REWARD,
+                REWARD_AD,
+                on_reward=None)
         elif IOS_MODE:
-            self.ads_list.append(autoclass("adInterstitial").alloc().init())
+            # self.current_ad = autoclass("adRewarded").alloc().init()
+            self.current_ad = autoclass("adInterstitial").alloc().init()
         else:
-            self.ads_list.append(None)
+            self.current_ad = None
 
 
 AD_CONTAINER = AdContainer()
 
-
 ############
 ### Game ###
 ############
+
 
 class Game():
     # Number of lives left for this game
@@ -387,7 +369,7 @@ class Game():
 
     @ property
     def can_watch_ad(self) -> bool:
-        return self.number_credits > 0    
+        return self.number_credits > 0
 
     @ property
     def current_guess_country(self) -> str | None:
@@ -399,7 +381,8 @@ class Game():
 
     def __init__(self, dict_to_load: dict) -> None:
         self.number_lives = dict_to_load.get("number_lives", 3)
-        self.number_lives_used_country = dict_to_load.get("number_lives_used_country", 0)
+        self.number_lives_used_country = dict_to_load.get(
+            "number_lives_used_country", 0)
         self.number_credits = dict_to_load.get(
             "number_credits", NUMBER_CREDITS)
 
@@ -417,7 +400,7 @@ class Game():
 
         self.list_current_clues = dict_to_load.get(
             "list_current_clues", [])
-        
+
         self.dict_details_country = dict_to_load.get(
             "dict_details_country", {})
         if self.dict_details_country == {}:
@@ -465,7 +448,6 @@ class Game():
     def go_to_next_country(self):
         # TODO Paul mettre à jour le dictionnaire dict_guessed_countries quand le joueur a deviné un pays, avec aussi le multiplicateur pour le prochain pays à deviner.
 
-
         # TODO update before this line
 
         # Check the end of the game or not
@@ -477,20 +459,20 @@ class Game():
     def end_game(self):
         """
         End the current game and reset the class.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         None
         """
         score = self.compute_final_game_score()
         USER_DATA.update_points_and_score(score=score)
-        USER_DATA.update_stats() # TODO (et il faudra aussi update les statistiques de la classe user data, par exemple les statistiques de chaque pays avec le nombre d'étoiles)
-        
-        # TODO Paul reset le jeu une fois que tout est terminé 
+        USER_DATA.update_stats()  # TODO (et il faudra aussi update les statistiques de la classe user data, par exemple les statistiques de chaque pays avec le nombre d'étoiles)
+
+        # TODO Paul reset le jeu une fois que tout est terminé
 
     def compute_final_game_score(self) -> int:
         # TODO Paul calculer le score avec ta fonction et le retourner
@@ -1137,7 +1119,7 @@ class UserData():
         self.save_changes()
 
     def update_stats(self):
-        pass 
+        pass
         # TODO Paul
 
     def buy_new_background(self) -> dict:
