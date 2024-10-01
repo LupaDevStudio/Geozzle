@@ -417,6 +417,9 @@ def request_countries_continent(code_continent, language: Literal["en", "fr"] = 
 
 
 def download_png_from_svg_url(svg_url: str, code_continent: str):
+    """
+    DEPRECATED
+    """
     try:
         svg_url = svg_url.replace("Special:FilePath/", "File:")
         response = requests.get(
@@ -480,15 +483,7 @@ def format_list_string(list_data):
     return string_data
 
 
-def post_treat_flag(svg_url, code_continent):
-    try:
-        has_success = download_png_from_svg_url(svg_url, code_continent)
-        return has_success
-    except:
-        return False
-
-
-def post_treat_request(data, code_continent: str):
+def post_treat_request(data, code_continent: str, wikidata_code_country: str):
     dict_all_clues = {}
 
     for item in data:
@@ -509,13 +504,7 @@ def post_treat_request(data, code_continent: str):
             dict_all_clues[type_hint] = format_list_string(
                 list_data=dict_all_clues[type_hint])
         else:
-            has_success = post_treat_flag(
-                dict_all_clues[type_hint][0][0], code_continent)
-            if not has_success:
-                hints_to_delete.append(type_hint)
-            else:
-                dict_all_clues[type_hint] = "flag_" + \
-                    code_continent.lower() + ".png"
+            dict_all_clues[type_hint] = wikidata_code_country + ".png"
 
     for type_hint in hints_to_delete:
         del dict_all_clues[type_hint]
@@ -540,7 +529,7 @@ def request_all_clues(wikidata_code_country: str, code_continent: str, language)
 
     # Post treat the output of the request (by removing empty fields)
     dict_all_clues = post_treat_request(
-        data=data, code_continent=code_continent)
+        data=data, code_continent=code_continent, wikidata_code_country=wikidata_code_country)
 
     return dict_all_clues
 
