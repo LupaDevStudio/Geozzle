@@ -1,6 +1,14 @@
 {
     "language": "english",
-    "game": {},
+    "game": {
+        "number_lives": 3,
+        "number_lives_used_country": 0,
+        "number_credits": 1,
+        "list_countries_to_guess": [],
+        "dict_guessed_countries": {},
+        "list_current_clues": [],
+        "dict_details_country": {}
+    },
     "stats": {
         "Europe": {},
         "Asia": {},

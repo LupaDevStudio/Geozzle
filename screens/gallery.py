@@ -64,7 +64,9 @@ class GalleryScreen(GeozzleScreen):
     buy_background_label = StringProperty()
 
     dict_type_screen = {
-        SCREEN_TITLE: "gallery",
+        SCREEN_TITLE: {
+            "title": "gallery"
+        },
         SCREEN_ICON_LEFT_UP: {}
     }
 
@@ -73,8 +75,6 @@ class GalleryScreen(GeozzleScreen):
             back_image_path=rd.choice(SHARED_DATA.list_unlocked_backgrounds),
             font_name=PATH_TEXT_FONT,
             **kwargs)
-
-        self.reload_language()
 
     def reload_language(self):
         """

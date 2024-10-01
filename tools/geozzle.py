@@ -516,7 +516,7 @@ class OldGame():
     code_continent: str
     wikidata_code_country: str
     dict_clues: dict
-    # List of the at most three hints randomly choosen
+    # List of the at most three hints randomly chosen
     list_current_hints: list
     # The list of the wikidata code countries
     list_all_countries: list

@@ -120,11 +120,23 @@ class GeozzleScreen(ImprovedScreenWithAds):
     def __init__(self, back_image_path=None, **kw):
         super().__init__(back_image_path=back_image_path, **kw)
 
+        self.update_dict_type_screen()
+
+    def update_dict_type_screen(self, *args):
+
         # Display the title or not
         if SCREEN_TITLE in self.dict_type_screen:
-            self.title_screen = TEXT.titles[self.dict_type_screen[SCREEN_TITLE]]
+            title = self.dict_type_screen[SCREEN_TITLE].get("title", "")
+            if title in TEXT.titles:
+                self.title_screen = TEXT.titles[title]
+            else:
+                self.title_screen = title
+            self.ids.title.color = self.dict_type_screen[SCREEN_TITLE].get("colors", BLACK)
         else:
-            self.remove_widget(self.ids.title)
+            try:
+                self.remove_widget(self.ids.title)
+            except:
+                pass
 
         # Display the icon in the left up corner
         if SCREEN_ICON_LEFT_UP in self.dict_type_screen:
@@ -133,7 +145,10 @@ class GeozzleScreen(ImprovedScreenWithAds):
             self.ids.icon_left_up.colors = dict_details.get("colors", BLACK)
             self.ids.icon_left_up.release_function = dict_details.get("release_function", self.go_to_home)
         else:
-            self.remove_widget(self.ids.icon_left_up)
+            try:
+                self.remove_widget(self.ids.icon_left_up)
+            except:
+                pass
 
         # Display the icon in the left down corner
         if SCREEN_ICON_LEFT_DOWN in self.dict_type_screen:
@@ -142,7 +157,10 @@ class GeozzleScreen(ImprovedScreenWithAds):
             self.ids.icon_left_down.colors = dict_details.get("colors", BLACK)
             self.ids.icon_left_down.release_function = dict_details.get("release_function", self.go_to_stats)
         else:
-            self.remove_widget(self.ids.icon_left_down)
+            try:
+                self.remove_widget(self.ids.icon_left_down)
+            except:
+                pass
 
         # Display the icon in the right up corner
         if SCREEN_ICON_RIGHT_UP in self.dict_type_screen:
@@ -151,7 +169,10 @@ class GeozzleScreen(ImprovedScreenWithAds):
             self.ids.icon_right_up.colors = dict_details.get("colors", BLACK)
             self.ids.icon_right_up.release_function = dict_details.get("release_function", self.go_to_settings)
         else:
-            self.remove_widget(self.ids.icon_right_up)
+            try:
+                self.remove_widget(self.ids.icon_right_up)
+            except:
+                pass
 
         # Display the icon in the right down corner
         if SCREEN_ICON_RIGHT_DOWN in self.dict_type_screen:
@@ -160,17 +181,17 @@ class GeozzleScreen(ImprovedScreenWithAds):
             self.ids.icon_right_down.colors = dict_details.get("colors", BLACK)
             self.ids.icon_right_down.release_function = dict_details.get("release_function", self.go_to_gallery)
         else:
-            self.remove_widget(self.ids.icon_right_down)
-
-        self.reload_language()
+            try:
+                self.remove_widget(self.ids.icon_right_down)
+            except:
+                pass
 
     def on_pre_enter(self, *args):
         super().on_pre_enter(*args)
         self.reload_language()
 
     def reload_language(self):
-        if SCREEN_TITLE in self.dict_type_screen:
-            self.title_screen = self.title_screen = TEXT.titles[self.dict_type_screen[SCREEN_TITLE]]
+        self.update_dict_type_screen()
 
     def go_to_home(self):
         self.manager.get_screen("home").previous_screen_name = self.manager.current

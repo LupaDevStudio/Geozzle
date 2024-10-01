@@ -61,7 +61,9 @@ class StatsScreen(GeozzleScreen):
     buy_background_label = StringProperty()
 
     dict_type_screen = {
-        SCREEN_TITLE: "stats",
+        SCREEN_TITLE: {
+            "title": "stats"
+        },
         SCREEN_ICON_LEFT_UP: {}
     }
 
@@ -70,8 +72,6 @@ class StatsScreen(GeozzleScreen):
             back_image_path=rd.choice(SHARED_DATA.list_unlocked_backgrounds),
             font_name=PATH_TEXT_FONT,
             **kwargs)
-
-        self.reload_language()
 
     def reload_language(self):
         """
@@ -158,7 +158,10 @@ class StatsScreen(GeozzleScreen):
             scrollview_layout.add_widget(layout)
 
     def open_continent_details(self, code_continent: str):
-        pass
+        self.manager.get_screen(
+            "stats_continent").code_continent = code_continent
+        self.manager.get_screen("stats_continent").previous_screen_name = self.manager.current
+        self.manager.current = "stats_continent"
 
     def on_leave(self, *args):
         # Reset scrollview

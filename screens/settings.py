@@ -61,7 +61,9 @@ class SettingsScreen(GeozzleScreen):
     sound_volume = NumericProperty(USER_DATA.sound_volume)
 
     dict_type_screen = {
-        SCREEN_TITLE: "settings",
+        SCREEN_TITLE: {
+            "title": "settings"
+        },
         SCREEN_ICON_LEFT_UP: {}
     }
 
@@ -70,8 +72,6 @@ class SettingsScreen(GeozzleScreen):
             back_image_path=rd.choice(SHARED_DATA.list_unlocked_backgrounds),
             font_name=PATH_TEXT_FONT,
             **kwargs)
-
-        self.reload_language()
 
         self.ids.sound_slider.bind(value=self.update_sound_volume)
         self.ids.music_slider.bind(value=self.update_music_volume)

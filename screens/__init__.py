@@ -23,3 +23,4 @@ from screens.game_summary import GameSummaryScreen
 from screens.settings import SettingsScreen
 from screens.gallery import GalleryScreen
 from screens.stats import StatsScreen
+from screens.stats_continent import StatsContinentScreen

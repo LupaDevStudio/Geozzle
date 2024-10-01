@@ -92,8 +92,6 @@ class HomeScreen(GeozzleScreen):
             font_name=PATH_TEXT_FONT,
             **kwargs)
 
-        self.reload_language()
-
     def on_pre_enter(self, *args):
         # TODO uncomment when fixed in the backend
         # self.regenerate_lives()
