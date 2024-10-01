@@ -26,13 +26,13 @@ from kivy.uix.relativelayout import RelativeLayout
 
 from tools.path import (
     PATH_TEXT_FONT,
+    PATH_FLAG_IMAGES,
     PATH_CONTINENTS_IMAGES
 )
 from screens.custom_widgets import (
     GeozzleScreen,
-    CircleProgressBar,
     MyScrollViewLayout,
-    StatsLayout
+    CountryStatCard
 )
 from tools.constants import (
     LIST_CONTINENTS,
@@ -43,7 +43,8 @@ from tools.constants import (
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
     HIGHSCORE_FONT_SIZE,
     SUBTITLE_OUTLINE_WIDTH,
-    WHITE
+    WHITE,
+    DICT_COUNTRIES
 )
 from tools.geozzle import (
     USER_DATA,
@@ -97,7 +98,26 @@ class StatsContinentScreen(GeozzleScreen):
     def fill_scrollview(self):
         scrollview_layout: MyScrollViewLayout = self.ids.scrollview_layout
 
-        # TODO
+        for country_code in DICT_COUNTRIES[USER_DATA.language][self.code_continent]:
+            country_name = DICT_COUNTRIES[USER_DATA.language][self.code_continent][country_code]
+            flag_image = PATH_FLAG_IMAGES + country_code + ".png"
+            number_stars = 0
+            if country_name in USER_DATA.stats[self.code_continent]:
+                number_stars = USER_DATA.stats[self.code_continent]["nb_stars"]
+            width_card = (Window.size[0]*0.9 - 10*4*self.font_ratio)/3
+            height_card = 100*self.font_ratio
+
+            country_card = CountryStatCard(
+                font_ratio=self.font_ratio,
+                size_hint=(None, None),
+                height=height_card,
+                width=width_card,
+                flag_image=flag_image,
+                number_stars=number_stars,
+                country_name=country_name,
+                color=DICT_CONTINENTS[self.code_continent]
+            )
+            scrollview_layout.add_widget(country_card)
 
     def on_leave(self, *args):
         # Reset scrollview

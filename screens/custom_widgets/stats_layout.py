@@ -24,6 +24,7 @@ from tools.path import (
 )
 from tools.constants import (
     BUTTON_FONT_SIZE,
+    SMALL_BUTTON_FONT_SIZE,
     BLACK,
     WHITE
 )
@@ -52,3 +53,19 @@ class StatsLayout(RelativeLayout):
     text_button = StringProperty()
     release_function = ObjectProperty(lambda: 1 + 1)
 
+class CountryStatCard(RelativeLayout):
+    """
+    The stat layout for a country.
+    """
+
+    background_color = ColorProperty(WHITE)
+    color = ColorProperty(BLACK)
+
+    country_name = StringProperty()
+    text_font_name = StringProperty(PATH_TEXT_FONT)
+    text_filling_ratio = NumericProperty(0.8)
+    font_size = NumericProperty(SMALL_BUTTON_FONT_SIZE)
+    font_ratio = NumericProperty(1)
+
+    number_stars = NumericProperty(0)
+    flag_image = StringProperty()
