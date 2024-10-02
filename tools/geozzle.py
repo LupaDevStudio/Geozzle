@@ -522,14 +522,14 @@ class Game():
             self.build_list_continents()
         if self.list_countries_to_guess == []:
             self.build_list_countries()
-        if self.list_current_clues == []:
-            self.choose_clues()
         if self.dict_guessed_countries == {}:
             self.build_dict_guessed_countries()
         if self.list_countries_in_spinner == []:
             self.build_list_countries_in_spinner()
         if not self.data_already_loaded:
             self.build_dict_details_country()
+        if self.list_current_clues == []:
+            self.choose_clues()
         USER_DATA.save_changes()
 
         # TODO Return if the request has been successful or not 
@@ -566,17 +566,18 @@ class Game():
                 clue_index = rd.randrange(nb_clues_per_category[i])
                 list_current_clues.append(clues_by_categories[i][clue_index])
                 for j in range(nb_clues_per_category[i]):
-                    if j == i:
+                    if j == clue_index:
                         continue
                     remaining_clues.append(clues_by_categories[i][j])
 
         # Add additional random clues
-        # TODO Paul ça plante rd.randrange(len(remaining_clues))[:min(TypeError: 'int' object is not subscriptable et je ne comprends pas ce que tu voulais faire
-        # additional_clues_indices = rd.randrange(len(remaining_clues))[:min(
-        #     len(remaining_clues), 4 - len(list_current_clues))]
-        # for i in range(len(additional_clues_indices)):
-        #     list_current_clues.append(
-        #         remaining_clues[additional_clues_indices[i]])
+        shuffled_indices = list(range(len(remaining_clues)))
+        rd.shuffle(shuffled_indices)
+        additional_clues_indices = shuffled_indices[:min(
+            len(remaining_clues), 4 - len(list_current_clues))]
+        for i in range(len(additional_clues_indices)):
+            list_current_clues.append(
+                remaining_clues[additional_clues_indices[i]])
 
         # Update the list
         self.list_current_clues = list_current_clues.copy()

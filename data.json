@@ -1,24 +1,24 @@
 {
-    "language": "french",
+    "language": "english",
     "game": {
         "number_lives": 3,
         "number_lives_used_country": 0,
         "number_credits": 1,
         "list_continents": [
             "Africa",
-            "Europe",
+            "North_America",
+            "South_America",
             "Oceania",
             "Asia",
-            "South_America",
-            "North_America"
+            "Europe"
         ],
         "list_countries_to_guess": [
             "Q916",
-            "Q40",
-            "Q702",
+            "Q781",
+            "Q414",
+            "Q408",
             "Q227",
-            "Q750",
-            "Q242"
+            "Q228"
         ],
         "dict_guessed_countries": {
             "Q916": {
@@ -26,12 +26,17 @@
                 "multiplier": 1,
                 "guessed": false
             },
-            "Q40": {
+            "Q781": {
                 "list_clues": [],
                 "multiplier": 1,
                 "guessed": false
             },
-            "Q702": {
+            "Q414": {
+                "list_clues": [],
+                "multiplier": 1,
+                "guessed": false
+            },
+            "Q408": {
                 "list_clues": [],
                 "multiplier": 1,
                 "guessed": false
@@ -41,22 +46,17 @@
                 "multiplier": 1,
                 "guessed": false
             },
-            "Q750": {
-                "list_clues": [],
-                "multiplier": 1,
-                "guessed": false
-            },
-            "Q242": {
+            "Q228": {
                 "list_clues": [],
                 "multiplier": 1,
                 "guessed": false
             }
         },
         "list_current_clues": [
-            "anthem",
+            "top_level_internet_domain",
             "head_of_government",
-            "age_of_majority",
-            null
+            "nominal_GDP",
+            "population"
         ],
         "dict_details_country": {},
         "current_country_index": 0,
@@ -70,18 +70,16 @@
         "South_America": {},
         "Oceania": {}
     },
-    "points": 1000,
+    "points": 0,
     "highscore": 0,
-    "music_volume": 0.4928909952606635,
+    "music_volume": 0.5,
     "sound_volume": 0.5,
     "unlocked_backgrounds": [
-        "europe_venice.jpg",
-        "asia_bamboo.jpg",
-        "asia_rice_fields2.jpg",
-        "north_statueliberty2.jpg",
-        "south_old_temples_peru2.jpg",
-        "africa_lighthouse_alexandria2.jpg",
-        "asia_borobudur2.jpg",
-        "oceania_sydney.jpg"
+        "europe_rome2.jpg",
+        "asia_CA_2023_15G.jpg",
+        "africa_nile.jpg",
+        "north_tikal.jpg",
+        "south_america2.jpg",
+        "oceania_simpsons_gap.jpg"
     ]
 }
