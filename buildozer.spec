@@ -188,7 +188,7 @@ android.add_src = ./tools/java_src
 #android.add_assets =
 
 # (list) Gradle dependencies to add
-android.gradle_dependencies = com.google.android.gms:play-services-ads:22.5.0, androidx.fragment:fragment-ktx:1.3.0-beta01, com.google.android.ump:user-messaging-platform:2.1.0
+android.gradle_dependencies = com.google.android.gms:play-services-ads:22.5.0, androidx.fragment:fragment-ktx:1.3.0-beta01, com.google.android.ump:user-messaging-platform:2.1.0, com.google.android.play:review:2.0.1
 
 # (bool) Enable AndroidX support. Enable when 'android.gradle_dependencies'
 # contains an 'androidx' package, or any package from Kotlin source.
