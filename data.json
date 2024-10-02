@@ -1,5 +1,5 @@
 {
-    "language": "english",
+    "language": "french",
     "game": {
         "number_lives": 3,
         "number_lives_used_country": 0,
@@ -15,7 +15,9 @@
         "list_countries_to_guess": [],
         "dict_guessed_countries": {},
         "list_current_clues": [],
-        "dict_details_country": {}
+        "dict_details_country": {},
+        "current_country_index": 0,
+        "dict_countries_in_spinner": {}
     },
     "stats": {
         "Europe": {},
@@ -25,13 +27,18 @@
         "South_America": {},
         "Oceania": {}
     },
-    "points": 792000,
+    "points": 1000,
     "highscore": 0,
     "music_volume": 0.4928909952606635,
     "sound_volume": 0.5,
     "unlocked_backgrounds": [
         "europe_venice.jpg",
         "asia_bamboo.jpg",
-        "asia_rice_fields2.jpg"
+        "asia_rice_fields2.jpg",
+        "north_statueliberty2.jpg",
+        "south_old_temples_peru2.jpg",
+        "africa_lighthouse_alexandria2.jpg",
+        "asia_borobudur2.jpg",
+        "oceania_sydney.jpg"
     ]
 }
