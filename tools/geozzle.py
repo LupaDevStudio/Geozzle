@@ -357,9 +357,6 @@ class Game():
     # Number of lives left for this game
     number_lives: int
 
-    # Number of lives used for this country
-    number_lives_used_country: int
-
     # Number of credits left to use
     number_credits: int
 
@@ -370,7 +367,7 @@ class Game():
     list_countries_to_guess: list[str]
 
     # Dict of countries encountered during the game
-    # {"code_country": {"list_clues": ["clue_1" ,"clue_2"], "multiplier": 1.2, "guessed": True}}
+    # {"code_country": {"list_clues": ["clue_1" ,"clue_2"], "multiplier": 1.2, "guessed": True, "nb_lives_used":0}}
     dict_guessed_countries: dict
 
     # List of the codes of the current clues
@@ -414,14 +411,25 @@ class Game():
             return False
         return self.current_guess_country in self.dict_details_country[TEXT.language]
 
-    @ property
-    def current_multiplier(self) -> float | int:
-        return self.dict_guessed_countries[self.current_guess_country]["multiplier"]
+    @property
+    def current_multiplier(self):
+        # Count the streak i.e. the number of countries guessed without mistakes
+        streak = 0
+        for i in range(self.current_country_index):
+            country_code = self.list_countries_to_guess[i]
+            nb_lives_used = self.dict_guessed_countries[country_code]["nb_lives_used"]
+            if nb_lives_used == 0:
+                streak += 1
+            else:
+                streak = 0
+
+        # Compute the multiplier
+        mutliplier = 1. + 0.2 * streak
+
+        return mutliplier
 
     def __init__(self, dict_to_load: dict) -> None:
         self.number_lives = dict_to_load.get("number_lives", 3)
-        self.number_lives_used_country = dict_to_load.get(
-            "number_lives_used_country", 0)
         self.number_credits = dict_to_load.get(
             "number_credits", NUMBER_CREDITS)
         self.current_country_index = dict_to_load.get(
@@ -488,9 +496,20 @@ class Game():
 
         return countries_for_random_choice[country_index]
 
-    def get_other_countries_for_spinner_list(self, code_continent: str, nb_side_countries=11):
-        # TODO Créer une selection de pays pour mettre dans le spinner
-        pass
+    def get_other_countries_for_spinner_list(self, code_continent: str, current_country, nb_side_countries=11):
+        # Get the list of countries in the continent
+        countries_list: list = DICT_COUNTRIES["english"][code_continent].copy()
+
+        # Exclude the current_country
+        countries_list.remove(current_country)
+
+        # Shuffle the list
+        rd.shuffle(countries_list)
+
+        # Select a sample
+        other_countries_for_spinner_list = countries_list[:nb_side_countries]
+
+        return other_countries_for_spinner_list
 
     def build_list_countries(self):
         self.list_countries_to_guess = []
@@ -501,20 +520,41 @@ class Game():
             self.list_countries_to_guess.append(country)
 
     def build_list_countries_in_spinner(self):
-        # TODO Créer la liste des autres pays qui seront dans le spinner
-        pass
+        self.list_countries_in_spinner = self.get_other_countries_for_spinner_list(
+            self.current_guess_continent, self.current_guess_country)
 
     def build_dict_details_country(self):
-        # TODO Paul faire la requête et construire le dictionnaire des détails sur le pays dict_details_country dans la langue correspondante.
-        # Il faut faire la requête sur self.current_guess_country
-        pass
+        # Reload only if no data available in the language
+        if USER_DATA.language not in self.dict_details_country:
+            self.dict_details_country = {
+                USER_DATA.language: request_all_clues(
+                    self.current_guess_country, self.current_guess_continent, USER_DATA.language)
+            }
+
+            if self.dict_details_country[USER_DATA.language] is None:
+                return False
+
+            # Find alternative language
+            if USER_DATA.language == "french":
+                alternative_language = "english"
+            else:
+                alternative_language = "french"
+
+            # Deal with case when user request in a language and change and not same clues in both languages
+            for clue in self.list_current_clues:
+                if clue not in self.dict_details_country[USER_DATA.language]:
+                    self.dict_details_country[USER_DATA.language][clue] = self.dict_details_country[alternative_language][clue]
+
+            return True
+        return True
 
     def build_dict_guessed_countries(self):
         self.dict_guessed_countries = {
             country_code: {
                 "list_clues": [],
                 "multiplier": 1,
-                "guessed": False} for country_code in self.list_countries_to_guess
+                "guessed": False,
+                "nb_lives_used": 0} for country_code in self.list_countries_to_guess
         }
 
     def launch_game(self) -> bool:
@@ -526,14 +566,12 @@ class Game():
             self.build_dict_guessed_countries()
         if self.list_countries_in_spinner == []:
             self.build_list_countries_in_spinner()
-        if not self.data_already_loaded:
-            self.build_dict_details_country()
+        request_status = self.build_dict_details_country()
         if self.list_current_clues == []:
             self.choose_clues()
         USER_DATA.save_changes()
 
-        # TODO Return if the request has been successful or not 
-        return True
+        return request_status
 
     def choose_clues(self):
         """
@@ -548,7 +586,7 @@ class Game():
         clues_by_categories = {1: [], 2: [], 3: []}
         for clue in DICT_HINTS_INFORMATION:
             current_category = DICT_HINTS_INFORMATION[clue]["category"]
-            if clue not in clues_already_used:
+            if clue not in clues_already_used and clue in self.dict_details_country[USER_DATA.language]:
                 clues_by_categories[current_category].append(clue)
 
         # Count the number of clues for each category
@@ -587,7 +625,8 @@ class Game():
             self.list_current_clues.append(None)
 
     def ask_clue(self, code_clue: str) -> str:
-        self.dict_guessed_countries[self.current_guess_country]["list_clues"].append(code_clue)
+        self.dict_guessed_countries[self.current_guess_country]["list_clues"].append(
+            code_clue)
 
         # Reset the list of clues
         self.list_current_clues = []
@@ -628,15 +667,8 @@ class Game():
         if self.current_country_index >= 6:
             self.end_game()
         else:
-            # Update the multiplier for the next country
-            if self.number_lives_used_country == 0:
-                multiplier = previous_multiplier + 0.2
-            else:
-                multiplier = 1
-            self.dict_guessed_countries[self.current_guess_country]["multiplier"] = multiplier
-
-            # Reset the number of lives used in the country
-            self.number_lives_used_country = 0
+            # Update the multiplier
+            self.dict_guessed_countries[self.current_guess_country]["multiplier"] = self.current_multiplier
 
             # Rebuild the dict of details of the next country
             self.dict_details_country = {}
@@ -662,7 +694,6 @@ class Game():
 
         # Reset all variables in the game when it's over
         self.number_lives = 3
-        self.number_lives_used_country = 0
         self.number_credits = NUMBER_CREDITS
         self.current_country_index = 0
         self.list_continents = []
@@ -679,7 +710,6 @@ class Game():
     def export_as_dict(self) -> dict:
         return {
             "number_lives": self.number_lives,
-            "number_lives_used_country": self.number_lives_used_country,
             "number_credits": self.number_credits,
             "list_continents": self.list_continents,
             "list_countries_to_guess": self.list_countries_to_guess,
@@ -689,6 +719,7 @@ class Game():
             "current_country_index": self.current_country_index,
             "list_countries_in_spinner": self.list_countries_in_spinner
         }
+
 
 class OldGame():
     # Number of lives left for the continent
@@ -1171,6 +1202,7 @@ class OldGame():
 #################
 ### User data ###
 #################
+
 
 class UserData():
     """

@@ -136,12 +136,12 @@ SCREEN_MULTIPLIER = "screen_multiplier"
 SCREEN_CONTINENT_PROGRESS_BAR = "screen_continent_progress_bar"
 
 DICT_MULTIPLIERS = {
-    1: PATH_multiplierS_IMAGES + "mult_1-0.png",
+    1.: PATH_multiplierS_IMAGES + "mult_1-0.png",
     1.2: PATH_multiplierS_IMAGES + "mult_1-2.png",
     1.4: PATH_multiplierS_IMAGES + "mult_1-4.png",
     1.6: PATH_multiplierS_IMAGES + "mult_1-6.png",
     1.8: PATH_multiplierS_IMAGES + "mult_1-8.png",
-    2: PATH_multiplierS_IMAGES + "mult_2-0.png"
+    2.: PATH_multiplierS_IMAGES + "mult_2-0.png"
 }
 
 ### Continents ###
