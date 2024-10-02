@@ -100,11 +100,11 @@ class GameOverScreen(GeozzleScreen):
     def update_countries(self, *_):
         """
         Update the list of countries displayed in the spinner.
-        
+
         Parameters
         ----------
         None
-        
+
         Returns
         -------
         None
@@ -181,7 +181,7 @@ class GameOverScreen(GeozzleScreen):
                 score, score_game = USER_DATA.game.compute_country_and_game_score()
                 is_country_new = USER_DATA.check_country_is_new(
                     code_continent=self.code_continent,
-                    country_code=code_country
+                    code_country=code_country
                 )
 
                 # Finish the country
@@ -202,7 +202,7 @@ class GameOverScreen(GeozzleScreen):
                         release_function=self.go_to_home
                     )
                     popup.open()
-                    score_popup_release_function = lambda: 1 + 1
+                    def score_popup_release_function(): return 1 + 1
                 else:
                     self.continue_game_label = TEXT.game_over["next_country"]
                     score_popup_release_function = self.go_to_next_screen
@@ -247,7 +247,7 @@ class GameOverScreen(GeozzleScreen):
                         self.go_to_home_and_dismiss, popup)
                     popup.open()
 
-                # Game over 
+                # Game over
                 elif USER_DATA.game.number_lives == 0 and USER_DATA.game.number_credits == 0:
                     score = USER_DATA.game.end_game()
                     # TODO display popup global score

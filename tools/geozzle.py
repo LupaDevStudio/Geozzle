@@ -415,7 +415,7 @@ class Game():
         self.dict_details_country = dict_to_load.get(
             "dict_details_country", {})
         self.list_countries_in_spinner = dict_to_load.get(
-            "list_countries_in_spinner", {})
+            "list_countries_in_spinner", [])
 
     def build_list_continents(self):
         self.list_continents = LIST_CONTINENTS.copy()
@@ -466,7 +466,8 @@ class Game():
 
     def get_other_countries_for_spinner_list(self, code_continent: str, current_country, nb_side_countries=11):
         # Get the list of countries in the continent
-        countries_list: list = DICT_COUNTRIES["english"][code_continent].copy()
+        countries_list = list(
+            DICT_COUNTRIES["english"][code_continent].keys())
 
         # Exclude the current_country
         countries_list.remove(current_country)
@@ -488,8 +489,15 @@ class Game():
             self.list_countries_to_guess.append(country)
 
     def build_list_countries_in_spinner(self):
+        # Add additional countries
         self.list_countries_in_spinner = self.get_other_countries_for_spinner_list(
             self.current_guess_continent, self.current_guess_country)
+
+        # Add the answer in the list
+        self.list_countries_in_spinner.append(self.current_guess_country)
+
+        # Shuffle
+        rd.shuffle(self.list_countries_in_spinner)
 
     def build_dict_details_country(self):
         # Reload only if no data available in the language
@@ -805,7 +813,7 @@ class Game():
         self.list_current_clues = []
         self.dict_guessed_countries = {}
         self.dict_details_country = {}
-        self.list_countries_in_spinner = {}
+        self.list_countries_in_spinner = []
 
         return final_score
 
