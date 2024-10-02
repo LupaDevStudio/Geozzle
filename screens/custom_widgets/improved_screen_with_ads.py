@@ -16,7 +16,9 @@ from functools import partial
 from kivy.clock import mainthread, Clock
 from kivy.properties import (
     StringProperty,
-    ColorProperty
+    ColorProperty,
+    NumericProperty,
+    ListProperty
 )
 
 ### Local imports ###
@@ -35,8 +37,12 @@ from tools.constants import (
     SCREEN_ICON_LEFT_UP,
     SCREEN_ICON_RIGHT_DOWN,
     SCREEN_ICON_RIGHT_UP,
+    SCREEN_THREE_LIVES,
+    SCREEN_MULTIPLICATOR,
+    SCREEN_CONTINENT_PROGRESS_BAR,
     BLACK,
-    TIME_CHANGE_BACKGROUND
+    TIME_CHANGE_BACKGROUND,
+    LIST_CONTINENTS
 )
 from tools.path import (
     PATH_IMAGES
@@ -118,6 +124,10 @@ class GeozzleScreen(ImprovedScreenWithAds):
     dict_type_screen: dict = {}
     title_screen = StringProperty()
     continent_color = ColorProperty(BLACK)
+    number_lives_on = NumericProperty(3)
+    multiplicator_image = StringProperty()
+    continents_list = ListProperty(LIST_CONTINENTS)
+    current_continent_position = NumericProperty(0)
 
     def __init__(self, back_image_path=None, **kw):
         super().__init__(back_image_path=back_image_path, **kw)
@@ -164,9 +174,32 @@ class GeozzleScreen(ImprovedScreenWithAds):
         else:
             self.remove_widget(self.ids.icon_right_down)
 
+        # Display the three lives widget
+        if not SCREEN_THREE_LIVES in self.dict_type_screen:
+            self.remove_widget(self.ids.three_lives)
+
+        # Display the multiplicator widget
+        if not SCREEN_MULTIPLICATOR in self.dict_type_screen:
+            self.remove_widget(self.ids.mutliplicator)
+
+        # Display the continent progress bar
+        if not SCREEN_CONTINENT_PROGRESS_BAR in self.dict_type_screen:
+            self.remove_widget(self.ids.continent_progress_bar)
+
     def on_pre_enter(self, *args):
         super().on_pre_enter(*args)
         self.reload_language()
+
+        if SCREEN_THREE_LIVES in self.dict_type_screen:
+            self.number_lives_on = USER_DATA.game.number_lives
+
+        if SCREEN_MULTIPLICATOR in self.dict_type_screen:
+            # TODO update the image of the multiplicator
+            pass
+
+        if SCREEN_CONTINENT_PROGRESS_BAR in self.dict_type_screen:
+            self.continents_list = USER_DATA.game.list_continents
+            self.current_continent_position = USER_DATA.game.current_country_index
 
     def reload_language(self):
         if SCREEN_TITLE in self.dict_type_screen:

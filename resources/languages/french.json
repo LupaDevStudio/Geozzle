@@ -64,8 +64,9 @@
         "select_country_message": "Vous devez sélectionner un pays dans le menu déroulant."
     },
     "game_question": {
-        "title": "Choisissez un nouvel indice parmi ceux proposés",
-        "no_more_clues": "Vous n'avez plus d'indices à disposition pour deviner ce pays."
+        "title": "Choisissez un nouvel indice",
+        "no_more_clues": "Vous n'avez plus d'indices à disposition.",
+        "go_to_summary": "Voir la liste des indices"
     },
     "game_summary": {
         "i_found": "J'ai trouvé !",

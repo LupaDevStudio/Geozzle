@@ -12,12 +12,55 @@
             "South_America",
             "North_America"
         ],
-        "list_countries_to_guess": [],
-        "dict_guessed_countries": {},
-        "list_current_clues": [],
+        "list_countries_to_guess": [
+            "Q916",
+            "Q40",
+            "Q702",
+            "Q227",
+            "Q750",
+            "Q242"
+        ],
+        "dict_guessed_countries": {
+            "Q916": {
+                "list_clues": [],
+                "multiplicator": 1,
+                "guessed": false
+            },
+            "Q40": {
+                "list_clues": [],
+                "multiplicator": 1,
+                "guessed": false
+            },
+            "Q702": {
+                "list_clues": [],
+                "multiplicator": 1,
+                "guessed": false
+            },
+            "Q227": {
+                "list_clues": [],
+                "multiplicator": 1,
+                "guessed": false
+            },
+            "Q750": {
+                "list_clues": [],
+                "multiplicator": 1,
+                "guessed": false
+            },
+            "Q242": {
+                "list_clues": [],
+                "multiplicator": 1,
+                "guessed": false
+            }
+        },
+        "list_current_clues": [
+            "anthem",
+            "head_of_government",
+            "age_of_majority",
+            null
+        ],
         "dict_details_country": {},
         "current_country_index": 0,
-        "dict_countries_in_spinner": {}
+        "list_countries_in_spinner": {}
     },
     "stats": {
         "Europe": {},

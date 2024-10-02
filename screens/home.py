@@ -153,9 +153,9 @@ class HomeScreen(GeozzleScreen):
             self.manager.get_screen(
                 "game_question").previous_screen_name = "home"
             self.manager.get_screen(
-                "game_summary").code_continent = self.current_guess_continent
+                "game_summary").code_continent = USER_DATA.game.current_guess_continent
             self.manager.get_screen(
-                "game_over").code_continent = self.current_guess_continent
+                "game_over").code_continent = USER_DATA.game.current_guess_continent
             self.manager.get_screen(
                 "game_over").update_countries()
 
@@ -179,7 +179,7 @@ class HomeScreen(GeozzleScreen):
             popup.open()
 
     def thread_request(self):
-        has_success = USER_DATA.game.create_new_game()
+        has_success = USER_DATA.game.launch_game()
         Clock.schedule_once(
             partial(self.prepare_gui_to_play_game, has_success))
 
@@ -198,7 +198,7 @@ class HomeScreen(GeozzleScreen):
         """
 
         # Display the loading popup
-        if not USER_DATA.game.is_already_loaded():
+        if not USER_DATA.game.data_already_loaded:
             self.loading_popup = LoadingPopup(
                 primary_color=BLACK,
                 secondary_color=WHITE,

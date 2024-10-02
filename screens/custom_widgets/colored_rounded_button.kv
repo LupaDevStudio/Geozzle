@@ -76,9 +76,9 @@
         text: root.text
         font_size: root.font_ratio * root.font_size
         pos_hint: {"x": 0, "center_y": 0.5}
-        size_hint: (0.6, 1)
+        size_hint: (1, 1) if root.number_stars == 0 else (0.6, 1)
         shorten: False
-        text_size: (root.width*root.text_filling_ratio,None)
+        text_size: (self.width*root.text_filling_ratio,None)
         font_name: root.text_font_name
         halign: "center"
         valign: "center"
@@ -93,3 +93,4 @@
         primary_color: WHITE
         secondary_color: root.color_label
         contour_color: root.color_label
+        opacity: 0 if root.number_stars == 0 else 1

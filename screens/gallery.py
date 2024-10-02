@@ -164,6 +164,7 @@ class GalleryScreen(GeozzleScreen):
             # Vertical scrollview with background
             sv_height = 150*self.font_ratio
             custom_sv = CustomScrollview(
+                font_ratio=self.font_ratio,
                 background_mode=True,
                 bar_width=5*self.font_ratio,
                 bar_color=DICT_CONTINENTS[code_continent],

@@ -39,7 +39,10 @@ from tools.constants import (
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
     TIME_CHANGE_BACKGROUND,
     SCREEN_TITLE,
-    SCREEN_ICON_LEFT_UP
+    SCREEN_ICON_LEFT_UP,
+    SCREEN_THREE_LIVES,
+    SCREEN_MULTIPLICATOR,
+    SCREEN_CONTINENT_PROGRESS_BAR
 )
 from tools.geozzle import (
     USER_DATA,
@@ -71,7 +74,10 @@ class GameSummaryScreen(GeozzleScreen):
 
     dict_type_screen = {
         SCREEN_TITLE: {},
-        SCREEN_ICON_LEFT_UP: {}
+        SCREEN_ICON_LEFT_UP: {},
+        SCREEN_MULTIPLICATOR: "",
+        SCREEN_THREE_LIVES: "",
+        SCREEN_CONTINENT_PROGRESS_BAR: ""
     }
 
     def __init__(self, **kwargs) -> None:
@@ -166,7 +172,7 @@ class GameSummaryScreen(GeozzleScreen):
         -------
         None
         """
-        self.ids.scrollview_layout.reset_screen()
+        self.ids.scrollview_layout.reset_scrollview()
         self.dict_scrollview_widgets = {}
 
     def update_scroll_view(self):

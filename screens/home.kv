@@ -10,16 +10,6 @@
         outline_color: TITLE_OUTLINE_COLOR
         color: TEXT_FONT_COLOR
 
-    # # Continent logo in the center
-    # CircleProgressBar:
-    #     source: root.continent_image
-    #     pos_hint: {"center_x":0.5, "center_y":0.5}
-    #     size_hint: (0.4, None)
-    #     height: self.width
-    #     progress: root.completion_value
-    #     circle_color: root.continent_color
-    #     font_ratio: root.font_ratio
-
     # Play button
     CustomButton:
         id: play_button
@@ -39,11 +29,3 @@
         outline_width: max(SUBTITLE_OUTLINE_WIDTH* root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
         color: BLACK
-
-    # TEMP
-    # ContinentProgressBar:
-    #     continents_list: ["Europe","Africa","Asia","North_America","South_America","Oceania"]
-    #     font_ratio: root.font_ratio
-    #     pos_hint: {"center_x":0.5, "center_y":0.2}
-    #     size_hint: (0.8, 0.07)
-    #     cursor_position: 3

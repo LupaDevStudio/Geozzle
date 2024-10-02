@@ -130,6 +130,9 @@ SCREEN_ICON_LEFT_UP = "screen_icon_left_up"
 SCREEN_ICON_RIGHT_UP = "screen_icon_right_up"
 SCREEN_ICON_LEFT_DOWN = "screen_icon_left_down"
 SCREEN_ICON_RIGHT_DOWN = "screen_icon_right_down"
+SCREEN_THREE_LIVES = "screen_three_lives"
+SCREEN_MULTIPLICATOR = "screen_multiplicator"
+SCREEN_CONTINENT_PROGRESS_BAR = "screen_continent_progress_bar"
 
 ### Continents ###
 

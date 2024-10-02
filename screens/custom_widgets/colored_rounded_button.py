@@ -72,7 +72,7 @@ class ColoredRoundedHintButton(ButtonBehavior, RelativeLayout):
     background_color = ColorProperty()
     text = StringProperty()
     text_font_name = StringProperty(PATH_TEXT_FONT)
-    text_filling_ratio = NumericProperty(0.8)
+    text_filling_ratio = NumericProperty(0.9)
     font_size = NumericProperty(MAIN_BUTTON_FONT_SIZE)
     font_ratio = NumericProperty(1)
     disable_button = BooleanProperty(False)

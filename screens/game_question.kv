@@ -3,19 +3,12 @@
 
 <GameQuestionScreen>:
     
-    ThreeLives:
-        continent_color: root.continent_color
-        pos_hint: {"x":0.57, "top":0.98}
-        size_hint: (0.4, 0.075)
-        number_lives_on: root.number_lives_on
-        release_function: root.open_buy_life_popup
-
     # Title of the screen
     Label:
         text: root.title_label
         font_name: PATH_TITLE_FONT
         font_size: MAIN_TEXT_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.775}
+        pos_hint: {"center_x":0.5, "center_y":0.67}
         outline_width: max(SUBTITLE_OUTLINE_WIDTH * root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
         color: root.continent_color
@@ -34,7 +27,6 @@
         pos_hint: {"center_x":0.5, "center_y":0.55}
         size_hint: (0.75, 0.10)
         color_label: root.continent_color
-        on_release: root.add_clue(root.hint_1)
         font_ratio: root.font_ratio
         number_stars: root.number_stars_1
 
@@ -47,7 +39,6 @@
         pos_hint: {"center_x":0.5, "center_y":0.4}
         size_hint: (0.75, 0.10)
         color_label: root.continent_color
-        on_release: root.add_clue(root.hint_2)
         font_ratio: root.font_ratio
         number_stars: root.number_stars_2
 
@@ -59,7 +50,6 @@
         pos_hint: {"center_x":0.5, "center_y":0.25}
         size_hint: (0.75, 0.10)
         color_label: root.continent_color
-        on_release: root.add_clue(root.hint_3)
         font_ratio: root.font_ratio
         number_stars: root.number_stars_3
 
@@ -71,15 +61,5 @@
         pos_hint: {"center_x":0.5, "center_y":0.1}
         size_hint: (0.75, 0.10)
         color_label: root.continent_color
-        on_release: root.add_clue(root.hint_4)
         font_ratio: root.font_ratio
         number_stars: root.number_stars_4
-
-    # Arrow to skip hints
-    RoundedButtonImage:
-        image_path: PATH_IMAGES + "right_arrow.png"
-        pos_hint: {"right":0.95, "y":0.025}
-        size_hint: (0.1, None)
-        height: self.width
-        colors: root.continent_color
-        release_function: root.go_to_game_summary

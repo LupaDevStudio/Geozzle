@@ -36,7 +36,10 @@ from tools.constants import (
     TIME_CHANGE_BACKGROUND,
     DICT_COUNTRIES,
     SCREEN_ICON_LEFT_UP,
-    SCREEN_TITLE
+    SCREEN_TITLE,
+    SCREEN_MULTIPLICATOR,
+    SCREEN_THREE_LIVES,
+    SCREEN_CONTINENT_PROGRESS_BAR
 )
 from tools.geozzle import (
     TEXT,
@@ -73,7 +76,10 @@ class GameOverScreen(GeozzleScreen):
 
     dict_type_screen = {
         SCREEN_TITLE: {},
-        SCREEN_ICON_LEFT_UP: {}
+        SCREEN_ICON_LEFT_UP: {},
+        SCREEN_MULTIPLICATOR: "",
+        SCREEN_THREE_LIVES: "",
+        SCREEN_CONTINENT_PROGRESS_BAR: ""
     }
 
     def __init__(self, **kwargs) -> None:
@@ -88,7 +94,6 @@ class GameOverScreen(GeozzleScreen):
     def on_pre_enter(self, *args):
         super().on_pre_enter(*args)
 
-        self.number_lives_on = USER_DATA.game.number_lives
         self.congrats_defeat_message = ""
         self.score_label = ""
         self.ids.validate_button.disable_button = False
@@ -147,9 +152,9 @@ class GameOverScreen(GeozzleScreen):
         """
         self.ids.country_spinner.text = ""
         self.list_countries = []
-        for wikidata_code_country in USER_DATA.list_countries_in_spinner:
-            self.list_countries.append(
-                DICT_COUNTRIES[USER_DATA.language][self.code_continent][wikidata_code_country])
+        for wikidata_code_country in USER_DATA.game.list_countries_in_spinner:
+            self.list_countries.append(DICT_COUNTRIES[
+                USER_DATA.language][self.code_continent][wikidata_code_country])
 
     def update_color(self, *args):
         """

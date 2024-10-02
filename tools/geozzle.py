@@ -383,9 +383,9 @@ class Game():
     # Index of the current country in the list of countries to guess successively
     current_country_index: int
 
-    # List of the wikidata codes of the other countries in the spinner
-    # {"code_country_europe": ["code_country_1", "code_country_2", ...], "code_country_asia": [...], ...}
-    dict_countries_in_spinner: list[str]
+    # List of the wikidata codes of the all the other countries in the spinner
+    # ["code_country_1", "code_country_2", ...].}
+    list_countries_in_spinner: list[str]
 
     @ property
     def has_lives(self) -> bool:
@@ -396,14 +396,23 @@ class Game():
         return self.number_credits > 0
 
     @ property
-    def current_guess_country(self) -> str | None:
+    def current_guess_country(self) -> str:
         """Wikidata code of the country to guess currently"""
         return self.list_countries_to_guess[self.current_country_index]
 
     @ property
-    def current_guess_continent(self) -> str | None:
+    def current_guess_continent(self) -> str:
         """Code of the current continent"""
         return self.list_continents[self.current_country_index]
+
+    @ property
+    def data_already_loaded(self) -> bool:
+        """If the data of the current country has already been downloaded from wikidata."""
+        if self.dict_details_country == {}:
+            return False
+        if not TEXT.language in self.dict_details_country:
+            return False
+        return self.current_guess_country in self.dict_details_country[TEXT.language]
 
     def __init__(self, dict_to_load: dict) -> None:
         self.number_lives = dict_to_load.get("number_lives", 3)
@@ -416,27 +425,17 @@ class Game():
 
         self.list_continents = dict_to_load.get(
             "list_continents", [])
-        if self.list_continents == []:
-            self.build_list_continents()
-
         self.list_countries_to_guess = dict_to_load.get(
             "list_countries_to_guess", [])
-
-        self.dict_countries_in_spinner = dict_to_load.get(
-            "dict_countries_in_spinner", {})
-
-        self.dict_guessed_countries = dict_to_load.get(
-            "dict_guessed_countries", {
-                country_code: {
-                    "list_clues": [],
-                    "multiplicator": 1,
-                    "guessed": False} for country_code in self.list_countries_to_guess})
-
         self.list_current_clues = dict_to_load.get(
             "list_current_clues", [])
 
+        self.dict_guessed_countries = dict_to_load.get(
+            "dict_guessed_countries", {})
         self.dict_details_country = dict_to_load.get(
             "dict_details_country", {})
+        self.list_countries_in_spinner = dict_to_load.get(
+            "list_countries_in_spinner", {})
 
     def build_list_continents(self):
         self.list_continents = LIST_CONTINENTS.copy()
@@ -485,7 +484,7 @@ class Game():
 
         return countries_for_random_choice[country_index]
 
-    def get_other_countries_for_spinner_list(self, code_continent: str, nb_side_countries=12):
+    def get_other_countries_for_spinner_list(self, code_continent: str, nb_side_countries=11):
         # TODO Créer une selection de pays pour mettre dans le spinner
         pass
 
@@ -497,8 +496,8 @@ class Game():
             country = self.get_random_country(code_continent)
             self.list_countries_to_guess.append(country)
 
-    def build_dict_countries_in_spinner(self):
-        # TODO Créer le dictionnaire qui contient des listes des autres pays qui seront dans le spinner
+    def build_list_countries_in_spinner(self):
+        # TODO Créer la liste des autres pays qui seront dans le spinner
         pass
 
     def build_dict_details_country(self):
@@ -506,13 +505,31 @@ class Game():
         # Il faut faire la requête sur self.current_guess_country
         pass
 
-    def launch_game(self):
+    def build_dict_guessed_countries(self):
+        self.dict_guessed_countries = {
+            country_code: {
+                "list_clues": [],
+                "multiplicator": 1,
+                "guessed": False} for country_code in self.list_countries_to_guess
+        }
+
+    def launch_game(self) -> bool:
+        if self.list_continents == []:
+            self.build_list_continents()
         if self.list_countries_to_guess == []:
             self.build_list_countries()
-        if self.dict_countries_in_spinner == []:
-            self.build_dict_countries_in_spinner()
-        if self.dict_details_country == {}:
+        if self.list_current_clues == []:
+            self.choose_clues()
+        if self.dict_guessed_countries == {}:
+            self.build_dict_guessed_countries()
+        if self.list_countries_in_spinner == []:
+            self.build_list_countries_in_spinner()
+        if not self.data_already_loaded:
             self.build_dict_details_country()
+        USER_DATA.save_changes()
+
+        # TODO Return if the request has been successful or not 
+        return True
 
     def choose_clues(self):
         """
@@ -549,19 +566,30 @@ class Game():
                         continue
                     remaining_clues.append(clues_by_categories[i][j])
 
-        # Add additionnal random clues
-        additional_clues_indices = rd.randrange(len(remaining_clues))[:min(
-            len(remaining_clues), 4 - len(list_current_clues))]
-        for i in range(len(additional_clues_indices)):
-            list_current_clues.append(
-                remaining_clues[additional_clues_indices[i]])
+        # Add additional random clues
+        # TODO Paul ça plante rd.randrange(len(remaining_clues))[:min(TypeError: 'int' object is not subscriptable et je ne comprends pas ce que tu voulais faire
+        # additional_clues_indices = rd.randrange(len(remaining_clues))[:min(
+        #     len(remaining_clues), 4 - len(list_current_clues))]
+        # for i in range(len(additional_clues_indices)):
+        #     list_current_clues.append(
+        #         remaining_clues[additional_clues_indices[i]])
 
         # Update the list
         self.list_current_clues = list_current_clues.copy()
 
-    def ask_clue(self, number_clue: int):
-        code_clue = self.list_current_clues[number_clue]
+        # Fill the list with None values
+        while len(self.list_current_clues) < 4:
+            self.list_current_clues.append(None)
+
+    def ask_clue(self, code_clue: str) -> str:
+        self.dict_guessed_countries[self.current_guess_country]["list_clues"].append(code_clue)
+
+        # Reset the list of clues
+        self.list_current_clues = []
+        self.choose_clues()
+
         # TODO Paul retourner le bel affichage de l'indice
+        return "Mon bel indice"
 
     def watch_ad(self):
         self.number_lives += 1
@@ -585,15 +613,36 @@ class Game():
         pass
 
     def go_to_next_country(self):
-        # TODO Paul mettre à jour le dictionnaire dict_guessed_countries quand le joueur a deviné un pays, avec aussi le multiplicateur pour le prochain pays à deviner.
+        self.dict_guessed_countries[self.current_guess_country]["guessed"] = True
+        previous_multiplicator = self.dict_guessed_countries[self.current_guess_country]["multiplicator"]
 
-        # TODO update before this line
+        # Update the index of the current country
+        self.current_country_index += 1
 
         # Check the end of the game or not
-        if self.current_guess_country is None:
+        if self.current_country_index >= 6:
             self.end_game()
         else:
+            # Update the multiplicator for the next country
+            if self.number_lives_used_country == 0:
+                multiplicator = previous_multiplicator + 0.2
+            else:
+                multiplicator = 1
+            self.dict_guessed_countries[self.current_guess_country]["multiplicator"] = multiplicator
+
+            # Reset the number of lives used in the country
+            self.number_lives_used_country = 0
+
+            # Rebuild the dict of details of the next country
+            self.dict_details_country = {}
             self.build_dict_details_country()
+
+            # Rebuild the list of current clues
+            self.list_current_clues = []
+
+            # Rebuild the list of countries in spinner
+            self.list_countries_in_spinner = []
+            self.build_list_countries_in_spinner()
 
     def end_game(self):
         """
@@ -606,7 +655,17 @@ class Game():
             dict_guessed_countries=self.dict_guessed_countries,
             list_continents=self.list_continents)
 
-        # TODO Paul reset le jeu une fois que tout est terminé
+        # Reset all variables in the game when it's over
+        self.number_lives = 3
+        self.number_lives_used_country = 0
+        self.number_credits = NUMBER_CREDITS
+        self.current_country_index = 0
+        self.list_continents = []
+        self.list_countries_to_guess = []
+        self.list_current_clues = []
+        self.dict_guessed_countries = {}
+        self.dict_details_country = {}
+        self.list_countries_in_spinner = {}
 
     def compute_final_game_score(self) -> int:
         # TODO Paul calculer le score avec ta fonction et le retourner
@@ -623,9 +682,8 @@ class Game():
             "list_current_clues": self.list_current_clues,
             "dict_details_country": self.dict_details_country,
             "current_country_index": self.current_country_index,
-            "dict_countries_in_spinner": self.dict_countries_in_spinner
+            "list_countries_in_spinner": self.list_countries_in_spinner
         }
-
 
 class OldGame():
     # Number of lives left for the continent
@@ -1108,7 +1166,6 @@ class OldGame():
 #################
 ### User data ###
 #################
-
 
 class UserData():
     """

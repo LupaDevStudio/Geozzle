@@ -64,8 +64,9 @@
         "select_country_message": "You must select a country from the dropdown menu."
     },
     "game_question": {
-        "title": "Choose a clue from the provided options",
-        "no_more_clues": "You don't have any clue left to guess this country."
+        "title": "Choose a clue",
+        "no_more_clues": "You don't have any clue left.",
+        "go_to_summary": "See the list of clues"
     },
     "game_summary": {
         "i_found": "I've found!",
