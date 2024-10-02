@@ -34,21 +34,19 @@ from tools.path import (
     PATH_IMAGES_GEOJSON
 )
 from tools.constants import (
-    DICT_CONTINENTS_PRIMARY_COLOR,
-    LIST_CONTINENTS,
-    DICT_CONTINENT_SECOND_COLOR,
-    TIME_CHANGE_BACKGROUND,
     SCREEN_TITLE,
     SCREEN_ICON_LEFT_UP,
     SCREEN_THREE_LIVES,
     SCREEN_MULTIPLIER,
-    SCREEN_CONTINENT_PROGRESS_BAR
+    SCREEN_CONTINENT_PROGRESS_BAR,
+    DARK_GRAY,
+    GRAY
 )
 from tools.geozzle import (
     USER_DATA,
     TEXT,
-    SHARED_DATA
-
+    SHARED_DATA,
+    format_clue
 )
 from screens.custom_widgets import GeozzleScreen
 
@@ -88,7 +86,7 @@ class GameSummaryScreen(GeozzleScreen):
         self.update_scroll_view()
         self.update_images()
 
-        if len(USER_DATA.game.list_current_clues) < 2:
+        if len(USER_DATA.game.dict_guessed_countries[USER_DATA.game.current_guess_country]["list_clues"]) < 2:
             self.ids.scrollview.scroll_y = 1
 
     def reload_language(self):
@@ -105,9 +103,20 @@ class GameSummaryScreen(GeozzleScreen):
         """
         self.dict_type_screen[SCREEN_TITLE]["title"] = TEXT.home[self.code_continent]
 
-        self.text_found_country = TEXT.game_summary["i_found"]
-        self.get_new_hint = TEXT.game_summary["new_hint"]
         self.title_label = TEXT.game_summary["title"]
+        self.text_found_country = TEXT.game_summary["i_found"]
+        
+        # Avoid the user to go on game question if no more clues
+        if USER_DATA.game.list_current_clues == [None, None, None, None]:
+            self.ids.clue_button.disable_button = True
+            self.ids.clue_button.background_color = GRAY
+            self.ids.clue_button.color_label = DARK_GRAY
+            self.get_new_hint = TEXT.game_summary["no_more_clues"]
+        else:
+            self.ids.clue_button.disable_button = False
+            self.ids.clue_button.background_color = self.secondary_continent_color
+            self.ids.clue_button.color_label = self.continent_color
+            self.get_new_hint = TEXT.game_summary["new_hint"]
 
         super().reload_language()
 
@@ -163,12 +172,17 @@ class GameSummaryScreen(GeozzleScreen):
 
                 # Add the labels which are not already in the scrollview
                 if not code_clue in self.dict_scrollview_widgets:
+                    text = format_clue(
+                        code_clue=code_clue,
+                        value_clue=USER_DATA.game.dict_details_country[TEXT.language][code_clue],
+                        language=TEXT.language
+                    )
 
                     label_clue = ScrollViewLabel(
-                        text=USER_DATA.game.dict_details_country[TEXT.language][code_clue],
+                        text=text,
                         color=self.continent_color,
                         font_name=self.font_name,
-                        font_size=17 * self.font_ratio,
+                        font_size=16*self.font_ratio,
                         halign="left",
                         valign="middle",
                         shorten=False,

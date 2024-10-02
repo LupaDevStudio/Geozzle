@@ -4,61 +4,71 @@
         "number_lives": 3,
         "number_credits": 1,
         "list_continents": [
-            "Asia",
             "South_America",
-            "Oceania",
+            "Africa",
             "Europe",
             "North_America",
-            "Africa"
+            "Oceania",
+            "Asia"
         ],
         "list_countries_to_guess": [
-            "Q227",
             "Q155",
-            "Q408",
-            "Q228",
-            "Q242",
-            "Q916"
+            "Q262",
+            "Q40",
+            "Q244",
+            "Q702",
+            "Q399"
         ],
         "dict_guessed_countries": {
-            "Q227": {
+            "Q155": {
                 "list_clues": [
-                    "ISO_3_code",
+                    "anthem",
+                    "population",
                     "license_plate_code",
                     "top_level_internet_domain",
-                    "anthem",
-                    "flag",
+                    "driving_side",
+                    "capital",
+                    "motto",
+                    "ISO_3_code",
+                    "official_language",
+                    "area",
+                    "head_of_state",
+                    "currency",
+                    "age_of_majority",
+                    "nominal_GDP",
                     "head_of_government",
-                    "driving_side"
+                    "country_calling_code",
+                    "flag"
                 ],
                 "multiplier": 1,
                 "guessed": false,
                 "nb_lives_used": 0
             },
-            "Q155": {
+            "Q262": {
                 "list_clues": [],
                 "multiplier": 1,
                 "guessed": false,
                 "nb_lives_used": 0
             },
-            "Q408": {
+            "Q40": {
                 "list_clues": [],
                 "multiplier": 1,
                 "guessed": false,
                 "nb_lives_used": 0
             },
-            "Q228": {
+            "Q244": {
                 "list_clues": [],
                 "multiplier": 1,
                 "guessed": false,
                 "nb_lives_used": 0
             },
-            "Q242": {
+            "Q702": {
                 "list_clues": [],
                 "multiplier": 1,
                 "guessed": false,
                 "nb_lives_used": 0
             },
-            "Q916": {
+            "Q399": {
                 "list_clues": [],
                 "multiplier": 1,
                 "guessed": false,
@@ -66,31 +76,53 @@
             }
         },
         "list_current_clues": [
-            "head_of_state",
-            "area",
-            "official_language",
-            "age_of_majority"
+            null,
+            null,
+            null,
+            null
         ],
         "dict_details_country": {
             "english": {
-                "capital": "Baku",
-                "official_language": "Azerbaijani",
-                "head_of_government": "Ali Asadov",
-                "anthem": "Az\u0259rbaycan mar\u015f\u0131",
-                "head_of_state": "Ilham Aliyev",
-                "currency": "Azerbaijani manat",
-                "driving_side": "right",
-                "top_level_internet_domain": ".az",
-                "area": "86600 km\u00b2",
-                "nominal_GDP": "78721058824 $, 54825411765 $",
-                "country_calling_code": "+994",
-                "ISO_3_code": "AZE",
-                "license_plate_code": "AZ",
-                "ISO_2_code": "AZ",
+                "area": "8515767 km\u00b2",
+                "nominal_GDP": "1920095560995 $, 1649622972159 $",
                 "age_of_majority": "18",
-                "population": "10145212",
-                "human_development_index": "0.745",
-                "flag": "Q227.png"
+                "ISO_3_code": "BRA",
+                "license_plate_code": "BR",
+                "ISO_2_code": "BR",
+                "country_calling_code": "+55",
+                "human_development_index": "0.754",
+                "population": "203062512",
+                "flag": "Q155.png",
+                "capital": "Bras\u00edlia",
+                "official_language": "Portuguese",
+                "currency": "Brazilian real",
+                "head_of_state": "Luiz In\u00e1cio Lula da Silva",
+                "head_of_government": "Luiz In\u00e1cio Lula da Silva",
+                "anthem": "Brazilian National Anthem",
+                "driving_side": "right",
+                "top_level_internet_domain": ".br",
+                "motto": "Order and Progress"
+            },
+            "french": {
+                "license_plate_code": "BR",
+                "ISO_3_code": "BRA",
+                "ISO_2_code": "BR",
+                "age_of_majority": "18",
+                "country_calling_code": "+55",
+                "human_development_index": "0.754",
+                "population": "203062512",
+                "flag": "Q155.png",
+                "area": "8515767 km\u00b2",
+                "nominal_GDP": "1920095560995 $, 1649622972159 $",
+                "capital": "Brasilia",
+                "official_language": "portugais",
+                "head_of_state": "Luiz In\u00e1cio Lula da Silva",
+                "anthem": "Hino Nacional Brasileiro",
+                "head_of_government": "Luiz In\u00e1cio Lula da Silva",
+                "currency": "r\u00e9al br\u00e9silien",
+                "driving_side": "droite",
+                "top_level_internet_domain": ".br",
+                "motto": "Order and Progress"
             }
         },
         "current_country_index": 0,
@@ -109,11 +141,11 @@
     "music_volume": 0.5,
     "sound_volume": 0.5,
     "unlocked_backgrounds": [
-        "europe_russia3.jpg",
-        "asia_singapour_skyline.jpg",
-        "africa_marrakech.jpg",
+        "europe_venice.jpg",
+        "asia_petra3.jpg",
+        "africa_nile.jpg",
         "north_statueliberty2.jpg",
-        "south_america.jpg",
-        "oceania_te_anau3.jpg"
+        "south_lost_city.jpg",
+        "oceania_australia2.jpg"
     ]
 }

@@ -33,8 +33,8 @@
         font_ratio: root.font_ratio
     ScrollView:
         id: scrollview
-        pos_hint: {"center_x":0.5, "y":0.25}
-        size_hint: (0.78, HEIGHT_HINT_SCROLLVIEW-0.025)
+        pos_hint: {"center_x":0.5, "y":0.25+0.0125}
+        size_hint: (0.77, HEIGHT_HINT_SCROLLVIEW-0.025)
         do_scroll_x: False
         scroll_type: ["bars", "content"]
         bar_width: 10*root.font_ratio
@@ -45,7 +45,7 @@
             id: scrollview_layout
             cols:1
             spacing:20*root.font_ratio
-            padding: (0.05*root.width, 10,0.05*root.width,40)
+            padding: 10*root.font_ratio
 
     FlagImage:
         id: flag_image
@@ -66,12 +66,11 @@
 
     # Button to get new clue and go back to game summary
     ColoredRoundedButton:
-        background_color: root.secondary_continent_color
+        id: clue_button
         text: root.get_new_hint
         font_size: BUTTON_FONT_SIZE
         pos_hint: {"center_x":0.275, "y":0.025}
         size_hint: (0.4, 0.075)
-        color_label: root.continent_color 
         release_function: root.go_to_game_question
         font_ratio: root.font_ratio
 

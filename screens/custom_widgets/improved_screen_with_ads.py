@@ -52,6 +52,7 @@ from tools.path import (
 )
 from tools.geozzle import (
     USER_DATA,
+    SHARED_DATA,
     TEXT
 )
 
@@ -223,6 +224,12 @@ class GeozzleScreen(ImprovedScreenWithAds):
         else:
             self.continent_color = BLACK
             self.secondary_continent_color = GRAY
+
+    def change_background_continent(self, *args):
+        # Change the background and propagate it in the other screens
+        new_background = SHARED_DATA.choose_random_background_continent(
+            code_continent=self.code_continent)
+        self.manager.change_background(background_path=new_background)
 
     def go_to_home(self):
         self.manager.get_screen("home").previous_screen_name = self.manager.current

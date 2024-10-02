@@ -64,13 +64,12 @@
         "select_country_message": "You must select a country from the dropdown menu."
     },
     "game_question": {
-        "title": "Choose a clue",
-        "no_more_clues": "You don't have any clue left.",
-        "go_to_summary": "See the list of clues"
+        "title": "Choose a clue"
     },
     "game_summary": {
         "i_found": "I've found!",
         "new_hint": "New hint",
+        "no_more_clues": "No more clues available",
         "title": "Which country is it?",
         "zoom_flag_title": "Flag",
         "zoom_geojson_title": "Country shape"

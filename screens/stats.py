@@ -160,7 +160,6 @@ class StatsScreen(GeozzleScreen):
     def open_continent_details(self, code_continent: str):
         self.manager.get_screen(
             "stats_continent").code_continent = code_continent
-        self.manager.get_screen("stats_continent").previous_screen_name = self.manager.current
         self.manager.current = "stats_continent"
 
     def on_leave(self, *args):

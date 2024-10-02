@@ -79,14 +79,6 @@ class GameQuestionScreen(GeozzleScreen):
             font_name=PATH_TEXT_FONT,
             **kwargs)
 
-    def on_pre_enter(self, *args):
-        super().on_pre_enter(*args)
-
-        # Change the background and propagate it in the other screens
-        new_background = SHARED_DATA.choose_random_background_continent(
-            code_continent=self.code_continent)
-        self.manager.change_background(background_path=new_background)
-
     def reload_language(self):
         """
         Update the labels depending on the language.
@@ -114,12 +106,6 @@ class GameQuestionScreen(GeozzleScreen):
             self.number_stars_1 = DICT_HINTS_INFORMATION[code_clue_1]["category"]
             self.ids.hint_1_button.release_function = partial(
                 self.add_clue, code_clue_1)
-        else:
-            self.title_label = TEXT.game_question["no_more_clues"]
-            self.hint_1 = TEXT.game_question["go_to_summary"]
-            self.ids.hint_1_button.release_function = partial(
-                self.add_clue, None)
-            self.number_stars_1 = 0
 
         # Display the second clue if it exists
         if not code_clue_2 is None:
@@ -165,7 +151,7 @@ class GameQuestionScreen(GeozzleScreen):
 
         super().reload_language()
 
-    def add_clue(self, code_clue: int):
+    def add_clue(self, code_clue: str):
         # Add the clue in the class
         USER_DATA.game.ask_clue(code_clue=code_clue)
 

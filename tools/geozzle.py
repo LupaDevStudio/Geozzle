@@ -256,37 +256,6 @@ def get_nb_stars(list_clues: list[str]) -> int:
             nb_stars = DICT_HINTS_INFORMATION[code_clue]["category"]
     return nb_stars
 
-
-def calculate_score_clues(part_highscore: float, nb_clues: int) -> int:
-    """
-    Calculate the score of the user depending only on the number of clues used.
-
-    Parameters
-    ----------
-    part_highscore : float
-        Part of the score to attribute to the clues.
-    nb_clues : int
-        Number of clues used to guess the country.
-
-    Returns
-    -------
-    int
-        Score of the user for the clues part.
-    """
-    # If the user guesses with less than 3 clues, he has all points
-    if nb_clues <= 3:
-        return part_highscore
-
-    # Lose points after, until using more than 12 clues
-    part_highscore = part_highscore * (1 - (nb_clues - 3) / 9)
-
-    # No negative score
-    if part_highscore <= 0:
-        return 0
-
-    return part_highscore
-
-
 #############
 ### Class ###
 #############
@@ -524,11 +493,9 @@ class Game():
     def build_dict_details_country(self):
         # Reload only if no data available in the language
         if USER_DATA.language not in self.dict_details_country:
-            self.dict_details_country = {
-                USER_DATA.language: request_all_clues(
-                    wikidata_code_country=self.current_guess_country,
-                    code_continent=self.current_guess_continent, wikidata_language=DICT_WIKIDATA_LANGUAGE[USER_DATA.language])
-            }
+            self.dict_details_country[USER_DATA.language] = request_all_clues(
+                wikidata_code_country=self.current_guess_country,
+                code_continent=self.current_guess_continent, wikidata_language=DICT_WIKIDATA_LANGUAGE[USER_DATA.language])
 
             if self.dict_details_country[USER_DATA.language] is None:
                 return False
@@ -539,12 +506,11 @@ class Game():
             else:
                 alternative_language = "french"
 
-            # Deal with case when user request in a language and change and not same clues in both languages
-            for clue in self.list_current_clues:
-                if clue not in self.dict_details_country[USER_DATA.language]:
-                    self.dict_details_country[USER_DATA.language][clue] = self.dict_details_country[alternative_language][clue]
+            # Deal with cases when user request in a language and change and not the same clues in both languages
+            for code_clue in self.dict_guessed_countries[self.current_guess_country]["list_clues"]:
+                if code_clue not in self.dict_details_country[USER_DATA.language]:
+                    self.dict_details_country[USER_DATA.language][code_clue] = self.dict_details_country[alternative_language][code_clue]
 
-            return True
         return True
 
     def build_dict_guessed_countries(self):
@@ -566,11 +532,15 @@ class Game():
         if self.list_countries_in_spinner == []:
             self.build_list_countries_in_spinner()
         request_status = self.build_dict_details_country()
+
+        if not request_status:
+            return False
+
         if self.list_current_clues == []:
             self.choose_clues()
         USER_DATA.save_changes()
 
-        return request_status
+        return True
 
     def choose_clues(self):
         """
@@ -673,7 +643,8 @@ class Game():
 
             # Rebuild the dict of details of the next country
             self.dict_details_country = {}
-            self.build_dict_details_country()
+            # TODO faire quelque chose avec request status
+            request_status = self.build_dict_details_country()
 
             # Rebuild the list of current clues
             self.list_current_clues = []
@@ -1054,46 +1025,6 @@ class OldGame():
         # Save the changes in the USER_DATA
         USER_DATA.continents[self.code_continent]["percentage"] = percentage
         USER_DATA.save_changes()
-
-    def update_score(self) -> int:
-        """
-        Update the score of the user in its data when he has guessed a country.
-        The score is divided into two parts:
-            - the number of lives he used to guess the country
-            - the number of clues he used to guess the country
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        int
-            Current score
-        """
-        current_score = 0
-        highscore = USER_DATA.continents[self.code_continent]["highscore"]
-        part_highscore = 10000 / len(self.list_all_countries)
-        half_part_highscore = part_highscore / 2
-
-        # Depending on the number of lives => half the score
-        current_score += (max(3 - self.number_lives_used_game, 0)
-                          * half_part_highscore) / 3
-
-        # Depending on the number of clues used => the other half of the score
-        current_score += calculate_score_clues(
-            part_highscore=half_part_highscore,
-            nb_clues=len(self.dict_clues[TEXT.language])
-        )
-
-        # Set the max score to 10 000
-        new_score = min(10000, highscore + current_score)
-
-        # Save the changes in the USER_DATA
-        USER_DATA.continents[self.code_continent]["highscore"] = new_score
-        USER_DATA.save_changes()
-
-        return current_score
 
     def choose_three_clues(self):
         """

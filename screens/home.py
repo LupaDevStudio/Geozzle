@@ -144,27 +144,33 @@ class HomeScreen(GeozzleScreen):
         if self.loading_popup is not None:
             self.loading_popup.dismiss()
         if has_success:
-            Clock.schedule_once(
-                self.manager.get_screen("game_summary").reset_scroll_view
-            )
+            code_continent = USER_DATA.game.current_guess_continent
 
             self.manager.get_screen(
-                "game_question").code_continent = USER_DATA.game.current_guess_continent
+                "game_question").code_continent = code_continent
             self.manager.get_screen(
-                "game_question").previous_screen_name = "home"
+                "game_summary").reset_scroll_view()
             self.manager.get_screen(
-                "game_summary").code_continent = USER_DATA.game.current_guess_continent
+                "game_summary").code_continent = code_continent
             self.manager.get_screen(
-                "game_over").code_continent = USER_DATA.game.current_guess_continent
+                "game_over").code_continent = code_continent
             self.manager.get_screen(
                 "game_over").update_countries()
-
-            # Go to the screen game question
-            self.manager.current = "game_question"
 
             # Unschedule the clock updates
             Clock.unschedule(self.manager.change_background,
                 TIME_CHANGE_BACKGROUND)
+
+            # Go to the screen game question if there are still clues to get
+            if USER_DATA.game.list_current_clues != [None, None, None, None]:
+                next_screen = "game_question"
+            else:
+                next_screen = "game_summary"
+            self.manager.get_screen(
+                next_screen).previous_screen_name = "home"
+            Clock.schedule_once(self.manager.get_screen(
+                next_screen).change_background_continent)
+            self.manager.current = next_screen
 
         else:
             code_continent = USER_DATA.game.current_guess_continent
