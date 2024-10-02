@@ -108,10 +108,14 @@ class WindowManager(ScreenManager):
             while image == current_screen.back_image_path and background_path is None:
                 image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
 
-            current_screen.set_back_image_path(
-                back_image_path=image,
-                mode="second"
-            )
+            if image != current_screen.back_image_path:
+                current_screen.set_back_image_path(
+                    back_image_path=image,
+                    mode="second"
+                )
+                change_image = True
+            else:
+                change_image = False
 
         else:
             if background_path is not None:
@@ -123,17 +127,22 @@ class WindowManager(ScreenManager):
             while image == current_screen.second_back_image_path and background_path is None:
                 image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
 
-            current_screen.set_back_image_path(
-                back_image_path=image,
-                mode="main"
-            )
+            if image != current_screen.second_back_image_path:
+                current_screen.set_back_image_path(
+                    back_image_path=image,
+                    mode="main"
+                )
+                change_image = True
+            else:
+                change_image = False
 
-        # Schedule the change of the opacity to have a smooth transition
-        Clock.schedule_interval(
-            current_screen.change_background_opacity, 1 / FPS)
-        current_screen.is_transition = True
+        if change_image:
+            # Schedule the change of the opacity to have a smooth transition
+            Clock.schedule_interval(
+                current_screen.change_background_opacity, 1 / FPS)
+            current_screen.is_transition = True
 
-        self.propagate_background_on_other_screens()
+            self.propagate_background_on_other_screens()
 
 
 class MainApp(App, Widget):

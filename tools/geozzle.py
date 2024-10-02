@@ -407,9 +407,7 @@ class Game():
         """If the data of the current country has already been downloaded from wikidata."""
         if self.dict_details_country == {}:
             return False
-        if not TEXT.language in self.dict_details_country:
-            return False
-        return self.current_guess_country in self.dict_details_country[TEXT.language]
+        return TEXT.language in self.dict_details_country
 
     @property
     def current_multiplier(self):
@@ -424,9 +422,9 @@ class Game():
                 streak = 0
 
         # Compute the multiplier
-        mutliplier = 1. + 0.2 * streak
+        multiplier = 1. + 0.2 * streak
 
-        return mutliplier
+        return multiplier
 
     def __init__(self, dict_to_load: dict) -> None:
         self.number_lives = dict_to_load.get("number_lives", 3)
@@ -528,7 +526,8 @@ class Game():
         if USER_DATA.language not in self.dict_details_country:
             self.dict_details_country = {
                 USER_DATA.language: request_all_clues(
-                    self.current_guess_country, self.current_guess_continent, USER_DATA.language)
+                    wikidata_code_country=self.current_guess_country,
+                    code_continent=self.current_guess_continent, wikidata_language=DICT_WIKIDATA_LANGUAGE[USER_DATA.language])
             }
 
             if self.dict_details_country[USER_DATA.language] is None:
@@ -580,7 +579,7 @@ class Game():
         """
 
         # Extract the list of clues that have already been used
-        clues_already_used = self.dict_guessed_countries[self.current_guess_country]
+        clues_already_used = self.dict_guessed_countries[self.current_guess_country]["list_clues"]
 
         # Create the list of all 1 star, 2 stars and 3 stars clues avoiding the ones that have already been used
         clues_by_categories = {1: [], 2: [], 3: []}
@@ -624,20 +623,22 @@ class Game():
         while len(self.list_current_clues) < 4:
             self.list_current_clues.append(None)
 
-    def ask_clue(self, code_clue: str) -> str:
-        self.dict_guessed_countries[self.current_guess_country]["list_clues"].append(
-            code_clue)
+    def ask_clue(self, code_clue: str):
+        # Add the new clue in the list of clues used
+        self.dict_guessed_countries[self.current_guess_country][
+            "list_clues"].append(code_clue)
 
         # Reset the list of clues
         self.list_current_clues = []
         self.choose_clues()
 
-        # TODO Paul retourner le bel affichage de l'indice
-        return "Mon bel indice"
+        # Save the changes
+        USER_DATA.save_changes()
 
     def watch_ad(self):
         self.number_lives += 1
         self.number_credits -= 1
+        USER_DATA.save_changes()
 
     def check_country(self, guessed_country: str) -> bool:
         """
@@ -847,7 +848,7 @@ class OldGame():
         dict_all_clues_current_language = request_all_clues(
             wikidata_code_country=self.wikidata_code_country,
             code_continent=self.code_continent,
-            language=DICT_WIKIDATA_LANGUAGE[TEXT.language])
+            wikidata_language=DICT_WIKIDATA_LANGUAGE[TEXT.language])
 
         if dict_all_clues_current_language is None:
             return False
@@ -1493,6 +1494,13 @@ class SharedData():
                     self.add_new_background(
                         code_background=code_background,
                         code_continent=code_continent)
+
+    def choose_random_background_continent(self, code_continent: str):
+        list_corresponding_backgrounds = []
+        for full_path in self.list_unlocked_backgrounds:
+            if code_continent in full_path:
+                list_corresponding_backgrounds.append(full_path)
+        return rd.choice(list_corresponding_backgrounds)
 
     def add_new_background(self, code_background: str, code_continent: str) -> str:
         full_path = PATH_BACKGROUNDS + code_continent + "/" + code_background

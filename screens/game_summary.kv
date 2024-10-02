@@ -1,6 +1,6 @@
 #:kivy 2.2.1
 #:import BUTTON_FONT_SIZE tools.constants.BUTTON_FONT_SIZE
-#:set HEIGHT_HINT_SCROLLVIEW 0.5
+#:set HEIGHT_HINT_SCROLLVIEW 0.38
 
 <ScrollViewLabel>:
     size_hint_y: None
@@ -12,7 +12,7 @@
         text: root.title_label
         font_name: PATH_TITLE_FONT
         font_size: MAIN_TEXT_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.85}
+        pos_hint: {"center_x":0.5, "center_y":0.68}
         outline_width: max(SUBTITLE_OUTLINE_WIDTH * root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
         color: root.continent_color
@@ -23,24 +23,17 @@
         valign: "center"
         line_height: 1
 
-    ThreeLives:
-        continent_color: root.continent_color
-        pos_hint: {"x":0.57, "top":0.98}
-        size_hint: (0.4, 0.075)
-        number_lives_on: root.number_lives_on
-        release_function: root.open_buy_life_popup
-
     # Scroll view with all clues
     ColoredRoundedButton:
         background_color: (1, 1, 1, 1)
-        pos_hint: {"center_x":0.5, "center_y":0.525}
+        pos_hint: {"center_x":0.5, "y":0.25}
         size_hint: (0.8, HEIGHT_HINT_SCROLLVIEW)
         color_label: root.continent_color
         disable_button: True
         font_ratio: root.font_ratio
     ScrollView:
         id: scrollview
-        pos_hint: {"center_x":0.5, "center_y":0.525}
+        pos_hint: {"center_x":0.5, "y":0.25}
         size_hint: (0.78, HEIGHT_HINT_SCROLLVIEW-0.025)
         do_scroll_x: False
         scroll_type: ["bars", "content"]
@@ -57,7 +50,7 @@
     FlagImage:
         id: flag_image
         size_hint: (None, 0.1)
-        pos_hint: {"center_x":0.25,"center_y":0.2}
+        pos_hint: {"center_x":0.275,"y":0.125}
         primary_color: root.continent_color
         release_function: root.open_popup_flag
         font_ratio: root.font_ratio
@@ -65,7 +58,7 @@
     GeojsonImage:
         id: geojson_image
         size_hint: (None, 0.1)
-        pos_hint: {"center_x":0.75,"center_y":0.2}
+        pos_hint: {"center_x":0.725,"y":0.125}
         primary_color: root.continent_color
         color: root.continent_color
         font_ratio: root.font_ratio
@@ -76,7 +69,7 @@
         background_color: root.secondary_continent_color
         text: root.get_new_hint
         font_size: BUTTON_FONT_SIZE
-        pos_hint: {"center_x":0.275, "center_y":0.075}
+        pos_hint: {"center_x":0.275, "y":0.025}
         size_hint: (0.4, 0.075)
         color_label: root.continent_color 
         release_function: root.go_to_game_question
@@ -87,7 +80,7 @@
         text: root.text_found_country
         background_color: root.continent_color
         font_size: BUTTON_FONT_SIZE
-        pos_hint: {"center_x":0.725, "center_y":0.075}
+        pos_hint: {"center_x":0.725, "y":0.025}
         size_hint: (0.4, 0.075)
         color_label: root.secondary_continent_color
         release_function: root.go_to_game_over

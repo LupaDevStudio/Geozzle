@@ -6,7 +6,7 @@
         text: root.title_label
         font_name: PATH_TITLE_FONT
         font_size: MAIN_TEXT_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.85}
+        pos_hint: {"center_x":0.5, "center_y":0.68}
         outline_width: max(SUBTITLE_OUTLINE_WIDTH * root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
         color: root.continent_color
@@ -43,13 +43,6 @@
         halign: "center"
         valign: "center"
         line_height: 1
-
-    ThreeLives:
-        continent_color: root.continent_color
-        pos_hint: {"center_x":0.5, "center_y":0.475}
-        size_hint: (0.5, 0.15)
-        number_lives_on: root.number_lives_on
-        release_function: root.open_buy_life_popup
 
     # Score indication
     Label:

@@ -65,7 +65,6 @@ class GameSummaryScreen(GeozzleScreen):
 
     dict_scrollview_widgets = {}
     text_found_country = StringProperty()
-    current_hint = StringProperty() # the value of the hint correctly formatted
     get_new_hint = StringProperty()
     title_label = StringProperty()
 
@@ -86,16 +85,11 @@ class GameSummaryScreen(GeozzleScreen):
     def on_pre_enter(self, *args):
         super().on_pre_enter(*args)
 
-        self.update_font_ratio()
         self.update_scroll_view()
         self.update_images()
 
-    def on_enter(self, *args):
-
-        if len(USER_DATA.game.dict_clues[TEXT.language]) < 2:
+        if len(USER_DATA.game.list_current_clues) < 2:
             self.ids.scrollview.scroll_y = 1
-
-        return super().on_enter(*args)
 
     def reload_language(self):
         """
@@ -119,19 +113,18 @@ class GameSummaryScreen(GeozzleScreen):
 
     def update_images(self):
         # Update the flag image
-        if "flag" in USER_DATA.game.dict_clues[TEXT.language]:
+        if "flag" in USER_DATA.game.dict_guessed_countries[USER_DATA.game.current_guess_country]["list_clues"]:
             self.ids.flag_image.reload()
-            self.ids.flag_image.source = PATH_IMAGES_FLAG + self.code_continent.lower() + \
-                ".png"
+            self.ids.flag_image.source = PATH_IMAGES_FLAG + USER_DATA.game.current_guess_country + ".png"
             self.ids.flag_image.disable_button = False
         else:
             self.ids.flag_image.source = PATH_IMAGES_FLAG_UNKNOWN
             self.ids.flag_image.disable_button = True
 
         # Update the geojson image
-        if "ISO_3_code" in USER_DATA.game.dict_clues[TEXT.language]:
+        if "ISO_3_code" in USER_DATA.game.dict_guessed_countries[USER_DATA.game.current_guess_country]["list_clues"]:
             self.ids.geojson_image.reload()
-            self.ids.geojson_image.source = PATH_IMAGES_GEOJSON + USER_DATA.game.dict_clues[TEXT.language]["ISO_3_code"] + \
+            self.ids.geojson_image.source = PATH_IMAGES_GEOJSON + USER_DATA.game.dict_details_country[TEXT.language]["ISO_3_code"] + \
                 ".png"
             self.ids.geojson_image.disable_button = False
         else:
@@ -165,14 +158,14 @@ class GameSummaryScreen(GeozzleScreen):
         -------
         None
         """
-        for key in USER_DATA.game.dict_clues[TEXT.language]:
-            if not key in ["flag", "ISO_3_code"]:
+        for code_clue in USER_DATA.game.dict_guessed_countries[USER_DATA.game.current_guess_country]["list_clues"]:
+            if not code_clue in ["flag", "ISO_3_code"]:
 
                 # Add the labels which are not already in the scrollview
-                if not key in self.dict_scrollview_widgets:
+                if not code_clue in self.dict_scrollview_widgets:
 
                     label_clue = ScrollViewLabel(
-                        text=USER_DATA.game.dict_clues[TEXT.language][key],
+                        text=USER_DATA.game.dict_details_country[TEXT.language][code_clue],
                         color=self.continent_color,
                         font_name=self.font_name,
                         font_size=17 * self.font_ratio,
@@ -183,10 +176,7 @@ class GameSummaryScreen(GeozzleScreen):
                     )
                     self.ids.scrollview_layout.add_widget(label_clue)
 
-                    self.dict_scrollview_widgets[key] = label_clue
-
-            else:
-                self.update_images()
+                    self.dict_scrollview_widgets[code_clue] = label_clue
 
     def go_to_game_over(self):
         self.manager.get_screen(
@@ -200,14 +190,13 @@ class GameSummaryScreen(GeozzleScreen):
 
     def open_popup_image(self, mode: Literal["flag", "geojson"]):
         if mode == "flag":
-            image_source = PATH_IMAGES_FLAG + self.code_continent.lower() + ".png"
+            image_source = PATH_IMAGES_FLAG + USER_DATA.game.current_guess_country + ".png"
         elif mode == "geojson":
             image_source = PATH_IMAGES_GEOJSON + \
-                USER_DATA.game.dict_clues[TEXT.language]["ISO_3_code"] + ".png"
-            print(image_source)
+                USER_DATA.game.dict_details_country[TEXT.language]["ISO_3_code"] + ".png"
         popup = ImagePopup(
             primary_color=self.continent_color,
-            secondary_color=DICT_CONTINENT_SECOND_COLOR[self.code_continent],
+            secondary_color=self.secondary_continent_color,
             title=TEXT.game_summary["zoom_" + mode + "_title"],
             font_ratio=self.font_ratio,
             image_source=image_source,

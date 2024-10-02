@@ -23,6 +23,7 @@ from tools.constants import (
     DICT_WIKIDATA_LANGUAGE,
     URL_WIKIDATA
 )
+
 from tools.path import (
     PATH_QUERIES_CONTINENT,
     PATH_DICT_EXCEPTIONS_COUNTRIES,
@@ -358,7 +359,6 @@ def make_request(query):
         print("No connection")
         return
 
-
 def request_countries_continent(code_continent, language: Literal["en", "fr"] = "en"):
     wikidata_code_continent = DICT_WIKIDATA_CONTINENTS[code_continent]
     query = """
@@ -415,46 +415,45 @@ def request_countries_continent(code_continent, language: Literal["en", "fr"] = 
         dict_to_save=dict_results
     )
 
+# def download_png_from_svg_url(svg_url: str, code_continent: str):
+#     """
+#     DEPRECATED
+#     """
+#     try:
+#         svg_url = svg_url.replace("Special:FilePath/", "File:")
+#         response = requests.get(
+#             url=svg_url,
+#             timeout=5)
+#         data = response.text
+#         extracted_data = data
+#         end_mark = data.find("Original file</a>") + len("Original file</a>")
+#         cut_data = data[:end_mark]
+#         begin_mark = cut_data.rfind("<a")
+#         extracted_data = data[begin_mark:end_mark]
+#         segments = extracted_data.split(" ")
+#         for segment in segments:
+#             if "href" in segment:
+#                 result = segment[:-1].replace('href="', "")
+#                 break
 
-def download_png_from_svg_url(svg_url: str, code_continent: str):
-    """
-    DEPRECATED
-    """
-    try:
-        svg_url = svg_url.replace("Special:FilePath/", "File:")
-        response = requests.get(
-            url=svg_url,
-            timeout=5)
-        data = response.text
-        extracted_data = data
-        end_mark = data.find("Original file</a>") + len("Original file</a>")
-        cut_data = data[:end_mark]
-        begin_mark = cut_data.rfind("<a")
-        extracted_data = data[begin_mark:end_mark]
-        segments = extracted_data.split(" ")
-        for segment in segments:
-            if "href" in segment:
-                result = segment[:-1].replace('href="', "")
-                break
+#         name = result.split("/")[-1]
 
-        name = result.split("/")[-1]
+#         png_url = result + f"/512px-{name}.png"
 
-        png_url = result + f"/512px-{name}.png"
+#         png_url = png_url.replace("https://upload.wikimedia.org/wikipedia/commons/",
+#                                   "https://upload.wikimedia.org/wikipedia/commons/thumb/")
+#         url = png_url
 
-        png_url = png_url.replace("https://upload.wikimedia.org/wikipedia/commons/",
-                                  "https://upload.wikimedia.org/wikipedia/commons/thumb/")
-        url = png_url
+#         headers = {
+#             'User-Agent': 'Geozzle/1.0 (https://lupadevstudio.com; lupa.dev.studio@gmail.com) python-requests/2.28.2'}
 
-        headers = {
-            'User-Agent': 'Geozzle/1.0 (https://lupadevstudio.com; lupa.dev.studio@gmail.com) python-requests/2.28.2'}
-
-        response = requests.get(url, headers=headers, stream=True)
-        with open(PATH_IMAGES_FLAG + code_continent.lower() + ".png", 'wb') as out_file:
-            shutil.copyfileobj(response.raw, out_file)
-        return True
-    except:
-        print("No connection")
-        return False
+#         response = requests.get(url, headers=headers, stream=True)
+#         with open(PATH_IMAGES_FLAG + code_continent.lower() + ".png", 'wb') as out_file:
+#             shutil.copyfileobj(response.raw, out_file)
+#         return True
+#     except:
+#         print("No connection")
+#         return False
 
 
 def format_list_string(list_data):
@@ -496,8 +495,6 @@ def post_treat_request(data, code_continent: str, wikidata_code_country: str):
             dict_all_clues[type_hint] = []
         dict_all_clues[type_hint].append((value_hint, unit_hint))
 
-    hints_to_delete = []
-
     # Format the list into string
     for type_hint in dict_all_clues:
         if type_hint != "flag":
@@ -506,17 +503,14 @@ def post_treat_request(data, code_continent: str, wikidata_code_country: str):
         else:
             dict_all_clues[type_hint] = wikidata_code_country + ".png"
 
-    for type_hint in hints_to_delete:
-        del dict_all_clues[type_hint]
-
     return dict_all_clues
 
 
-def request_all_clues(wikidata_code_country: str, code_continent: str, language):
+def request_all_clues(wikidata_code_country: str, code_continent: str, wikidata_language: str):
     query = (
         COMPRESSED_HINTS_QUERY
         .replace("$Q_country", wikidata_code_country)
-        .replace("$output_language", language)
+        .replace("$output_language", wikidata_language)
     )
 
     data = make_request(query)
@@ -539,4 +533,4 @@ if __name__ == "__main__":
         for code_continent in DICT_WIKIDATA_CONTINENTS:
             request_countries_continent(
                 code_continent=code_continent, language="fr")
-    print(request_all_clues("Q236", "Europe", "english"))
+    print(request_all_clues("Q142", "Europe", "en"))

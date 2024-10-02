@@ -64,7 +64,6 @@ class ContinentProgressBar(RelativeLayout):
 
     def __init__(self, **kw):
         super().__init__(**kw)
-        print(self.continents_list)
 
         self.bind(continents_list=self.disp_continents)
 

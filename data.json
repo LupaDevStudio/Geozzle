@@ -2,63 +2,97 @@
     "language": "english",
     "game": {
         "number_lives": 3,
-        "number_lives_used_country": 0,
         "number_credits": 1,
         "list_continents": [
-            "Africa",
-            "North_America",
+            "Asia",
             "South_America",
             "Oceania",
-            "Asia",
-            "Europe"
+            "Europe",
+            "North_America",
+            "Africa"
         ],
         "list_countries_to_guess": [
-            "Q916",
-            "Q781",
-            "Q414",
-            "Q408",
             "Q227",
-            "Q228"
+            "Q155",
+            "Q408",
+            "Q228",
+            "Q242",
+            "Q916"
         ],
         "dict_guessed_countries": {
-            "Q916": {
-                "list_clues": [],
+            "Q227": {
+                "list_clues": [
+                    "ISO_3_code",
+                    "license_plate_code",
+                    "top_level_internet_domain",
+                    "anthem",
+                    "flag",
+                    "head_of_government",
+                    "driving_side"
+                ],
                 "multiplier": 1,
-                "guessed": false
+                "guessed": false,
+                "nb_lives_used": 0
             },
-            "Q781": {
+            "Q155": {
                 "list_clues": [],
                 "multiplier": 1,
-                "guessed": false
-            },
-            "Q414": {
-                "list_clues": [],
-                "multiplier": 1,
-                "guessed": false
+                "guessed": false,
+                "nb_lives_used": 0
             },
             "Q408": {
                 "list_clues": [],
                 "multiplier": 1,
-                "guessed": false
-            },
-            "Q227": {
-                "list_clues": [],
-                "multiplier": 1,
-                "guessed": false
+                "guessed": false,
+                "nb_lives_used": 0
             },
             "Q228": {
                 "list_clues": [],
                 "multiplier": 1,
-                "guessed": false
+                "guessed": false,
+                "nb_lives_used": 0
+            },
+            "Q242": {
+                "list_clues": [],
+                "multiplier": 1,
+                "guessed": false,
+                "nb_lives_used": 0
+            },
+            "Q916": {
+                "list_clues": [],
+                "multiplier": 1,
+                "guessed": false,
+                "nb_lives_used": 0
             }
         },
         "list_current_clues": [
-            "top_level_internet_domain",
-            "head_of_government",
-            "nominal_GDP",
-            "population"
+            "head_of_state",
+            "area",
+            "official_language",
+            "age_of_majority"
         ],
-        "dict_details_country": {},
+        "dict_details_country": {
+            "english": {
+                "capital": "Baku",
+                "official_language": "Azerbaijani",
+                "head_of_government": "Ali Asadov",
+                "anthem": "Az\u0259rbaycan mar\u015f\u0131",
+                "head_of_state": "Ilham Aliyev",
+                "currency": "Azerbaijani manat",
+                "driving_side": "right",
+                "top_level_internet_domain": ".az",
+                "area": "86600 km\u00b2",
+                "nominal_GDP": "78721058824 $, 54825411765 $",
+                "country_calling_code": "+994",
+                "ISO_3_code": "AZE",
+                "license_plate_code": "AZ",
+                "ISO_2_code": "AZ",
+                "age_of_majority": "18",
+                "population": "10145212",
+                "human_development_index": "0.745",
+                "flag": "Q227.png"
+            }
+        },
         "current_country_index": 0,
         "list_countries_in_spinner": {}
     },
@@ -75,11 +109,11 @@
     "music_volume": 0.5,
     "sound_volume": 0.5,
     "unlocked_backgrounds": [
-        "europe_rome2.jpg",
-        "asia_CA_2023_15G.jpg",
-        "africa_nile.jpg",
-        "north_tikal.jpg",
-        "south_america2.jpg",
-        "oceania_simpsons_gap.jpg"
+        "europe_russia3.jpg",
+        "asia_singapour_skyline.jpg",
+        "africa_marrakech.jpg",
+        "north_statueliberty2.jpg",
+        "south_america.jpg",
+        "oceania_te_anau3.jpg"
     ]
 }

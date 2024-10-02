@@ -83,7 +83,9 @@ class GameQuestionScreen(GeozzleScreen):
         super().on_pre_enter(*args)
 
         # Change the background and propagate it in the other screens
-        self.manager.change_background(background_path=PATH_BACKGROUNDS + self.code_continent + "/" + rd.choice(os.listdir(PATH_BACKGROUNDS + self.code_continent)))
+        new_background = SHARED_DATA.choose_random_background_continent(
+            code_continent=self.code_continent)
+        self.manager.change_background(background_path=new_background)
 
     def reload_language(self):
         """
@@ -165,15 +167,12 @@ class GameQuestionScreen(GeozzleScreen):
 
     def add_clue(self, code_clue: int):
         # Add the clue in the class
-        hint_value = USER_DATA.game.ask_clue(code_clue=code_clue)
+        USER_DATA.game.ask_clue(code_clue=code_clue)
 
         # Change screen
-        self.go_to_game_summary(hint_value)
+        self.go_to_game_summary()
 
-    def go_to_game_summary(self, hint_value: str | None):
+    def go_to_game_summary(self):
         self.manager.get_screen(
             "game_summary").previous_screen_name = "game_question"
-        if hint_value is not None:
-            self.manager.get_screen(
-                "game_summary").current_hint = hint_value
         self.manager.current = "game_summary"

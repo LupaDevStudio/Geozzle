@@ -24,7 +24,7 @@ from tools.path import (
     PATH_USER_DATA,
     PATH_QUERIES_CONTINENT,
     PATH_DICT_HINTS_INFORMATION,
-    PATH_multiplierS_IMAGES
+    PATH_MULTIPLIERS_IMAGES
 )
 from tools.basic_tools import (
     load_json_file,
@@ -136,12 +136,12 @@ SCREEN_MULTIPLIER = "screen_multiplier"
 SCREEN_CONTINENT_PROGRESS_BAR = "screen_continent_progress_bar"
 
 DICT_MULTIPLIERS = {
-    1.: PATH_multiplierS_IMAGES + "mult_1-0.png",
-    1.2: PATH_multiplierS_IMAGES + "mult_1-2.png",
-    1.4: PATH_multiplierS_IMAGES + "mult_1-4.png",
-    1.6: PATH_multiplierS_IMAGES + "mult_1-6.png",
-    1.8: PATH_multiplierS_IMAGES + "mult_1-8.png",
-    2.: PATH_multiplierS_IMAGES + "mult_2-0.png"
+    1.: PATH_MULTIPLIERS_IMAGES + "mult_1-0.png",
+    1.2: PATH_MULTIPLIERS_IMAGES + "mult_1-2.png",
+    1.4: PATH_MULTIPLIERS_IMAGES + "mult_1-4.png",
+    1.6: PATH_MULTIPLIERS_IMAGES + "mult_1-6.png",
+    1.8: PATH_MULTIPLIERS_IMAGES + "mult_1-8.png",
+    2.: PATH_MULTIPLIERS_IMAGES + "mult_2-0.png"
 }
 
 ### Continents ###
