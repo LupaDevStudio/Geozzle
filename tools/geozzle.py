@@ -248,12 +248,14 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
 
     return value_clue
 
+
 def get_nb_stars(list_clues: list[str]) -> int:
     nb_stars = 3
     for code_clue in list_clues:
         if DICT_HINTS_INFORMATION[code_clue]["category"] < nb_stars:
             nb_stars = DICT_HINTS_INFORMATION[code_clue]["category"]
     return nb_stars
+
 
 def calculate_score_clues(part_highscore: float, nb_clues: int) -> int:
     """
@@ -354,22 +356,35 @@ AD_CONTAINER = AdContainer()
 class Game():
     # Number of lives left for this game
     number_lives: int
+
     # Number of lives used for this country
     number_lives_used_country: int
+
     # Number of credits left to use
     number_credits: int
+
     # List of the continents
     list_continents: list[str]
+
     # List of countries to guess (wikidata codes)
     list_countries_to_guess: list[str]
+
     # Dict of countries encountered during the game
     # {"code_country": {"list_clues": ["clue_1" ,"clue_2"], "multiplicator": 1.2, "guessed": True}}
     dict_guessed_countries: dict
+
     # List of the codes of the current clues
     list_current_clues: list[str]
+
     # Dict of the results of the request for the current country
     # {"english": {"capital": "London", ...}, "french": {"capital": "Londres", ...}}
     dict_details_country: dict
+
+    # Index of the current country in the list of countries to guess successively
+    current_country_index: int
+
+    # List of the wikidata codes of the other countries in the spinner
+    list_countries_in_spinner: list[str]
 
     @ property
     def has_lives(self) -> bool:
@@ -382,10 +397,12 @@ class Game():
     @ property
     def current_guess_country(self) -> str | None:
         """Wikidata code of the country to guess currently"""
-        for code_country in self.dict_guessed_countries:
-            if not self.dict_guessed_countries[code_country]["guessed"]:
-                return code_country
-        return None
+        return self.list_countries_to_guess[self.current_country_index]
+
+    @ property
+    def current_guess_continent(self) -> str | None:
+        """Code of the current continent"""
+        return self.list_continents[self.current_country_index]
 
     def __init__(self, dict_to_load: dict) -> None:
         self.number_lives = dict_to_load.get("number_lives", 3)
@@ -393,7 +410,9 @@ class Game():
             "number_lives_used_country", 0)
         self.number_credits = dict_to_load.get(
             "number_credits", NUMBER_CREDITS)
-        
+        self.current_country_index = dict_to_load.get(
+            "current_country_index", 0)
+
         self.list_continents = dict_to_load.get(
             "list_continents", [])
         if self.list_continents == []:
@@ -403,6 +422,11 @@ class Game():
             "list_countries_to_guess", [])
         if self.list_countries_to_guess == []:
             self.build_list_countries()
+
+        self.list_countries_in_spinner = dict_to_load.get(
+            "list_countries_in_spinner", [])
+        if self.list_countries_in_spinner == []:
+            self.build_list_countries_in_spinner()
 
         self.dict_guessed_countries = dict_to_load.get(
             "dict_guessed_countries", {
@@ -423,19 +447,114 @@ class Game():
         self.list_continents = LIST_CONTINENTS.copy()
         rd.shuffle(self.list_continents)
 
+    def get_random_country(self, continent: str, nb_for_random_choice: int = 3):
+        """
+        Select a random country of the given continent.
+
+        Parameters
+        ----------
+        continent : str
+            Continent code.
+        nb_for_random_choice : int, optional (default is 3)
+            Number of countries to select among the least played for the random choice.
+
+        Returns
+        -------
+        str
+            Code of the country.
+        """
+
+        # Get the list of countries
+        countries_list = list(DICT_COUNTRIES["english"][continent].keys())
+
+        # Get the number of times each country has been played
+        nb_times_played_list = []
+        for country in countries_list:
+            if country in self.stats[continent]:
+                nb_times_played_list.append(
+                    self.stats[continent][country]["nb_times_played"])
+            else:
+                nb_times_played_list.append(0)
+
+        # Sort the indices of the list
+        index_order = [i[0]
+                       for i in sorted(enumerate(nb_times_played_list), key=lambda x: x[1])]
+
+        # Extract the countries for the random choice
+        countries_for_random_choice = []
+        for i in range(nb_for_random_choice):
+            countries_for_random_choice.append(countries_list[index_order[i]])
+
+        # Pick a random country
+        country_index = rd.randrange(nb_for_random_choice)
+
+        return countries_for_random_choice[country_index]
+
+    def get_other_countries_for_spinner_list(self, continent: str, nb_side_countries=12):
+        # TODO Créer une selection de pays pour mettre dans le spinner
+        pass
+
     def build_list_countries(self):
         self.list_countries_to_guess = []
-        # TODO Paul choisir un pays de chaque continent parmi ceux qui ont été les moins devinés
+
+        # Iterate over the continents to choose one country for each
+        for continent in self.list_continents:
+            country = self.get_random_country(continent)
+            self.list_countries_to_guess.append(country)
 
     def build_dict_details_country(self):
         # TODO Paul faire la requête et construire le dictionnaire des détails sur le pays dict_details_country dans la langue correspondante.
         # Il faut faire la requête sur self.current_guess_country
         pass
 
-    def choose_clues(self):
-        # TODO Paul écrire une fonction qui permet de choisir les quatre indices, les trois premiers 1 de chaque catégorie (1 étoile, 2 étoiles, 3 étoiles) et le dernier random, parmi ceux qui n'ont pas encore été demandés dans le dict_guessed_countries
-        # TODO update self.list_current_clues
+    def build_list_countries_in_spinner(self):
+        # TODO Créer la liste des autres pays qui seront dans le spinner
         pass
+
+    def choose_clues(self):
+        """
+        Choose the four clues that will be proposed to the player.
+        If possible, the three categories should be available.
+        """
+
+        # Extract the list of clues that have already been used
+        clues_already_used = self.dict_guessed_countries[self.current_guess_country]
+
+        # Create the list of all 1 star, 2 stars and 3 stars clues avoiding the ones that have already been used
+        clues_by_categories = {1: [], 2: [], 3: []}
+        for clue in DICT_HINTS_INFORMATION:
+            current_category = DICT_HINTS_INFORMATION[clue]["category"]
+            if clue not in clues_already_used:
+                clues_by_categories[current_category].append(clue)
+
+        # Count the number of clues for each category
+        nb_clues_per_category = {
+            1: len(clues_by_categories[1]),
+            2: len(clues_by_categories[2]),
+            3: len(clues_by_categories[3])
+        }
+        remaining_clues = []
+
+        # Add the clues for each category
+        list_current_clues = []
+        for i in range(1, 4):
+            if nb_clues_per_category[i] > 0:
+                clue_index = rd.randrange(nb_clues_per_category[i])
+                list_current_clues.append(clues_by_categories[i][clue_index])
+                for j in range(nb_clues_per_category[i]):
+                    if j == i:
+                        continue
+                    remaining_clues.append(clues_by_categories[i][j])
+
+        # Add additionnal random clues
+        additional_clues_indices = rd.randrange(len(remaining_clues))[:min(
+            len(remaining_clues), 4 - len(list_current_clues))]
+        for i in range(len(additional_clues_indices)):
+            list_current_clues.append(
+                remaining_clues[additional_clues_indices[i]])
+
+        # Update the list
+        self.list_current_clues = list_current_clues.copy()
 
     def ask_clue(self, number_clue: int):
         code_clue = self.list_current_clues[number_clue]
@@ -476,22 +595,15 @@ class Game():
     def end_game(self):
         """
         End the current game and reset the class.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
         """
+
         score = self.compute_final_game_score()
         USER_DATA.update_points_and_score(score=score)
         USER_DATA.update_stats(
             dict_guessed_countries=self.dict_guessed_countries,
             list_continents=self.list_continents)
-        
-        # TODO Paul reset le jeu une fois que tout est terminé 
+
+        # TODO Paul reset le jeu une fois que tout est terminé
 
     def compute_final_game_score(self) -> int:
         # TODO Paul calculer le score avec ta fonction et le retourner
@@ -506,7 +618,8 @@ class Game():
             "list_countries_to_guess": self.list_countries_to_guess,
             "dict_guessed_countries": self.dict_guessed_countries,
             "list_current_clues": self.list_current_clues,
-            "dict_details_country": self.dict_details_country
+            "dict_details_country": self.dict_details_country,
+            "current_country_index": self.current_country_index
         }
 
 
