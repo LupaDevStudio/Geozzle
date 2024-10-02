@@ -15,7 +15,8 @@ from functools import partial
 
 from kivy.clock import mainthread, Clock
 from kivy.properties import (
-    StringProperty
+    StringProperty,
+    ColorProperty
 )
 
 ### Local imports ###
@@ -116,6 +117,7 @@ class GeozzleScreen(ImprovedScreenWithAds):
     # Configuration of the main widgets
     dict_type_screen: dict = {}
     title_screen = StringProperty()
+    continent_color = ColorProperty(BLACK)
 
     def __init__(self, back_image_path=None, **kw):
         super().__init__(back_image_path=back_image_path, **kw)
@@ -131,7 +133,6 @@ class GeozzleScreen(ImprovedScreenWithAds):
                 self.title_screen = TEXT.titles[title]
             else:
                 self.title_screen = title
-            self.ids.title.color = self.dict_type_screen[SCREEN_TITLE].get("colors", BLACK)
         else:
             try:
                 self.remove_widget(self.ids.title)
@@ -142,7 +143,6 @@ class GeozzleScreen(ImprovedScreenWithAds):
         if SCREEN_ICON_LEFT_UP in self.dict_type_screen:
             dict_details = self.dict_type_screen[SCREEN_ICON_LEFT_UP]
             self.ids.icon_left_up.image_path = PATH_IMAGES + dict_details.get("image_path", "home") + ".png"
-            self.ids.icon_left_up.colors = dict_details.get("colors", BLACK)
             self.ids.icon_left_up.release_function = dict_details.get("release_function", self.go_to_home)
         else:
             try:
@@ -154,7 +154,6 @@ class GeozzleScreen(ImprovedScreenWithAds):
         if SCREEN_ICON_LEFT_DOWN in self.dict_type_screen:
             dict_details = self.dict_type_screen[SCREEN_ICON_LEFT_DOWN]
             self.ids.icon_left_down.image_path = PATH_IMAGES + dict_details.get("image_path", "stats") + ".png"
-            self.ids.icon_left_down.colors = dict_details.get("colors", BLACK)
             self.ids.icon_left_down.release_function = dict_details.get("release_function", self.go_to_stats)
         else:
             try:
@@ -166,7 +165,6 @@ class GeozzleScreen(ImprovedScreenWithAds):
         if SCREEN_ICON_RIGHT_UP in self.dict_type_screen:
             dict_details = self.dict_type_screen[SCREEN_ICON_RIGHT_UP]
             self.ids.icon_right_up.image_path = PATH_IMAGES + dict_details.get("image_path", "settings") + ".png"
-            self.ids.icon_right_up.colors = dict_details.get("colors", BLACK)
             self.ids.icon_right_up.release_function = dict_details.get("release_function", self.go_to_settings)
         else:
             try:
@@ -178,7 +176,6 @@ class GeozzleScreen(ImprovedScreenWithAds):
         if SCREEN_ICON_RIGHT_DOWN in self.dict_type_screen:
             dict_details = self.dict_type_screen[SCREEN_ICON_RIGHT_DOWN]
             self.ids.icon_right_down.image_path = PATH_IMAGES + dict_details.get("image_path", "gallery") + ".png"
-            self.ids.icon_right_down.colors = dict_details.get("colors", BLACK)
             self.ids.icon_right_down.release_function = dict_details.get("release_function", self.go_to_gallery)
         else:
             try:

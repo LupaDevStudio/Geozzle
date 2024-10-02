@@ -86,9 +86,7 @@ class StatsContinentScreen(GeozzleScreen):
         None
         """
         self.dict_type_screen[SCREEN_TITLE]["title"] = TEXT.home[self.code_continent]
-        self.dict_type_screen[SCREEN_TITLE]["colors"] = DICT_CONTINENTS[self.code_continent]
-        self.dict_type_screen[SCREEN_ICON_LEFT_UP]["colors"] = DICT_CONTINENTS[self.code_continent]
-        self.dict_type_screen[SCREEN_ICON_LEFT_DOWN]["colors"] = DICT_CONTINENTS[self.code_continent]
+        self.continent_color = DICT_CONTINENTS[self.code_continent]
         super().reload_language()
 
     def on_pre_enter(self, *args):
