@@ -629,9 +629,107 @@ class Game():
         # TODO Paul (peut-être se resservir de la fonction qui avait déjà été codée avant)
         return True
 
+    @staticmethod
+    def compute_hint_score_from_penalty(penalty: int):
+        """
+        Compute the hint score using the penalty.
+
+        Parameters
+        ----------
+        penalty : int
+            Penalty applied for using hints.
+
+        Returns
+        -------
+        int
+            Hint score.
+        """
+
+        hint_score = ((319 / pow((penalty + 3.7), 0.6)) - 29.2) * 1.5
+        return int(hint_score)
+
+    def compute_hint_score(self, code_country: str):
+        """
+        Compute the score of the hints used for the country.
+
+        Parameters
+        ----------
+        code_country : str
+            Code of the country.
+
+        Returns
+        -------
+        float
+            Score of the hints.
+        """
+
+        # Get the list of hints used
+        hints_used = self.dict_guessed_countries[code_country]
+
+        # Order the hints by category
+        clues_by_categories = {1: [], 2: [], 3: []}
+        for clue in hints_used:
+            current_category = DICT_HINTS_INFORMATION[clue]["category"]
+            clues_by_categories[current_category].append(clue)
+
+        # Compute the penalty
+        penalty = 5 * len(clues_by_categories[1]) + 3 * len(
+            clues_by_categories[2]) + 1 * len(clues_by_categories[3])
+
+        # Compute the hint score
+        hint_score = self.compute_hint_score_from_penalty(penalty)
+
+        return hint_score
+
+    def compute_country_score(self, code_country: str):
+        """
+        Compute the score associated to a country.
+
+        Parameters
+        ----------
+        code_country : str
+            Code of the country.
+
+        Returns
+        -------
+        int
+            Score of the country.
+        """
+
+        # Allocate a variable to store the score of the country
+        country_score = 0
+
+        if self.dict_guessed_countries[code_country]["guessed"] is True:
+
+            # Add 100 pts if the country is guessed
+            country_score += 100
+
+            # Add the hint score
+            country_score += self.compute_hint_score(code_country)
+
+        # Apply the multiplier
+        country_score = country_score * \
+            self.dict_guessed_countries[code_country]["multiplier"]
+
+        return country_score
+
     def compute_country_and_game_score(self) -> tuple[int, int]:
-        # TODO Paul calculer le score de la série (même si elle n'est pas forcément terminée) sans les bonus de fin du coup, ainsi que le score du pays en cours
-        return 0, 0
+        """
+        Compute the score of the current country and a partial score for the game without end bonus.
+
+        Returns
+        -------
+        tuple[int, int]
+            Country score and game score.
+        """
+
+        game_score = 0
+        for i in range(self.current_country_index + 1):
+            country_score = self.compute_country_score(
+                code_country=self.list_countries_to_guess[i])
+            game_score += country_score
+
+        return country_score, game_score
 
     def finish_country(self) -> bool:
         """Return if the game is finished or not."""
@@ -664,8 +762,28 @@ class Game():
         return True
 
     def compute_final_game_score(self) -> int:
-        # TODO Paul calculer le score avec ta fonction et le retourner (avec les bonus de fin aussi)
-        return 0
+        """
+        Compute the final score of a game.
+
+        Returns
+        -------
+        int
+            Final game score.
+        """
+
+        # Allocate a variable to compute the score
+        game_score = 0
+
+        # Iterate over the countries to compute their scores
+        for i in range(len(self.list_countries_to_guess)):
+            country_score = self.compute_country_score(
+                code_country=self.list_countries_to_guess[i])
+            game_score += country_score
+
+        # Add bonus if some lives are remaining at the end
+        game_score += self.number_lives * 150
+
+        return game_score
 
     def end_game(self):
         """

@@ -4,65 +4,37 @@
         "number_lives": 3,
         "number_credits": 1,
         "list_continents": [
-            "South_America",
-            "Africa",
-            "Europe",
             "North_America",
             "Oceania",
-            "Asia"
+            "Asia",
+            "Africa",
+            "South_America",
+            "Europe"
         ],
         "list_countries_to_guess": [
-            "Q155",
-            "Q262",
-            "Q40",
-            "Q244",
-            "Q702",
-            "Q399"
+            "Q242",
+            "Q408",
+            "Q399",
+            "Q962",
+            "Q750",
+            "Q40"
         ],
         "dict_guessed_countries": {
-            "Q155": {
+            "Q242": {
                 "list_clues": [
-                    "anthem",
-                    "population",
-                    "license_plate_code",
                     "top_level_internet_domain",
-                    "driving_side",
+                    "anthem",
+                    "license_plate_code",
                     "capital",
-                    "motto",
-                    "ISO_3_code",
-                    "official_language",
-                    "area",
-                    "head_of_state",
-                    "currency",
-                    "age_of_majority",
-                    "nominal_GDP",
-                    "head_of_government",
-                    "country_calling_code",
-                    "flag"
+                    "population",
+                    "flag",
+                    "head_of_state"
                 ],
                 "multiplier": 1,
                 "guessed": false,
                 "nb_lives_used": 0
             },
-            "Q262": {
-                "list_clues": [],
-                "multiplier": 1,
-                "guessed": false,
-                "nb_lives_used": 0
-            },
-            "Q40": {
-                "list_clues": [],
-                "multiplier": 1,
-                "guessed": false,
-                "nb_lives_used": 0
-            },
-            "Q244": {
-                "list_clues": [],
-                "multiplier": 1,
-                "guessed": false,
-                "nb_lives_used": 0
-            },
-            "Q702": {
+            "Q408": {
                 "list_clues": [],
                 "multiplier": 1,
                 "guessed": false,
@@ -73,56 +45,51 @@
                 "multiplier": 1,
                 "guessed": false,
                 "nb_lives_used": 0
+            },
+            "Q962": {
+                "list_clues": [],
+                "multiplier": 1,
+                "guessed": false,
+                "nb_lives_used": 0
+            },
+            "Q750": {
+                "list_clues": [],
+                "multiplier": 1,
+                "guessed": false,
+                "nb_lives_used": 0
+            },
+            "Q40": {
+                "list_clues": [],
+                "multiplier": 1,
+                "guessed": false,
+                "nb_lives_used": 0
             }
         },
         "list_current_clues": [
-            null,
-            null,
-            null,
-            null
+            "currency",
+            "nominal_GDP",
+            "official_language",
+            "ISO_3_code"
         ],
         "dict_details_country": {
             "english": {
-                "area": "8515767 km\u00b2",
-                "nominal_GDP": "1920095560995 $, 1649622972159 $",
-                "age_of_majority": "18",
-                "ISO_3_code": "BRA",
-                "license_plate_code": "BR",
-                "ISO_2_code": "BR",
-                "country_calling_code": "+55",
-                "human_development_index": "0.754",
-                "population": "203062512",
-                "flag": "Q155.png",
-                "capital": "Bras\u00edlia",
-                "official_language": "Portuguese",
-                "currency": "Brazilian real",
-                "head_of_state": "Luiz In\u00e1cio Lula da Silva",
-                "head_of_government": "Luiz In\u00e1cio Lula da Silva",
-                "anthem": "Brazilian National Anthem",
+                "capital": "Belmopan",
+                "official_language": "English",
+                "head_of_state": "Charles III of the United Kingdom",
+                "head_of_government": "Johnny Brice\u00f1o",
+                "top_level_internet_domain": ".bz",
+                "currency": "Belize dollar",
                 "driving_side": "right",
-                "top_level_internet_domain": ".br",
-                "motto": "Order and Progress"
-            },
-            "french": {
-                "license_plate_code": "BR",
-                "ISO_3_code": "BRA",
-                "ISO_2_code": "BR",
-                "age_of_majority": "18",
-                "country_calling_code": "+55",
-                "human_development_index": "0.754",
-                "population": "203062512",
-                "flag": "Q155.png",
-                "area": "8515767 km\u00b2",
-                "nominal_GDP": "1920095560995 $, 1649622972159 $",
-                "capital": "Brasilia",
-                "official_language": "portugais",
-                "head_of_state": "Luiz In\u00e1cio Lula da Silva",
-                "anthem": "Hino Nacional Brasileiro",
-                "head_of_government": "Luiz In\u00e1cio Lula da Silva",
-                "currency": "r\u00e9al br\u00e9silien",
-                "driving_side": "droite",
-                "top_level_internet_domain": ".br",
-                "motto": "Order and Progress"
+                "anthem": "Land of the Free",
+                "nominal_GDP": "2491500000 $, 2824081836 $",
+                "area": "22966 km\u00b2",
+                "ISO_3_code": "BLZ",
+                "license_plate_code": "BH",
+                "ISO_2_code": "BZ",
+                "country_calling_code": "+501",
+                "human_development_index": "0.683",
+                "population": "374681",
+                "flag": "Q242.png"
             }
         },
         "current_country_index": 0,
@@ -141,11 +108,11 @@
     "music_volume": 0.5,
     "sound_volume": 0.5,
     "unlocked_backgrounds": [
-        "europe_venice.jpg",
-        "asia_petra3.jpg",
-        "africa_nile.jpg",
-        "north_statueliberty2.jpg",
-        "south_lost_city.jpg",
-        "oceania_australia2.jpg"
+        "europe_greece2.jpg",
+        "asia_CA_2023_15G.jpg",
+        "africa_savanna.jpg",
+        "north_niagara.jpg",
+        "south_old_temples_peru2.jpg",
+        "oceania_simpsons_gap.jpg"
     ]
 }
