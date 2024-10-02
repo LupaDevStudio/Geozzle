@@ -440,6 +440,7 @@ class Game():
 
         # Get the list of countries
         countries_list = list(DICT_COUNTRIES["english"][code_continent].keys())
+        rd.shuffle(countries_list)
 
         # Get the number of times each country has been played
         nb_times_played_list = []
