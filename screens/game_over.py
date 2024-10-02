@@ -206,7 +206,8 @@ class GameOverScreen(GeozzleScreen):
                     self.code_continent],
                 title=TEXT.clues["no_connexion_title"],
                 center_label_text=TEXT.clues["no_connexion_message"],
-                font_ratio=self.font_ratio
+                font_ratio=self.font_ratio,
+                ok_button_label=TEXT.home["cancel"]
             )
             popup.open()
 
@@ -308,7 +309,8 @@ class GameOverScreen(GeozzleScreen):
                 secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
                 title=TEXT.game_over["select_country_title"],
                 center_label_text=TEXT.game_over["select_country_message"],
-                font_ratio=self.font_ratio
+                font_ratio=self.font_ratio,
+                ok_button_label=TEXT.home["cancel"]
             )
             popup.open()
 

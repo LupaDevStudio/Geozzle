@@ -384,7 +384,8 @@ class Game():
     current_country_index: int
 
     # List of the wikidata codes of the other countries in the spinner
-    list_countries_in_spinner: list[str]
+    # {"code_country_europe": ["code_country_1", "code_country_2", ...], "code_country_asia": [...], ...}
+    dict_countries_in_spinner: list[str]
 
     @ property
     def has_lives(self) -> bool:
@@ -420,13 +421,9 @@ class Game():
 
         self.list_countries_to_guess = dict_to_load.get(
             "list_countries_to_guess", [])
-        if self.list_countries_to_guess == []:
-            self.build_list_countries()
 
-        self.list_countries_in_spinner = dict_to_load.get(
-            "list_countries_in_spinner", [])
-        if self.list_countries_in_spinner == []:
-            self.build_list_countries_in_spinner()
+        self.dict_countries_in_spinner = dict_to_load.get(
+            "dict_countries_in_spinner", {})
 
         self.dict_guessed_countries = dict_to_load.get(
             "dict_guessed_countries", {
@@ -440,20 +437,18 @@ class Game():
 
         self.dict_details_country = dict_to_load.get(
             "dict_details_country", {})
-        if self.dict_details_country == {}:
-            self.build_dict_details_country()
 
     def build_list_continents(self):
         self.list_continents = LIST_CONTINENTS.copy()
         rd.shuffle(self.list_continents)
 
-    def get_random_country(self, continent: str, nb_for_random_choice: int = 3):
+    def get_random_country(self, code_continent: str, nb_for_random_choice: int = 3):
         """
         Select a random country of the given continent.
 
         Parameters
         ----------
-        continent : str
+        code_continent : str
             Continent code.
         nb_for_random_choice : int, optional (default is 3)
             Number of countries to select among the least played for the random choice.
@@ -465,14 +460,14 @@ class Game():
         """
 
         # Get the list of countries
-        countries_list = list(DICT_COUNTRIES["english"][continent].keys())
+        countries_list = list(DICT_COUNTRIES["english"][code_continent].keys())
 
         # Get the number of times each country has been played
         nb_times_played_list = []
         for country in countries_list:
-            if country in self.stats[continent]:
+            if country in USER_DATA.stats[code_continent]:
                 nb_times_played_list.append(
-                    self.stats[continent][country]["nb_times_played"])
+                    USER_DATA.stats[code_continent][country]["nb_times_played"])
             else:
                 nb_times_played_list.append(0)
 
@@ -490,7 +485,7 @@ class Game():
 
         return countries_for_random_choice[country_index]
 
-    def get_other_countries_for_spinner_list(self, continent: str, nb_side_countries=12):
+    def get_other_countries_for_spinner_list(self, code_continent: str, nb_side_countries=12):
         # TODO Créer une selection de pays pour mettre dans le spinner
         pass
 
@@ -498,18 +493,26 @@ class Game():
         self.list_countries_to_guess = []
 
         # Iterate over the continents to choose one country for each
-        for continent in self.list_continents:
-            country = self.get_random_country(continent)
+        for code_continent in self.list_continents:
+            country = self.get_random_country(code_continent)
             self.list_countries_to_guess.append(country)
+
+    def build_dict_countries_in_spinner(self):
+        # TODO Créer le dictionnaire qui contient des listes des autres pays qui seront dans le spinner
+        pass
 
     def build_dict_details_country(self):
         # TODO Paul faire la requête et construire le dictionnaire des détails sur le pays dict_details_country dans la langue correspondante.
         # Il faut faire la requête sur self.current_guess_country
         pass
 
-    def build_list_countries_in_spinner(self):
-        # TODO Créer la liste des autres pays qui seront dans le spinner
-        pass
+    def launch_game(self):
+        if self.list_countries_to_guess == []:
+            self.build_list_countries()
+        if self.dict_countries_in_spinner == []:
+            self.build_dict_countries_in_spinner()
+        if self.dict_details_country == {}:
+            self.build_dict_details_country()
 
     def choose_clues(self):
         """
@@ -619,7 +622,8 @@ class Game():
             "dict_guessed_countries": self.dict_guessed_countries,
             "list_current_clues": self.list_current_clues,
             "dict_details_country": self.dict_details_country,
-            "current_country_index": self.current_country_index
+            "current_country_index": self.current_country_index,
+            "dict_countries_in_spinner": self.dict_countries_in_spinner
         }
 
 

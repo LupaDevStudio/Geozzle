@@ -45,7 +45,9 @@
         "yes": "Oui",
         "no": "Non",
         "loading": "Chargement...",
-        "loading_title": "Chargement"
+        "loading_title": "Chargement",
+        "buy_background_impossible_title": "Achat impossible",
+        "buy_background_impossible_text": "Vous ne pouvez pas acheter de fond pour l'instant, vous n'avez pas assez de points : il vous en faut [NB_POINTS]. Réessayez plus tard !"
     },
     "game_over": {
         "title": "Quel pays est-ce ?",

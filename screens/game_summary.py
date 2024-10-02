@@ -245,7 +245,8 @@ class GameSummaryScreen(GeozzleScreen):
             secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
             title=TEXT.game_summary["zoom_" + mode + "_title"],
             font_ratio=self.font_ratio,
-            image_source=image_source
+            image_source=image_source,
+            ok_button_label=TEXT.home["cancel"]
         )
         popup.mode = mode
         popup.open()

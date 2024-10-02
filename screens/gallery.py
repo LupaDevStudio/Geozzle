@@ -30,7 +30,7 @@ from tools.path import (
 from screens.custom_widgets import (
     GeozzleScreen,
     ImagePopup,
-    ColoredRoundedButton,
+    MessagePopup,
     CustomScrollview,
     MyScrollViewLayout,
     MyScrollViewVerticalLayout
@@ -39,13 +39,13 @@ from tools.constants import (
     PRICE_BACKGROUND,
     SCREEN_TITLE,
     SCREEN_ICON_LEFT_UP,
-    CUSTOM_BUTTON_BACKGROUND_COLOR,
-    CUSTOM_BUTTON_DISABLE_BACKGROUND_COLOR,
     DICT_CONTINENTS,
     DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
     SUB_TEXT_FONT_SIZE,
     SUBTITLE_OUTLINE_WIDTH,
-    WHITE
+    WHITE,
+    BLACK,
+    GRAY
 )
 from tools.kivy_tools import (
     ImageButton
@@ -96,39 +96,48 @@ class GalleryScreen(GeozzleScreen):
             "[POINTS]", str(USER_DATA.points))
         self.buy_background_label = TEXT.gallery["buy_background"].replace(
             "[POINTS]", str(PRICE_BACKGROUND))
-        if USER_DATA.can_buy_background:
-            self.ids.buy_background_button.disable_button = False
-            self.ids.buy_background_button.background_color = CUSTOM_BUTTON_BACKGROUND_COLOR
-        else:
-            self.ids.buy_background_button.disable_button = True
-            self.ids.buy_background_button.background_color = CUSTOM_BUTTON_DISABLE_BACKGROUND_COLOR
 
     def on_pre_enter(self, *args):
         super().on_pre_enter(*args)
         self.fill_scrollview()
 
     def buy_background(self):
-        dict_details = USER_DATA.buy_new_background()
-        self.reload_language()
-        code_continent = dict_details["code_continent"]
-        full_path = dict_details["full_path"]
-        is_new = dict_details["is_new"]
-        if is_new:
-            title = TEXT.gallery["new_background"]
-            self.rebuild_scrollview()
-        else:
-            title = TEXT.gallery["already_bought_background"]
+        # The user has enough points to buy the background
+        if USER_DATA.can_buy_background:
+            dict_details = USER_DATA.buy_new_background()
+            self.reload_language()
+            code_continent = dict_details["code_continent"]
+            full_path = dict_details["full_path"]
+            is_new = dict_details["is_new"]
+            if is_new:
+                title = TEXT.gallery["new_background"]
+                self.rebuild_scrollview()
+            else:
+                title = TEXT.gallery["already_bought_background"]
 
-        # Open a popup showing the new bought background
-        popup = ImagePopup(
-            font_ratio=self.font_ratio,
-            primary_color=DICT_CONTINENTS[code_continent],
-            secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[code_continent],
-            title=title,
-            image_source=full_path,
-            release_function=partial(self.manager.change_background, background_path=full_path)
-        )
-        popup.open()
+            # Open a popup showing the new bought background
+            popup = ImagePopup(
+                font_ratio=self.font_ratio,
+                primary_color=DICT_CONTINENTS[code_continent],
+                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[code_continent],
+                title=title,
+                image_source=full_path,
+                release_function=partial(self.manager.change_background, background_path=full_path),
+                ok_button_label=TEXT.home["cancel"]
+            )
+            popup.open()
+        
+        # Error popup when the user doesn't have enough points
+        else:
+            popup = MessagePopup(
+                font_ratio=self.font_ratio,
+                primary_color=BLACK,
+                secondary_color=GRAY,
+                title=TEXT.popup["buy_background_impossible_title"],
+                center_label_text=TEXT.popup["buy_background_impossible_text"].replace("[NB_POINTS]", str(PRICE_BACKGROUND)),
+                ok_button_label=TEXT.home["cancel"]
+            )
+            popup.open()
 
     def fill_scrollview(self):
         scrollview_layout: MyScrollViewLayout = self.ids.scrollview_layout
@@ -177,8 +186,10 @@ class GalleryScreen(GeozzleScreen):
                 if not full_path in SHARED_DATA.list_unlocked_backgrounds:
                     full_path = PATH_BACKGROUNDS + "unknown_background.jpg"
                     release_function = lambda: 1 + 1
+                    disable_button = True
                 else:
                     release_function = partial(self.manager.change_background, background_path=full_path)
+                    disable_button = False
                 image = ImageButton(
                     source=full_path,
                     size_hint=(None, None),
@@ -186,7 +197,8 @@ class GalleryScreen(GeozzleScreen):
                     width=80*self.font_ratio,
                     pos_hint={"center_y": 0.5},
                     fit_mode="cover",
-                    release_function=release_function
+                    release_function=release_function,
+                    disable_button=disable_button
                 )
                 if not full_path in SHARED_DATA.list_unlocked_backgrounds:
                     image.color = DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[code_continent]

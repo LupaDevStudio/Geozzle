@@ -10,27 +10,32 @@
         pos_hint: {"center_x":0.5, "center_y":0.85}
         outline_width: max(TITLE_OUTLINE_WIDTH * root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
+        color: root.continent_color
 
     RoundedButtonImage:
         id: icon_left_up
         pos_hint: {"x":0.05, "top":0.975}
         size_hint: (LOGO_SIZE, None)
         height: self.width
+        colors: root.continent_color
 
     RoundedButtonImage:
         id: icon_left_down
         pos_hint: {"x":0.05, "y":0.025}
         size_hint: (LOGO_SIZE, None)
         height: self.width
+        colors: root.continent_color
 
     RoundedButtonImage:
         id: icon_right_up
         pos_hint: {"right":0.95, "top":0.975}
         size_hint: (LOGO_SIZE, None)
         height: self.width
+        colors: root.continent_color
 
     RoundedButtonImage:
         id: icon_right_down
         pos_hint: {"right":0.95, "y":0.025}
         size_hint: (LOGO_SIZE, None)
         height: self.width
+        colors: root.continent_color
