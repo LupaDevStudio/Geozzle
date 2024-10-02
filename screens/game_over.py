@@ -177,7 +177,12 @@ class GameOverScreen(GeozzleScreen):
             # The selected country is correct
             if USER_DATA.game.check_country(submitted_country):
                 # Compute the score of the current country
-                score = USER_DATA.game.compute_country_score()
+                code_country = USER_DATA.game.current_guess_country
+                score, score_game = USER_DATA.game.compute_country_and_game_score()
+                is_country_new = USER_DATA.check_country_is_new(
+                    code_continent=self.code_continent,
+                    country_code=code_country
+                )
 
                 # Finish the country
                 has_finished_game = USER_DATA.game.finish_country()
@@ -204,12 +209,16 @@ class GameOverScreen(GeozzleScreen):
 
                 # Display the popup with the score of the current country
                 # TODO changer la popup pour mettre la bonne
+                # is_country_new, code_country
+                text = TEXT.game_over["score_popup_text"].replace(
+                    "[SCORE]", str(score)).replace(
+                        "[SCORE_GAME]", str(score_game))
                 popup = MessagePopup(
                     primary_color=self.continent_color,
                     secondary_color=self.secondary_continent_color,
                     title=TEXT.game_over["congrats"],
                     ok_button_label=TEXT.popup["close"],
-                    center_label_text=f"AFFICHER LE SCORE DU PAYS EN COURS {score}",
+                    center_label_text=text,
                     font_ratio=self.font_ratio,
                     release_function=score_popup_release_function
                 )

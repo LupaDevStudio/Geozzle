@@ -625,7 +625,11 @@ class Game():
             Boolean according to which the country proposed by the user is correct or not.
         """
         # TODO Paul (peut-être se resservir de la fonction qui avait déjà été codée avant)
-        pass
+        return True
+
+    def compute_country_and_game_score(self) -> int, int:
+        # TODO Paul calculer le score de la série (même si elle n'est pas forcément terminée) sans les bonus de fin du coup, ainsi que le score du pays en cours
+        return 0, 0
 
     def finish_country(self) -> bool:
         """Return if the game is finished or not."""
@@ -657,6 +661,10 @@ class Game():
 
         return True
 
+    def compute_final_game_score(self) -> int:
+        # TODO Paul calculer le score avec ta fonction et le retourner (avec les bonus de fin aussi)
+        return 0
+
     def end_game(self):
         """
         End the current game and reset the class.
@@ -680,14 +688,6 @@ class Game():
         self.list_countries_in_spinner = {}
 
         return final_score
-
-    def compute_country_score(self) -> int:
-        # TODO Paul calculer le score avec ta fonction et le retourner (du pays en cours)
-        pass
-
-    def compute_final_game_score(self) -> int:
-        # TODO Paul calculer le score avec ta fonction et le retourner
-        pass
 
     def export_as_dict(self) -> dict:
         return {
@@ -1279,6 +1279,9 @@ class UserData():
                          (3 * nb_countries_on_continent))
 
         return percentage
+
+    def check_country_is_new(self, code_continent: str, code_country: str) -> bool:
+        return code_country in self.stats[code_continent]
 
     def update_points_and_score(self, score: int):
         # Update the number of points

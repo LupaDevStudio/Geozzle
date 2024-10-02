@@ -51,6 +51,7 @@
     },
     "game_over": {
         "title": "Which country is it?",
+        "score_popup_text": "Score of the country: [SCORE]\nTotal score: [SCORE_GAME]",
         "congrats": "Congratulations!",
         "defeat": "Wrong choice!",
         "game_over": "Defeat...",
