@@ -19,6 +19,7 @@ from kivy.properties import (
 ### Class ###
 #############
 
+
 class MyScrollViewLayout(GridLayout):
     """
     Class corresponding to the layout inside the scroll view
@@ -36,6 +37,7 @@ class MyScrollViewLayout(GridLayout):
         list_widgets = self.children[:]
         for element in list_widgets:
             self.remove_widget(element)
+
 
 class MyScrollViewVerticalLayout(GridLayout):
     """
@@ -55,7 +57,21 @@ class MyScrollViewVerticalLayout(GridLayout):
         for element in list_widgets:
             self.remove_widget(element)
 
+
 class CustomScrollview(ScrollView):
-    
+
     background_mode = BooleanProperty(False)
     font_ratio = NumericProperty(1)
+
+    def on_scroll_move(self, touch):
+        res = super().on_scroll_move(touch)
+        if self.do_scroll_x and not self.do_scroll_y:
+            touch.ud['sv.handled']['y'] = False
+            res = False
+        return res
+
+    def on_scroll_stop(self, touch, check_children=True):
+        if self.do_scroll_x and not self.do_scroll_y:
+            super().on_scroll_stop(touch, check_children=False)
+        else:
+            super().on_scroll_stop(touch, check_children)

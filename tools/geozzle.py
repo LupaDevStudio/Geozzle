@@ -260,6 +260,7 @@ def get_nb_stars(list_clues: list[str]) -> int:
 ### Class ###
 #############
 
+
 class AdContainer():
 
     nb_max_reload = 3
@@ -509,7 +510,8 @@ class Game():
             # Deal with cases when user request in a language and change and not the same clues in both languages
             for code_clue in self.dict_guessed_countries[self.current_guess_country]["list_clues"]:
                 if code_clue not in self.dict_details_country[USER_DATA.language]:
-                    self.dict_details_country[USER_DATA.language][code_clue] = self.dict_details_country[alternative_language][code_clue]
+                    self.dict_details_country[USER_DATA.language][
+                        code_clue] = self.dict_details_country[alternative_language][code_clue]
 
         return True
 
@@ -627,7 +629,7 @@ class Game():
         # TODO Paul (peut-être se resservir de la fonction qui avait déjà été codée avant)
         return True
 
-    def compute_country_and_game_score(self) -> int, int:
+    def compute_country_and_game_score(self) -> tuple[int, int]:
         # TODO Paul calculer le score de la série (même si elle n'est pas forcément terminée) sans les bonus de fin du coup, ainsi que le score du pays en cours
         return 0, 0
 
