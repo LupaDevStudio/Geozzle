@@ -33,10 +33,10 @@ from tools.path import (
 )
 from screens.custom_widgets import GeozzleScreen
 from tools.constants import (
-    DICT_CONTINENTS,
+    DICT_CONTINENTS_PRIMARY_COLOR,
     TIME_CHANGE_BACKGROUND,
     MAIN_MUSIC_NAME,
-    DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
+    DICT_CONTINENT_SECOND_COLOR,
     SCREEN_ICON_LEFT_DOWN,
     SCREEN_ICON_RIGHT_DOWN,
     SCREEN_ICON_RIGHT_UP,
@@ -120,7 +120,7 @@ class HomeScreen(GeozzleScreen):
                     right_button_label="Discover",
                     font_ratio=self.font_ratio,
                     primary_color=self.continent_color,
-                    secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                    secondary_color=DICT_CONTINENT_SECOND_COLOR[
                         self.code_continent],
                 )
                 popup.right_release_function = partial(
@@ -169,8 +169,8 @@ class HomeScreen(GeozzleScreen):
         else:
             code_continent = USER_DATA.game.current_guess_continent
             popup = MessagePopup(
-                primary_color=DICT_CONTINENTS[code_continent],
-                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                primary_color=DICT_CONTINENTS_PRIMARY_COLOR[code_continent],
+                secondary_color=DICT_CONTINENT_SECOND_COLOR[
                     code_continent],
                 title=TEXT.clues["no_connexion_title"],
                 center_label_text=TEXT.clues["no_connexion_message"],

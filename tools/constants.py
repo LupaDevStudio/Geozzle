@@ -23,7 +23,8 @@ import os
 from tools.path import (
     PATH_USER_DATA,
     PATH_QUERIES_CONTINENT,
-    PATH_DICT_HINTS_INFORMATION
+    PATH_DICT_HINTS_INFORMATION,
+    PATH_multiplierS_IMAGES
 )
 from tools.basic_tools import (
     load_json_file,
@@ -131,14 +132,23 @@ SCREEN_ICON_RIGHT_UP = "screen_icon_right_up"
 SCREEN_ICON_LEFT_DOWN = "screen_icon_left_down"
 SCREEN_ICON_RIGHT_DOWN = "screen_icon_right_down"
 SCREEN_THREE_LIVES = "screen_three_lives"
-SCREEN_MULTIPLICATOR = "screen_multiplicator"
+SCREEN_MULTIPLIER = "screen_multiplier"
 SCREEN_CONTINENT_PROGRESS_BAR = "screen_continent_progress_bar"
+
+DICT_MULTIPLIERS = {
+    1: PATH_multiplierS_IMAGES + "mult_1-0.png",
+    1.2: PATH_multiplierS_IMAGES + "mult_1-2.png",
+    1.4: PATH_multiplierS_IMAGES + "mult_1-4.png",
+    1.6: PATH_multiplierS_IMAGES + "mult_1-6.png",
+    1.8: PATH_multiplierS_IMAGES + "mult_1-8.png",
+    2: PATH_multiplierS_IMAGES + "mult_2-0.png"
+}
 
 ### Continents ###
 
 LIST_CONTINENTS = ["Europe", "Asia", "Africa",
                    "North_America", "South_America", "Oceania"]
-DICT_CONTINENTS = {
+DICT_CONTINENTS_PRIMARY_COLOR = {
     "Europe": (2 / 255, 22 / 255, 117 / 255, 1),
     "Asia": (6 / 255, 79 / 255, 2 / 255, 1),
     "Africa": (177 / 255, 7 / 255, 24 / 255, 1),
@@ -147,7 +157,7 @@ DICT_CONTINENTS = {
     "Oceania": (74 / 255, 0 / 255, 149 / 255, 1)
 }
 
-DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED = {
+DICT_CONTINENT_SECOND_COLOR = {
     "Europe": (209 / 255, 215 / 255, 248 / 255, 1),
     "Asia": (193 / 255, 241 / 255, 195 / 255, 1),
     "Africa": (255 / 255, 215 / 255, 215 / 255, 1),

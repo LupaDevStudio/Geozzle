@@ -29,20 +29,21 @@ from tools.path import (
     PATH_TEXT_FONT
 )
 from tools.constants import (
-    DICT_CONTINENTS,
+    DICT_CONTINENTS_PRIMARY_COLOR,
     LIST_CONTINENTS,
     TIME_CHANGE_BACKGROUND,
-    DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
+    DICT_CONTINENT_SECOND_COLOR,
     SCREEN_ICON_LEFT_UP,
     SCREEN_TITLE,
-    SCREEN_MULTIPLICATOR,
+    SCREEN_MULTIPLIER,
     SCREEN_THREE_LIVES,
     SCREEN_CONTINENT_PROGRESS_BAR,
     DICT_HINTS_INFORMATION
 )
 from tools.geozzle import (
     TEXT,
-    USER_DATA
+    USER_DATA,
+    SHARED_DATA
 )
 from screens.custom_widgets import GeozzleScreen
 
@@ -53,12 +54,7 @@ from screens.custom_widgets import GeozzleScreen
 
 class GameQuestionScreen(GeozzleScreen):
 
-    code_continent = StringProperty(LIST_CONTINENTS[0])
-    continent_color = ColorProperty(DICT_CONTINENTS[LIST_CONTINENTS[0]])
-    background_color = ColorProperty(
-        DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
     title_label = StringProperty()
-    number_lives_on = NumericProperty()
     hint_1 = StringProperty()
     hint_2 = StringProperty()
     hint_3 = StringProperty()
@@ -72,34 +68,22 @@ class GameQuestionScreen(GeozzleScreen):
     dict_type_screen = {
         SCREEN_TITLE: {},
         SCREEN_ICON_LEFT_UP: {},
-        SCREEN_MULTIPLICATOR: "",
+        SCREEN_MULTIPLIER: "",
         SCREEN_THREE_LIVES: "",
         SCREEN_CONTINENT_PROGRESS_BAR: ""
     }
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
-            back_image_path=PATH_BACKGROUNDS + self.code_continent + "/" +
-            rd.choice(os.listdir(PATH_BACKGROUNDS + self.code_continent)),
+            back_image_path=rd.choice(SHARED_DATA.list_unlocked_backgrounds),
             font_name=PATH_TEXT_FONT,
             **kwargs)
-
-        # The function is called each time code_continent of the class changes
-        self.bind(code_continent=self.update_color)
 
     def on_pre_enter(self, *args):
         super().on_pre_enter(*args)
 
-        # Schedule the change of background
-        Clock.schedule_interval(
-            self.manager.change_background, TIME_CHANGE_BACKGROUND)
-
-    def update_color(self, *args):
-        """Update the code of the continent and its related attributes."""
-
-        self.continent_color = DICT_CONTINENTS[self.code_continent]
-        self.background_color = DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
-            self.code_continent]
+        # Change the background and propagate it in the other screens
+        self.manager.change_background(background_path=PATH_BACKGROUNDS + self.code_continent + "/" + rd.choice(os.listdir(PATH_BACKGROUNDS + self.code_continent)))
 
     def reload_language(self):
         """
@@ -193,11 +177,3 @@ class GameQuestionScreen(GeozzleScreen):
             self.manager.get_screen(
                 "game_summary").current_hint = hint_value
         self.manager.current = "game_summary"
-
-    def on_pre_leave(self, *args):
-
-        # Unschedule the clock updates
-        Clock.unschedule(self.manager.change_background,
-                         TIME_CHANGE_BACKGROUND)
-
-        return super().on_leave(*args)

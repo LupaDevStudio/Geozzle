@@ -26,7 +26,7 @@
         font_ratio: root.font_ratio
         border_color: root.continent_color
         text_color: root.continent_color
-        select_color: root.background_color
+        select_color: root.secondary_continent_color
 
     # Congratulation or defeat message
     Label:
@@ -75,14 +75,14 @@
         font_size: BUTTON_FONT_SIZE
         pos_hint: {"center_x":0.5, "center_y":0.25}
         size_hint: (0.45, 0.075)
-        color_label: root.background_color
+        color_label: root.secondary_continent_color
         release_function: root.submit_country
         font_ratio: root.font_ratio
 
     # Continue game button
     ColoredRoundedButton:
         id: continue_button
-        background_color: root.background_color
+        background_color: root.secondary_continent_color
         text: root.continue_game_label
         font_size: BUTTON_FONT_SIZE
         pos_hint: {"center_x":0.5, "center_y":0.1}

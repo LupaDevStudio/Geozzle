@@ -31,18 +31,21 @@ from screens.custom_widgets import (
 )
 
 from tools.constants import (
-    DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
+    DICT_CONTINENT_SECOND_COLOR,
+    DICT_CONTINENTS_PRIMARY_COLOR,
     SCREEN_ICON_LEFT_DOWN,
     SCREEN_TITLE,
     SCREEN_ICON_LEFT_UP,
     SCREEN_ICON_RIGHT_DOWN,
     SCREEN_ICON_RIGHT_UP,
     SCREEN_THREE_LIVES,
-    SCREEN_MULTIPLICATOR,
+    SCREEN_MULTIPLIER,
     SCREEN_CONTINENT_PROGRESS_BAR,
     BLACK,
+    GRAY,
     TIME_CHANGE_BACKGROUND,
-    LIST_CONTINENTS
+    LIST_CONTINENTS,
+    DICT_MULTIPLIERS
 )
 from tools.path import (
     PATH_IMAGES
@@ -64,7 +67,7 @@ class ImprovedScreenWithAds(ImprovedScreen):
             popup_text = TEXT.popup["full_life_text"]
             popup = TwoButtonsPopup(
                 primary_color=self.continent_color,
-                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                secondary_color=DICT_CONTINENT_SECOND_COLOR[self.code_continent],
                 right_button_label=TEXT.popup["watch_ad"],
                 title=TEXT.popup["buy_life_title"],
                 center_label_text=popup_text,
@@ -83,7 +86,7 @@ class ImprovedScreenWithAds(ImprovedScreen):
                 "[TIME]", str(time_to_next_life)) + "\n\n" + TEXT.popup["buy_life_text"]
             popup = TwoButtonsPopup(
                 primary_color=self.continent_color,
-                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                secondary_color=DICT_CONTINENT_SECOND_COLOR[self.code_continent],
                 right_button_label=TEXT.popup["watch_ad"],
                 title=TEXT.popup["buy_life_title"],
                 center_label_text=popup_text,
@@ -107,7 +110,7 @@ class ImprovedScreenWithAds(ImprovedScreen):
         popup.dismiss()
         error_popup = MessagePopup(
             primary_color=self.continent_color,
-            secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+            secondary_color=DICT_CONTINENT_SECOND_COLOR[self.code_continent],
             center_label_text=TEXT.clues["no_connexion_message"],
             font_ratio=self.font_ratio,
             title=TEXT.clues["no_connexion_title"])
@@ -123,9 +126,11 @@ class GeozzleScreen(ImprovedScreenWithAds):
     # Configuration of the main widgets
     dict_type_screen: dict = {}
     title_screen = StringProperty()
+    code_continent = StringProperty("")
     continent_color = ColorProperty(BLACK)
+    secondary_continent_color = ColorProperty(GRAY)
     number_lives_on = NumericProperty(3)
-    multiplicator_image = StringProperty()
+    multiplier_image = StringProperty()
     continents_list = ListProperty(LIST_CONTINENTS)
     current_continent_position = NumericProperty(0)
 
@@ -178,13 +183,16 @@ class GeozzleScreen(ImprovedScreenWithAds):
         if not SCREEN_THREE_LIVES in self.dict_type_screen:
             self.remove_widget(self.ids.three_lives)
 
-        # Display the multiplicator widget
-        if not SCREEN_MULTIPLICATOR in self.dict_type_screen:
-            self.remove_widget(self.ids.mutliplicator)
+        # Display the multiplier widget
+        if not SCREEN_MULTIPLIER in self.dict_type_screen:
+            self.remove_widget(self.ids.multiplier)
 
         # Display the continent progress bar
         if not SCREEN_CONTINENT_PROGRESS_BAR in self.dict_type_screen:
             self.remove_widget(self.ids.continent_progress_bar)
+
+        # Bind the change of color
+        self.bind(code_continent=self.update_colors)
 
     def on_pre_enter(self, *args):
         super().on_pre_enter(*args)
@@ -193,9 +201,8 @@ class GeozzleScreen(ImprovedScreenWithAds):
         if SCREEN_THREE_LIVES in self.dict_type_screen:
             self.number_lives_on = USER_DATA.game.number_lives
 
-        if SCREEN_MULTIPLICATOR in self.dict_type_screen:
-            # TODO update the image of the multiplicator
-            pass
+        if SCREEN_MULTIPLIER in self.dict_type_screen:
+            self.multiplier_image = DICT_MULTIPLIERS[USER_DATA.game.current_multiplier]
 
         if SCREEN_CONTINENT_PROGRESS_BAR in self.dict_type_screen:
             self.continents_list = USER_DATA.game.list_continents
@@ -208,6 +215,14 @@ class GeozzleScreen(ImprovedScreenWithAds):
                 self.title_screen = TEXT.titles[title]
             else:
                 self.title_screen = title
+
+    def update_colors(self, *args):
+        if self.code_continent != "":
+            self.continent_color = DICT_CONTINENTS_PRIMARY_COLOR[self.code_continent]
+            self.secondary_continent_color = DICT_CONTINENT_SECOND_COLOR[self.code_continent]
+        else:
+            self.continent_color = BLACK
+            self.secondary_continent_color = GRAY
 
     def go_to_home(self):
         self.manager.get_screen("home").previous_screen_name = self.manager.current

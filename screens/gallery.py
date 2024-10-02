@@ -39,8 +39,8 @@ from tools.constants import (
     PRICE_BACKGROUND,
     SCREEN_TITLE,
     SCREEN_ICON_LEFT_UP,
-    DICT_CONTINENTS,
-    DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
+    DICT_CONTINENTS_PRIMARY_COLOR,
+    DICT_CONTINENT_SECOND_COLOR,
     SUB_TEXT_FONT_SIZE,
     SUBTITLE_OUTLINE_WIDTH,
     WHITE,
@@ -118,8 +118,8 @@ class GalleryScreen(GeozzleScreen):
             # Open a popup showing the new bought background
             popup = ImagePopup(
                 font_ratio=self.font_ratio,
-                primary_color=DICT_CONTINENTS[code_continent],
-                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[code_continent],
+                primary_color=DICT_CONTINENTS_PRIMARY_COLOR[code_continent],
+                secondary_color=DICT_CONTINENT_SECOND_COLOR[code_continent],
                 title=title,
                 image_source=full_path,
                 release_function=partial(self.manager.change_background, background_path=full_path),
@@ -142,7 +142,7 @@ class GalleryScreen(GeozzleScreen):
     def fill_scrollview(self):
         scrollview_layout: MyScrollViewLayout = self.ids.scrollview_layout
 
-        for code_continent in list(DICT_CONTINENTS.keys()):
+        for code_continent in list(DICT_CONTINENTS_PRIMARY_COLOR.keys()):
             list_backgrounds = [background for background in os.listdir(PATH_BACKGROUNDS + code_continent) if background in USER_DATA.unlocked_backgrounds]
             number_backgrounds = len(os.listdir(PATH_BACKGROUNDS + code_continent))
             # Label with the name of the continent
@@ -154,7 +154,7 @@ class GalleryScreen(GeozzleScreen):
                 height=40*self.font_ratio,
                 halign="left",
                 valign="middle",
-                color=DICT_CONTINENTS[code_continent],
+                color=DICT_CONTINENTS_PRIMARY_COLOR[code_continent],
                 outline_width=max(SUBTITLE_OUTLINE_WIDTH*self.font_ratio, 1),
                 outline_color=WHITE
             )
@@ -167,8 +167,8 @@ class GalleryScreen(GeozzleScreen):
                 font_ratio=self.font_ratio,
                 background_mode=True,
                 bar_width=5*self.font_ratio,
-                bar_color=DICT_CONTINENTS[code_continent],
-                bar_inactive_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[code_continent],
+                bar_color=DICT_CONTINENTS_PRIMARY_COLOR[code_continent],
+                bar_inactive_color=DICT_CONTINENT_SECOND_COLOR[code_continent],
                 size_hint=(1, None),
                 height=sv_height,
                 bar_margin=8*self.font_ratio,
@@ -202,7 +202,7 @@ class GalleryScreen(GeozzleScreen):
                     disable_button=disable_button
                 )
                 if not full_path in SHARED_DATA.list_unlocked_backgrounds:
-                    image.color = DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[code_continent]
+                    image.color = DICT_CONTINENT_SECOND_COLOR[code_continent]
                 vertical_layout.add_widget(image)
 
             custom_sv.add_widget(vertical_layout)

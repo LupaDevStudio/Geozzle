@@ -27,7 +27,7 @@ from tools.constants import (
     SMALL_BUTTON_FONT_SIZE,
     BLACK,
     WHITE,
-    DICT_CONTINENTS
+    DICT_CONTINENTS_PRIMARY_COLOR
 )
 
 SHORT_CONTINENT_NAMES = {
@@ -69,7 +69,7 @@ class ContinentProgressBar(RelativeLayout):
         self.bind(continents_list=self.disp_continents)
 
     def disp_continents(self, *_):
-        self.continent_colors = [DICT_CONTINENTS[continent]
+        self.continent_colors = [DICT_CONTINENTS_PRIMARY_COLOR[continent]
                                  for continent in self.continents_list]
         self.short_continents_list = [
             SHORT_CONTINENT_NAMES[continent] for continent in self.continents_list]

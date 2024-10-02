@@ -24,7 +24,7 @@ from tools.constants import (
     LIST_CLUES_EXCEPTIONS,
     DICT_WIKIDATA_LANGUAGE,
     NUMBER_CREDITS,
-    DICT_CONTINENTS,
+    DICT_CONTINENTS_PRIMARY_COLOR,
     PRICE_BACKGROUND,
     LIST_CONTINENTS,
     REWARD_AD
@@ -370,7 +370,7 @@ class Game():
     list_countries_to_guess: list[str]
 
     # Dict of countries encountered during the game
-    # {"code_country": {"list_clues": ["clue_1" ,"clue_2"], "multiplicator": 1.2, "guessed": True}}
+    # {"code_country": {"list_clues": ["clue_1" ,"clue_2"], "multiplier": 1.2, "guessed": True}}
     dict_guessed_countries: dict
 
     # List of the codes of the current clues
@@ -413,6 +413,10 @@ class Game():
         if not TEXT.language in self.dict_details_country:
             return False
         return self.current_guess_country in self.dict_details_country[TEXT.language]
+
+    @ property
+    def current_multiplier(self) -> float | int:
+        return self.dict_guessed_countries[self.current_guess_country]["multiplier"]
 
     def __init__(self, dict_to_load: dict) -> None:
         self.number_lives = dict_to_load.get("number_lives", 3)
@@ -509,7 +513,7 @@ class Game():
         self.dict_guessed_countries = {
             country_code: {
                 "list_clues": [],
-                "multiplicator": 1,
+                "multiplier": 1,
                 "guessed": False} for country_code in self.list_countries_to_guess
         }
 
@@ -614,7 +618,7 @@ class Game():
 
     def go_to_next_country(self):
         self.dict_guessed_countries[self.current_guess_country]["guessed"] = True
-        previous_multiplicator = self.dict_guessed_countries[self.current_guess_country]["multiplicator"]
+        previous_multiplier = self.dict_guessed_countries[self.current_guess_country]["multiplier"]
 
         # Update the index of the current country
         self.current_country_index += 1
@@ -623,12 +627,12 @@ class Game():
         if self.current_country_index >= 6:
             self.end_game()
         else:
-            # Update the multiplicator for the next country
+            # Update the multiplier for the next country
             if self.number_lives_used_country == 0:
-                multiplicator = previous_multiplicator + 0.2
+                multiplier = previous_multiplier + 0.2
             else:
-                multiplicator = 1
-            self.dict_guessed_countries[self.current_guess_country]["multiplicator"] = multiplicator
+                multiplier = 1
+            self.dict_guessed_countries[self.current_guess_country]["multiplier"] = multiplier
 
             # Reset the number of lives used in the country
             self.number_lives_used_country = 0
@@ -1206,7 +1210,7 @@ class UserData():
         Give a background for each continent when the user starts playing for the first time.
         """
 
-        for code_continent in list(DICT_CONTINENTS.keys()):
+        for code_continent in list(DICT_CONTINENTS_PRIMARY_COLOR.keys()):
             code_background = rd.choice(os.listdir(
                 PATH_BACKGROUNDS + code_continent))
             self.unlocked_backgrounds.append(code_background)
@@ -1339,7 +1343,7 @@ class UserData():
         self.points -= PRICE_BACKGROUND
 
         # Choose randomly the continent and the background
-        code_continent = rd.choice(list(DICT_CONTINENTS.keys()))
+        code_continent = rd.choice(list(DICT_CONTINENTS_PRIMARY_COLOR.keys()))
         code_background = rd.choice(os.listdir(
             PATH_BACKGROUNDS + code_continent))
 
@@ -1450,7 +1454,7 @@ class SharedData():
 
     def __init__(self) -> None:
         self.list_unlocked_backgrounds = []
-        for code_continent in list(DICT_CONTINENTS.keys()):
+        for code_continent in list(DICT_CONTINENTS_PRIMARY_COLOR.keys()):
             for code_background in os.listdir(PATH_BACKGROUNDS + code_continent):
                 if code_background in USER_DATA.unlocked_backgrounds:
                     self.add_new_background(

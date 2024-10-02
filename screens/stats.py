@@ -38,8 +38,8 @@ from tools.constants import (
     LIST_CONTINENTS,
     SCREEN_TITLE,
     SCREEN_ICON_LEFT_UP,
-    DICT_CONTINENTS,
-    DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
+    DICT_CONTINENTS_PRIMARY_COLOR,
+    DICT_CONTINENT_SECOND_COLOR,
     HIGHSCORE_FONT_SIZE,
     SUBTITLE_OUTLINE_WIDTH,
     WHITE
@@ -106,7 +106,7 @@ class StatsScreen(GeozzleScreen):
                 height=40*self.font_ratio,
                 halign="center",
                 valign="middle",
-                color=DICT_CONTINENTS[code_continent],
+                color=DICT_CONTINENTS_PRIMARY_COLOR[code_continent],
                 outline_width=max(SUBTITLE_OUTLINE_WIDTH*self.font_ratio, 1),
                 outline_color=WHITE
             )
@@ -126,7 +126,7 @@ class StatsScreen(GeozzleScreen):
                 size_hint=(0.3, None),
                 pos_hint={"center_y": 0.5},
                 font_ratio=self.font_ratio,
-                circle_color=DICT_CONTINENTS[code_continent],
+                circle_color=DICT_CONTINENTS_PRIMARY_COLOR[code_continent],
                 progress=USER_DATA.get_continent_progress(continent=code_continent)
             )
             progress_circle.bind(width=progress_circle.setter("height"))
@@ -149,8 +149,8 @@ class StatsScreen(GeozzleScreen):
                 pos_hint={"center_y": 0.5, "x": 0.4},
                 text=text,
                 text_button=TEXT.stats["details"],
-                color_label=DICT_CONTINENTS[code_continent],
-                background_button_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[code_continent],
+                color_label=DICT_CONTINENTS_PRIMARY_COLOR[code_continent],
+                background_button_color=DICT_CONTINENT_SECOND_COLOR[code_continent],
                 release_function=partial(self.open_continent_details, code_continent)
             )
             layout.add_widget(stats_layout)

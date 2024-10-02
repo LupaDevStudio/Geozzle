@@ -31,19 +31,20 @@ from tools.path import (
 )
 from tools.constants import (
     LIST_CONTINENTS,
-    DICT_CONTINENTS,
-    DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
+    DICT_CONTINENTS_PRIMARY_COLOR,
+    DICT_CONTINENT_SECOND_COLOR,
     TIME_CHANGE_BACKGROUND,
     DICT_COUNTRIES,
     SCREEN_ICON_LEFT_UP,
     SCREEN_TITLE,
-    SCREEN_MULTIPLICATOR,
+    SCREEN_MULTIPLIER,
     SCREEN_THREE_LIVES,
     SCREEN_CONTINENT_PROGRESS_BAR
 )
 from tools.geozzle import (
     TEXT,
-    USER_DATA
+    USER_DATA,
+    SHARED_DATA
 )
 from screens.custom_widgets import GeozzleScreen
 from screens.custom_widgets import (
@@ -62,34 +63,26 @@ from tools.geozzle import (
 
 class GameOverScreen(GeozzleScreen):
 
-    code_continent = StringProperty(LIST_CONTINENTS[0])
-    continent_color = ColorProperty(DICT_CONTINENTS[LIST_CONTINENTS[0]])
-    background_color = ColorProperty(
-        DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
     title_label = StringProperty()
     congrats_defeat_message = StringProperty()
     score_label = StringProperty()
     validate_label = StringProperty()
     continue_game_label = StringProperty()
-    number_lives_on = NumericProperty()
     list_countries = ListProperty([])
 
     dict_type_screen = {
         SCREEN_TITLE: {},
         SCREEN_ICON_LEFT_UP: {},
-        SCREEN_MULTIPLICATOR: "",
+        SCREEN_MULTIPLIER: "",
         SCREEN_THREE_LIVES: "",
         SCREEN_CONTINENT_PROGRESS_BAR: ""
     }
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
-            back_image_path=PATH_BACKGROUNDS + self.code_continent + "/" +
-            rd.choice(os.listdir(PATH_BACKGROUNDS + self.code_continent)),
+            back_image_path=rd.choice(SHARED_DATA.list_unlocked_backgrounds),
             font_name=PATH_TEXT_FONT,
             **kwargs)
-
-        self.bind(code_continent=self.update_color)
 
     def on_pre_enter(self, *args):
         super().on_pre_enter(*args)
@@ -98,22 +91,6 @@ class GameOverScreen(GeozzleScreen):
         self.score_label = ""
         self.ids.validate_button.disable_button = False
         self.ids.validate_button.background_color[-1] = 1
-
-    def on_enter(self, *args):
-
-        # Schedule the change of background
-        Clock.schedule_interval(
-            self.manager.change_background, TIME_CHANGE_BACKGROUND)
-
-        return super().on_enter(*args)
-
-    def on_pre_leave(self, *args):
-
-        # Unschedule the clock updates
-        Clock.unschedule(self.manager.change_background,
-                         TIME_CHANGE_BACKGROUND)
-
-        return super().on_leave(*args)
 
     def reload_language(self):
         """
@@ -128,10 +105,7 @@ class GameOverScreen(GeozzleScreen):
         None
         """
         self.dict_type_screen[SCREEN_TITLE]["title"] = TEXT.home[self.code_continent]
-        self.dict_type_screen[SCREEN_TITLE]["colors"] = DICT_CONTINENTS[self.code_continent]
-        self.dict_type_screen[SCREEN_ICON_LEFT_UP]["colors"] = DICT_CONTINENTS[self.code_continent]
 
-        self.title_label = TEXT.game_over["title"]
         self.congrats_defeat_message = TEXT.game_over["congrats"]
         self.validate_label = TEXT.game_over["validate"]
         self.continue_game_label = TEXT.game_over["button_back"]
@@ -156,22 +130,6 @@ class GameOverScreen(GeozzleScreen):
             self.list_countries.append(DICT_COUNTRIES[
                 USER_DATA.language][self.code_continent][wikidata_code_country])
 
-    def update_color(self, *args):
-        """
-        Update the code of the continent and its related attributes.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        self.continent_color = DICT_CONTINENTS[self.code_continent]
-        self.background_color = DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
-            self.code_continent]
-
     def go_back_to_summary(self):
         self.manager.get_screen(
             "game_summary").previous_screen_name = "game_over"
@@ -181,13 +139,6 @@ class GameOverScreen(GeozzleScreen):
         popup.dismiss()
         USER_DATA.game.reset_data_game_over()
         self.go_to_home()
-
-    def go_to_home(self):
-        self.manager.get_screen(
-            "home").previous_screen_name = "game_over"
-        self.manager.get_screen(
-            "home").code_continent = self.code_continent
-        self.manager.current = "home"
 
     def prepare_gui_to_play_game(self, has_success, *_):
         self.loading_popup.dismiss()
@@ -207,7 +158,7 @@ class GameOverScreen(GeozzleScreen):
         else:
             popup = MessagePopup(
                 primary_color=self.continent_color,
-                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                secondary_color=DICT_CONTINENT_SECOND_COLOR[
                     self.code_continent],
                 title=TEXT.clues["no_connexion_title"],
                 center_label_text=TEXT.clues["no_connexion_message"],
@@ -227,7 +178,7 @@ class GameOverScreen(GeozzleScreen):
             # Display the loading popup
             self.loading_popup = LoadingPopup(
                 primary_color=self.continent_color,
-                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                secondary_color=DICT_CONTINENT_SECOND_COLOR[
                     self.code_continent],
                 font_ratio=self.font_ratio)
             self.loading_popup.open()
@@ -262,7 +213,7 @@ class GameOverScreen(GeozzleScreen):
                 if USER_DATA.game.list_countries_left == []:
                     popup = MessagePopup(
                         primary_color=self.continent_color,
-                        secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                        secondary_color=DICT_CONTINENT_SECOND_COLOR[
                             self.code_continent],
                         title=TEXT.game_over["congrats"],
                         ok_button_label=TEXT.game_over["go_to_home"],
@@ -292,7 +243,7 @@ class GameOverScreen(GeozzleScreen):
 
                     popup = TwoButtonsPopup(
                         primary_color=self.continent_color,
-                        secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
+                        secondary_color=DICT_CONTINENT_SECOND_COLOR[
                             self.code_continent],
                         right_button_label=TEXT.home["watch_ad"],
                         left_button_label=TEXT.game_over["go_to_home"],
@@ -311,7 +262,7 @@ class GameOverScreen(GeozzleScreen):
         else:
             popup = MessagePopup(
                 primary_color=self.continent_color,
-                secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+                secondary_color=DICT_CONTINENT_SECOND_COLOR[self.code_continent],
                 title=TEXT.game_over["select_country_title"],
                 center_label_text=TEXT.game_over["select_country_message"],
                 font_ratio=self.font_ratio,

@@ -23,32 +23,32 @@
         "dict_guessed_countries": {
             "Q916": {
                 "list_clues": [],
-                "multiplicator": 1,
+                "multiplier": 1,
                 "guessed": false
             },
             "Q40": {
                 "list_clues": [],
-                "multiplicator": 1,
+                "multiplier": 1,
                 "guessed": false
             },
             "Q702": {
                 "list_clues": [],
-                "multiplicator": 1,
+                "multiplier": 1,
                 "guessed": false
             },
             "Q227": {
                 "list_clues": [],
-                "multiplicator": 1,
+                "multiplier": 1,
                 "guessed": false
             },
             "Q750": {
                 "list_clues": [],
-                "multiplicator": 1,
+                "multiplier": 1,
                 "guessed": false
             },
             "Q242": {
                 "list_clues": [],
-                "multiplicator": 1,
+                "multiplier": 1,
                 "guessed": false
             }
         },

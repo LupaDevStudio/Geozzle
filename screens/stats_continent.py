@@ -39,8 +39,8 @@ from tools.constants import (
     SCREEN_TITLE,
     SCREEN_ICON_LEFT_UP,
     SCREEN_ICON_LEFT_DOWN,
-    DICT_CONTINENTS,
-    DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
+    DICT_CONTINENTS_PRIMARY_COLOR,
+    DICT_CONTINENT_SECOND_COLOR,
     HIGHSCORE_FONT_SIZE,
     SUBTITLE_OUTLINE_WIDTH,
     WHITE,
@@ -58,8 +58,6 @@ from tools.geozzle import (
 
 
 class StatsContinentScreen(GeozzleScreen):
-
-    code_continent = StringProperty(LIST_CONTINENTS[0])
 
     dict_type_screen = {
         SCREEN_TITLE: {},
@@ -86,7 +84,6 @@ class StatsContinentScreen(GeozzleScreen):
         None
         """
         self.dict_type_screen[SCREEN_TITLE]["title"] = TEXT.home[self.code_continent]
-        self.continent_color = DICT_CONTINENTS[self.code_continent]
         super().reload_language()
 
     def on_pre_enter(self, *args):
@@ -113,7 +110,7 @@ class StatsContinentScreen(GeozzleScreen):
                 flag_image=flag_image,
                 number_stars=number_stars,
                 country_name=country_name,
-                color=DICT_CONTINENTS[self.code_continent]
+                color=DICT_CONTINENTS_PRIMARY_COLOR[self.code_continent]
             )
             scrollview_layout.add_widget(country_card)
 

@@ -34,19 +34,21 @@ from tools.path import (
     PATH_IMAGES_GEOJSON
 )
 from tools.constants import (
-    DICT_CONTINENTS,
+    DICT_CONTINENTS_PRIMARY_COLOR,
     LIST_CONTINENTS,
-    DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
+    DICT_CONTINENT_SECOND_COLOR,
     TIME_CHANGE_BACKGROUND,
     SCREEN_TITLE,
     SCREEN_ICON_LEFT_UP,
     SCREEN_THREE_LIVES,
-    SCREEN_MULTIPLICATOR,
+    SCREEN_MULTIPLIER,
     SCREEN_CONTINENT_PROGRESS_BAR
 )
 from tools.geozzle import (
     USER_DATA,
-    TEXT
+    TEXT,
+    SHARED_DATA
+
 )
 from screens.custom_widgets import GeozzleScreen
 
@@ -61,33 +63,25 @@ class ScrollViewLabel(Label):
 
 class GameSummaryScreen(GeozzleScreen):
 
-    code_continent = StringProperty(LIST_CONTINENTS[0])
-    continent_color = ColorProperty(DICT_CONTINENTS[LIST_CONTINENTS[0]])
-    background_color = ColorProperty(
-        DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
-    number_lives_on = NumericProperty()
     dict_scrollview_widgets = {}
     text_found_country = StringProperty()
-    current_hint = StringProperty()  # the name of the new hint
+    current_hint = StringProperty() # the value of the hint correctly formatted
     get_new_hint = StringProperty()
     title_label = StringProperty()
 
     dict_type_screen = {
         SCREEN_TITLE: {},
         SCREEN_ICON_LEFT_UP: {},
-        SCREEN_MULTIPLICATOR: "",
+        SCREEN_MULTIPLIER: "",
         SCREEN_THREE_LIVES: "",
         SCREEN_CONTINENT_PROGRESS_BAR: ""
     }
 
     def __init__(self, **kwargs) -> None:
         super().__init__(
-            back_image_path=PATH_BACKGROUNDS + self.code_continent + "/" +
-            rd.choice(os.listdir(PATH_BACKGROUNDS + self.code_continent)),
+            back_image_path=rd.choice(SHARED_DATA.list_unlocked_backgrounds),
             font_name=PATH_TEXT_FONT,
             **kwargs)
-
-        self.bind(code_continent=self.update_color)
 
     def on_pre_enter(self, *args):
         super().on_pre_enter(*args)
@@ -101,21 +95,7 @@ class GameSummaryScreen(GeozzleScreen):
         if len(USER_DATA.game.dict_clues[TEXT.language]) < 2:
             self.ids.scrollview.scroll_y = 1
 
-        # Schedule the change of background
-        Clock.schedule_interval(
-            self.manager.change_background, TIME_CHANGE_BACKGROUND)
-
-        self.number_lives_on = USER_DATA.game.number_lives
-
         return super().on_enter(*args)
-
-    def on_pre_leave(self, *args):
-
-        # Unschedule the clock updates
-        Clock.unschedule(self.manager.change_background,
-                         TIME_CHANGE_BACKGROUND)
-
-        return super().on_leave(*args)
 
     def reload_language(self):
         """
@@ -130,8 +110,6 @@ class GameSummaryScreen(GeozzleScreen):
         None
         """
         self.dict_type_screen[SCREEN_TITLE]["title"] = TEXT.home[self.code_continent]
-        self.dict_type_screen[SCREEN_TITLE]["colors"] = DICT_CONTINENTS[self.code_continent]
-        self.dict_type_screen[SCREEN_ICON_LEFT_UP]["colors"] = DICT_CONTINENTS[self.code_continent]
 
         self.text_found_country = TEXT.game_summary["i_found"]
         self.get_new_hint = TEXT.game_summary["new_hint"]
@@ -210,25 +188,6 @@ class GameSummaryScreen(GeozzleScreen):
             else:
                 self.update_images()
 
-    def update_color(self, base_widget, value):
-        """
-        Update the code of the continent and its related attributes.
-
-        Parameters
-        ----------
-        base_widget : kivy.uix.widget
-            Self
-        value : string
-            Value of code_continent
-
-        Returns
-        -------
-        None
-        """
-        self.continent_color = DICT_CONTINENTS[self.code_continent]
-        self.background_color = DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
-            self.code_continent]
-
     def go_to_game_over(self):
         self.manager.get_screen(
             "game_over").previous_screen_name = "game_summary"
@@ -248,7 +207,7 @@ class GameSummaryScreen(GeozzleScreen):
             print(image_source)
         popup = ImagePopup(
             primary_color=self.continent_color,
-            secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+            secondary_color=DICT_CONTINENT_SECOND_COLOR[self.code_continent],
             title=TEXT.game_summary["zoom_" + mode + "_title"],
             font_ratio=self.font_ratio,
             image_source=image_source,

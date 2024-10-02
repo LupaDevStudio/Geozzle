@@ -45,7 +45,7 @@
         do_scroll_x: False
         scroll_type: ["bars", "content"]
         bar_width: 10*root.font_ratio
-        bar_inactive_color: root.background_color
+        bar_inactive_color: root.secondary_continent_color
         bar_color: root.continent_color
 
         MyScrollViewLayout:
@@ -73,7 +73,7 @@
 
     # Button to get new clue and go back to game summary
     ColoredRoundedButton:
-        background_color: root.background_color
+        background_color: root.secondary_continent_color
         text: root.get_new_hint
         font_size: BUTTON_FONT_SIZE
         pos_hint: {"center_x":0.275, "center_y":0.075}
@@ -89,6 +89,6 @@
         font_size: BUTTON_FONT_SIZE
         pos_hint: {"center_x":0.725, "center_y":0.075}
         size_hint: (0.4, 0.075)
-        color_label: root.background_color
+        color_label: root.secondary_continent_color
         release_function: root.go_to_game_over
         font_ratio: root.font_ratio
