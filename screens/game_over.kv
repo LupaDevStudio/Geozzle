@@ -28,38 +28,6 @@
         text_color: root.continent_color
         select_color: root.secondary_continent_color
 
-    # Congratulation or defeat message
-    Label:
-        text: root.congrats_defeat_message
-        font_name: PATH_TITLE_FONT
-        font_size: HIGHSCORE_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.575}
-        outline_width: max(SUBTITLE_OUTLINE_WIDTH * root.font_ratio,1)
-        outline_color: TITLE_OUTLINE_COLOR
-        color: root.continent_color
-        size: self.size
-        text_size: (root.width*0.9,None)
-        shorten: False
-        halign: "center"
-        valign: "center"
-        line_height: 1
-
-    # Score indication
-    Label:
-        text: root.score_label
-        font_name: PATH_TITLE_FONT
-        font_size: HIGHSCORE_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.375}
-        outline_width: max(SUBTITLE_OUTLINE_WIDTH * root.font_ratio,1)
-        outline_color: TITLE_OUTLINE_COLOR
-        color: root.continent_color
-        size: self.size
-        text_size: (root.width*0.9,None)
-        shorten: False
-        halign: "center"
-        valign: "center"
-        line_height: 1
-
     # Validate button
     ColoredRoundedButton:
         id: validate_button

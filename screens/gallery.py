@@ -123,7 +123,7 @@ class GalleryScreen(GeozzleScreen):
                 title=title,
                 image_source=full_path,
                 release_function=partial(self.manager.change_background, background_path=full_path),
-                ok_button_label=TEXT.home["cancel"]
+                ok_button_label=TEXT.popup["close"]
             )
             popup.open()
         
@@ -135,7 +135,7 @@ class GalleryScreen(GeozzleScreen):
                 secondary_color=GRAY,
                 title=TEXT.popup["buy_background_impossible_title"],
                 center_label_text=TEXT.popup["buy_background_impossible_text"].replace("[NB_POINTS]", str(PRICE_BACKGROUND)),
-                ok_button_label=TEXT.home["cancel"]
+                ok_button_label=TEXT.popup["close"]
             )
             popup.open()
 

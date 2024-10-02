@@ -76,7 +76,7 @@ class ImprovedScreenWithAds(ImprovedScreen):
             )
             popup.ids.right_button.disabled = True
             popup.ids.right_button.opacity = 0
-            popup.left_button_label = TEXT.popup["close"]
+            popup.left_button_label = TEXT.home["cancel"]
             popup.open()
         else:
             current_time = time.time()
@@ -96,7 +96,7 @@ class ImprovedScreenWithAds(ImprovedScreen):
             watch_ad_with_callback = partial(
                 AD_CONTAINER.watch_ad, partial(self.ad_callback, popup), partial(self.error_ad_loading_message, popup))
             popup.right_release_function = watch_ad_with_callback
-            popup.left_button_label = TEXT.popup["close"]
+            popup.left_button_label = TEXT.home["cancel"]
             popup.open()
 
     @mainthread

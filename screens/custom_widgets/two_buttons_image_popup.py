@@ -30,14 +30,16 @@ class TwoButtonsImagePopup(CustomPopup):
 
     title = StringProperty()
     right_button_label = StringProperty()
-    right_release_function = ObjectProperty()
+    right_release_function = ObjectProperty(lambda: 1 + 1)
     left_button_label = StringProperty(TEXT.home["cancel"])
-    left_release_function = ObjectProperty()
+    left_release_function = ObjectProperty(lambda: 1 + 1)
     center_label_text = StringProperty()
     image_source = StringProperty()
 
-    def __init__(self, **kwargs):
-        if not "left_release_function" in kwargs:
-            super().__init__(left_release_function=self.dismiss, **kwargs)
-        else:
-            super().__init__(**kwargs)
+    def left_function(self):
+        self.dismiss()
+        self.left_release_function()
+
+    def right_function(self):
+        self.dismiss()
+        self.right_release_function()

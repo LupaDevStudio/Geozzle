@@ -58,7 +58,7 @@
         "continue": "Continue",
         "next_country": "Next country",
         "finish_continent": "You've successfully guessed all the countries in this continent, congratulations!",
-        "button_back": "Back",
+        "button_back": "Back to clues",
         "go_to_home": "Go back to menu",
         "select_country_title": "Error in choice",
         "select_country_message": "You must select a country from the dropdown menu."

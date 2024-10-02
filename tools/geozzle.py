@@ -627,39 +627,43 @@ class Game():
         # TODO Paul (peut-être se resservir de la fonction qui avait déjà été codée avant)
         pass
 
-    def go_to_next_country(self):
+    def finish_country(self) -> bool:
+        """Return if the game is finished or not."""
         self.dict_guessed_countries[self.current_guess_country]["guessed"] = True
-        previous_multiplier = self.dict_guessed_countries[self.current_guess_country]["multiplier"]
 
         # Update the index of the current country
         self.current_country_index += 1
 
         # Check the end of the game or not
-        if self.current_country_index >= 6:
-            self.end_game()
-        else:
-            # Update the multiplier
-            self.dict_guessed_countries[self.current_guess_country]["multiplier"] = self.current_multiplier
+        return self.current_country_index == 6
 
-            # Rebuild the dict of details of the next country
-            self.dict_details_country = {}
-            # TODO faire quelque chose avec request status
-            request_status = self.build_dict_details_country()
+    def go_to_next_country(self) -> bool:
+        # Update the multiplier
+        self.dict_guessed_countries[self.current_guess_country]["multiplier"] = self.current_multiplier
 
-            # Rebuild the list of current clues
-            self.list_current_clues = []
+        # Rebuild the list of countries in spinner
+        self.list_countries_in_spinner = []
+        self.build_list_countries_in_spinner()
 
-            # Rebuild the list of countries in spinner
-            self.list_countries_in_spinner = []
-            self.build_list_countries_in_spinner()
+        # Rebuild the dict of details of the next country
+        self.dict_details_country = {}
+        request_status = self.build_dict_details_country()
+        if not request_status:
+            return False
+
+        # Rebuild the list of current clues
+        self.list_current_clues = []
+        self.choose_clues()
+
+        return True
 
     def end_game(self):
         """
         End the current game and reset the class.
         """
 
-        score = self.compute_final_game_score()
-        USER_DATA.update_points_and_score(score=score)
+        final_score = self.compute_final_game_score()
+        USER_DATA.update_points_and_score(score=final_score)
         USER_DATA.update_stats(
             dict_guessed_countries=self.dict_guessed_countries,
             list_continents=self.list_continents)
@@ -674,6 +678,12 @@ class Game():
         self.dict_guessed_countries = {}
         self.dict_details_country = {}
         self.list_countries_in_spinner = {}
+
+        return final_score
+
+    def compute_country_score(self) -> int:
+        # TODO Paul calculer le score avec ta fonction et le retourner (du pays en cours)
+        pass
 
     def compute_final_game_score(self) -> int:
         # TODO Paul calculer le score avec ta fonction et le retourner

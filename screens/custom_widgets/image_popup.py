@@ -29,7 +29,7 @@ from tools.geozzle import (
 
 class ImagePopup(CustomPopup):
 
-    ok_button_label = StringProperty(TEXT.home["cancel"])
+    ok_button_label = StringProperty(TEXT.popup["close"])
     release_function = ObjectProperty(lambda: 1 + 1)
     image_source = StringProperty()
     mode = StringProperty("image")

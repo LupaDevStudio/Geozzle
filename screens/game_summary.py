@@ -214,7 +214,7 @@ class GameSummaryScreen(GeozzleScreen):
             title=TEXT.game_summary["zoom_" + mode + "_title"],
             font_ratio=self.font_ratio,
             image_source=image_source,
-            ok_button_label=TEXT.home["cancel"]
+            ok_button_label=TEXT.popup["close"]
         )
         popup.mode = mode
         popup.open()

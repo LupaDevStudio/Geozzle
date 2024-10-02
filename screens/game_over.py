@@ -26,14 +26,10 @@ from kivy.properties import (
 ### Local imports ###
 
 from tools.path import (
-    PATH_BACKGROUNDS,
     PATH_TEXT_FONT
 )
 from tools.constants import (
-    LIST_CONTINENTS,
-    DICT_CONTINENTS_PRIMARY_COLOR,
     DICT_CONTINENT_SECOND_COLOR,
-    TIME_CHANGE_BACKGROUND,
     DICT_COUNTRIES,
     SCREEN_ICON_LEFT_UP,
     SCREEN_TITLE,
@@ -64,8 +60,6 @@ from tools.geozzle import (
 class GameOverScreen(GeozzleScreen):
 
     title_label = StringProperty()
-    congrats_defeat_message = StringProperty()
-    score_label = StringProperty()
     validate_label = StringProperty()
     continue_game_label = StringProperty()
     list_countries = ListProperty([])
@@ -84,14 +78,6 @@ class GameOverScreen(GeozzleScreen):
             font_name=PATH_TEXT_FONT,
             **kwargs)
 
-    def on_pre_enter(self, *args):
-        super().on_pre_enter(*args)
-
-        self.congrats_defeat_message = ""
-        self.score_label = ""
-        self.ids.validate_button.disable_button = False
-        self.ids.validate_button.background_color[-1] = 1
-
     def reload_language(self):
         """
         Update the labels depending on the language.
@@ -106,7 +92,6 @@ class GameOverScreen(GeozzleScreen):
         """
         self.dict_type_screen[SCREEN_TITLE]["title"] = TEXT.home[self.code_continent]
 
-        self.congrats_defeat_message = TEXT.game_over["congrats"]
         self.validate_label = TEXT.game_over["validate"]
         self.continue_game_label = TEXT.game_over["button_back"]
 
@@ -135,68 +120,52 @@ class GameOverScreen(GeozzleScreen):
             "game_summary").previous_screen_name = "game_over"
         self.manager.current = "game_summary"
 
-    def go_to_home_and_dismiss(self, popup):
-        popup.dismiss()
-        USER_DATA.game.reset_data_game_over()
-        self.go_to_home()
-
     def prepare_gui_to_play_game(self, has_success, *_):
         self.loading_popup.dismiss()
         if has_success:
+            self.code_continent = USER_DATA.game.current_guess_continent
 
             self.manager.get_screen(
                 "game_question").previous_screen_name = "game_over"
             self.manager.get_screen(
                 "game_question").code_continent = self.code_continent
             self.manager.get_screen(
-                "game_summary").reset_scroll_view()
-            self.manager.get_screen(
-                "game_summary").update_images()
-            self.manager.current = "game_question"
+                "game_summary").code_continent = self.code_continent
             self.update_countries()
 
+            Clock.schedule_once(self.manager.get_screen(
+                "game_question").change_background_continent)
+            self.manager.current = "game_question"
+
+        # If no connexion, display a popup and go to home
         else:
             popup = MessagePopup(
                 primary_color=self.continent_color,
-                secondary_color=DICT_CONTINENT_SECOND_COLOR[
-                    self.code_continent],
+                secondary_color=self.secondary_continent_color,
                 title=TEXT.clues["no_connexion_title"],
                 center_label_text=TEXT.clues["no_connexion_message"],
                 font_ratio=self.font_ratio,
-                ok_button_label=TEXT.home["cancel"]
+                ok_button_label=TEXT.popup["close"],
+                release_function=self.go_to_home
             )
             popup.open()
 
     def thread_request(self):
-        has_success = USER_DATA.game.create_new_game(self.code_continent)
+        has_success = USER_DATA.game.go_to_next_country()
         Clock.schedule_once(
             partial(self.prepare_gui_to_play_game, has_success))
 
     def go_to_next_screen(self):
-        if self.continue_game_label == TEXT.game_over["next_country"]:
+        # Display the loading popup
+        self.loading_popup = LoadingPopup(
+            primary_color=self.continent_color,
+            secondary_color=self.secondary_continent_color,
+            font_ratio=self.font_ratio)
+        self.loading_popup.open()
 
-            # Display the loading popup
-            self.loading_popup = LoadingPopup(
-                primary_color=self.continent_color,
-                secondary_color=DICT_CONTINENT_SECOND_COLOR[
-                    self.code_continent],
-                font_ratio=self.font_ratio)
-            self.loading_popup.open()
-
-            # Start thread
-            my_thread = Thread(target=self.thread_request)
-            my_thread.start()
-
-        elif self.continue_game_label in [TEXT.game_over["continue"], TEXT.game_over["button_back"]]:
-            self.manager.get_screen(
-                "game_summary").previous_screen_name = "game_over"
-            self.manager.get_screen(
-                "game_summary").code_continent = self.code_continent
-            self.manager.current = "game_summary"
-
-    def disable_validate_button(self):
-        self.ids.validate_button.disable_button = True
-        self.ids.validate_button.background_color[-1] = 0.5
+        # Start thread
+        my_thread = Thread(target=self.thread_request)
+        my_thread.start()
 
     def submit_country(self):
         if self.ids.country_spinner.text != "":
@@ -207,44 +176,55 @@ class GameOverScreen(GeozzleScreen):
 
             # The selected country is correct
             if USER_DATA.game.check_country(submitted_country):
-                self.disable_validate_button()
+                # Compute the score of the current country
+                score = USER_DATA.game.compute_country_score()
 
-                # If the continent is finished
-                if USER_DATA.game.list_countries_left == []:
+                # Finish the country
+                has_finished_game = USER_DATA.game.finish_country()
+
+                # If the game is finished
+                if has_finished_game:
+                    # End the game and compute the score
+                    final_score = USER_DATA.game.end_game()
+                    # TODO display the score popup
                     popup = MessagePopup(
                         primary_color=self.continent_color,
-                        secondary_color=DICT_CONTINENT_SECOND_COLOR[
-                            self.code_continent],
+                        secondary_color=self.secondary_continent_color,
                         title=TEXT.game_over["congrats"],
                         ok_button_label=TEXT.game_over["go_to_home"],
                         center_label_text=TEXT.game_over["finish_continent"],
-                        font_ratio=self.font_ratio
+                        font_ratio=self.font_ratio,
+                        release_function=self.go_to_home
                     )
-                    popup.release_function = partial(
-                        self.go_to_home_and_dismiss, popup)
                     popup.open()
+                    score_popup_release_function = lambda: 1 + 1
                 else:
                     self.continue_game_label = TEXT.game_over["next_country"]
+                    score_popup_release_function = self.go_to_next_screen
 
-                self.congrats_defeat_message = TEXT.game_over["congrats"]
-                current_score = USER_DATA.game.update_score()
-                self.score_label = TEXT.home["highscore"] + \
-                    str(int(current_score))
-                USER_DATA.game.update_percentage()
+                # Display the popup with the score of the current country
+                # TODO changer la popup pour mettre la bonne
+                popup = MessagePopup(
+                    primary_color=self.continent_color,
+                    secondary_color=self.secondary_continent_color,
+                    title=TEXT.game_over["congrats"],
+                    ok_button_label=TEXT.popup["close"],
+                    center_label_text=f"AFFICHER LE SCORE DU PAYS EN COURS {score}",
+                    font_ratio=self.font_ratio,
+                    release_function=score_popup_release_function
+                )
 
             # The country is not correct
             else:
                 self.number_lives_on = USER_DATA.game.number_lives
-                self.continue_game_label = TEXT.game_over["continue"]
-                self.congrats_defeat_message = TEXT.game_over["defeat"]
+                # TODO open a popup to say the country was not correct
 
-                # The user has no more lives
-                if USER_DATA.game.detect_game_over():
+                # The user has no more lives but ad credits
+                if USER_DATA.game.number_lives == 0 and USER_DATA.game.number_credits > 0:
 
                     popup = TwoButtonsPopup(
                         primary_color=self.continent_color,
-                        secondary_color=DICT_CONTINENT_SECOND_COLOR[
-                            self.code_continent],
+                        secondary_color=self.secondary_continent_color,
                         right_button_label=TEXT.home["watch_ad"],
                         left_button_label=TEXT.game_over["go_to_home"],
                         title=TEXT.home["buy_life_title"],
@@ -258,15 +238,21 @@ class GameOverScreen(GeozzleScreen):
                         self.go_to_home_and_dismiss, popup)
                     popup.open()
 
+                # Game over 
+                elif USER_DATA.game.number_lives == 0 and USER_DATA.game.number_credits == 0:
+                    score = USER_DATA.game.end_game()
+                    # TODO display popup global score
+                    # TODO display popup game over
+
         # Popup to ask the user to select a country
         else:
             popup = MessagePopup(
                 primary_color=self.continent_color,
-                secondary_color=DICT_CONTINENT_SECOND_COLOR[self.code_continent],
+                secondary_color=self.secondary_continent_color,
                 title=TEXT.game_over["select_country_title"],
                 center_label_text=TEXT.game_over["select_country_message"],
                 font_ratio=self.font_ratio,
-                ok_button_label=TEXT.home["cancel"]
+                ok_button_label=TEXT.popup["close"]
             )
             popup.open()
 
