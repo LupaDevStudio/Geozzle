@@ -96,7 +96,8 @@ class SettingsScreen(GeozzleScreen):
         self.language_label = TEXT.settings["language"]
         self.tutorial_label = TEXT.settings["tutorial"]
         self.credits_label = TEXT.settings["credits"]
-        self.version_label = TEXT.settings["version"].replace("[VERSION]", __version__)
+        self.version_label = TEXT.settings["version"].replace(
+            "[VERSION]", __version__)
 
     def change_language_to_french(self):
         self.change_language(code_language="french")
@@ -137,8 +138,8 @@ class SettingsScreen(GeozzleScreen):
 
     def launch_tutorial(self):
         popup = TutorialPopup(
-            primary_color=BLACK,
-            secondary_color=GRAY,
+            primary_color=self.continent_color,
+            secondary_color=self.secondary_continent_color,
             tutorial_content=TEXT.tutorial["tutorial_content"],
             font_ratio=self.font_ratio)
         popup.open()

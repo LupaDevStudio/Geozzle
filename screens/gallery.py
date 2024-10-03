@@ -123,19 +123,21 @@ class GalleryScreen(GeozzleScreen):
                 secondary_color=DICT_CONTINENT_SECOND_COLOR[code_continent],
                 title=title,
                 image_source=full_path,
-                release_function=partial(self.manager.change_background, background_path=full_path),
+                release_function=partial(
+                    self.manager.change_background, background_path=full_path),
                 ok_button_label=TEXT.popup["close"]
             )
             popup.open()
-        
+
         # Error popup when the user doesn't have enough points
         else:
             popup = MessagePopup(
                 font_ratio=self.font_ratio,
-                primary_color=BLACK,
-                secondary_color=GRAY,
+                primary_color=self.continent_color,
+                secondary_color=self.secondary_continent_color,
                 title=TEXT.popup["buy_background_impossible_title"],
-                center_label_text=TEXT.popup["buy_background_impossible_text"].replace("[NB_POINTS]", str(PRICE_BACKGROUND)),
+                center_label_text=TEXT.popup["buy_background_impossible_text"].replace(
+                    "[NB_POINTS]", str(PRICE_BACKGROUND)),
                 ok_button_label=TEXT.popup["close"]
             )
             popup.open()
@@ -144,42 +146,45 @@ class GalleryScreen(GeozzleScreen):
         scrollview_layout: MyScrollViewLayout = self.ids.scrollview_layout
 
         for code_continent in list(DICT_CONTINENTS_PRIMARY_COLOR.keys()):
-            list_backgrounds = [background for background in os.listdir(PATH_BACKGROUNDS + code_continent) if background in USER_DATA.unlocked_backgrounds]
-            number_backgrounds = len(os.listdir(PATH_BACKGROUNDS + code_continent))
+            list_backgrounds = [background for background in os.listdir(
+                PATH_BACKGROUNDS + code_continent) if background in USER_DATA.unlocked_backgrounds]
+            number_backgrounds = len(os.listdir(
+                PATH_BACKGROUNDS + code_continent))
             # Label with the name of the continent
             label = Label(
-                text=TEXT.home[code_continent] + f" - {len(list_backgrounds)}/{number_backgrounds}",
+                text=TEXT.home[code_continent] +
+                f" - {len(list_backgrounds)}/{number_backgrounds}",
                 font_name=self.font_name,
-                font_size=SUB_TEXT_FONT_SIZE*self.font_ratio,
+                font_size=SUB_TEXT_FONT_SIZE * self.font_ratio,
                 size_hint=(1, None),
-                height=40*self.font_ratio,
+                height=40 * self.font_ratio,
                 halign="left",
                 valign="middle",
                 color=DICT_CONTINENTS_PRIMARY_COLOR[code_continent],
-                outline_width=max(SUBTITLE_OUTLINE_WIDTH*self.font_ratio, 1),
+                outline_width=max(SUBTITLE_OUTLINE_WIDTH * self.font_ratio, 1),
                 outline_color=WHITE
             )
             label.bind(size=label.setter('text_size'))
             scrollview_layout.add_widget(label)
 
             # Vertical scrollview with background
-            sv_height = 150*self.font_ratio
+            sv_height = 150 * self.font_ratio
             custom_sv = CustomScrollview(
                 font_ratio=self.font_ratio,
                 background_mode=True,
-                bar_width=5*self.font_ratio,
+                bar_width=5 * self.font_ratio,
                 bar_color=DICT_CONTINENT_SECOND_COLOR[code_continent],
                 bar_inactive_color=DICT_CONTINENTS_PRIMARY_COLOR[code_continent],
                 size_hint=(1, None),
                 height=sv_height,
-                bar_margin=8*self.font_ratio,
+                bar_margin=8 * self.font_ratio,
                 do_scroll_y=False,
                 do_scroll_x=True
             )
             vertical_layout = MyScrollViewVerticalLayout(
                 rows=1,
-                spacing=15*self.font_ratio,
-                padding=15*self.font_ratio
+                spacing=15 * self.font_ratio,
+                padding=15 * self.font_ratio
             )
 
             # All the backgrounds
@@ -187,17 +192,18 @@ class GalleryScreen(GeozzleScreen):
                 full_path = PATH_BACKGROUNDS + code_continent + "/" + background
                 if not full_path in SHARED_DATA.list_unlocked_backgrounds:
                     new_path = PATH_STICKERS + "unknown_background.jpg"
-                    release_function = lambda: 1 + 1
+                    def release_function(): return 1 + 1
                     disable_button = True
                 else:
                     new_path = PATH_STICKERS + code_continent + "/" + background
-                    release_function = partial(self.manager.change_background, background_path=full_path)
+                    release_function = partial(
+                        self.manager.change_background, background_path=full_path)
                     disable_button = False
                 image = ImageButton(
                     source=new_path,
                     size_hint=(None, None),
-                    height=sv_height-15*self.font_ratio*2-8*self.font_ratio,
-                    width=80*self.font_ratio,
+                    height=sv_height - 15 * self.font_ratio * 2 - 8 * self.font_ratio,
+                    width=80 * self.font_ratio,
                     pos_hint={"center_y": 0.5},
                     fit_mode="cover",
                     release_function=release_function,
