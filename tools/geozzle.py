@@ -27,7 +27,8 @@ from tools.constants import (
     DICT_CONTINENTS_PRIMARY_COLOR,
     PRICE_BACKGROUND,
     LIST_CONTINENTS,
-    REWARD_AD
+    REWARD_AD,
+    __version__
 )
 from tools.path import (
     PATH_BACKGROUNDS,
@@ -888,6 +889,15 @@ class UserData():
 
     def __init__(self) -> None:
         data = load_json_file(PATH_USER_DATA)
+        self.version: str = data.get("version", "")
+        # Reset the data of the user (for the v1 of the game)
+        if self.version == "":
+            data = {}
+            self.version = __version__
+        # Update the version of the application
+        elif self.version != __version__:
+            self.version = __version__
+
         self.game: Game = Game(data.get("game", {}))
         self.language: Literal["english", "french"] = data.get(
             "language", "english")
@@ -909,6 +919,8 @@ class UserData():
             "unlocked_backgrounds", [])
         if self.unlocked_backgrounds == []:
             self.init_backgrounds()
+        
+        # Save changes
         self.save_changes()
 
     def init_backgrounds(self):
@@ -1096,6 +1108,7 @@ class UserData():
 
         # Create the dictionary of data
         data = {}
+        data["version"] = self.version
         data["language"] = self.language
         data["game"] = self.game.export_as_dict()
         data["stats"] = self.stats

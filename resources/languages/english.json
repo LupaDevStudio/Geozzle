@@ -9,7 +9,8 @@
         "sound": "Sound effects volume",
         "language": "Language",
         "tutorial": "Tutorial",
-        "credits": "Credits"
+        "credits": "Credits",
+        "version": "Version [VERSION]"
     },
     "gallery": {
         "points": "Points: [POINTS]",

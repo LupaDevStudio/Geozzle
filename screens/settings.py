@@ -28,7 +28,8 @@ from tools.constants import (
     BLACK,
     GRAY,
     SCREEN_TITLE,
-    SCREEN_ICON_LEFT_UP
+    SCREEN_ICON_LEFT_UP,
+    __version__
 )
 from tools.geozzle import (
     USER_DATA,
@@ -55,6 +56,7 @@ class SettingsScreen(GeozzleScreen):
     sound_volume_label = StringProperty()
     tutorial_label = StringProperty()
     credits_label = StringProperty()
+    version_label = StringProperty()
     code_language = StringProperty(TEXT.language)
 
     music_volume = NumericProperty(USER_DATA.music_volume)
@@ -94,6 +96,7 @@ class SettingsScreen(GeozzleScreen):
         self.language_label = TEXT.settings["language"]
         self.tutorial_label = TEXT.settings["tutorial"]
         self.credits_label = TEXT.settings["credits"]
+        self.version_label = TEXT.settings["version"].replace("[VERSION]", __version__)
 
     def change_language_to_french(self):
         self.change_language(code_language="french")
