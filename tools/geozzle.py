@@ -928,18 +928,18 @@ class UserData():
         Give a background for each continent when the user starts playing for the first time.
         """
 
-        for code_continent in list(DICT_CONTINENTS_PRIMARY_COLOR.keys()):
+        for code_continent in LIST_CONTINENTS:
             code_background = rd.choice(os.listdir(
                 PATH_BACKGROUNDS + code_continent))
             self.unlocked_backgrounds.append(code_background)
 
-    def get_nb_countries_with_stars(self, continent: str, target_nb_stars: int):
+    def get_nb_countries_with_stars(self, code_continent: str, target_nb_stars: int) -> int:
         """
         Compute the number of countries for a given continent with the target number of stars.
 
         Parameters
         ----------
-        continent : str
+        code_continent : str
             Continent code.
         target_nb_stars : int
             Number of stars to target.
@@ -951,20 +951,20 @@ class UserData():
         """
 
         nb_countries = 0
-        for country in self.stats[continent]:
-            nb_stars = self.stats[continent][country]["nb_stars"]
-            if nb_stars == target_nb_stars:
+        for country in self.stats[code_continent]:
+            nb_stars = self.stats[code_continent][country]["nb_stars"]
+            if nb_stars >= target_nb_stars:
                 nb_countries += 1
 
         return nb_countries
 
-    def get_nb_countries(self, continent: str):
+    def get_nb_countries(self, code_continent: str):
         """
         Compute the number of countries in a given continent.
 
         Parameters
         ----------
-        continent : str
+        code_continent : str
             Continent code.
 
         Returns
@@ -973,15 +973,15 @@ class UserData():
             Number of countries
         """
 
-        return len(DICT_COUNTRIES["english"][continent])
+        return len(DICT_COUNTRIES["english"][code_continent])
 
-    def get_nb_stars_on_continent(self, continent: str):
+    def get_nb_stars_on_continent(self, code_continent: str):
         """
         Return the number of stars obtained on a given continent.
 
         Parameters
         ----------
-        continent : str
+        code_continent : str
             Continent code.
 
         Returns
@@ -991,20 +991,20 @@ class UserData():
         """
 
         nb_stars_on_continent = 0
-        for country in self.stats[continent]:
-            nb_stars = self.stats[continent][country]["nb_stars"]
+        for country in self.stats[code_continent]:
+            nb_stars = self.stats[code_continent][country]["nb_stars"]
             nb_stars_on_continent += nb_stars
 
         return nb_stars_on_continent
 
-    def get_continent_progress(self, continent: str):
+    def get_continent_progress(self, code_continent: str) -> int:
         """
         Return the progress of the continent in percent.
         This number corresponds to the number of stars obtained divided by the total number of stars.
 
         Parameters
         ----------
-        continent : str
+        code_continent : str
             Continent code.
 
         Returns
@@ -1014,14 +1014,32 @@ class UserData():
         """
 
         # Extract the data
-        nb_stars_on_continent = self.get_nb_stars_on_continent(continent)
-        nb_countries_on_continent = self.get_nb_countries(continent)
+        nb_stars_on_continent = self.get_nb_stars_on_continent(code_continent)
+        nb_countries_on_continent = self.get_nb_countries(code_continent)
 
         # Compute the percentage
-        percentage = int(nb_stars_on_continent /
-                         (3 * nb_countries_on_continent))
+        percentage = int(
+            100 * nb_stars_on_continent / (3 * nb_countries_on_continent))
 
         return percentage
+
+    def get_total_progress(self) -> int:
+        """
+        Compute the total progress of the player.
+
+        Returns
+        -------
+        int
+            Total percentage of progress of the player.
+        """
+        total_stars_user = 0
+        total_stars = 0
+        for code_continent in LIST_CONTINENTS:
+            total_stars_user += self.get_nb_stars_on_continent(
+                code_continent=code_continent)
+            total_stars += 3 * self.get_nb_countries(
+                code_continent=code_continent)
+        return int(100 * total_stars_user / total_stars)
 
     def check_country_is_new(self, code_continent: str, code_country: str, nb_stars: int) -> bool:
         if code_country in self.stats[code_continent]:

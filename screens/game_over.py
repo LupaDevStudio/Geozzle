@@ -297,7 +297,7 @@ class GameOverScreen(GeozzleScreen):
             ok_button_label=TEXT.game_over["go_to_home"],
             center_label_text="SCORE FINAL",
             font_ratio=self.font_ratio,
-            release_function=self.go_to_home
+            release_function=self.go_to_home_and_watch_potentially_an_ad
         )
         popup.open()
 
@@ -312,6 +312,13 @@ class GameOverScreen(GeozzleScreen):
                 ok_button_label=TEXT.popup["close"]
             )
             popup.open()
+
+    def go_to_home_and_watch_potentially_an_ad(self):
+        # An ad is displayed randomly at the end of the game, if the user has completed the game to more than 5%
+        if rd.random() > 0.6 and USER_DATA.get_total_progress() > 5:
+            # TODO Paul watch an ad
+            print("Watch an ad")
+        self.go_to_home()
 
     @mainthread
     def ad_callback(self, popup: TwoButtonsPopup):
