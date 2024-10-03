@@ -26,10 +26,12 @@ from kivy.properties import (
 ### Local imports ###
 
 from tools.path import (
-    PATH_TEXT_FONT
+    PATH_TEXT_FONT,
+    PATH_FLAG_IMAGES
 )
 from tools.constants import (
-    DICT_CONTINENT_SECOND_COLOR,
+    DICT_MULTIPLIERS,
+    DICT_NEW_IMAGES,
     DICT_COUNTRIES,
     SCREEN_ICON_LEFT_UP,
     SCREEN_TITLE,
@@ -40,13 +42,15 @@ from tools.constants import (
 from tools.geozzle import (
     TEXT,
     USER_DATA,
-    SHARED_DATA
+    SHARED_DATA,
+    get_nb_stars
 )
 from screens.custom_widgets import GeozzleScreen
 from screens.custom_widgets import (
     TwoButtonsPopup,
     MessagePopup,
-    LoadingPopup
+    LoadingPopup,
+    EndCountryPopup
 )
 from tools.geozzle import (
     AD_CONTAINER
@@ -176,13 +180,18 @@ class GameOverScreen(GeozzleScreen):
 
             # The selected country is correct
             if USER_DATA.game.check_country(submitted_country):
+
                 # Compute the score of the current country
                 code_country = USER_DATA.game.current_guess_country
                 score, score_game = USER_DATA.game.compute_country_and_game_score()
+                nb_stars = get_nb_stars(
+                    list_clues=USER_DATA.game.dict_guessed_countries[code_country]["list_clues"])
                 is_country_new = USER_DATA.check_country_is_new(
                     code_continent=self.code_continent,
-                    code_country=code_country
+                    code_country=code_country,
+                    nb_stars=nb_stars
                 )
+                current_multiplier = USER_DATA.game.current_multiplier
 
                 # Finish the country
                 has_finished_game = USER_DATA.game.finish_country()
@@ -202,26 +211,38 @@ class GameOverScreen(GeozzleScreen):
                         release_function=self.go_to_home
                     )
                     popup.open()
+                    ok_button_label = TEXT.popup["close"]
                     def score_popup_release_function(): return 1 + 1
                 else:
-                    self.continue_game_label = TEXT.game_over["next_country"]
+                    ok_button_label = TEXT.game_over["next_continent"]
                     score_popup_release_function = self.go_to_next_screen
 
-                # Display the popup with the score of the current country
-                # TODO changer la popup pour mettre la bonne
-                # is_country_new, code_country
+                # Format the score label
                 text = TEXT.game_over["score_popup_text"].replace(
                     "[SCORE]", str(score)).replace(
                         "[SCORE_GAME]", str(score_game))
-                popup = MessagePopup(
+                # Get the new image if the country is new
+                if is_country_new:
+                    new_image = DICT_NEW_IMAGES[nb_stars]
+                else:
+                    new_image = DICT_NEW_IMAGES[0]
+                # Display the popup with the score of the current country
+                popup = EndCountryPopup(
                     primary_color=self.continent_color,
                     secondary_color=self.secondary_continent_color,
+                    title_color=self.continent_color,
                     title=TEXT.game_over["congrats"],
-                    ok_button_label=TEXT.popup["close"],
-                    center_label_text=text,
+                    ok_button_label=ok_button_label,
+                    score_text=text,
                     font_ratio=self.font_ratio,
+                    country_name=DICT_COUNTRIES[TEXT.language][self.code_continent][code_country],
+                    flag_image=PATH_FLAG_IMAGES + code_country + ".png",
+                    nb_stars=nb_stars,
+                    multiplier_image=DICT_MULTIPLIERS[current_multiplier],
+                    new_image=new_image,
                     release_function=score_popup_release_function
                 )
+                popup.open()
 
             # The country is not correct
             else:

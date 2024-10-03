@@ -24,7 +24,8 @@ from tools.path import (
     PATH_USER_DATA,
     PATH_QUERIES_CONTINENT,
     PATH_DICT_HINTS_INFORMATION,
-    PATH_MULTIPLIERS_IMAGES
+    PATH_MULTIPLIERS_IMAGES,
+    PATH_NEW_IMAGES
 )
 from tools.basic_tools import (
     load_json_file,
@@ -143,6 +144,12 @@ DICT_MULTIPLIERS = {
     1.6: PATH_MULTIPLIERS_IMAGES + "mult_1-6.png",
     1.8: PATH_MULTIPLIERS_IMAGES + "mult_1-8.png",
     2.: PATH_MULTIPLIERS_IMAGES + "mult_2-0.png"
+}
+DICT_NEW_IMAGES = {
+    0: PATH_NEW_IMAGES + "new-0.png",
+    1: PATH_NEW_IMAGES + "new-1.png",
+    2: PATH_NEW_IMAGES + "new-2.png",
+    3: PATH_NEW_IMAGES + "new-3.png"
 }
 
 ### Continents ###
