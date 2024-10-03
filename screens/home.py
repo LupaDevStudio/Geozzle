@@ -180,6 +180,7 @@ class HomeScreen(GeozzleScreen):
                     code_continent],
                 title=TEXT.clues["no_connexion_title"],
                 center_label_text=TEXT.clues["no_connexion_message"],
+                ok_button_label=TEXT.popup["close"],
                 font_ratio=self.font_ratio
             )
             popup.open()

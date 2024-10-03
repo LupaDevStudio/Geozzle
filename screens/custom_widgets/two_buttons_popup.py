@@ -31,7 +31,7 @@ class TwoButtonsPopup(CustomPopup):
     title = StringProperty()
     right_button_label = StringProperty()
     right_release_function = ObjectProperty(lambda: 1 + 1)
-    left_button_label = StringProperty(TEXT.home["cancel"])
+    left_button_label = StringProperty(TEXT.popup["cancel"])
     left_release_function = ObjectProperty(lambda: 1 + 1)
     center_label_text = StringProperty()
 

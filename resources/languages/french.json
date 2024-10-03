@@ -14,7 +14,7 @@
     "gallery": {
         "points": "Points : [POINTS]",
         "buy_background": "Acheter 1 fond aléatoire\n[POINTS] points",
-        "new_background": "Bravo ! Tu as obtenu un nouveau fond !",
+        "new_background": "Bravo, tu as obtenu un nouveau fond !",
         "already_bought_background": "Dommage, tu avais déjà ce fond..."
     },
     "stats": {
@@ -29,19 +29,12 @@
         "South_America": "Amérique du Sud",
         "Oceania": "Océanie",
         "highscore": "Meilleur score : ",
-        "play": "Jouer",
-        "watch_ad": "Regarder",
-        "cancel": "Annuler",
-        "buy_life_message": "Vous n'avez plus de vies pour l'instant, souhaitez-vous regarder une publicité pour continuer à jouer ?",
-        "buy_life_title": "Vies épuisées"
+        "play": "Jouer"
     },
     "popup": {
-        "buy_life_title": "Rechargement des vies",
-        "next_life_in": "Votre prochaine vie se rechargera dans [TIME] min.",
-        "buy_life_text": "Si vous souhaitez recharger une vie plus rapidement, vous pouvez regarder une publicité.",
-        "full_life_text": "Bravo, vous avez toutes vos vies, essayez donc de deviner un nouveau pays !",
         "watch_ad": "Regarder",
         "close": "Fermer",
+        "cancel": "Annuler",
         "yes": "Oui",
         "no": "Non",
         "loading": "Chargement...",
@@ -51,21 +44,22 @@
     },
     "game_over": {
         "title": "Quel pays est-ce ?",
+        "validate": "Valider",
+        "button_back": "Retour aux indices",
         "score_popup_text": "Score du pays : [SCORE]\nScore total : [SCORE_GAME]",
         "congrats": "Félicitations !",
-        "defeat": "Mauvais choix !",
-        "game_over_title": "Defeat...",
-        "game_over_text": "You lose. TODO expliquer un peu plus",
-        "validate": "Valider",
+        "game_over_title": "Fin du jeu...",
+        "game_over_text": "Vous avez perdu toutes vos vies ; votre partie s'achève ici.",
         "next_continent": "Continent suivant",
         "recaps_title": "Récapitulatif de la partie",
         "finish_game": "Terminer le jeu",
         "go_to_home": "Retour au menu",
-        "button_back": "Retour aux indices",
         "select_country_title": "Erreur dans le choix",
         "select_country_message": "Vous devez sélectionner un pays dans le menu déroulant.",
         "wrong_country_title": "Mauvais choix",
-        "wrong_country_text": "TODO"
+        "wrong_country_text": "Le pays que vous avez sélectionné est incorrect. Essayez-en un autre ou collectez davantage d'indices !",
+        "buy_life_message": "Vous n'avez plus de vies, souhaitez-vous regarder une publicité pour continuer votre partie ?",
+        "buy_life_title": "Vies épuisées"
     },
     "game_question": {
         "title": "Choisissez un nouvel indice"

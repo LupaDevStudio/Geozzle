@@ -511,6 +511,7 @@ class Game():
                 code_continent=self.current_guess_continent, wikidata_language=DICT_WIKIDATA_LANGUAGE[USER_DATA.language])
 
             if self.dict_details_country[USER_DATA.language] is None:
+                del self.dict_details_country[USER_DATA.language]
                 return False
 
             # Find alternative language
@@ -548,6 +549,7 @@ class Game():
         request_status = self.build_dict_details_country()
 
         if not request_status:
+            USER_DATA.save_changes()
             return False
 
         if self.list_current_clues == []:
@@ -791,7 +793,10 @@ class Game():
         # Rebuild the dict of details of the next country
         self.dict_details_country = {}
         request_status = self.build_dict_details_country()
+        
         if not request_status:
+            self.list_current_clues = []
+            USER_DATA.save_changes()
             return False
 
         # Rebuild the list of current clues

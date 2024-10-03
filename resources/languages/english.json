@@ -29,21 +29,14 @@
         "South_America": "South America",
         "Oceania": "Oceania",
         "highscore": "Highscore: ",
-        "play": "Play",
-        "watch_ad": "Watch",
-        "cancel": "Cancel",
-        "buy_life_message": "You don't have any lives left at the moment. Would you like to watch an ad to continue playing?",
-        "buy_life_title": "Lives depleted"
+        "play": "Play"
     },
     "popup": {
-        "buy_life_title": "Life Reload",
-        "next_life_in": "Your next life will recharge in [TIME] min.",
-        "buy_life_text": "If you wish to recharge a life more quickly, you can watch an advertisement.",
-        "full_life_text": "Congratulations, you have all your lives, so try to guess a new country!",
         "watch_ad": "Watch",
         "close": "Close",
         "yes": "Yes",
         "no": "No",
+        "cancel": "Cancel",
         "loading": "Loading...",
         "loading_title": "Loading",
         "buy_background_impossible_title": "Achat impossible",
@@ -51,21 +44,22 @@
     },
     "game_over": {
         "title": "Which country is it?",
+        "validate": "Validate",
+        "button_back": "Back to clues",
         "score_popup_text": "Score of the country: [SCORE]\nTotal score: [SCORE_GAME]",
         "congrats": "Congratulations!",
-        "defeat": "Wrong choice!",
-        "game_over_title": "Defeat...",
-        "game_over_text": "You lose. TODO expliquer un peu plus",
-        "validate": "Validate",
+        "game_over_title": "Game over...",
+        "game_over_text": "You lost all your lives; the game ends here.",
         "next_continent": "Continent suivant",
         "recaps_title": "Récapitulatif de la partie",
         "finish_game": "End the game",
-        "button_back": "Back to clues",
         "go_to_home": "Go back to menu",
         "select_country_title": "Error in choice",
         "select_country_message": "You must select a country from the dropdown menu.",
         "wrong_country_title": "Mauvais choix",
-        "wrong_country_text": "TODO"
+        "wrong_country_text": "The country you selected is incorrect. Try another one or gather more clues !",
+        "buy_life_message": "You don't have any lives left. Would you like to watch an ad to continue playing?",
+        "buy_life_title": "Lives depleted"
     },
     "game_question": {
         "title": "Choose a clue"

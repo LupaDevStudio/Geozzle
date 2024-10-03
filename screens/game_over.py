@@ -244,10 +244,10 @@ class GameOverScreen(GeozzleScreen):
                     popup = TwoButtonsPopup(
                         primary_color=self.continent_color,
                         secondary_color=self.secondary_continent_color,
-                        right_button_label=TEXT.home["watch_ad"],
+                        right_button_label=TEXT.popup["watch_ad"],
                         left_button_label=TEXT.game_over["finish_game"],
-                        title=TEXT.home["buy_life_title"],
-                        center_label_text=TEXT.home["buy_life_message"],
+                        title=TEXT.game_over["buy_life_title"],
+                        center_label_text=TEXT.game_over["buy_life_message"],
                         font_ratio=self.font_ratio
                     )
                     watch_ad_with_callback = partial(
