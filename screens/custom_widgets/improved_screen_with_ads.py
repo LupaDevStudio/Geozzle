@@ -203,7 +203,7 @@ class GeozzleScreen(ImprovedScreenWithAds):
             self.number_lives_on = USER_DATA.game.number_lives
 
         if SCREEN_MULTIPLIER in self.dict_type_screen:
-            self.multiplier_image = DICT_MULTIPLIERS[USER_DATA.game.current_multiplier]
+            self.update_multiplier()
 
         if SCREEN_CONTINENT_PROGRESS_BAR in self.dict_type_screen:
             self.continents_list = USER_DATA.game.list_continents
@@ -216,6 +216,9 @@ class GeozzleScreen(ImprovedScreenWithAds):
                 self.title_screen = TEXT.titles[title]
             else:
                 self.title_screen = title
+
+    def update_multiplier(self):
+        self.multiplier_image = DICT_MULTIPLIERS[USER_DATA.game.current_multiplier]
 
     def update_colors(self, *args):
         if self.code_continent != "":

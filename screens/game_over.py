@@ -96,6 +96,7 @@ class GameOverScreen(GeozzleScreen):
         """
         self.dict_type_screen[SCREEN_TITLE]["title"] = TEXT.home[self.code_continent]
 
+        self.title_label = TEXT.game_over["title"]
         self.validate_label = TEXT.game_over["validate"]
         self.back_label = TEXT.game_over["button_back"]
 
@@ -234,6 +235,7 @@ class GameOverScreen(GeozzleScreen):
             # The country is not correct
             else:
                 self.number_lives_on = USER_DATA.game.number_lives
+                self.update_multiplier()
 
                 # The user has no more lives but ad credits
                 if USER_DATA.game.number_lives <= 0 and USER_DATA.game.number_credits > 0:

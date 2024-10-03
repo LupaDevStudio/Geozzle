@@ -380,7 +380,7 @@ class Game():
         return TEXT.language in self.dict_details_country
 
     @property
-    def current_multiplier(self):
+    def current_multiplier(self) -> float:
         # Count the streak i.e. the number of countries guessed without mistakes
         streak = 0
         for i in range(self.current_country_index):
@@ -390,6 +390,9 @@ class Game():
                 streak += 1
             else:
                 streak = 0
+        # Reset the multiplier if the user has lost a life in this country
+        if self.dict_guessed_countries[self.current_guess_country]["nb_lives_used"] > 0:
+            streak = 0
 
         # Compute the multiplier
         multiplier = 1. + 0.2 * streak
@@ -655,6 +658,8 @@ class Game():
         # Reduce the number of lives if the user was wrong
         else:
             self.number_lives -= 1
+            self.dict_guessed_countries[self.current_guess_country]["nb_lives_used"] += 1
+            self.dict_guessed_countries[self.current_guess_country]["multiplier"] = 1.
 
         # Save the changes
         USER_DATA.save_changes()
