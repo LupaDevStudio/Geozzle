@@ -25,7 +25,8 @@ from kivy.uix.image import Image
 
 from tools.path import (
     PATH_TEXT_FONT,
-    PATH_BACKGROUNDS
+    PATH_BACKGROUNDS,
+    PATH_STICKERS
 )
 from screens.custom_widgets import (
     GeozzleScreen,
@@ -185,14 +186,15 @@ class GalleryScreen(GeozzleScreen):
             for background in os.listdir(PATH_BACKGROUNDS + code_continent):
                 full_path = PATH_BACKGROUNDS + code_continent + "/" + background
                 if not full_path in SHARED_DATA.list_unlocked_backgrounds:
-                    full_path = PATH_BACKGROUNDS + "unknown_background.jpg"
+                    new_path = PATH_STICKERS + "unknown_background.jpg"
                     release_function = lambda: 1 + 1
                     disable_button = True
                 else:
+                    new_path = PATH_STICKERS + code_continent + "/" + background
                     release_function = partial(self.manager.change_background, background_path=full_path)
                     disable_button = False
                 image = ImageButton(
-                    source=full_path,
+                    source=new_path,
                     size_hint=(None, None),
                     height=sv_height-15*self.font_ratio*2-8*self.font_ratio,
                     width=80*self.font_ratio,
