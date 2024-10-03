@@ -197,7 +197,7 @@ class GameOverScreen(GeozzleScreen):
                 # If the game is finished
                 if has_finished_game:
                     # End the game
-                    self.finish_game_over(game_over=False)
+                    self.finish_game(game_over=False)
                     ok_button_label = TEXT.popup["close"]
                     def score_popup_release_function(): return 1 + 1
                 else:
@@ -236,13 +236,14 @@ class GameOverScreen(GeozzleScreen):
                 self.number_lives_on = USER_DATA.game.number_lives
 
                 # The user has no more lives but ad credits
-                if USER_DATA.game.number_lives == 0 and USER_DATA.game.number_credits > 0:
+                if USER_DATA.game.number_lives <= 0 and USER_DATA.game.number_credits > 0:
 
+                    # Open a popup to propose the user to watch an ad
                     popup = TwoButtonsPopup(
                         primary_color=self.continent_color,
                         secondary_color=self.secondary_continent_color,
                         right_button_label=TEXT.home["watch_ad"],
-                        left_button_label=TEXT.game_over["go_to_home"],
+                        left_button_label=TEXT.game_over["finish_game"],
                         title=TEXT.home["buy_life_title"],
                         center_label_text=TEXT.home["buy_life_message"],
                         font_ratio=self.font_ratio
@@ -250,12 +251,12 @@ class GameOverScreen(GeozzleScreen):
                     watch_ad_with_callback = partial(
                         AD_CONTAINER.watch_ad, partial(self.ad_callback, popup))
                     popup.right_release_function = watch_ad_with_callback
-                    popup.left_release_function = self.finish_game_over
+                    popup.left_release_function = self.finish_game
                     popup.open()
 
                 # Game over
-                elif USER_DATA.game.number_lives == 0 and USER_DATA.game.number_credits == 0:
-                    self.finish_game_over()
+                elif USER_DATA.game.number_lives <= 0 and USER_DATA.game.number_credits <= 0:
+                    self.finish_game()
 
                 # When the user has still lives
                 else:
@@ -282,7 +283,7 @@ class GameOverScreen(GeozzleScreen):
             )
             popup.open()
 
-    def finish_game_over(self, game_over: bool = True):
+    def finish_game(self, game_over: bool = True):
         # End the game and compute the score
         final_score = USER_DATA.game.end_game()
 
