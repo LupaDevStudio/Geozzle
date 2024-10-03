@@ -70,7 +70,7 @@
     "game_summary": {
         "i_found": "J'ai trouvé !",
         "new_hint": "Nouvel indice",
-        "no_more_clues": "Aucun indice disponible",
+        "no_more_clues": "Aucun indice",
         "title": "Quel pays est-ce ?",
         "zoom_flag_title": "Drapeau",
         "zoom_geojson_title": "Forme du pays"

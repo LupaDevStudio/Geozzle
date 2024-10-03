@@ -70,7 +70,7 @@
     "game_summary": {
         "i_found": "I've found!",
         "new_hint": "New hint",
-        "no_more_clues": "No more clues available",
+        "no_more_clues": "No more clues",
         "title": "Which country is it?",
         "zoom_flag_title": "Flag",
         "zoom_geojson_title": "Country shape"

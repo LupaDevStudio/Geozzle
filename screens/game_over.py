@@ -226,7 +226,6 @@ class GameOverScreen(GeozzleScreen):
             # The country is not correct
             else:
                 self.number_lives_on = USER_DATA.game.number_lives
-                # TODO open a popup to say the country was not correct
 
                 # The user has no more lives but ad credits
                 if USER_DATA.game.number_lives == 0 and USER_DATA.game.number_credits > 0:
@@ -252,6 +251,8 @@ class GameOverScreen(GeozzleScreen):
                     score = USER_DATA.game.end_game()
                     # TODO display popup global score
                     # TODO display popup game over
+
+                # TODO open a popup to say the country was not correct
 
         # Popup to ask the user to select a country
         else:

@@ -26,7 +26,7 @@
     canvas.after:
         # Border
         Color:
-            rgba: root.bar_color if self.background_mode else TRANSPARENT
+            rgba: root.bar_inactive_color if self.background_mode else TRANSPARENT
         Line:
             rounded_rectangle: [self.pos[0]+BUTTON_OUTLINE_WIDTH/2*self.font_ratio, self.pos[1]+BUTTON_OUTLINE_WIDTH/2*self.font_ratio, self.size[0]-BUTTON_OUTLINE_WIDTH*self.font_ratio,self.size[1]-BUTTON_OUTLINE_WIDTH*self.font_ratio,12*self.font_ratio]
             width: BUTTON_OUTLINE_WIDTH*self.font_ratio
