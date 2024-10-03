@@ -25,7 +25,8 @@ from tools.path import (
 from tools.constants import (
     MAIN_BUTTON_FONT_SIZE,
     OPACITY_ON_BUTTON_PRESS,
-    BLACK
+    BLACK,
+    TRANSPARENT
 )
 from tools import sound_mixer
 
@@ -49,12 +50,15 @@ class ColoredRoundedButton(ButtonBehavior, RelativeLayout):
     color_label = ColorProperty(BLACK)
     release_function = ObjectProperty(lambda: 1 + 1)
 
+    shadow_color = ColorProperty(BLACK)
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.always_release = True
 
     def on_press(self):
         if not self.disable_button:
+            self.shadow_color = TRANSPARENT
             self.opacity = OPACITY_ON_BUTTON_PRESS
             sound_mixer.play("click")
 
@@ -63,6 +67,7 @@ class ColoredRoundedButton(ButtonBehavior, RelativeLayout):
             if self.collide_point(self.last_touch.x, self.last_touch.y):
                 self.release_function()
             self.opacity = 1
+            self.shadow_color = BLACK
 
 class ColoredRoundedHintButton(ButtonBehavior, RelativeLayout):
     """
@@ -80,12 +85,15 @@ class ColoredRoundedHintButton(ButtonBehavior, RelativeLayout):
     release_function = ObjectProperty(lambda: 1 + 1)
     number_stars = NumericProperty(1)
 
+    shadow_color = ColorProperty(BLACK)
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.always_release = True
 
     def on_press(self):
         if not self.disable_button:
+            self.shadow_color = TRANSPARENT
             self.opacity = OPACITY_ON_BUTTON_PRESS
             sound_mixer.play("click")
 
@@ -94,3 +102,4 @@ class ColoredRoundedHintButton(ButtonBehavior, RelativeLayout):
             if self.collide_point(self.last_touch.x, self.last_touch.y):
                 self.release_function()
             self.opacity = 1
+            self.shadow_color = BLACK
