@@ -54,15 +54,17 @@
         "score_popup_text": "Score du pays : [SCORE]\nScore total : [SCORE_GAME]",
         "congrats": "Félicitations !",
         "defeat": "Mauvais choix !",
-        "game_over": "Défaite...",
+        "game_over_title": "Defeat...",
+        "game_over_text": "You lose. TODO expliquer un peu plus",
         "validate": "Valider",
-        "continue": "Continuer",
         "next_continent": "Continent suivant",
-        "finish_continent": "Vous avez réussi à deviner tous les pays de ce continent, félicitations !",
+        "recaps_title": "Récapitulatif de la partie",
         "go_to_home": "Revenir au menu",
         "button_back": "Retour aux indices",
         "select_country_title": "Erreur dans le choix",
-        "select_country_message": "Vous devez sélectionner un pays dans le menu déroulant."
+        "select_country_message": "Vous devez sélectionner un pays dans le menu déroulant.",
+        "wrong_country_title": "Mauvais choix",
+        "wrong_country_text": "TODO"
     },
     "game_question": {
         "title": "Choisissez un nouvel indice"

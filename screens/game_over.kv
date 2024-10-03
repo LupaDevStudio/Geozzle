@@ -42,12 +42,12 @@
 
     # Continue game button
     ColoredRoundedButton:
-        id: continue_button
+        id: back_button
         background_color: root.secondary_continent_color
-        text: root.continue_game_label
+        text: root.back_label
         font_size: BUTTON_FONT_SIZE
         pos_hint: {"center_x":0.5, "center_y":0.1}
         size_hint: (0.45, 0.075)
         color_label: root.continent_color
-        release_function: root.go_to_next_screen
+        release_function: root.go_back_to_summary
         font_ratio: root.font_ratio

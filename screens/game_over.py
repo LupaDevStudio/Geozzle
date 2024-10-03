@@ -65,7 +65,7 @@ class GameOverScreen(GeozzleScreen):
 
     title_label = StringProperty()
     validate_label = StringProperty()
-    continue_game_label = StringProperty()
+    back_label = StringProperty()
     list_countries = ListProperty([])
 
     dict_type_screen = {
@@ -97,7 +97,7 @@ class GameOverScreen(GeozzleScreen):
         self.dict_type_screen[SCREEN_TITLE]["title"] = TEXT.home[self.code_continent]
 
         self.validate_label = TEXT.game_over["validate"]
-        self.continue_game_label = TEXT.game_over["button_back"]
+        self.back_label = TEXT.game_over["button_back"]
 
         super().reload_language()
 
@@ -131,6 +131,8 @@ class GameOverScreen(GeozzleScreen):
                 "game_question").code_continent = self.code_continent
             self.manager.get_screen(
                 "game_summary").code_continent = self.code_continent
+            self.manager.get_screen(
+                "game_summary").reset_scroll_view()
             self.update_countries()
 
             Clock.schedule_once(self.manager.get_screen(
@@ -194,19 +196,8 @@ class GameOverScreen(GeozzleScreen):
 
                 # If the game is finished
                 if has_finished_game:
-                    # End the game and compute the score
-                    final_score = USER_DATA.game.end_game()
-                    # TODO display the score popup
-                    popup = MessagePopup(
-                        primary_color=self.continent_color,
-                        secondary_color=self.secondary_continent_color,
-                        title=TEXT.game_over["congrats"],
-                        ok_button_label=TEXT.game_over["go_to_home"],
-                        center_label_text=TEXT.game_over["finish_continent"],
-                        font_ratio=self.font_ratio,
-                        release_function=self.go_to_home
-                    )
-                    popup.open()
+                    # End the game
+                    self.finish_game_over(game_over=False)
                     ok_button_label = TEXT.popup["close"]
                     def score_popup_release_function(): return 1 + 1
                 else:
@@ -259,17 +250,25 @@ class GameOverScreen(GeozzleScreen):
                     watch_ad_with_callback = partial(
                         AD_CONTAINER.watch_ad, partial(self.ad_callback, popup))
                     popup.right_release_function = watch_ad_with_callback
-                    popup.left_release_function = partial(
-                        self.go_to_home_and_dismiss, popup)
+                    popup.left_release_function = self.finish_game_over
                     popup.open()
 
                 # Game over
                 elif USER_DATA.game.number_lives == 0 and USER_DATA.game.number_credits == 0:
-                    score = USER_DATA.game.end_game()
-                    # TODO display popup global score
-                    # TODO display popup game over
+                    self.finish_game_over()
 
-                # TODO open a popup to say the country was not correct
+                # When the user has still lives
+                else:
+                    # Open a popup to say the country was not correct
+                    popup = MessagePopup(
+                        primary_color=self.continent_color,
+                        secondary_color=self.secondary_continent_color,
+                        title=TEXT.game_over["wrong_country_title"],
+                        ok_button_label=TEXT.popup["close"],
+                        center_label_text=TEXT.game_over["wrong_country_text"],
+                        font_ratio=self.font_ratio
+                    )
+                    popup.open()
 
         # Popup to ask the user to select a country
         else:
@@ -278,6 +277,34 @@ class GameOverScreen(GeozzleScreen):
                 secondary_color=self.secondary_continent_color,
                 title=TEXT.game_over["select_country_title"],
                 center_label_text=TEXT.game_over["select_country_message"],
+                font_ratio=self.font_ratio,
+                ok_button_label=TEXT.popup["close"]
+            )
+            popup.open()
+
+    def finish_game_over(self, game_over: bool = True):
+        # End the game and compute the score
+        final_score = USER_DATA.game.end_game()
+
+        # TODO Display the popup with the global score
+        popup = MessagePopup(
+            primary_color=self.continent_color,
+            secondary_color=self.secondary_continent_color,
+            title=TEXT.game_over["recaps_title"],
+            ok_button_label=TEXT.game_over["go_to_home"],
+            center_label_text="SCORE FINAL",
+            font_ratio=self.font_ratio,
+            release_function=self.go_to_home
+        )
+        popup.open()
+
+        if game_over:
+            # Display the game over popup
+            popup = MessagePopup(
+                primary_color=self.continent_color,
+                secondary_color=self.secondary_continent_color,
+                title=TEXT.game_over["game_over_title"],
+                center_label_text=TEXT.game_over["game_over_text"],
                 font_ratio=self.font_ratio,
                 ok_button_label=TEXT.popup["close"]
             )

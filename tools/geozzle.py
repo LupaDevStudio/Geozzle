@@ -549,6 +549,8 @@ class Game():
 
         if self.list_current_clues == []:
             self.choose_clues()
+
+        # Save the changes
         USER_DATA.save_changes()
 
         return True
@@ -619,6 +621,8 @@ class Game():
     def watch_ad(self):
         self.number_lives += 1
         self.number_credits -= 1
+
+        # Save the changes
         USER_DATA.save_changes()
 
     def check_country(self, guessed_country: str) -> bool:
@@ -645,9 +649,15 @@ class Game():
         # Check if the country is the correct one
         res = country_code == self.current_guess_country
 
-        # Set the country to guessed if needed
+        # Set the country to guessed if the user was right
         if res:
             self.dict_guessed_countries[self.current_guess_country]["guessed"] = True
+        # Reduce the number of lives if the user was wrong
+        else:
+            self.number_lives -= 1
+
+        # Save the changes
+        USER_DATA.save_changes()
 
         return res
 
@@ -759,6 +769,9 @@ class Game():
         # Update the index of the current country
         self.current_country_index += 1
 
+        # Save the changes
+        USER_DATA.save_changes()
+
         # Check the end of the game or not
         return self.current_country_index == 6
 
@@ -780,6 +793,7 @@ class Game():
         self.list_current_clues = []
         self.choose_clues()
 
+        # Save the changes
         USER_DATA.save_changes()
 
         return True
@@ -830,6 +844,7 @@ class Game():
         self.dict_details_country = {}
         self.list_countries_in_spinner = []
 
+        # Save the changes
         USER_DATA.save_changes()
 
         return final_score
@@ -1021,6 +1036,9 @@ class UserData():
             else:
                 break
             counter += 1
+
+        # Save the changes
+        self.save_changes()
 
     def buy_new_background(self) -> dict:
         dict_return = {}

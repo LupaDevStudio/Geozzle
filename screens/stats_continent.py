@@ -97,8 +97,8 @@ class StatsContinentScreen(GeozzleScreen):
             country_name = DICT_COUNTRIES[USER_DATA.language][self.code_continent][country_code]
             flag_image = PATH_FLAG_IMAGES + country_code + ".png"
             number_stars = 0
-            if country_name in USER_DATA.stats[self.code_continent]:
-                number_stars = USER_DATA.stats[self.code_continent]["nb_stars"]
+            if country_code in USER_DATA.stats[self.code_continent]:
+                number_stars = USER_DATA.stats[self.code_continent][country_code]["nb_stars"]
             width_card = (Window.size[0]*0.9 - 10*4*self.font_ratio)/3
             height_card = 100*self.font_ratio
 
