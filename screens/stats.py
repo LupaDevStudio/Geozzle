@@ -18,6 +18,7 @@ from kivy.properties import (
     StringProperty
 )
 from kivy.core.window import Window
+from kivy.clock import Clock
 from kivy.uix.label import Label
 from kivy.uix.image import Image
 from kivy.uix.relativelayout import RelativeLayout
@@ -42,7 +43,8 @@ from tools.constants import (
     DICT_CONTINENT_SECOND_COLOR,
     HIGHSCORE_FONT_SIZE,
     SUBTITLE_OUTLINE_WIDTH,
-    WHITE
+    WHITE,
+    TIME_CHANGE_BACKGROUND
 )
 from tools.geozzle import (
     USER_DATA,
@@ -93,6 +95,14 @@ class StatsScreen(GeozzleScreen):
         super().on_pre_enter(*args)
         self.fill_scrollview()
 
+    def on_enter(self, *args):
+        super().on_enter(*args)
+
+        # Schedule the change of background
+        if self.previous_screen_name in ["stats_continent"]:
+            Clock.schedule_interval(
+                self.manager.change_background, TIME_CHANGE_BACKGROUND)
+
     def fill_scrollview(self):
         scrollview_layout: MyScrollViewLayout = self.ids.scrollview_layout
 
@@ -101,20 +111,20 @@ class StatsScreen(GeozzleScreen):
             label = Label(
                 text=TEXT.home[code_continent],
                 font_name=self.font_name,
-                font_size=HIGHSCORE_FONT_SIZE*self.font_ratio,
+                font_size=HIGHSCORE_FONT_SIZE * self.font_ratio,
                 size_hint=(1, None),
-                height=40*self.font_ratio,
+                height=40 * self.font_ratio,
                 halign="center",
                 valign="middle",
                 color=DICT_CONTINENTS_PRIMARY_COLOR[code_continent],
-                outline_width=max(SUBTITLE_OUTLINE_WIDTH*self.font_ratio, 1),
+                outline_width=max(SUBTITLE_OUTLINE_WIDTH * self.font_ratio, 1),
                 outline_color=WHITE
             )
             label.bind(size=label.setter('text_size'))
             scrollview_layout.add_widget(label)
 
             # Relative layout with the counter and the stats background
-            height_layout = 150*self.font_ratio
+            height_layout = 150 * self.font_ratio
             layout = RelativeLayout(
                 size_hint=(1, None),
                 height=height_layout
@@ -122,12 +132,13 @@ class StatsScreen(GeozzleScreen):
 
             # Progress circle
             progress_circle = CircleProgressBar(
-                source=PATH_CONTINENTS_IMAGES+code_continent+".jpg",
+                source=PATH_CONTINENTS_IMAGES + code_continent + ".jpg",
                 size_hint=(0.3, None),
                 pos_hint={"center_y": 0.5},
                 font_ratio=self.font_ratio,
                 circle_color=DICT_CONTINENTS_PRIMARY_COLOR[code_continent],
-                progress=USER_DATA.get_continent_progress(code_continent=code_continent)
+                progress=USER_DATA.get_continent_progress(
+                    code_continent=code_continent)
             )
             progress_circle.bind(width=progress_circle.setter("height"))
             layout.add_widget(progress_circle)
@@ -145,13 +156,14 @@ class StatsScreen(GeozzleScreen):
             stats_layout = StatsLayout(
                 font_ratio=self.font_ratio,
                 size_hint=(0.6, None),
-                height=height_layout*0.9,
+                height=height_layout * 0.9,
                 pos_hint={"center_y": 0.5, "x": 0.4},
                 text=text,
                 text_button=TEXT.stats["details"],
                 color_label=DICT_CONTINENTS_PRIMARY_COLOR[code_continent],
                 background_button_color=DICT_CONTINENT_SECOND_COLOR[code_continent],
-                release_function=partial(self.open_continent_details, code_continent)
+                release_function=partial(
+                    self.open_continent_details, code_continent)
             )
             layout.add_widget(stats_layout)
 
@@ -160,6 +172,11 @@ class StatsScreen(GeozzleScreen):
     def open_continent_details(self, code_continent: str):
         self.manager.get_screen(
             "stats_continent").code_continent = code_continent
+        # Unschedule the clock updates
+        Clock.unschedule(self.manager.change_background,
+                         TIME_CHANGE_BACKGROUND)
+        Clock.schedule_once(self.manager.get_screen(
+            "stats_continent").change_background_continent)
         self.manager.current = "stats_continent"
 
     def on_leave(self, *args):

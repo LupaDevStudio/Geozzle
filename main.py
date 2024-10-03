@@ -142,6 +142,10 @@ class WindowManager(ScreenManager):
                 current_screen.change_background_opacity, 1 / FPS)
             current_screen.is_transition = True
 
+            # Start the color animation
+            current_screen.animate_color_change()
+
+            # Inform other screens of the change
             self.propagate_background_on_other_screens()
 
 

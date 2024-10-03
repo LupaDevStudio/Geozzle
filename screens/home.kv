@@ -2,13 +2,14 @@
 
 <HomeScreen>:
     Label:
+        id: title_label
         text: "Geozzle"
         font_name: PATH_TITLE_FONT
         font_size: MAIN_TITLE_FONT_SIZE * root.font_ratio
         pos_hint: {"center_x":0.5, "center_y":0.8}
         outline_width: max(TITLE_OUTLINE_WIDTH * root.font_ratio, 1)
         outline_color: TITLE_OUTLINE_COLOR
-        color: TEXT_FONT_COLOR
+        color: root.continent_color
 
     # Play button
     CustomButton:
@@ -19,6 +20,7 @@
         release_function: root.play_game
         font_ratio: root.font_ratio
         font_size: MAIN_TEXT_FONT_SIZE
+        color_label: root.continent_color
 
     # Highscore label
     Label:
@@ -28,4 +30,4 @@
         pos_hint: {"center_x":0.5, "center_y":0.375}
         outline_width: max(SUBTITLE_OUTLINE_WIDTH* root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
-        color: BLACK
+        color: root.continent_color

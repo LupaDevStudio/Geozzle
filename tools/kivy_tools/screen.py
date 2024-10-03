@@ -23,6 +23,7 @@ from kivy.properties import (
     ObjectProperty
 )
 
+
 ### Local imports ###
 
 from tools.basic_tools import get_image_size

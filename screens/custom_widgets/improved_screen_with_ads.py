@@ -20,6 +20,8 @@ from kivy.properties import (
     NumericProperty,
     ListProperty
 )
+from kivy.animation import Animation, AnimationTransition
+
 
 ### Local imports ###
 
@@ -117,6 +119,7 @@ class ImprovedScreenWithAds(ImprovedScreen):
             title=TEXT.clues["no_connexion_title"])
         error_popup.open()
 
+
 class GeozzleScreen(ImprovedScreenWithAds):
     """
     Improved screen class for Geozzle.
@@ -151,32 +154,40 @@ class GeozzleScreen(ImprovedScreenWithAds):
         # Display the icon in the left up corner
         if SCREEN_ICON_LEFT_UP in self.dict_type_screen:
             dict_details = self.dict_type_screen[SCREEN_ICON_LEFT_UP]
-            self.ids.icon_left_up.image_path = PATH_IMAGES + dict_details.get("image_path", "home") + ".png"
-            self.ids.icon_left_up.release_function = dict_details.get("release_function", self.go_to_home)
+            self.ids.icon_left_up.image_path = PATH_IMAGES + \
+                dict_details.get("image_path", "home") + ".png"
+            self.ids.icon_left_up.release_function = dict_details.get(
+                "release_function", self.go_to_home)
         else:
             self.remove_widget(self.ids.icon_left_up)
 
         # Display the icon in the left down corner
         if SCREEN_ICON_LEFT_DOWN in self.dict_type_screen:
             dict_details = self.dict_type_screen[SCREEN_ICON_LEFT_DOWN]
-            self.ids.icon_left_down.image_path = PATH_IMAGES + dict_details.get("image_path", "stats") + ".png"
-            self.ids.icon_left_down.release_function = dict_details.get("release_function", self.go_to_stats)
+            self.ids.icon_left_down.image_path = PATH_IMAGES + \
+                dict_details.get("image_path", "stats") + ".png"
+            self.ids.icon_left_down.release_function = dict_details.get(
+                "release_function", self.go_to_stats)
         else:
             self.remove_widget(self.ids.icon_left_down)
 
         # Display the icon in the right up corner
         if SCREEN_ICON_RIGHT_UP in self.dict_type_screen:
             dict_details = self.dict_type_screen[SCREEN_ICON_RIGHT_UP]
-            self.ids.icon_right_up.image_path = PATH_IMAGES + dict_details.get("image_path", "settings") + ".png"
-            self.ids.icon_right_up.release_function = dict_details.get("release_function", self.go_to_settings)
+            self.ids.icon_right_up.image_path = PATH_IMAGES + \
+                dict_details.get("image_path", "settings") + ".png"
+            self.ids.icon_right_up.release_function = dict_details.get(
+                "release_function", self.go_to_settings)
         else:
             self.remove_widget(self.ids.icon_right_up)
 
         # Display the icon in the right down corner
         if SCREEN_ICON_RIGHT_DOWN in self.dict_type_screen:
             dict_details = self.dict_type_screen[SCREEN_ICON_RIGHT_DOWN]
-            self.ids.icon_right_down.image_path = PATH_IMAGES + dict_details.get("image_path", "gallery") + ".png"
-            self.ids.icon_right_down.release_function = dict_details.get("release_function", self.go_to_gallery)
+            self.ids.icon_right_down.image_path = PATH_IMAGES + \
+                dict_details.get("image_path", "gallery") + ".png"
+            self.ids.icon_right_down.release_function = dict_details.get(
+                "release_function", self.go_to_gallery)
         else:
             self.remove_widget(self.ids.icon_right_down)
 
@@ -209,6 +220,11 @@ class GeozzleScreen(ImprovedScreenWithAds):
             self.continents_list = USER_DATA.game.list_continents
             self.current_continent_position = USER_DATA.game.current_country_index
 
+        # Update continent color
+        current_continent = self.find_continent_from_background_source()
+        self.continent_color = DICT_CONTINENTS_PRIMARY_COLOR[current_continent]
+        self.secondary_continent_color = DICT_CONTINENT_SECOND_COLOR[current_continent]
+
     def reload_language(self):
         if SCREEN_TITLE in self.dict_type_screen:
             title = self.dict_type_screen[SCREEN_TITLE].get("title", "")
@@ -235,21 +251,55 @@ class GeozzleScreen(ImprovedScreenWithAds):
         self.manager.change_background(background_path=new_background)
 
     def go_to_home(self):
-        self.manager.get_screen("home").previous_screen_name = self.manager.current
+        self.manager.get_screen(
+            "home").previous_screen_name = self.manager.current
         self.manager.current = "home"
 
     def go_to_stats(self):
-        self.manager.get_screen("stats").previous_screen_name = self.manager.current
+        self.manager.get_screen(
+            "stats").previous_screen_name = self.manager.current
         self.manager.current = "stats"
 
     def go_to_settings(self):
-        self.manager.get_screen("settings").previous_screen_name = self.manager.current
+        self.manager.get_screen(
+            "settings").previous_screen_name = self.manager.current
         self.manager.current = "settings"
 
     def go_to_gallery(self):
-        self.manager.get_screen("gallery").previous_screen_name = self.manager.current
+        self.manager.get_screen(
+            "gallery").previous_screen_name = self.manager.current
         self.manager.current = "gallery"
 
         # Unschedule the clock updates
         Clock.unschedule(self.manager.change_background,
-            TIME_CHANGE_BACKGROUND)
+                         TIME_CHANGE_BACKGROUND)
+
+    def find_continent_from_background_source(self, is_changing=False):
+        # Find the source of the image used for the background
+        if (self.opacity_state == "main") is not is_changing:
+            current_background_source = self.ids.back_image.source
+        else:
+            current_background_source = self.ids.second_back_image.source
+
+        # Find the continent color associated to the image
+        current_continent = current_background_source.split("/")[-2]
+
+        return current_continent
+
+    def animate_color_change(self):
+        """
+        Animate a color change for the continent color.
+        """
+
+        # Find the color to use
+        current_continent = self.find_continent_from_background_source(
+            is_changing=True)
+        target_continent_color = DICT_CONTINENTS_PRIMARY_COLOR[current_continent]
+        target_secondary_continent_color = DICT_CONTINENT_SECOND_COLOR[current_continent]
+
+        # Start animation
+        animation = Animation(continent_color=target_continent_color,
+                              duration=0.5, t=AnimationTransition.linear)
+        animation &= Animation(secondary_continent_color=target_secondary_continent_color,
+                               duration=0.5, t=AnimationTransition.linear)
+        animation.start(self)

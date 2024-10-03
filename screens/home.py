@@ -105,7 +105,7 @@ class HomeScreen(GeozzleScreen):
             music_mixer.play(MAIN_MUSIC_NAME, loop=True)
 
         # Schedule the change of background
-        if self.previous_screen_name in ["", "gallery", "game_summary", "game_question", "game_over"]:
+        if self.previous_screen_name in ["", "gallery", "game_summary", "game_question", "game_over", "stats_continent"]:
             Clock.schedule_interval(
                 self.manager.change_background, TIME_CHANGE_BACKGROUND)
 
@@ -159,7 +159,7 @@ class HomeScreen(GeozzleScreen):
 
             # Unschedule the clock updates
             Clock.unschedule(self.manager.change_background,
-                TIME_CHANGE_BACKGROUND)
+                             TIME_CHANGE_BACKGROUND)
 
             # Go to the screen game question if there are still clues to get
             if USER_DATA.game.list_current_clues != [None, None, None, None]:

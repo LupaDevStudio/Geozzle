@@ -43,7 +43,8 @@ from tools.geozzle import (
     TEXT,
     USER_DATA,
     SHARED_DATA,
-    get_nb_stars
+    get_nb_stars,
+    AD_CONTAINER
 )
 from screens.custom_widgets import GeozzleScreen
 from screens.custom_widgets import (
@@ -316,9 +317,11 @@ class GameOverScreen(GeozzleScreen):
     def go_to_home_and_watch_potentially_an_ad(self):
         # An ad is displayed randomly at the end of the game, if the user has completed the game to more than 5%
         if rd.random() > 0.6 and USER_DATA.get_total_progress() > 5:
-            # TODO Paul watch an ad
-            print("Watch an ad")
+            AD_CONTAINER.watch_ad(ad_callback=self.reload_ad)
         self.go_to_home()
+
+    def reload_ad():
+        AD_CONTAINER.load_ad()
 
     @mainthread
     def ad_callback(self, popup: TwoButtonsPopup):

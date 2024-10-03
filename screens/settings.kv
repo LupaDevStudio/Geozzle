@@ -18,7 +18,7 @@
         pos_hint: {"center_x":0.5, "center_y":0.75}
         outline_width: max(SUBTITLE_OUTLINE_WIDTH* root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
-        color: BLACK
+        color: root.continent_color
 
     # Language button
     CircleIconButton:
@@ -47,7 +47,7 @@
         pos_hint: {"center_x":0.5, "center_y":0.55}
         outline_width: max(SUBTITLE_OUTLINE_WIDTH* root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
-        color: BLACK
+        color: root.continent_color
 
     CustomSlider:
         id: music_slider
@@ -58,6 +58,8 @@
         size_hint: (0.6, 0.03)
         pos_hint: {"center_x":0.5, "center_y":0.475}
         font_ratio: root.font_ratio
+        secondary_color: root.secondary_continent_color
+        primary_color: root.continent_color
 
     Label:
         text: root.sound_volume_label
@@ -66,7 +68,7 @@
         pos_hint: {"center_x":0.5, "center_y":0.4}
         outline_width: max(SUBTITLE_OUTLINE_WIDTH* root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
-        color: BLACK
+        color: root.continent_color
 
     CustomSlider:
         id: sound_slider
@@ -76,6 +78,8 @@
         size_hint: (0.6, 0.03)
         pos_hint: {"center_x":0.5, "center_y":0.325}
         font_ratio: root.font_ratio
+        secondary_color: root.secondary_continent_color
+        primary_color: root.continent_color
 
     # Tutorial button
     CustomButton:
@@ -85,6 +89,7 @@
         release_function: root.launch_tutorial
         font_ratio: root.font_ratio
         font_size: SUB_TEXT_FONT_SIZE
+        color_label: root.continent_color
 
     # Credits button
     CustomButton:
@@ -94,6 +99,7 @@
         release_function: root.go_to_credits
         font_ratio: root.font_ratio
         font_size: SUB_TEXT_FONT_SIZE
+        color_label: root.continent_color
 
     # Version label
     Label:
@@ -103,4 +109,4 @@
         pos_hint: {"center_x":0.5, "center_y":0.04}
         outline_width: max(SUBTITLE_OUTLINE_WIDTH* root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
-        color: BLACK
+        color: root.continent_color
