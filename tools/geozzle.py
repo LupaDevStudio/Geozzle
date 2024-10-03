@@ -635,8 +635,21 @@ class Game():
         bool
             Boolean according to which the country proposed by the user is correct or not.
         """
-        # TODO Paul (peut-être se resservir de la fonction qui avait déjà été codée avant)
-        return True
+
+        # Convert the name of the guessed country to its key
+        for country_code in DICT_COUNTRIES[USER_DATA.language][self.current_guess_continent]:
+            country_name = DICT_COUNTRIES[USER_DATA.language][self.current_guess_continent][country_code]
+            if country_name == guessed_country:
+                break
+
+        # Check if the country is the correct one
+        res = country_code == self.current_guess_country
+
+        # Set the country to guessed if needed
+        if res:
+            self.dict_guessed_countries[self.current_guess_country]["guessed"] = True
+
+        return res
 
     @staticmethod
     def compute_hint_score_from_penalty(penalty: int):
@@ -673,7 +686,7 @@ class Game():
         """
 
         # Get the list of hints used
-        hints_used = self.dict_guessed_countries[code_country]
+        hints_used = self.dict_guessed_countries[code_country]["list_clues"]
 
         # Order the hints by category
         clues_by_categories = {1: [], 2: [], 3: []}
@@ -717,8 +730,8 @@ class Game():
             country_score += self.compute_hint_score(code_country)
 
         # Apply the multiplier
-        country_score = country_score * \
-            self.dict_guessed_countries[code_country]["multiplier"]
+        country_score = int(country_score *
+                            self.dict_guessed_countries[code_country]["multiplier"])
 
         return country_score
 
@@ -742,7 +755,6 @@ class Game():
 
     def finish_country(self) -> bool:
         """Return if the game is finished or not."""
-        self.dict_guessed_countries[self.current_guess_country]["guessed"] = True
 
         # Update the index of the current country
         self.current_country_index += 1

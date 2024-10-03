@@ -104,20 +104,16 @@ class GameOverScreen(GeozzleScreen):
     def update_countries(self, *_):
         """
         Update the list of countries displayed in the spinner.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
         """
+
         self.ids.country_spinner.text = ""
         self.list_countries = []
         for wikidata_code_country in USER_DATA.game.list_countries_in_spinner:
             self.list_countries.append(DICT_COUNTRIES[
                 USER_DATA.language][self.code_continent][wikidata_code_country])
+
+        # Sort the list for alphabetical order
+        self.list_countries.sort()
 
     def go_back_to_summary(self):
         self.manager.get_screen(
