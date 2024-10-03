@@ -16,7 +16,7 @@
         "points": "Points: [POINTS]",
         "buy_background": "Buy 1 random background\n[POINTS] points",
         "new_background": "Congrats! You've got a new background!",
-        "already_bought_background": "Bad luck, you've already had this background..."
+        "already_bought_background": "You already have this background... Try again!"
     },
     "stats": {
         "highscore": "Highscore: [HIGHSCORE]",
@@ -40,8 +40,8 @@
         "cancel": "Cancel",
         "loading": "Loading...",
         "loading_title": "Loading",
-        "buy_background_impossible_title": "Achat impossible",
-        "buy_background_impossible_text": "Vous ne pouvez pas acheter de fond pour l'instant, vous n'avez pas assez de points : il vous en faut [NB_POINTS]. Réessayez plus tard !"
+        "buy_background_impossible_title": "Unable to purchase",
+        "buy_background_impossible_text": "You can't buy backgrounds right now, you don't have enough points: you need [NB_POINTS]. Try again later!"
     },
     "game_over": {
         "title": "Which country is it?",
@@ -51,13 +51,13 @@
         "congrats": "Congratulations!",
         "game_over_title": "Game over...",
         "game_over_text": "You lost all your lives; the game ends here.",
-        "next_continent": "Continent suivant",
-        "recaps_title": "Récapitulatif de la partie",
+        "next_continent": "Next continent",
+        "recaps_title": "Game recap",
         "finish_game": "End the game",
         "go_to_home": "Go back to menu",
         "select_country_title": "Error in choice",
         "select_country_message": "You must select a country from the dropdown menu.",
-        "wrong_country_title": "Mauvais choix",
+        "wrong_country_title": "Wrong country",
         "wrong_country_text": "The country you selected is incorrect. Try another one or gather more clues !",
         "buy_life_message": "You don't have any lives left. Would you like to watch an ad to continue playing?",
         "buy_life_title": "Lives depleted"
