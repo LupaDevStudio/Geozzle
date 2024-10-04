@@ -77,12 +77,10 @@ class GameQuestionScreen(GeozzleScreen):
         # Tutorial mode
         if USER_DATA.game.tutorial_mode:
             if USER_DATA.game.detect_tutorial_number_clue(number_clue=0):
-                pass
                 # TODO Display popup de choix de la population
                 # Add a modal view to allow only hint 3
                 TutorialView(widget_to_show=self.ids["hint_3_button"])
             if USER_DATA.game.detect_tutorial_number_clue(number_clue=1):
-                pass
                 # Add modal view to allow only hint 2
                 TutorialView(widget_to_show=self.ids["hint_2_button"])
 

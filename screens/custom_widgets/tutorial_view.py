@@ -21,7 +21,8 @@ from kivy.properties import (
 
 class TutorialView(ModalView):
     auto_dismiss = False
-    background_color = ColorProperty([0.7, 0.7, 0.7, 0.1])
+    background_color = ColorProperty([0., 0., 0., 0.1])
+    overlay_color = ColorProperty([0., 0., 0., 0.2])
 
     def __init__(self, widget_to_show, **kwargs):
         super().__init__(**kwargs)
@@ -30,7 +31,7 @@ class TutorialView(ModalView):
         release_function = copy(widget_to_show.on_release)
 
         def release_tuto_button(*args):
-            self.dismiss()
+            self.dismiss(animation=False)
             release_function()
             widget_to_show.on_release = release_function
 
