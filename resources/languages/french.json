@@ -52,8 +52,6 @@
         "button_back": "Retour aux indices",
         "score_popup_text": "Score du pays : [SCORE]\nScore total : [SCORE_GAME]",
         "congrats": "Félicitations !",
-        "game_over_title": "Fin du jeu...",
-        "game_over_text": "Vous avez perdu toutes vos vies ; votre partie s'achève ici.",
         "next_continent": "Continent suivant",
         "recaps_title": "Récapitulatif de la partie",
         "finish_game": "Terminer le jeu",

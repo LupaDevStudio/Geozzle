@@ -209,7 +209,7 @@ class GameOverScreen(GeozzleScreen):
                 # If the game is finished
                 if has_finished_game:
                     # End the game
-                    self.finish_game(game_over=False)
+                    self.finish_game()
                     ok_button_label = TEXT.popup["close"]
                     def score_popup_release_function(): return 1 + 1
                 else:
@@ -295,7 +295,7 @@ class GameOverScreen(GeozzleScreen):
             )
             popup.open()
 
-    def finish_game(self, game_over: bool = True):
+    def finish_game(self):
         number_of_lives = USER_DATA.game.number_lives
 
         # Build the dictionary with all scores information
@@ -342,18 +342,6 @@ class GameOverScreen(GeozzleScreen):
             total_label=TEXT.game_over["total_score"]
         )
         popup.open()
-
-        if game_over:
-            # Display the game over popup
-            popup = MessagePopup(
-                primary_color=self.continent_color,
-                secondary_color=self.secondary_continent_color,
-                title=TEXT.game_over["game_over_title"],
-                center_label_text=TEXT.game_over["game_over_text"],
-                font_ratio=self.font_ratio,
-                ok_button_label=TEXT.popup["close"]
-            )
-            popup.open()
 
     def go_to_home_and_watch_potentially_an_ad(self):
         # An ad is displayed randomly at the end of the game, if the user has completed the game to more than 10%

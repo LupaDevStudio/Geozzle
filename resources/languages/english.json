@@ -51,8 +51,6 @@
         "button_back": "Back to clues",
         "score_popup_text": "Score of the country: [SCORE]\nTotal score: [SCORE_GAME]",
         "congrats": "Congratulations!",
-        "game_over_title": "Game over...",
-        "game_over_text": "You lost all your lives; the game ends here.",
         "next_continent": "Next continent",
         "recaps_title": "Overview of the game",
         "finish_game": "End the game",
