@@ -44,7 +44,7 @@ from tools.geozzle import (
     SHARED_DATA,
     format_clue
 )
-from screens.custom_widgets import GeozzleScreen
+from screens.custom_widgets import GeozzleScreen, TutorialView
 
 #############
 ### Class ###
@@ -88,13 +88,13 @@ class GameSummaryScreen(GeozzleScreen):
         # Tutorial mode
         if USER_DATA.game.tutorial_mode:
             if USER_DATA.game.detect_tutorial_number_clue(number_clue=1):
-                pass
                 # TODO Display popup où il faut choisir un nouvel indice
-                # TODO Paul put the modal view and add the widget (self.ids.clue_button)
+                # Add modal view to force to go back to clues
+                TutorialView(self.ids.clue_button)
             if USER_DATA.game.detect_tutorial_number_clue(number_clue=2):
-                pass
                 # TODO Display popup où on a assez d'indices pour deviner
-                # TODO Paul put the modal view and add the widget (self.ids.i_found_button)
+                # Add modal view to force to go to i found
+                TutorialView(self.ids.i_found_button)
 
     def reload_language(self):
         """
@@ -112,7 +112,7 @@ class GameSummaryScreen(GeozzleScreen):
 
         self.title_label = TEXT.game_summary["title"]
         self.text_found_country = TEXT.game_summary["i_found"]
-        
+
         # Avoid the user to go on game question if no more clues
         if USER_DATA.game.list_current_clues == [None, None, None, None]:
             self.ids.clue_button.disable_button = True
@@ -131,7 +131,8 @@ class GameSummaryScreen(GeozzleScreen):
         # Update the flag image
         if "flag" in USER_DATA.game.dict_guessed_countries[USER_DATA.game.current_guess_country]["list_clues"]:
             self.ids.flag_image.reload()
-            self.ids.flag_image.source = PATH_IMAGES_FLAG + USER_DATA.game.current_guess_country + ".png"
+            self.ids.flag_image.source = PATH_IMAGES_FLAG + \
+                USER_DATA.game.current_guess_country + ".png"
             self.ids.flag_image.disable_button = False
         else:
             self.ids.flag_image.source = PATH_IMAGES_FLAG_UNKNOWN
@@ -191,7 +192,7 @@ class GameSummaryScreen(GeozzleScreen):
                         text=text,
                         color=self.continent_color,
                         font_name=self.font_name,
-                        font_size=16*self.font_ratio,
+                        font_size=16 * self.font_ratio,
                         halign="left",
                         valign="middle",
                         shorten=False,
