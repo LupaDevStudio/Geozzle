@@ -37,7 +37,7 @@ from tools.geozzle import (
     USER_DATA,
     SHARED_DATA
 )
-from screens.custom_widgets import GeozzleScreen
+from screens.custom_widgets import GeozzleScreen, TutorialView
 
 #############
 ### Class ###
@@ -79,10 +79,12 @@ class GameQuestionScreen(GeozzleScreen):
             if USER_DATA.game.detect_tutorial_number_clue(number_clue=0):
                 pass
                 # TODO Display popup de choix de la population
-                # TODO Paul put the modal view and add the widget (POPULATION population est dans self.ids.hint_3)
+                # Add a modal view to allow only hint 3
+                TutorialView(widget_to_show=self.ids["hint_3_button"])
             if USER_DATA.game.detect_tutorial_number_clue(number_clue=1):
                 pass
-                # TODO Paul put the modal view and add the widget (FLAG) (flag est dans self.ids.hint_2)
+                # Add modal view to allow only hint 2
+                TutorialView(widget_to_show=self.ids["hint_2_button"])
 
     def reload_language(self):
         """
