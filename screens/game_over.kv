@@ -6,7 +6,7 @@
         text: root.title_label
         font_name: PATH_TITLE_FONT
         font_size: MAIN_TEXT_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.68}
+        pos_hint: {"center_x":0.5, "center_y":0.66}
         outline_width: max(SUBTITLE_OUTLINE_WIDTH * root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
         color: root.continent_color
@@ -19,7 +19,7 @@
 
     CustomSpinner:
         id: country_spinner
-        pos_hint: {"center_x":0.5, "center_y":0.58}
+        pos_hint: {"center_x":0.5, "center_y":0.56}
         size_hint: (0.8,0.1)
         text: ""
         values: root.list_countries

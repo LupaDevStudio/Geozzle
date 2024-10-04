@@ -151,6 +151,8 @@ class SettingsScreen(GeozzleScreen):
             secondary_color=self.secondary_continent_color,
             title=TEXT.settings["credits"],
             center_label_text=TEXT.settings["credits_text"],
+            font_ratio=self.font_ratio,
+            ok_button_label=TEXT.popup["close"],
         )
         popup.open()
 

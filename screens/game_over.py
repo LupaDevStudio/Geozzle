@@ -302,18 +302,19 @@ class GameOverScreen(GeozzleScreen):
         dict_score_details_countries = {}
         for counter_continent, code_continent in enumerate(USER_DATA.game.list_continents):
             code_country = USER_DATA.game.list_countries_to_guess[counter_continent]
-            country_name = DICT_COUNTRIES[TEXT.language][code_country]
+            country_name = DICT_COUNTRIES[TEXT.language][code_continent][code_country]
             score_clues = USER_DATA.game.compute_hint_score(
                 code_country=code_country)
             dict_details = USER_DATA.game.dict_guessed_countries[code_country]
             guessed = dict_details["guessed"]
+            nb_stars = get_nb_stars(list_clues=dict_details["list_clues"])
 
             dict_score_details_countries[code_continent] = {
                 "country_name": country_name,
                 "guessed": guessed,
                 "score_clues": score_clues,
                 "flag_image": PATH_FLAG_IMAGES + code_country + ".png",
-                "nb_stars": dict_details["nb_stars"],
+                "nb_stars": nb_stars,
                 "multiplier": dict_details["multiplier"]
             }
             # Don't display the countries which have not been seen

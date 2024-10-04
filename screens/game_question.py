@@ -92,7 +92,9 @@ class GameQuestionScreen(GeozzleScreen):
                     title=TEXT.tutorial["tutorial_title"],
                     primary_color=self.continent_color,
                     secondary_color=self.secondary_continent_color,
-                    center_label_text=TEXT.tutorial["int_tutorial_1"]
+                    center_label_text=TEXT.tutorial["int_tutorial_1"],
+                    font_ratio=self.font_ratio,
+                    ok_button_label=TEXT.popup["close"]
                 )
                 popup.open()
             if USER_DATA.game.detect_tutorial_number_clue(number_clue=1):

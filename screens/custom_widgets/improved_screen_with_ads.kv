@@ -7,7 +7,7 @@
         text: root.title_screen
         font_name: PATH_TITLE_FONT
         font_size: TITLE_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.85} if not SCREEN_CONTINENT_PROGRESS_BAR in root.dict_type_screen else {"center_x":0.5, "center_y":0.75}
+        pos_hint: {"center_x":0.5, "center_y":0.85} if not SCREEN_CONTINENT_PROGRESS_BAR in root.dict_type_screen else {"center_x":0.5, "center_y":0.74}
         outline_width: max(TITLE_OUTLINE_WIDTH * root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
         color: root.continent_color
@@ -53,17 +53,17 @@
         id: multiplier
         source: root.multiplier_image
         pos_hint: {"right": 0.95, "top":0.975}
-        size_hint: (LOGO_SIZE, None)
+        size_hint: (LOGO_SIZE*1.5, None)
         height: self.width
     
     ThreeStars:
         id: country_stars
-        pos_hint: {"right": 0.95,"center_y":0.87}
+        pos_hint: {"x": 0.05,"center_y":0.87}
         size_hint: (LOGO_SIZE*1.5, 0.1)
         nb_stars: root.nb_stars_on_current_country
         primary_color: WHITE
         secondary_color: root.continent_color
-        contour_color: root.continent_color
+        contour_color: WHITE
     
     # Number of credits
     Label:
@@ -80,7 +80,7 @@
         id: continent_progress_bar
         continents_list: root.continents_list
         font_ratio: root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.82}
+        pos_hint: {"center_x":0.5, "center_y":0.81}
         size_hint: (0.8, 0.05)
         cursor_position: root.current_continent_position
         color: root.continent_color
