@@ -17,9 +17,7 @@ from functools import partial
 from kivy.properties import (
     StringProperty
 )
-from kivy.core.window import Window
 from kivy.uix.label import Label
-from kivy.uix.image import Image
 
 ### Local imports ###
 
@@ -45,8 +43,7 @@ from tools.constants import (
     SUB_TEXT_FONT_SIZE,
     SUBTITLE_OUTLINE_WIDTH,
     WHITE,
-    BLACK,
-    GRAY
+    LIST_CONTINENTS
 )
 from tools.kivy_tools import (
     ImageButton
@@ -145,9 +142,9 @@ class GalleryScreen(GeozzleScreen):
     def fill_scrollview(self):
         scrollview_layout: MyScrollViewLayout = self.ids.scrollview_layout
 
-        for code_continent in list(DICT_CONTINENTS_PRIMARY_COLOR.keys()):
-            list_backgrounds = [background for background in os.listdir(
-                PATH_BACKGROUNDS + code_continent) if background in USER_DATA.unlocked_backgrounds]
+        for code_continent in LIST_CONTINENTS:
+            list_backgrounds = [background for background in USER_DATA.unlocked_backgrounds if background in os.listdir(
+                PATH_BACKGROUNDS + code_continent)]
             number_backgrounds = len(os.listdir(
                 PATH_BACKGROUNDS + code_continent))
             # Label with the name of the continent
@@ -187,20 +184,15 @@ class GalleryScreen(GeozzleScreen):
                 padding=15 * self.font_ratio
             )
 
-            # All the backgrounds
-            for background in os.listdir(PATH_BACKGROUNDS + code_continent):
-                full_path = PATH_BACKGROUNDS + code_continent + "/" + background
-                if not full_path in SHARED_DATA.list_unlocked_backgrounds:
-                    new_path = PATH_STICKERS + "unknown_background.jpg"
-                    def release_function(): return 1 + 1
-                    disable_button = True
-                else:
-                    new_path = PATH_STICKERS + code_continent + "/" + background
-                    release_function = partial(
+            # All the backgrounds that has been unlocked
+            for background in list_backgrounds:
+                full_path = PATH_STICKERS + code_continent + "/" + background
+                release_function = partial(
                         self.manager.change_background, background_path=full_path)
-                    disable_button = False
+                disable_button = False
+
                 image = ImageButton(
-                    source=new_path,
+                    source=full_path,
                     size_hint=(None, None),
                     height=sv_height - 15 * self.font_ratio * 2 - 8 * self.font_ratio,
                     width=80 * self.font_ratio,
@@ -209,8 +201,23 @@ class GalleryScreen(GeozzleScreen):
                     release_function=release_function,
                     disable_button=disable_button
                 )
-                if not full_path in SHARED_DATA.list_unlocked_backgrounds:
-                    image.color = DICT_CONTINENT_SECOND_COLOR[code_continent]
+                vertical_layout.add_widget(image)
+
+            for i in range(len(list_backgrounds), number_backgrounds):
+                full_path = PATH_STICKERS + "unknown_background.jpg"
+                def release_function(): return 1 + 1
+                disable_button = True
+                image = ImageButton(
+                    source=full_path,
+                    size_hint=(None, None),
+                    height=sv_height - 15 * self.font_ratio * 2 - 8 * self.font_ratio,
+                    width=80 * self.font_ratio,
+                    pos_hint={"center_y": 0.5},
+                    fit_mode="cover",
+                    release_function=release_function,
+                    disable_button=disable_button
+                )
+                image.color = DICT_CONTINENT_SECOND_COLOR[code_continent]
                 vertical_layout.add_widget(image)
 
             custom_sv.add_widget(vertical_layout)
