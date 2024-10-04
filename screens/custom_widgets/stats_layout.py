@@ -59,6 +59,7 @@ class CountryStatCard(RelativeLayout):
     """
 
     background_color = ColorProperty(WHITE)
+    shadow_color = ColorProperty(BLACK)
     color = ColorProperty(BLACK)
 
     country_name = StringProperty()

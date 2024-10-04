@@ -48,6 +48,7 @@
             number_stars: root.nb_stars
             country_name: root.country_name
             color: root.primary_color
+            shadow_color: TRANSPARENT
 
         Image:
             id: new_image
@@ -55,6 +56,46 @@
             size_hint: (0.2, None)
             height: self.width
             pos_hint: {"right": 0.95, "center_y": 0.75}
+
+<CountryLineScore>:
+
+    CountryStatCard:
+        font_ratio: root.font_ratio
+        size_hint: (0.3, 0.9)
+        pos_hint: {"x": 0, "center_y": 0.5}
+        flag_image: root.flag_image
+        number_stars: root.nb_stars
+        country_name: root.country_name
+        color: root.continent_color
+        shadow_color: TRANSPARENT
+
+    Label:
+        size_hint: (0.45, 0.9)
+        pos_hint: {"x":0.35, "center_y": 0.5}
+        font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
+        font_name: PATH_TEXT_FONT
+        text: root.text_label
+        size: self.size
+        shorten: False
+        text_size: (self.width,None)
+        color: root.continent_color
+        halign: "left"
+        valign: "middle"
+        line_height: 1.4
+
+    Label:
+        size_hint: (0.2, 0.9)
+        pos_hint: {"right":0.94, "center_y": 0.5}
+        font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
+        font_name: PATH_TEXT_FONT
+        text: root.score_label
+        size: self.size
+        shorten: False
+        text_size: (self.width,None)
+        color: root.continent_color
+        halign: "right"
+        valign: "middle"
+        line_height: 1.4
 
 <EndGamePopup>:
     
@@ -79,24 +120,29 @@
             font_size: SMALL_BUTTON_FONT_SIZE
             text: root.ok_button_label
             text_font_name: PATH_TEXT_FONT
-            background_color: root.secondary_color
+            background_color: GRAY
             color_label: root.primary_color
             release_function: root.confirm
         
         RelativeLayout:
             pos_hint: {"center_x": 0.5, "y": 0.45}
-            size_hint: (0.9, 1 - 0.45 - 0.025)
+            size_hint: (0.95, 1 - 0.45 - 0.025)
 
             CustomScrollview:
                 id: scrollview
-                bar_width: 0
                 size_hint: (1, 1)
+                pos_hint: {"center_x":0.5, "center_y":0.5}
+                scroll_type: ["bars", "content"]
+                do_scroll_x: False
+                bar_width: 7*root.font_ratio
+                bar_inactive_color: BLACK
+                bar_color: GRAY
 
                 MyScrollViewLayout:
                     id: scrollview_layout
                     cols: 1
                     spacing: 10*root.font_ratio
-                    padding: 20*root.font_ratio
+                    padding: (5*root.font_ratio, 0*root.font_ratio)
 
         ### Number of lives used ###
 

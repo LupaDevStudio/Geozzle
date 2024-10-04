@@ -64,7 +64,10 @@
         "buy_life_message": "You don't have any lives left. Would you like to watch an ad to continue playing?",
         "buy_life_title": "Lives depleted",
         "nb_lives_at_the_end": "Number of lives left",
-        "total_score": "TOTAL"
+        "total_score": "TOTAL",
+        "guessed": "Guessed country",
+        "clues": "Used clues",
+        "multiplier": "Multiplier"
     },
     "game_question": {
         "title": "Choose a clue"

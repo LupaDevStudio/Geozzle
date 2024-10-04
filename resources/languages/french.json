@@ -64,7 +64,10 @@
         "buy_life_message": "Vous n'avez plus de vies, souhaitez-vous regarder une publicité pour continuer votre partie ?",
         "buy_life_title": "Vies épuisées",
         "nb_lives_at_the_end": "Nombre de vies restantes",
-        "total_score": "TOTAL"
+        "total_score": "TOTAL",
+        "guessed": "Pays deviné",
+        "clues": "Indices utilisés",
+        "multiplier": "Multiplicateur"
     },
     "game_question": {
         "title": "Choisissez un nouvel indice"

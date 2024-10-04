@@ -303,11 +303,12 @@ class GameOverScreen(GeozzleScreen):
         for counter_continent, code_continent in enumerate(USER_DATA.game.list_continents):
             code_country = USER_DATA.game.list_countries_to_guess[counter_continent]
             country_name = DICT_COUNTRIES[TEXT.language][code_continent][code_country]
-            score_clues = USER_DATA.game.compute_hint_score(
-                code_country=code_country)
             dict_details = USER_DATA.game.dict_guessed_countries[code_country]
             guessed = dict_details["guessed"]
-            nb_stars = get_nb_stars(list_clues=dict_details["list_clues"])
+            score_clues = USER_DATA.game.compute_hint_score(
+                code_country=code_country) if guessed else 0
+            nb_stars = get_nb_stars(
+                list_clues=dict_details["list_clues"]) if guessed else 0
 
             dict_score_details_countries[code_continent] = {
                 "country_name": country_name,
@@ -326,8 +327,6 @@ class GameOverScreen(GeozzleScreen):
 
         # Display the popup with the global score
         popup = EndGamePopup(
-            primary_color=self.continent_color,
-            secondary_color=self.secondary_continent_color,
             font_ratio=self.font_ratio,
             title=TEXT.game_over["recaps_title"],
             ok_button_label=TEXT.game_over["go_to_home"],
@@ -336,7 +335,11 @@ class GameOverScreen(GeozzleScreen):
             total_score_label=TEXT.game_over["total_score"],
             total_score=final_score,
             dict_score_details_countries=dict_score_details_countries,
-            release_function=self.go_to_home_and_watch_potentially_an_ad
+            release_function=self.go_to_home_and_watch_potentially_an_ad,
+            guessed_label=TEXT.game_over["guessed"],
+            clues_label=TEXT.game_over["clues"],
+            multiplier_label=TEXT.game_over["multiplier"],
+            total_label=TEXT.game_over["total_score"]
         )
         popup.open()
 
