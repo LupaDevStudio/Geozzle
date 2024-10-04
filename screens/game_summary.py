@@ -29,6 +29,7 @@ from tools.path import (
     PATH_IMAGES_GEOJSON
 )
 from tools.constants import (
+    DICT_CONTINENTS_PRIMARY_COLOR,
     SCREEN_TITLE,
     SCREEN_ICON_LEFT_UP,
     SCREEN_THREE_LIVES,
@@ -173,6 +174,8 @@ class GameSummaryScreen(GeozzleScreen):
         -------
         None
         """
+        # Force the update of colors to avoid the slight smoothing
+        self.update_colors()
         for code_clue in USER_DATA.game.dict_guessed_countries[USER_DATA.game.current_guess_country]["list_clues"]:
             if not code_clue in ["flag", "ISO_3_code"]:
 
