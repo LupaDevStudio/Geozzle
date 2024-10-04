@@ -44,7 +44,7 @@ from tools.geozzle import (
     SHARED_DATA,
     format_clue
 )
-from screens.custom_widgets import GeozzleScreen, TutorialView
+from screens.custom_widgets import GeozzleScreen, TutorialView, MessagePopup
 
 #############
 ### Class ###
@@ -88,13 +88,27 @@ class GameSummaryScreen(GeozzleScreen):
         # Tutorial mode
         if USER_DATA.game.tutorial_mode:
             if USER_DATA.game.detect_tutorial_number_clue(number_clue=1):
-                # TODO Display popup où il faut choisir un nouvel indice
                 # Add modal view to force to go back to clues
                 TutorialView(self.ids.clue_button)
+                # Display popup with explanations
+                popup = MessagePopup(
+                    title=TEXT.tutorial["tutorial_title"],
+                    primary_color=self.continent_color,
+                    secondary_color=self.secondary_continent_color,
+                    center_label_text=TEXT.tutorial["int_tutorial_2"]
+                )
+                popup.open()
             if USER_DATA.game.detect_tutorial_number_clue(number_clue=2):
-                # TODO Display popup où on a assez d'indices pour deviner
                 # Add modal view to force to go to i found
                 TutorialView(self.ids.i_found_button)
+                # Display popup with explanations
+                popup = MessagePopup(
+                    title=TEXT.tutorial["tutorial_title"],
+                    primary_color=self.continent_color,
+                    secondary_color=self.secondary_continent_color,
+                    center_label_text=TEXT.tutorial["int_tutorial_3"]
+                )
+                popup.open()
 
     def reload_language(self):
         """

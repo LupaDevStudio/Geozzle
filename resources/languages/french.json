@@ -103,6 +103,9 @@
         "next": "Suivant",
         "previous": "Précédent",
         "close": "Fermer",
+        "int_tutorial_1": "Cet écran vous permet de choisir des indices pour deviner un pays. Plus il y a d'étoiles, plus vous gagnerez de points. Commençons par la population !",
+        "int_tutorial_2": "Vous pouvez voir ici les indices collectés. Choisissons-en un autre pour deviner plus facilement !",
+        "int_tutorial_3": "Une fois que vous avez assez d'indices, vous pouvez proposer un pays. Allons-y !",
         "tutorial_content": [
             [
                 "Bienvenue dans le tutoriel de Geozzle ! \n \n Ce tutoriel vous guidera à travers les fonctionnalités du jeu. \n \n Cliquez sur 'Suivant' pour continuer."
