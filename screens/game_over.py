@@ -36,6 +36,7 @@ from tools.constants import (
     SCREEN_THREE_LIVES,
     SCREEN_CONTINENT_PROGRESS_BAR,
     SCREEN_COUNTRY_STARS,
+    SCREEN_NB_CREDITS,
 )
 from tools.geozzle import (
     TEXT,
@@ -75,6 +76,7 @@ class GameOverScreen(GeozzleScreen):
         SCREEN_THREE_LIVES: "",
         SCREEN_CONTINENT_PROGRESS_BAR: "",
         SCREEN_COUNTRY_STARS: "",
+        SCREEN_NB_CREDITS: "",
     }
 
     def __init__(self, **kwargs) -> None:
@@ -362,4 +364,5 @@ class GameOverScreen(GeozzleScreen):
     def ad_callback(self, popup: TwoButtonsPopup):
         USER_DATA.game.watch_ad()
         self.number_lives_on = USER_DATA.game.number_lives
+        self.update_nb_credits()
         popup.dismiss()

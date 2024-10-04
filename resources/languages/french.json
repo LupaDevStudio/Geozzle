@@ -21,7 +21,8 @@
     },
     "stats": {
         "highscore": "Meilleur score : [HIGHSCORE]",
-        "details": "Détails"
+        "details": "Détails",
+        "nb_credits": "Nombre de crédits : "
     },
     "home": {
         "Europe": "Europe",

@@ -44,6 +44,7 @@ from tools.constants import (
     SCREEN_MULTIPLIER,
     SCREEN_COUNTRY_STARS,
     SCREEN_CONTINENT_PROGRESS_BAR,
+    SCREEN_NB_CREDITS,
     BLACK,
     GRAY,
     TIME_CHANGE_BACKGROUND,
@@ -139,6 +140,7 @@ class GeozzleScreen(ImprovedScreenWithAds):
     continents_list = ListProperty(LIST_CONTINENTS)
     current_continent_position = NumericProperty(0)
     nb_stars_on_current_country = NumericProperty(3)
+    nb_credits_text = StringProperty("Number of credits:")
 
     def __init__(self, back_image_path=None, **kw):
         super().__init__(back_image_path=back_image_path, **kw)
@@ -205,6 +207,9 @@ class GeozzleScreen(ImprovedScreenWithAds):
         if not SCREEN_COUNTRY_STARS in self.dict_type_screen:
             self.remove_widget(self.ids.country_stars)
 
+        if not SCREEN_NB_CREDITS in self.dict_type_screen:
+            self.remove_widget(self.ids.nb_credits_label)
+
         # Display the continent progress bar
         if not SCREEN_CONTINENT_PROGRESS_BAR in self.dict_type_screen:
             self.remove_widget(self.ids.continent_progress_bar)
@@ -224,6 +229,9 @@ class GeozzleScreen(ImprovedScreenWithAds):
 
         if SCREEN_COUNTRY_STARS in self.dict_type_screen:
             self.update_country_stars()
+
+        if SCREEN_NB_CREDITS in self.dict_type_screen:
+            self.update_nb_credits()
 
         if SCREEN_CONTINENT_PROGRESS_BAR in self.dict_type_screen:
             self.continents_list = USER_DATA.game.list_continents
@@ -245,6 +253,10 @@ class GeozzleScreen(ImprovedScreenWithAds):
 
     def update_country_stars(self):
         self.nb_stars_on_current_country = USER_DATA.game.nb_stars_current_country
+
+    def update_nb_credits(self):
+        self.nb_credits_text = TEXT.settings["nb_credits"] + \
+            str(USER_DATA.game.number_credits)
 
     def update_colors(self, *args):
         if self.code_continent != "":

@@ -36,6 +36,7 @@ from tools.constants import (
     SCREEN_MULTIPLIER,
     SCREEN_CONTINENT_PROGRESS_BAR,
     SCREEN_COUNTRY_STARS,
+    SCREEN_NB_CREDITS,
     DARK_GRAY,
     GRAY
 )
@@ -70,6 +71,7 @@ class GameSummaryScreen(GeozzleScreen):
         SCREEN_THREE_LIVES: "",
         SCREEN_CONTINENT_PROGRESS_BAR: "",
         SCREEN_COUNTRY_STARS: "",
+        SCREEN_NB_CREDITS: "",
     }
 
     def __init__(self, **kwargs) -> None:

@@ -31,6 +31,7 @@ from tools.constants import (
     SCREEN_THREE_LIVES,
     SCREEN_CONTINENT_PROGRESS_BAR,
     SCREEN_COUNTRY_STARS,
+    SCREEN_NB_CREDITS,
     DICT_HINTS_INFORMATION
 )
 from tools.geozzle import (
@@ -65,6 +66,7 @@ class GameQuestionScreen(GeozzleScreen):
         SCREEN_THREE_LIVES: "",
         SCREEN_CONTINENT_PROGRESS_BAR: "",
         SCREEN_COUNTRY_STARS: "",
+        SCREEN_NB_CREDITS: "",
     }
 
     def __init__(self, **kwargs) -> None:

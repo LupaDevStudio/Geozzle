@@ -64,6 +64,17 @@
         primary_color: WHITE
         secondary_color: root.continent_color
         contour_color: root.continent_color
+    
+    # Number of credits
+    Label:
+        id: nb_credits_label
+        text: root.nb_credits_text
+        font_name: root.font_name
+        font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.87}
+        outline_width: max(SUBTITLE_OUTLINE_WIDTH* root.font_ratio,1)
+        outline_color: TITLE_OUTLINE_COLOR
+        color: root.continent_color
 
     ContinentProgressBar:
         id: continent_progress_bar
