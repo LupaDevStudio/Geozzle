@@ -8,26 +8,18 @@ Module to create the home screen.
 
 ### Python imports ###
 
-import os
 import random as rd
-from functools import partial
 
 ### Kivy imports ###
 
-from kivy.properties import (
-    StringProperty
-)
 from kivy.core.window import Window
-from kivy.uix.label import Label
-from kivy.uix.image import Image
-from kivy.uix.relativelayout import RelativeLayout
 
 ### Local imports ###
 
 from tools.path import (
     PATH_TEXT_FONT,
     PATH_FLAG_IMAGES,
-    PATH_CONTINENTS_IMAGES
+    PATH_IMAGES_FLAG_UNKNOWN
 )
 from screens.custom_widgets import (
     GeozzleScreen,
@@ -35,16 +27,12 @@ from screens.custom_widgets import (
     CountryStatCard
 )
 from tools.constants import (
-    LIST_CONTINENTS,
     SCREEN_TITLE,
     SCREEN_ICON_LEFT_UP,
     SCREEN_ICON_LEFT_DOWN,
     DICT_CONTINENTS_PRIMARY_COLOR,
-    DICT_CONTINENT_SECOND_COLOR,
-    HIGHSCORE_FONT_SIZE,
-    SUBTITLE_OUTLINE_WIDTH,
-    WHITE,
-    DICT_COUNTRIES
+    DICT_COUNTRIES,
+    WHITE
 )
 from tools.geozzle import (
     USER_DATA,
@@ -95,10 +83,14 @@ class StatsContinentScreen(GeozzleScreen):
 
         for country_code in DICT_COUNTRIES[USER_DATA.language][self.code_continent]:
             country_name = DICT_COUNTRIES[USER_DATA.language][self.code_continent][country_code]
-            flag_image = PATH_FLAG_IMAGES + country_code + ".png"
-            number_stars = 0
             if country_code in USER_DATA.stats[self.code_continent]:
                 number_stars = USER_DATA.stats[self.code_continent][country_code]["nb_stars"]
+                flag_image = PATH_FLAG_IMAGES + country_code + ".png"
+                flag_color = WHITE
+            else:
+                number_stars = 0
+                flag_image = PATH_IMAGES_FLAG_UNKNOWN
+                flag_color = self.secondary_continent_color
             width_card = (Window.size[0]*0.9 - 10*4*self.font_ratio)/3
             height_card = 100*self.font_ratio
 
@@ -108,6 +100,7 @@ class StatsContinentScreen(GeozzleScreen):
                 height=height_card,
                 width=width_card,
                 flag_image=flag_image,
+                flag_color=flag_color,
                 number_stars=number_stars,
                 country_name=country_name,
                 color=DICT_CONTINENTS_PRIMARY_COLOR[self.code_continent]

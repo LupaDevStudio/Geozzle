@@ -24,7 +24,8 @@ from kivy.properties import (
 
 from tools.path import (
     PATH_TEXT_FONT,
-    PATH_FLAG_IMAGES
+    PATH_FLAG_IMAGES,
+    PATH_IMAGES_FLAG_UNKNOWN
 )
 from tools.constants import (
     DICT_MULTIPLIERS,
@@ -37,6 +38,8 @@ from tools.constants import (
     SCREEN_CONTINENT_PROGRESS_BAR,
     SCREEN_COUNTRY_STARS,
     SCREEN_NB_CREDITS,
+    DICT_CONTINENT_SECOND_COLOR,
+    WHITE
 )
 from tools.geozzle import (
     TEXT,
@@ -135,21 +138,37 @@ class GameOverScreen(GeozzleScreen):
     def prepare_gui_to_play_game(self, has_success, *_):
         self.loading_popup.dismiss()
         if has_success:
-            self.code_continent = USER_DATA.game.current_guess_continent
 
-            self.manager.get_screen(
-                "game_question").previous_screen_name = "game_over"
-            self.manager.get_screen(
-                "game_question").code_continent = self.code_continent
-            self.manager.get_screen(
-                "game_summary").code_continent = self.code_continent
-            self.manager.get_screen(
-                "game_summary").reset_scroll_view()
-            self.update_countries()
+            try:
+                self.code_continent = USER_DATA.game.current_guess_continent
 
-            Clock.schedule_once(self.manager.get_screen(
-                "game_question").change_background_continent)
-            self.manager.current = "game_question"
+                self.manager.get_screen(
+                    "game_question").previous_screen_name = "game_over"
+                self.manager.get_screen(
+                    "game_question").code_continent = self.code_continent
+                self.manager.get_screen(
+                    "game_summary").code_continent = self.code_continent
+                self.manager.get_screen(
+                    "game_summary").reset_scroll_view()
+                self.update_countries()
+
+                Clock.schedule_once(self.manager.get_screen(
+                    "game_question").change_background_continent)
+                self.manager.current = "game_question"
+
+            # If there is an error in the data
+            except:
+                USER_DATA.game.reset_all_game_data()
+                self.go_to_home()
+                popup = MessagePopup(
+                    primary_color=self.continent_color,
+                    secondary_color=self.secondary_continent_color,
+                    title=TEXT.clues["no_connexion_title"],
+                    center_label_text=TEXT.clues["no_connexion_message"],
+                    ok_button_label=TEXT.popup["close"],
+                    font_ratio=self.font_ratio
+                )
+                popup.open()
 
         # If no connexion, display a popup and go to home
         else:
@@ -309,14 +328,17 @@ class GameOverScreen(GeozzleScreen):
                 code_country=code_country) if guessed else 0
             nb_stars = get_nb_stars(
                 list_clues=dict_details["list_clues"]) if guessed else 0
+            flag_image = PATH_FLAG_IMAGES + code_country + ".png" if guessed else PATH_IMAGES_FLAG_UNKNOWN
+            flag_color = DICT_CONTINENT_SECOND_COLOR[code_continent] if guessed else WHITE
 
             dict_score_details_countries[code_continent] = {
                 "country_name": country_name,
                 "guessed": guessed,
                 "score_clues": score_clues,
-                "flag_image": PATH_FLAG_IMAGES + code_country + ".png",
+                "flag_image": flag_image,
                 "nb_stars": nb_stars,
-                "multiplier": dict_details["multiplier"]
+                "multiplier": dict_details["multiplier"],
+                "flag_color": flag_color
             }
             # Don't display the countries which have not been seen
             if not guessed:

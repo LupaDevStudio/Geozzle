@@ -70,3 +70,4 @@ class CountryStatCard(RelativeLayout):
 
     number_stars = NumericProperty(0)
     flag_image = StringProperty()
+    flag_color = ColorProperty(WHITE)

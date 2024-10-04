@@ -14,8 +14,7 @@ from typing import Literal
 ### Kivy imports ###
 
 from kivy.properties import (
-    StringProperty,
-    BooleanProperty
+    StringProperty
 )
 from kivy.uix.label import Label
 from screens.custom_widgets.image_popup import ImagePopup
@@ -29,7 +28,7 @@ from tools.path import (
     PATH_IMAGES_GEOJSON
 )
 from tools.constants import (
-    DICT_CONTINENTS_PRIMARY_COLOR,
+    WHITE,
     SCREEN_TITLE,
     SCREEN_ICON_LEFT_UP,
     SCREEN_THREE_LIVES,
@@ -46,7 +45,11 @@ from tools.geozzle import (
     SHARED_DATA,
     format_clue
 )
-from screens.custom_widgets import GeozzleScreen, TutorialView, MessagePopup
+from screens.custom_widgets import (
+    GeozzleScreen,
+    TutorialView,
+    MessagePopup
+)
 
 #############
 ### Class ###
@@ -156,9 +159,11 @@ class GameSummaryScreen(GeozzleScreen):
             self.ids.flag_image.source = PATH_IMAGES_FLAG + \
                 USER_DATA.game.current_guess_country + ".png"
             self.ids.flag_image.disable_button = False
+            self.ids.flag_image.color = WHITE
         else:
             self.ids.flag_image.source = PATH_IMAGES_FLAG_UNKNOWN
             self.ids.flag_image.disable_button = True
+            self.ids.flag_image.color = self.secondary_continent_color
 
         # Update the geojson image
         if "ISO_3_code" in USER_DATA.game.dict_guessed_countries[USER_DATA.game.current_guess_country]["list_clues"]:
@@ -166,9 +171,11 @@ class GameSummaryScreen(GeozzleScreen):
             self.ids.geojson_image.source = PATH_IMAGES_GEOJSON + USER_DATA.game.dict_details_country[TEXT.language]["ISO_3_code"] + \
                 ".png"
             self.ids.geojson_image.disable_button = False
+            self.ids.geojson_image.color = self.continent_color
         else:
             self.ids.geojson_image.source = PATH_IMAGES_FLAG_UNKNOWN
             self.ids.geojson_image.disable_button = True
+            self.ids.geojson_image.color = self.secondary_continent_color
 
     def reset_scroll_view(self, *_):
         """

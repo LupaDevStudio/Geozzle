@@ -22,11 +22,13 @@ from kivy.uix.relativelayout import RelativeLayout
 
 from screens.custom_widgets.custom_popup import CustomPopup
 from tools.geozzle import (
-    TEXT,
-    DICT_CONTINENTS_PRIMARY_COLOR
+    TEXT
 )
 from tools.constants import (
-    BLACK
+    BLACK,
+    WHITE,
+    DICT_CONTINENT_SECOND_COLOR,
+    DICT_CONTINENTS_PRIMARY_COLOR
 )
 
 #############
@@ -55,6 +57,7 @@ class CountryLineScore(RelativeLayout):
     font_ratio = NumericProperty(0)
     country_name = StringProperty()
     flag_image = StringProperty()
+    flag_color = ColorProperty(WHITE)
     nb_stars = NumericProperty(0)
     continent_color = ColorProperty(BLACK)
 
@@ -118,6 +121,7 @@ class EndGamePopup(CustomPopup):
                 font_ratio=self.font_ratio,
                 size_hint=(1, None),
                 height=90*self.font_ratio,
+                flag_color=dict_details["flag_color"],
                 continent_color=continent_color,
                 country_name=dict_details["country_name"],
                 score_label=score_label,

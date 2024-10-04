@@ -144,33 +144,49 @@ class HomeScreen(GeozzleScreen):
         if self.loading_popup is not None:
             self.loading_popup.dismiss()
         if has_success:
-            code_continent = USER_DATA.game.current_guess_continent
 
-            self.manager.get_screen(
-                "game_question").code_continent = code_continent
-            self.manager.get_screen(
-                "game_summary").reset_scroll_view()
-            self.manager.get_screen(
-                "game_summary").code_continent = code_continent
-            self.manager.get_screen(
-                "game_over").code_continent = code_continent
-            self.manager.get_screen(
-                "game_over").update_countries()
+            try:
+                code_continent = USER_DATA.game.current_guess_continent
 
-            # Unschedule the clock updates
-            Clock.unschedule(self.manager.change_background,
-                             TIME_CHANGE_BACKGROUND)
+                self.manager.get_screen(
+                    "game_question").code_continent = code_continent
+                self.manager.get_screen(
+                    "game_summary").reset_scroll_view()
+                self.manager.get_screen(
+                    "game_summary").code_continent = code_continent
+                self.manager.get_screen(
+                    "game_over").code_continent = code_continent
+                self.manager.get_screen(
+                    "game_over").update_countries()
 
-            # Go to the screen game summary if the user has already picked up one clue
-            if len(USER_DATA.game.dict_guessed_countries[USER_DATA.game.current_guess_country]["list_clues"]) > 0:
-                next_screen = "game_summary"
-            else:
-                next_screen = "game_question"
-            self.manager.get_screen(
-                next_screen).previous_screen_name = "home"
-            Clock.schedule_once(self.manager.get_screen(
-                next_screen).change_background_continent)
-            self.manager.current = next_screen
+                # Unschedule the clock updates
+                Clock.unschedule(self.manager.change_background,
+                                TIME_CHANGE_BACKGROUND)
+
+                # Go to the screen game summary if the user has already picked up one clue
+                if len(USER_DATA.game.dict_guessed_countries[USER_DATA.game.current_guess_country]["list_clues"]) > 0:
+                    next_screen = "game_summary"
+                else:
+                    next_screen = "game_question"
+                self.manager.get_screen(
+                    next_screen).previous_screen_name = "home"
+                Clock.schedule_once(self.manager.get_screen(
+                    next_screen).change_background_continent)
+                self.manager.current = next_screen
+
+            # If there is an error in the data
+            except:
+                USER_DATA.game.reset_all_game_data()
+                self.go_to_home()
+                popup = MessagePopup(
+                    primary_color=self.continent_color,
+                    secondary_color=self.secondary_continent_color,
+                    title=TEXT.clues["no_connexion_title"],
+                    center_label_text=TEXT.clues["no_connexion_message"],
+                    ok_button_label=TEXT.popup["close"],
+                    font_ratio=self.font_ratio
+                )
+                popup.open()
 
         else:
             popup = MessagePopup(
