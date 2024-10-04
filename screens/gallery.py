@@ -24,7 +24,8 @@ from kivy.uix.label import Label
 from tools.path import (
     PATH_TEXT_FONT,
     PATH_BACKGROUNDS,
-    PATH_STICKERS
+    PATH_STICKERS,
+    PATH_NEW_BACKGROUNDS_IMAGES
 )
 from screens.custom_widgets import (
     GeozzleScreen,
@@ -120,6 +121,8 @@ class GalleryScreen(GeozzleScreen):
                 secondary_color=DICT_CONTINENT_SECOND_COLOR[code_continent],
                 title=title,
                 image_source=full_path,
+                badge_mode=is_new,
+                badge_image_source=PATH_NEW_BACKGROUNDS_IMAGES + f"new_background_{code_continent}.png",
                 release_function=partial(
                     self.manager.change_background, background_path=full_path),
                 ok_button_label=TEXT.popup["close"]

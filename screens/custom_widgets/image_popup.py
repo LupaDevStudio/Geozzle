@@ -9,8 +9,7 @@ Module to create a popup with a custom style.
 ### Kivy imports ###
 
 from kivy.properties import (
-    ColorProperty,
-    NumericProperty,
+    BooleanProperty,
     StringProperty,
     ObjectProperty
 )
@@ -33,6 +32,8 @@ class ImagePopup(CustomPopup):
     release_function = ObjectProperty(lambda: 1 + 1)
     image_source = StringProperty()
     mode = StringProperty("image")
+    badge_image_source = StringProperty()
+    badge_mode = BooleanProperty(False)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

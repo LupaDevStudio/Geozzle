@@ -27,6 +27,14 @@
             pos_hint: {"center_x":0.5,"center_y":0.6}
             fit_mode: "cover"
 
+        # Badge of the right top corner of the image
+        Image:
+            source: root.badge_image_source
+            opacity: 1 if root.badge_mode else 0
+            size_hint: (0.2, None)
+            height: self.width
+            pos_hint: {"center_x":0.75, "center_y":0.9}
+
         FlagImage:
             source: root.image_source
             size_hint: (0.6,None)
