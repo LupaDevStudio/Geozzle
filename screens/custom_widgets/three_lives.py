@@ -9,7 +9,6 @@ Module to create custom buttons with round transparent white background.
 ### Kivy imports ###
 
 from kivy.uix.relativelayout import RelativeLayout
-from kivy.uix.behaviors import ButtonBehavior
 from kivy.properties import (
     StringProperty,
     NumericProperty,
@@ -24,10 +23,8 @@ from tools.path import (
     PATH_IMAGES
 )
 from tools.constants import (
-    OPACITY_ON_BUTTON_PRESS
-)
-from tools import (
-    sound_mixer
+    WHITE,
+    BLACK
 )
 
 #############
@@ -35,18 +32,20 @@ from tools import (
 #############
 
 
-class ThreeLives(ButtonBehavior, RelativeLayout):
+class ThreeLives(RelativeLayout):
     """
     The indicator of lives.
     """
 
-    continent_color = ColorProperty((0, 0, 0, 1))
+    continent_color = ColorProperty(BLACK)
+    background_color = ColorProperty(WHITE)
     number_lives_on = NumericProperty(3)
     image_path_1 = StringProperty(PATH_IMAGES + "life_on.png")
     image_path_2 = StringProperty(PATH_IMAGES + "life_on.png")
     image_path_3 = StringProperty(PATH_IMAGES + "life_on.png")
     release_function = ObjectProperty(lambda: 1 + 1)
     disable_button = BooleanProperty(False)
+    font_ratio = NumericProperty(1)
 
     def __init__(self, ** kwargs):
         super().__init__(**kwargs)
@@ -71,14 +70,3 @@ class ThreeLives(ButtonBehavior, RelativeLayout):
             self.image_path_1 = PATH_IMAGES + "life_on.png"
         else:
             self.image_path_1 = PATH_IMAGES + "life_off.png"
-
-    def on_press(self):
-        if not self.disable_button:
-            self.opacity = OPACITY_ON_BUTTON_PRESS
-            sound_mixer.play("click")
-
-    def on_release(self):
-        if not self.disable_button:
-            if self.collide_point(self.last_touch.x, self.last_touch.y):
-                self.release_function()
-            self.opacity = 1

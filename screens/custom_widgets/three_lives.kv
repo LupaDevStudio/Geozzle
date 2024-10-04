@@ -2,26 +2,52 @@
 
 <ThreeLives>:
 
-    # Arrow to go back to home screen
-    RoundedImage:
-        image_path: root.image_path_1
-        pos_hint: {"center_x":0.165, "center_y":0.5}
-        size_hint: (0.3, None)
-        height: self.width
-        colors: root.continent_color
+    canvas.before:
+        # Shadow
+        Color:
+            rgba: 0, 0, 0, 1        
+        BoxShadow:
+            pos: (0, 0)
+            size: self.size
+            offset: 5*self.font_ratio, -5*self.font_ratio
+            spread_radius: -10*self.font_ratio, -10*self.font_ratio
+            blur_radius: 20*self.font_ratio
+            border_radius: [12*root.font_ratio,12*root.font_ratio,12*root.font_ratio,12*root.font_ratio]
         
-    # Arrow to go back to home screen
-    RoundedImage:
-        image_path: root.image_path_2
-        pos_hint: {"center_x":0.495, "center_y":0.5}
-        size_hint: (0.3, None)
-        height: self.width
-        colors: root.continent_color
+        # Rounded rectangle
+        Color:
+            rgba: root.background_color
+        RoundedRectangle:
+            pos:(0, 0)
+            size:self.size
+            radius: [12*self.font_ratio]
+        # Border
+        Color:
+            rgba: root.continent_color
+        Line:
+            rounded_rectangle: [0,0,self.size[0],self.size[1],12*self.font_ratio]
+            width: BUTTON_OUTLINE_WIDTH*self.font_ratio
 
     # Arrow to go back to home screen
-    RoundedImage:
-        image_path: root.image_path_3
-        pos_hint: {"center_x":0.825, "center_y":0.5}
-        size_hint: (0.3, None)
+    Image:
+        source: root.image_path_1
+        pos_hint: {"center_x":0.2, "center_y":0.5}
+        size_hint: (0.25, None)
         height: self.width
-        colors: root.continent_color
+        color: root.continent_color
+        
+    # Arrow to go back to home screen
+    Image:
+        source: root.image_path_2
+        pos_hint: {"center_x":0.5, "center_y":0.5}
+        size_hint: (0.25, None)
+        height: self.width
+        color: root.continent_color
+
+    # Arrow to go back to home screen
+    Image:
+        source: root.image_path_3
+        pos_hint: {"center_x":0.8, "center_y":0.5}
+        size_hint: (0.25, None)
+        height: self.width
+        color: root.continent_color
