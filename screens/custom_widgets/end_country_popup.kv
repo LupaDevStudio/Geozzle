@@ -55,3 +55,101 @@
             size_hint: (0.2, None)
             height: self.width
             pos_hint: {"right": 0.95, "center_y": 0.75}
+
+<EndGamePopup>:
+    
+    RelativeLayout:
+        id: popup_layout
+       
+        canvas.after:
+            Color:
+                rgba: BLACK
+            Line:
+                width: BUTTON_OUTLINE_WIDTH*root.font_ratio
+                points: (self.x+self.width*0.025, self.y+0.425*self.height, self.x+self.width*0.95, self.y+0.425*self.height)
+            Line:
+                width: BUTTON_OUTLINE_WIDTH*root.font_ratio
+                points: (self.x+self.width*0.025, self.y+0.325*self.height, self.x+self.width*0.95, self.y+0.325*self.height)
+
+        ColoredRoundedButton:
+            id: ok_button
+            size_hint: (0.5, 0.15)
+            pos_hint: {"center_x":0.5,"center_y":0.12}
+            font_ratio: root.font_ratio
+            font_size: BUTTON_FONT_SIZE
+            text: root.ok_button_label
+            text_font_name: PATH_TEXT_FONT
+            background_color: root.secondary_color
+            color_label: root.primary_color
+            release_function: root.confirm
+        
+        RelativeLayout:
+            pos_hint: {"center_x": 0.5, "y": 0.45}
+            size_hint: (0.9, 1 - 0.45 - 0.025)
+
+            CustomScrollview:
+                id: scrollview
+                bar_width: 0
+                size_hint: (1, 1)
+
+                MyScrollViewLayout:
+                    id: scrollview_layout
+                    cols: 1
+                    spacing: 10*root.font_ratio
+                    padding: 20*root.font_ratio
+
+        ### Number of lives used ###
+
+        Label:
+            size_hint: (0.8, 0.05)
+            pos_hint: {"x":0.05, "y":0.35}
+            font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
+            font_name: PATH_TEXT_FONT
+            text: root.number_lives_at_the_end_label
+            size: self.size
+            shorten: False
+            text_size: (self.width,None)
+            color: BLACK
+            halign: "left"
+            valign: "middle"
+
+        Label:
+            size_hint: (0.8, 0.05)
+            pos_hint: {"right":0.9, "y":0.35}
+            font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
+            font_name: PATH_TEXT_FONT
+            text: str(root.number_lives_at_the_end*150)
+            size: self.size
+            shorten: False
+            text_size: (self.width,None)
+            color: BLACK
+            halign: "right"
+            valign: "middle"
+
+        ### Total score ###
+
+        Label:
+            size_hint: (0.8, 0.05)
+            pos_hint: {"x":0.05, "y":0.25}
+            font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
+            font_name: PATH_TEXT_FONT
+            text: root.total_score_label
+            size: self.size
+            shorten: False
+            text_size: (self.width,None)
+            color: BLACK
+            halign: "left"
+            valign: "middle"
+
+        Label:
+            size_hint: (0.8, 0.05)
+            pos_hint: {"right":0.9, "y":0.25}
+            font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
+            font_name: PATH_TEXT_FONT
+            text: str(root.total_score)
+            size: self.size
+            shorten: False
+            text_size: (self.width,None)
+            color: BLACK
+            halign: "right"
+            valign: "middle"
