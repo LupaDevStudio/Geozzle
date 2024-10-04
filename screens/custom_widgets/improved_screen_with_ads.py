@@ -221,9 +221,7 @@ class GeozzleScreen(ImprovedScreenWithAds):
             self.current_continent_position = USER_DATA.game.current_country_index
 
         # Update continent color
-        current_continent = self.find_continent_from_background_source()
-        self.continent_color = DICT_CONTINENTS_PRIMARY_COLOR[current_continent]
-        self.secondary_continent_color = DICT_CONTINENT_SECOND_COLOR[current_continent]
+        self.update_colors()
 
     def reload_language(self):
         if SCREEN_TITLE in self.dict_type_screen:
@@ -241,8 +239,9 @@ class GeozzleScreen(ImprovedScreenWithAds):
             self.continent_color = DICT_CONTINENTS_PRIMARY_COLOR[self.code_continent]
             self.secondary_continent_color = DICT_CONTINENT_SECOND_COLOR[self.code_continent]
         else:
-            self.continent_color = BLACK
-            self.secondary_continent_color = GRAY
+            current_continent = self.find_continent_from_background_source()
+            self.continent_color = DICT_CONTINENTS_PRIMARY_COLOR[current_continent]
+            self.secondary_continent_color = DICT_CONTINENT_SECOND_COLOR[current_continent]
 
     def change_background_continent(self, *args):
         # Change the background and propagate it in the other screens

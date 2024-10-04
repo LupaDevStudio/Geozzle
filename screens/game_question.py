@@ -73,6 +73,7 @@ class GameQuestionScreen(GeozzleScreen):
 
     def on_pre_enter(self, *args):
         super().on_pre_enter(*args)
+        # print(self.code_continent)
 
     def on_enter(self, *args):
         super().on_enter(*args)
