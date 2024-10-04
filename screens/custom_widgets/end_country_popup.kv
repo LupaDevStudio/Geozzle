@@ -61,7 +61,7 @@
 
     CountryStatCard:
         font_ratio: root.font_ratio
-        size_hint: (0.3, 0.9)
+        size_hint: (0.27, 0.9)
         pos_hint: {"x": 0, "center_y": 0.5}
         flag_image: root.flag_image
         number_stars: root.nb_stars
@@ -70,9 +70,9 @@
         shadow_color: TRANSPARENT
 
     Label:
-        size_hint: (0.45, 0.9)
-        pos_hint: {"x":0.35, "center_y": 0.5}
-        font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
+        size_hint: (0.48, 0.9)
+        pos_hint: {"x":0.32, "center_y": 0.5}
+        font_size: SMALL_SCORE_FONT_SIZE * root.font_ratio
         font_name: PATH_TEXT_FONT
         text: root.text_label
         size: self.size
@@ -86,7 +86,7 @@
     Label:
         size_hint: (0.2, 0.9)
         pos_hint: {"right":0.94, "center_y": 0.5}
-        font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
+        font_size: SMALL_SCORE_FONT_SIZE * root.font_ratio
         font_name: PATH_TEXT_FONT
         text: root.score_label
         size: self.size

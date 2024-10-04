@@ -11,7 +11,8 @@
         "tutorial": "Tutoriel",
         "credits": "Crédits",
         "credits_text": "Jeu réalisé par :\n\nAgathe, Laure, Paul et Romain",
-        "version": "Version [VERSION]"
+        "version": "Version [VERSION]",
+        "nb_credits": "Nombre de crédits : "
     },
     "gallery": {
         "points": "Points : [POINTS]",
