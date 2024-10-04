@@ -10,6 +10,7 @@
         "language": "Language",
         "tutorial": "Tutorial",
         "credits": "Credits",
+        "credits_text": "Game created by:\n\nAgathe, Laure, Paul and Romain",
         "version": "Version [VERSION]"
     },
     "gallery": {
