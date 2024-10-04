@@ -9,6 +9,7 @@ Module to create a spinner with a custom style
 
 ### Kivy imports ###
 
+from kivy.core.window import Window
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.label import Label
 from kivy.uix.spinner import Spinner
@@ -74,6 +75,7 @@ class CustomSpinner(Spinner):
         super().__init__(**kwargs)
         self.dropdown_cls = CustomDropDown
         self.option_cls = CustomSpinnerOption
+        self.dropdown_cls.max_height = 0.45*Window.size[1]
 
     def on_press(self):
         sound_mixer.play("click")

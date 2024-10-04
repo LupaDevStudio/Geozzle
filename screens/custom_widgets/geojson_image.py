@@ -74,4 +74,4 @@ class GeojsonImage(ButtonBehavior, Image):
         if not self.disable_button:
             if self.collide_point(self.last_touch.x, self.last_touch.y):
                 self.release_function()
-                self.opacity = 1
+            self.opacity = 1
