@@ -355,6 +355,9 @@ class Game():
     # ["code_country_1", "code_country_2", ...].}
     list_countries_in_spinner: list[str]
 
+    # Tutorial mode
+    tutorial_mode: bool
+
     @ property
     def has_lives(self) -> bool:
         return self.number_lives > 0
@@ -420,6 +423,8 @@ class Game():
             "dict_details_country", {})
         self.list_countries_in_spinner = dict_to_load.get(
             "list_countries_in_spinner", [])
+        
+        self.tutorial_mode = dict_to_load.get("tutorial_mode", True)
 
     def build_list_continents(self):
         self.list_continents = LIST_CONTINENTS.copy()
@@ -538,11 +543,32 @@ class Game():
                 "nb_lives_used": 0} for country_code in self.list_countries_to_guess
         }
 
+    def detect_tutorial_number_clue(self, number_clue: int):
+        return len(self.dict_guessed_countries[self.current_guess_country]["list_clues"]) == number_clue
+
+    def set_tutorial_variables(self):
+        # Set the North America at the beginning of the list of continents
+        self.list_continents.append("North_America")
+        # Set the USA as the first country to guess
+        self.list_countries_to_guess.append("Q30")
+
+        # Build the rest of the lists
+        for code_continent in LIST_CONTINENTS:
+            if code_continent != "North_America":
+                self.list_continents.append(code_continent)
+                country = self.get_random_country(code_continent)
+                self.list_countries_to_guess.append(country)
+
     def launch_game(self) -> bool:
-        if self.list_continents == []:
-            self.build_list_continents()
-        if self.list_countries_to_guess == []:
-            self.build_list_countries()
+        # Detect if we are in tutorial
+        if self.tutorial_mode:
+            self.set_tutorial_variables()
+        else:
+            if self.list_continents == []:
+                self.build_list_continents()
+            if self.list_countries_to_guess == []:
+                self.build_list_countries()
+
         if self.dict_guessed_countries == {}:
             self.build_dict_guessed_countries()
         if self.list_countries_in_spinner == []:
@@ -555,6 +581,9 @@ class Game():
 
         if self.list_current_clues == []:
             self.choose_clues()
+            # Set the population as the first clue to guess in the tutorial
+            if self.tutorial_mode and self.detect_tutorial_number_clue(number_clue=0):
+                self.list_current_clues[2] = "population"
 
         # Save the changes
         USER_DATA.save_changes()
@@ -620,6 +649,9 @@ class Game():
         # Reset the list of clues
         self.list_current_clues = []
         self.choose_clues()
+        # Set the flag as the second clue to guess in the tutorial
+        if self.tutorial_mode and self.detect_tutorial_number_clue(number_clue=1):
+            self.list_current_clues[1] = "flag"
 
         # Save the changes
         USER_DATA.save_changes()
@@ -870,7 +902,8 @@ class Game():
             "list_current_clues": self.list_current_clues,
             "dict_details_country": self.dict_details_country,
             "current_country_index": self.current_country_index,
-            "list_countries_in_spinner": self.list_countries_in_spinner
+            "list_countries_in_spinner": self.list_countries_in_spinner,
+            "tutorial_mode": self.tutorial_mode
         }
 
 #################

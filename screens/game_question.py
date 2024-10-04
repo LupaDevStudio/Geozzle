@@ -8,31 +8,23 @@ Module to create the game screen with the questions to choose.
 
 ### Python imports ###
 
-import os
 import random as rd
 from functools import partial
 
 ### Kivy imports ###
 
-from kivy.clock import Clock
 from kivy.properties import (
-    ColorProperty,
     StringProperty,
-    NumericProperty
+    NumericProperty,
+    BooleanProperty
 )
-from kivy.clock import Clock
 
 ### Local imports ###
 
 from tools.path import (
-    PATH_BACKGROUNDS,
     PATH_TEXT_FONT
 )
 from tools.constants import (
-    DICT_CONTINENTS_PRIMARY_COLOR,
-    LIST_CONTINENTS,
-    TIME_CHANGE_BACKGROUND,
-    DICT_CONTINENT_SECOND_COLOR,
     SCREEN_ICON_LEFT_UP,
     SCREEN_TITLE,
     SCREEN_MULTIPLIER,
@@ -78,6 +70,19 @@ class GameQuestionScreen(GeozzleScreen):
             back_image_path=rd.choice(SHARED_DATA.list_unlocked_backgrounds),
             font_name=PATH_TEXT_FONT,
             **kwargs)
+
+    def on_pre_enter(self, *args):
+        super().on_pre_enter(*args)
+
+        # Tutorial mode
+        if USER_DATA.game.tutorial_mode:
+            if USER_DATA.game.detect_tutorial_number_clue(number_clue=0):
+                pass
+                # TODO Display popup de choix de la population
+                # TODO Paul put the modal view and add the widget (POPULATION population est dans self.ids.hint_3)
+            if USER_DATA.game.detect_tutorial_number_clue(number_clue=1):
+                pass
+                # TODO Paul put the modal view and add the widget (FLAG) (flag est dans self.ids.hint_2)
 
     def reload_language(self):
         """

@@ -140,7 +140,7 @@ class HomeScreen(GeozzleScreen):
             webbrowser.open(
                 "https://apps.apple.com/app/linconym/id6503208610", 2)
 
-    def prepare_gui_to_play_game(self, has_success, *_):
+    def prepare_gui_to_play_game(self, has_success: bool, *_):
         if self.loading_popup is not None:
             self.loading_popup.dismiss()
         if has_success:
@@ -161,11 +161,11 @@ class HomeScreen(GeozzleScreen):
             Clock.unschedule(self.manager.change_background,
                              TIME_CHANGE_BACKGROUND)
 
-            # Go to the screen game question if there are still clues to get
-            if USER_DATA.game.list_current_clues != [None, None, None, None]:
-                next_screen = "game_question"
-            else:
+            # Go to the screen game summary if the user has already picked up one clue
+            if len(USER_DATA.game.dict_guessed_countries[USER_DATA.game.current_guess_country]["list_clues"]) > 0:
                 next_screen = "game_summary"
+            else:
+                next_screen = "game_question"
             self.manager.get_screen(
                 next_screen).previous_screen_name = "home"
             Clock.schedule_once(self.manager.get_screen(

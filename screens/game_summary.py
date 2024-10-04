@@ -8,18 +8,14 @@ Module to create the game screen with the summary of all clues.
 
 ### Python imports ###
 
-import os
 import random as rd
 from typing import Literal
-from functools import partial
 
 ### Kivy imports ###
 
-from kivy.clock import Clock
 from kivy.properties import (
     StringProperty,
-    ColorProperty,
-    NumericProperty
+    BooleanProperty
 )
 from kivy.uix.label import Label
 from screens.custom_widgets.image_popup import ImagePopup
@@ -27,7 +23,6 @@ from screens.custom_widgets.image_popup import ImagePopup
 ### Local imports ###
 
 from tools.path import (
-    PATH_BACKGROUNDS,
     PATH_TEXT_FONT,
     PATH_IMAGES_FLAG,
     PATH_IMAGES_FLAG_UNKNOWN,
@@ -88,6 +83,17 @@ class GameSummaryScreen(GeozzleScreen):
 
         if len(USER_DATA.game.dict_guessed_countries[USER_DATA.game.current_guess_country]["list_clues"]) < 2:
             self.ids.scrollview.scroll_y = 1
+
+        # Tutorial mode
+        if USER_DATA.game.tutorial_mode:
+            if USER_DATA.game.detect_tutorial_number_clue(number_clue=1):
+                pass
+                # TODO Display popup où il faut choisir un nouvel indice
+                # TODO Paul put the modal view and add the widget (self.ids.clue_button)
+            if USER_DATA.game.detect_tutorial_number_clue(number_clue=2):
+                pass
+                # TODO Display popup où on a assez d'indices pour deviner
+                # TODO Paul put the modal view and add the widget (self.ids.i_found_button)
 
     def reload_language(self):
         """

@@ -103,6 +103,14 @@ class GameOverScreen(GeozzleScreen):
 
         super().reload_language()
 
+    def on_pre_enter(self, *args):
+        super().on_pre_enter(*args)
+
+        # Stop the tutorial mode
+        if USER_DATA.game.tutorial_mode:
+            USER_DATA.game.tutorial_mode = False
+        USER_DATA.save_changes()
+
     def update_countries(self, *_):
         """
         Update the list of countries displayed in the spinner.
@@ -315,8 +323,8 @@ class GameOverScreen(GeozzleScreen):
             popup.open()
 
     def go_to_home_and_watch_potentially_an_ad(self):
-        # An ad is displayed randomly at the end of the game, if the user has completed the game to more than 5%
-        if rd.random() > 0.6 and USER_DATA.get_total_progress() > 5:
+        # An ad is displayed randomly at the end of the game, if the user has completed the game to more than 10%
+        if rd.random() > 0.6 and USER_DATA.get_total_progress() > 10:
             AD_CONTAINER.watch_ad(ad_callback=self.reload_ad)
         self.go_to_home()
 
