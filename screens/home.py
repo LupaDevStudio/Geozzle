@@ -173,11 +173,9 @@ class HomeScreen(GeozzleScreen):
             self.manager.current = next_screen
 
         else:
-            code_continent = USER_DATA.game.current_guess_continent
             popup = MessagePopup(
-                primary_color=DICT_CONTINENTS_PRIMARY_COLOR[code_continent],
-                secondary_color=DICT_CONTINENT_SECOND_COLOR[
-                    code_continent],
+                primary_color=self.continent_color,
+                secondary_color=self.secondary_continent_color,
                 title=TEXT.clues["no_connexion_title"],
                 center_label_text=TEXT.clues["no_connexion_message"],
                 ok_button_label=TEXT.popup["close"],
@@ -207,8 +205,8 @@ class HomeScreen(GeozzleScreen):
         # Display the loading popup
         if not USER_DATA.game.data_already_loaded:
             self.loading_popup = LoadingPopup(
-                primary_color=BLACK,
-                secondary_color=WHITE,
+                primary_color=self.continent_color,
+                secondary_color=self.secondary_continent_color,
                 font_ratio=self.font_ratio)
             self.loading_popup.open()
         else:

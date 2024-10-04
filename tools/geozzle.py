@@ -379,9 +379,13 @@ class Game():
     @ property
     def data_already_loaded(self) -> bool:
         """If the data of the current country has already been downloaded from wikidata."""
-        if self.dict_details_country == {}:
+        try:
+            if self.dict_details_country == {}:
+                return False
+            return TEXT.language in self.dict_details_country
+        except:
+            self.reset_all_game_data()
             return False
-        return TEXT.language in self.dict_details_country
 
     @property
     def current_multiplier(self) -> float:
@@ -565,35 +569,41 @@ class Game():
                 self.list_countries_to_guess.append(country)
 
     def launch_game(self) -> bool:
-        # Detect if we are in tutorial
-        if self.tutorial_mode and self.list_continents == []:
-            self.set_tutorial_variables()
-        else:
-            if self.list_continents == []:
-                self.build_list_continents()
-            if self.list_countries_to_guess == []:
-                self.build_list_countries()
+        try:
+            # Detect if we are in tutorial
+            if self.tutorial_mode and self.list_continents == []:
+                self.set_tutorial_variables()
+            else:
+                if self.list_continents == []:
+                    self.build_list_continents()
+                if self.list_countries_to_guess == []:
+                    self.build_list_countries()
 
-        if self.dict_guessed_countries == {}:
-            self.build_dict_guessed_countries()
-        if self.list_countries_in_spinner == []:
-            self.build_list_countries_in_spinner()
-        request_status = self.build_dict_details_country()
+            if self.dict_guessed_countries == {}:
+                self.build_dict_guessed_countries()
+            if self.list_countries_in_spinner == []:
+                self.build_list_countries_in_spinner()
+            request_status = self.build_dict_details_country()
 
-        if not request_status:
+            if not request_status:
+                USER_DATA.save_changes()
+                return False
+
+            if self.list_current_clues == []:
+                self.choose_clues()
+                # Set the population as the first clue to guess in the tutorial
+                if self.tutorial_mode and self.detect_tutorial_number_clue(number_clue=0):
+                    self.list_current_clues[2] = "population"
+
+            # Save the changes
             USER_DATA.save_changes()
+
+            return True
+        
+        # If there is a corruption in the data
+        except:
+            self.reset_all_game_data()
             return False
-
-        if self.list_current_clues == []:
-            self.choose_clues()
-            # Set the population as the first clue to guess in the tutorial
-            if self.tutorial_mode and self.detect_tutorial_number_clue(number_clue=0):
-                self.list_current_clues[2] = "population"
-
-        # Save the changes
-        USER_DATA.save_changes()
-
-        return True
 
     def choose_clues(self):
         """
@@ -882,6 +892,16 @@ class Game():
             list_continents=self.list_continents)
 
         # Reset all variables in the game when it's over
+        self.reset_all_game_data()
+
+        return final_score
+
+    def reset_all_game_data(self):
+        """
+        Reset all game data at the end of a game, or if there is some corruption.
+        """
+
+        # Reset all variables in the game when it's over
         self.number_lives = 3
         self.number_credits = NUMBER_CREDITS
         self.current_country_index = 0
@@ -891,11 +911,10 @@ class Game():
         self.dict_guessed_countries = {}
         self.dict_details_country = {}
         self.list_countries_in_spinner = []
+        self.tutorial_mode = False
 
         # Save the changes
         USER_DATA.save_changes()
-
-        return final_score
 
     def export_as_dict(self) -> dict:
         return {
