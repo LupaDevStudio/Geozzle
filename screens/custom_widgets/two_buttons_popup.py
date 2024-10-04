@@ -11,7 +11,8 @@ Module to create a popup to allow the user to regenerate lives.
 
 from kivy.properties import (
     ObjectProperty,
-    StringProperty
+    StringProperty,
+    BooleanProperty
 )
 
 ### Local imports ###
@@ -34,11 +35,13 @@ class TwoButtonsPopup(CustomPopup):
     left_button_label = StringProperty(TEXT.popup["cancel"])
     left_release_function = ObjectProperty(lambda: 1 + 1)
     center_label_text = StringProperty()
+    auto_dismiss_right = BooleanProperty(True)
 
     def left_function(self):
         self.dismiss()
         self.left_release_function()
 
     def right_function(self):
-        self.dismiss()
+        if self.auto_dismiss_right:
+            self.dismiss()
         self.right_release_function()

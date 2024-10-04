@@ -599,7 +599,7 @@ class Game():
             USER_DATA.save_changes()
 
             return True
-        
+
         # If there is a corruption in the data
         except:
             self.reset_all_game_data()

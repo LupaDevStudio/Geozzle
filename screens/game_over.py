@@ -48,16 +48,17 @@ from tools.geozzle import (
     AD_CONTAINER,
     get_nb_stars
 )
-from screens.custom_widgets import GeozzleScreen
 from screens.custom_widgets import (
     TwoButtonsPopup,
     MessagePopup,
     LoadingPopup,
     EndCountryPopup,
-    EndGamePopup
+    EndGamePopup,
+    GeozzleScreen
 )
-from tools.geozzle import (
-    AD_CONTAINER
+from tools import (
+    sound_mixer,
+    music_mixer
 )
 
 #############
@@ -266,8 +267,13 @@ class GameOverScreen(GeozzleScreen):
                 self.number_lives_on = USER_DATA.game.number_lives
                 self.update_multiplier()
 
+                # Finish game if due to an issue, the number of lives is negative
+                if USER_DATA.game.number_lives < 0:
+                    USER_DATA.game.number_lives = 0
+                    self.finish_game()
+
                 # The user has no more lives but ad credits
-                if USER_DATA.game.number_lives <= 0 and USER_DATA.game.number_credits > 0:
+                elif USER_DATA.game.number_lives <= 0 and USER_DATA.game.number_credits > 0:
 
                     # Open a popup to propose the user to watch an ad
                     popup = TwoButtonsPopup(
@@ -277,10 +283,16 @@ class GameOverScreen(GeozzleScreen):
                         left_button_label=TEXT.game_over["finish_game"],
                         title=TEXT.game_over["buy_life_title"],
                         center_label_text=TEXT.game_over["buy_life_message"],
-                        font_ratio=self.font_ratio
+                        font_ratio=self.font_ratio,
+                        auto_dismiss_right=False
                     )
-                    watch_ad_with_callback = partial(
-                        AD_CONTAINER.watch_ad, partial(self.ad_callback, popup))
+
+                    def watch_ad_with_callback(*args):
+                        sound_mixer.change_volume(0)
+                        music_mixer.change_volume(0)
+                        AD_CONTAINER.watch_ad(partial(self.ad_callback, popup))
+                    # watch_ad_with_callback = partial(
+                    #     AD_CONTAINER.watch_ad, partial(self.ad_callback, popup))
                     popup.right_release_function = watch_ad_with_callback
                     popup.left_release_function = self.finish_game
                     popup.open()
@@ -315,6 +327,12 @@ class GameOverScreen(GeozzleScreen):
             popup.open()
 
     def finish_game(self):
+
+        # Unmute sound and music
+        sound_mixer.change_volume(USER_DATA.sound_volume)
+        music_mixer.change_volume(USER_DATA.music_volume)
+
+        # Get the number of lives
         number_of_lives = USER_DATA.game.number_lives
 
         # Build the dictionary with all scores information
@@ -328,7 +346,8 @@ class GameOverScreen(GeozzleScreen):
                 code_country=code_country) if guessed else 0
             nb_stars = get_nb_stars(
                 list_clues=dict_details["list_clues"]) if guessed else 0
-            flag_image = PATH_FLAG_IMAGES + code_country + ".png" if guessed else PATH_IMAGES_FLAG_UNKNOWN
+            flag_image = PATH_FLAG_IMAGES + code_country + \
+                ".png" if guessed else PATH_IMAGES_FLAG_UNKNOWN
             flag_color = DICT_CONTINENT_SECOND_COLOR[code_continent] if guessed else WHITE
 
             dict_score_details_countries[code_continent] = {
