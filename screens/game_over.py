@@ -227,7 +227,6 @@ class GameOverScreen(GeozzleScreen):
                 popup = EndCountryPopup(
                     primary_color=self.continent_color,
                     secondary_color=self.secondary_continent_color,
-                    title_color=self.continent_color,
                     title=TEXT.game_over["congrats"],
                     ok_button_label=ok_button_label,
                     score_text=text,

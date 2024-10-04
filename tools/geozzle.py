@@ -561,7 +561,7 @@ class Game():
 
     def launch_game(self) -> bool:
         # Detect if we are in tutorial
-        if self.tutorial_mode:
+        if self.tutorial_mode and self.list_continents == []:
             self.set_tutorial_variables()
         else:
             if self.list_continents == []:
