@@ -41,7 +41,8 @@ from tools import (
     sound_mixer
 )
 from screens.custom_widgets import (
-    TutorialPopup
+    TutorialPopup,
+    MessagePopup
 )
 
 #############
@@ -144,9 +145,14 @@ class SettingsScreen(GeozzleScreen):
             font_ratio=self.font_ratio)
         popup.open()
 
-    def go_to_credits(self):
-        # TODO
-        pass
+    def open_credits_popup(self):
+        popup = MessagePopup(
+            primary_color=self.continent_color,
+            secondary_color=self.secondary_continent_color,
+            title=TEXT.settings["credits"],
+            center_label_text=TEXT.settings["credits_text"],
+        )
+        popup.open()
 
     def open_lupa_website(self):
         """
