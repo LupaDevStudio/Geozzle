@@ -403,6 +403,11 @@ class Game():
 
         return multiplier
 
+    @property
+    def nb_stars_current_country(self):
+        list_clues = self.dict_guessed_countries[self.current_guess_country]["list_clues"]
+        return get_nb_stars(list_clues)
+
     def __init__(self, dict_to_load: dict) -> None:
         self.number_lives = dict_to_load.get("number_lives", 3)
         self.number_credits = dict_to_load.get(
@@ -423,7 +428,7 @@ class Game():
             "dict_details_country", {})
         self.list_countries_in_spinner = dict_to_load.get(
             "list_countries_in_spinner", [])
-        
+
         self.tutorial_mode = dict_to_load.get("tutorial_mode", True)
 
     def build_list_continents(self):
@@ -826,7 +831,7 @@ class Game():
         # Rebuild the dict of details of the next country
         self.dict_details_country = {}
         request_status = self.build_dict_details_country()
-        
+
         if not request_status:
             self.list_current_clues = []
             USER_DATA.save_changes()
@@ -952,7 +957,7 @@ class UserData():
             "unlocked_backgrounds", [])
         if self.unlocked_backgrounds == []:
             self.init_backgrounds()
-        
+
         # Save changes
         self.save_changes()
 

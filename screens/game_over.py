@@ -34,7 +34,8 @@ from tools.constants import (
     SCREEN_TITLE,
     SCREEN_MULTIPLIER,
     SCREEN_THREE_LIVES,
-    SCREEN_CONTINENT_PROGRESS_BAR
+    SCREEN_CONTINENT_PROGRESS_BAR,
+    SCREEN_COUNTRY_STARS,
 )
 from tools.geozzle import (
     TEXT,
@@ -72,7 +73,8 @@ class GameOverScreen(GeozzleScreen):
         SCREEN_ICON_LEFT_UP: {},
         SCREEN_MULTIPLIER: "",
         SCREEN_THREE_LIVES: "",
-        SCREEN_CONTINENT_PROGRESS_BAR: ""
+        SCREEN_CONTINENT_PROGRESS_BAR: "",
+        SCREEN_COUNTRY_STARS: "",
     }
 
     def __init__(self, **kwargs) -> None:
@@ -299,7 +301,8 @@ class GameOverScreen(GeozzleScreen):
         for counter_continent, code_continent in enumerate(USER_DATA.game.list_continents):
             code_country = USER_DATA.game.list_countries_to_guess[counter_continent]
             country_name = DICT_COUNTRIES[TEXT.language][code_country]
-            score_clues = USER_DATA.game.compute_hint_score(code_country=code_country)
+            score_clues = USER_DATA.game.compute_hint_score(
+                code_country=code_country)
             dict_details = USER_DATA.game.dict_guessed_countries[code_country]
             guessed = dict_details["guessed"]
 

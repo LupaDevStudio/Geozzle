@@ -55,12 +55,21 @@
         pos_hint: {"right": 0.95, "top":0.975}
         size_hint: (LOGO_SIZE, None)
         height: self.width
+    
+    ThreeStars:
+        id: country_stars
+        pos_hint: {"right": 0.95,"center_y":0.87}
+        size_hint: (LOGO_SIZE*1.5, 0.1)
+        nb_stars: root.nb_stars_on_current_country
+        primary_color: WHITE
+        secondary_color: root.continent_color
+        contour_color: root.continent_color
 
     ContinentProgressBar:
         id: continent_progress_bar
         continents_list: root.continents_list
         font_ratio: root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.84}
-        size_hint: (0.8, 0.07)
+        pos_hint: {"center_x":0.5, "center_y":0.82}
+        size_hint: (0.8, 0.05)
         cursor_position: root.current_continent_position
         color: root.continent_color

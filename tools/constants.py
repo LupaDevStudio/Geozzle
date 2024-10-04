@@ -135,6 +135,7 @@ SCREEN_ICON_LEFT_DOWN = "screen_icon_left_down"
 SCREEN_ICON_RIGHT_DOWN = "screen_icon_right_down"
 SCREEN_THREE_LIVES = "screen_three_lives"
 SCREEN_MULTIPLIER = "screen_multiplier"
+SCREEN_COUNTRY_STARS = "screen_country_stars"
 SCREEN_CONTINENT_PROGRESS_BAR = "screen_continent_progress_bar"
 
 DICT_MULTIPLIERS = {
