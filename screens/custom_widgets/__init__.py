@@ -29,4 +29,4 @@ from screens.custom_widgets.custom_scrollview import CustomScrollview, MyScrollV
 from screens.custom_widgets.stats_layout import StatsLayout, CountryStatCard
 from screens.custom_widgets.three_stars import ThreeStars
 from screens.custom_widgets.continent_progress_bar import ContinentProgressBar
-from screens.custom_widgets.end_country_popup import EndCountryPopup
+from screens.custom_widgets.end_country_popup import EndCountryPopup, EndGamePopup

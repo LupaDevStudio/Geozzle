@@ -61,7 +61,9 @@
         "wrong_country_title": "Mauvais choix",
         "wrong_country_text": "Le pays que vous avez sélectionné est incorrect. Essayez-en un autre ou collectez davantage d'indices !",
         "buy_life_message": "Vous n'avez plus de vies, souhaitez-vous regarder une publicité pour continuer votre partie ?",
-        "buy_life_title": "Vies épuisées"
+        "buy_life_title": "Vies épuisées",
+        "nb_lives_at_the_end": "Nombre de vies restantes",
+        "total_score": "TOTAL"
     },
     "game_question": {
         "title": "Choisissez un nouvel indice"

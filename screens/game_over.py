@@ -9,7 +9,6 @@ Module to create the game over screen.
 ### Python imports ###
 
 import random as rd
-import os
 from functools import partial
 from threading import Thread
 
@@ -18,8 +17,6 @@ from threading import Thread
 from kivy.clock import Clock, mainthread
 from kivy.properties import (
     StringProperty,
-    ColorProperty,
-    NumericProperty,
     ListProperty
 )
 
@@ -43,15 +40,16 @@ from tools.geozzle import (
     TEXT,
     USER_DATA,
     SHARED_DATA,
-    get_nb_stars,
-    AD_CONTAINER
+    AD_CONTAINER,
+    get_nb_stars
 )
 from screens.custom_widgets import GeozzleScreen
 from screens.custom_widgets import (
     TwoButtonsPopup,
     MessagePopup,
     LoadingPopup,
-    EndCountryPopup
+    EndCountryPopup,
+    EndGamePopup
 )
 from tools.geozzle import (
     AD_CONTAINER
@@ -294,17 +292,22 @@ class GameOverScreen(GeozzleScreen):
             popup.open()
 
     def finish_game(self, game_over: bool = True):
+        number_of_lives = USER_DATA.game.number_lives
+
         # End the game and compute the score
         final_score = USER_DATA.game.end_game()
 
-        # TODO Display the popup with the global score
-        popup = MessagePopup(
+        # Display the popup with the global score
+        popup = EndGamePopup(
             primary_color=self.continent_color,
             secondary_color=self.secondary_continent_color,
+            font_ratio=self.font_ratio,
             title=TEXT.game_over["recaps_title"],
             ok_button_label=TEXT.game_over["go_to_home"],
-            center_label_text="SCORE FINAL",
-            font_ratio=self.font_ratio,
+            number_lives_at_the_end_label=TEXT.game_over["nb_lives_at_the_end"],
+            number_lives_at_the_end=number_of_lives,
+            total_score_label=TEXT.game_over["total_score"],
+            total_score=final_score,
             release_function=self.go_to_home_and_watch_potentially_an_ad
         )
         popup.open()

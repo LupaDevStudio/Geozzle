@@ -53,7 +53,7 @@
         "game_over_title": "Game over...",
         "game_over_text": "You lost all your lives; the game ends here.",
         "next_continent": "Next continent",
-        "recaps_title": "Score of the game",
+        "recaps_title": "Overview of the game",
         "finish_game": "End the game",
         "go_to_home": "Go back to menu",
         "select_country_title": "Error in choice",
@@ -61,7 +61,9 @@
         "wrong_country_title": "Wrong country",
         "wrong_country_text": "The country you selected is incorrect. Try another one or gather more clues !",
         "buy_life_message": "You don't have any lives left. Would you like to watch an ad to continue playing?",
-        "buy_life_title": "Lives depleted"
+        "buy_life_title": "Lives depleted",
+        "nb_lives_at_the_end": "Number of lives left",
+        "total_score": "TOTAL"
     },
     "game_question": {
         "title": "Choose a clue"
