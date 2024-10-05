@@ -336,7 +336,8 @@ class GameOverScreen(GeozzleScreen):
             number_of_lives = 0
 
         # Get the code of the country currently to guess
-        country_code = USER_DATA.game.current_guess_country
+        if game_over_mode:
+            country_code = USER_DATA.game.current_guess_country
 
         # Build the dictionary with all scores information
         dict_score_details_countries = {}
