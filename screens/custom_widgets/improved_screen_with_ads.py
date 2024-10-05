@@ -49,10 +49,14 @@ from tools.constants import (
     GRAY,
     TIME_CHANGE_BACKGROUND,
     LIST_CONTINENTS,
-    DICT_MULTIPLIERS
+    DICT_MULTIPLIERS,
+    SCREENSHOT_SCALE,
+    SCREENSHOT_MODE
 )
 from tools.path import (
-    PATH_IMAGES
+    PATH_IMAGES,
+    IOS_MODE,
+    ANDROID_MODE
 )
 from tools.geozzle import (
     USER_DATA,
@@ -239,6 +243,13 @@ class GeozzleScreen(ImprovedScreenWithAds):
 
         # Update continent color
         self.update_colors()
+
+    def on_enter(self, *args):
+        super().on_enter(*args)
+        # Take screenshot for adv
+        if (not IOS_MODE and not ANDROID_MODE) and SCREENSHOT_MODE:
+            self.export_to_png(
+                f"screenshots/{self.name}.png", scale=SCREENSHOT_SCALE)
 
     def reload_language(self):
         if SCREEN_TITLE in self.dict_type_screen:

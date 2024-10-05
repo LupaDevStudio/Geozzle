@@ -40,6 +40,13 @@ from tools.basic_tools import (
 
 __version__ = "2.1.0"
 
+
+### Debug ###
+
+# SCREENSHOT_SCALE = 2.796
+SCREENSHOT_SCALE = 2.732
+SCREENSHOT_MODE = True
+
 ### Mode ###
 
 

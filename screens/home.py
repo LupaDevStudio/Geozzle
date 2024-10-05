@@ -33,15 +33,12 @@ from tools.path import (
 )
 from screens.custom_widgets import GeozzleScreen
 from tools.constants import (
-    DICT_CONTINENTS_PRIMARY_COLOR,
     TIME_CHANGE_BACKGROUND,
     MAIN_MUSIC_NAME,
     DICT_CONTINENT_SECOND_COLOR,
     SCREEN_ICON_LEFT_DOWN,
     SCREEN_ICON_RIGHT_DOWN,
-    SCREEN_ICON_RIGHT_UP,
-    BLACK,
-    WHITE
+    SCREEN_ICON_RIGHT_UP
 )
 from tools.geozzle import (
     USER_DATA,
@@ -161,7 +158,7 @@ class HomeScreen(GeozzleScreen):
 
                 # Unschedule the clock updates
                 Clock.unschedule(self.manager.change_background,
-                                TIME_CHANGE_BACKGROUND)
+                                 TIME_CHANGE_BACKGROUND)
 
                 # Go to the screen game summary if the user has already picked up one clue
                 if len(USER_DATA.game.dict_guessed_countries[USER_DATA.game.current_guess_country]["list_clues"]) > 0:

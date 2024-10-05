@@ -205,6 +205,8 @@ class MainApp(App, Widget):
 # Run the application
 if __name__ == "__main__":
     if not (ANDROID_MODE or IOS_MODE):
-        Window.size = (405, 720)
+        # Window.size = (405, 720)
+        # Window.size = (461, 1000)
+        Window.size = (750, 1000)
     main_app = MainApp()
     main_app.run()
