@@ -229,7 +229,7 @@ class GameOverScreen(GeozzleScreen):
                 # If the game is finished
                 if has_finished_game:
                     # End the game
-                    self.finish_game()
+                    self.finish_game(game_over_mode=False)
                     ok_button_label = TEXT.popup["close"]
                     def score_popup_release_function(): return 1 + 1
                 else:
@@ -269,7 +269,6 @@ class GameOverScreen(GeozzleScreen):
 
                 # Finish game if due to an issue, the number of lives is negative
                 if USER_DATA.game.number_lives < 0:
-                    USER_DATA.game.number_lives = 0
                     self.finish_game()
 
                 # The user has no more lives but ad credits
@@ -291,8 +290,6 @@ class GameOverScreen(GeozzleScreen):
                         sound_mixer.change_volume(0)
                         music_mixer.change_volume(0)
                         AD_CONTAINER.watch_ad(partial(self.ad_callback, popup))
-                    # watch_ad_with_callback = partial(
-                    #     AD_CONTAINER.watch_ad, partial(self.ad_callback, popup))
                     popup.right_release_function = watch_ad_with_callback
                     popup.left_release_function = self.finish_game
                     popup.open()
@@ -326,7 +323,7 @@ class GameOverScreen(GeozzleScreen):
             )
             popup.open()
 
-    def finish_game(self):
+    def finish_game(self, game_over_mode: bool = True):
 
         # Unmute sound and music
         sound_mixer.change_volume(USER_DATA.sound_volume)
@@ -334,6 +331,12 @@ class GameOverScreen(GeozzleScreen):
 
         # Get the number of lives
         number_of_lives = USER_DATA.game.number_lives
+        # Avoid the problems with the negative lives
+        if number_of_lives < 0:
+            number_of_lives = 0
+
+        # Get the code of the country currently to guess
+        country_code = USER_DATA.game.current_guess_country
 
         # Build the dictionary with all scores information
         dict_score_details_countries = {}
@@ -383,6 +386,20 @@ class GameOverScreen(GeozzleScreen):
             total_label=TEXT.game_over["total_score"]
         )
         popup.open()
+
+        # Display a popup to indicate the game over
+        if game_over_mode:
+            popup = MessagePopup(
+                primary_color=self.continent_color,
+                secondary_color=self.secondary_continent_color,
+                title=TEXT.game_over["game_over_title"],
+                ok_button_label=TEXT.popup["close"],
+                center_label_text=TEXT.game_over["game_over_text"].replace(
+                    "[COUNTRY]", DICT_COUNTRIES[TEXT.language][
+                        self.code_continent][country_code]),
+                font_ratio=self.font_ratio
+            )
+            popup.open()
 
     def go_to_home_and_watch_potentially_an_ad(self):
         # An ad is displayed randomly at the end of the game, if the user has completed the game to more than 10%

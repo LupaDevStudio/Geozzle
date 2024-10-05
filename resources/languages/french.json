@@ -63,6 +63,8 @@
         "buy_life_message": "Vous n'avez plus de vies, souhaitez-vous regarder une publicité pour continuer votre partie ?",
         "buy_life_title": "Vies épuisées",
         "nb_lives_at_the_end": "Points pour les vies restantes",
+        "game_over_title": "Fin du jeu",
+        "game_over_text": "Vous avez perdu toutes vos vies. Le pays à deviner était [COUNTRY].",
         "total_score": "TOTAL",
         "guessed": "Pays deviné",
         "clues": "Indices utilisés",
