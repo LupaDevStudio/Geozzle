@@ -116,50 +116,43 @@
         "buy_background_tutorial": "À l'aide des points récoltés au fur et à mesure des parties, vous pouvez acheter de nouveaux fonds. Voici 2000 points pour votre premier achat !",
         "tutorial_content": [
             [
-                "Bienvenue dans le tutoriel de Geozzle ! \n \n Ce tutoriel vous guidera à travers les fonctionnalités du jeu. \n \n Cliquez sur 'Suivant' pour continuer."
+                "Bienvenue dans le tutoriel de Geozzle !\n\nCliquez sur 'Suivant' pour continuer.",
+                "resources/images/tuto/home_fr.jpg"
             ],
             [
-                "Le but du jeu est de collecter des indices et de tenter de deviner chaque pays dans le continent sélectionné ! \n \n Attention, plus vous utilisez d'indices, moins vous gagnerez de points !"
+                "Chaque partie se compose de six phases. Au cours de chacune, vous devrez deviner un pays d'un continent spécifique en récoltant des indices, tels que la superficie, le drapeau ou encore l'hymne national.",
+                "resources/images/tuto/game_fr.jpg"
             ],
             [
-                "Sur l'écran d'accueil, vous pouvez sélectionner le continent dans lequel vous souhaitez jouer en utilisant les flèches sur les côtés de l'écran.",
-                "resources/images/tuto/home_screen_fr.png"
+                "Les indices sont répartis dans trois catégories : 1 étoile, 2 étoiles et 3 étoiles.\nPlus un indice possède d'étoiles, plus le challenge pour deviner le pays sera relevé ! Mais moins un indice aura d'étoiles, moins vous gagnerez de points.",
+                "resources/images/tuto/clue_fr.jpg"
             ],
             [
-                "Cliquez sur 'Jouer' pour commencer le jeu !",
-                "resources/images/tuto/home_screen_fr.png"
+                "Et le plus d'indices vous utiliserez, le plus vous perdrez de points !\n\nRelèverez-vous le défi en tentant de deviner chaque pays avec le moins d'indices possible ?"
             ],
             [
-                "Choisissez un indice parmi les trois propositions présentées. \n \n Ne vous inquiétez pas, vous pourrez obtenir un nouvel indice si vous ne connaissez pas la réponse.",
-                "resources/images/tuto/game_question_fr.png"
+                "Mais attention, vous ne possédez que trois vies pour compléter votre partie. Chaque mauvaise suggestion vous en fera perdre une, ainsi que de précieux points.",
+                "resources/images/tuto/lose_life_fr.jpg"
             ],
             [
-                "Utilisez tous les indices collectés pour deviner le pays en cliquant sur 'J'ai trouvé !'.",
-                "resources/images/tuto/game_summary_fr.png"
+                "De plus, si vous devinez un pays sans perdre de vies, vous obtiendrez un bonus de série.\n\nEssayez de réaliser une série parfaite pour doubler votre score !",
+                "resources/images/tuto/multipliers.jpg"
             ],
             [
-                "Si vous ne connaissez pas le pays, vous pouvez cliquer sur 'Nouvel indice' pour en obtenir un nouveau.",
-                "resources/images/tuto/game_summary_fr.png"
+                "Par ailleurs, les vies qui vous resteront à la fin de votre partie vous rapporteront chacune quelques points.\n\nTentez de réaliser le meilleur score possible !",
+                "resources/images/tuto/end_game_fr.jpg"
             ],
             [
-                "Choisissez le bon pays dans le menu déroulant et cliquez sur 'Valider'. \n \n Cliquez sur 'Retour' pour revenir à votre liste d'indices.",
-                "resources/images/tuto/game_over_fr.png"
+                "Une fois quelques parties terminées, vous aurez acquis un certain nombre de points. Vous pourrez vous rendre dans le menu 'Galerie' pour les dépenser afin d'obtenir de nouveaux fonds.\n\nCollectez-les tous !",
+                "resources/images/tuto/gallery_fr.jpg"
             ],
             [
-                "Si vous vous trompez, vous pouvez soumettre une nouvelle proposition ou cliquer sur 'Continuer' pour obtenir un nouvel indice.",
-                "resources/images/tuto/defeat_fr.png"
+                "Finalement, grâce au menu 'Statistiques', vous pourrez découvrir vos meilleurs scores sur chaque continent !\n\nParviendrez-vous à deviner tous les pays du monde ?",
+                "resources/images/tuto/stats_fr.jpg"
             ],
             [
-                "Vous perdrez une vie pour chaque mauvaise réponse. \n \n Ne vous inquiétez pas, vos vies se rechargeront avec le temps !",
-                "resources/images/tuto/defeat_fr.png"
-            ],
-            [
-                "Vous disposez de 3 vies au début du jeu.\n \n Si vous manquez de vies, vous pouvez regarder une publicité pour en obtenir une nouvelle.",
-                "resources/images/tuto/defeat_fr.png"
-            ],
-            [
-                "Retournez à l'écran d'accueil pour voir votre dernier meilleur score et le pourcentage de pays devinés pour chaque continent.",
-                "resources/images/tuto/home_score_update_fr.png"
+                "Et si vous êtes un ou une pro de la géographie, réussirez-vous à tous les deviner en n'utilisant que des indices 3 étoiles ?",
+                "resources/images/tuto/stats_3_fr.jpg"
             ],
             [
                 "Profitez du jeu ! \n \n L'équipe LupaDevStudio "

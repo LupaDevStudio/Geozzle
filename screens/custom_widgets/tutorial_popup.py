@@ -11,7 +11,8 @@ Module to create a tutorial popup.
 from kivy.properties import (
     NumericProperty,
     BooleanProperty,
-    StringProperty
+    StringProperty,
+    ObjectProperty
 )
 
 ### Local imports ###
@@ -28,6 +29,7 @@ from tools.geozzle import (
 
 class TutorialPopup(CustomPopup):
 
+    popup_size = ObjectProperty((0.92,0.6))
     page_id = NumericProperty()
     next_button_label = StringProperty()
     previous_button_label = StringProperty()

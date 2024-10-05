@@ -115,49 +115,46 @@
         "buy_background_tutorial": "With the points gathered during the game, you can buy new backgrounds. Here are 2000 points for your first purchase!",
         "tutorial_content": [
             [
-                "Welcome to Geozzle's tutorial! \n \n This tutorial will guide you through the game's features. \n \n Click 'Next' to continue."
+                "Bienvenue dans le tutoriel de Geozzle !\n\nCliquez sur 'Suivant' pour continuer.",
+                "resources/images/tuto/home_en.jpg"
             ],
             [
-                "The goal of the game is to gather clues and attempt to guess every country in the selected continent! \n \n Remember, the more clues you use, the fewer points you'll earn!"
+                "Chaque partie se compose de six phases. Au cours de chacune, vous devrez deviner un pays d'un continent spécifique en récoltant des indices, tels que la superficie, le drapeau ou encore l'hymne national.",
+                "resources/images/tuto/game_en.jpg"
             ],
             [
-                "On the welcome screen, you can select the continent you want to play in using the arrows on the sides of the screen.",
-                "resources/images/tuto/home_screen_en.png"
+                "Les indices sont répartis dans trois catégories : 1 étoile, 2 étoiles et 3 étoiles.\nPlus un indice possède d'étoiles, plus le challenge pour deviner le pays sera relevé ! Mais moins un indice aura d'étoiles, moins vous gagnerez de points.",
+                "resources/images/tuto/clue_en.jpg"
             ],
             [
-                "Click 'Play' to start the game!",
-                "resources/images/tuto/home_screen_en.png"
+                "Et le plus d'indices vous utiliserez, le plus vous perdrez de points !\n\nRelèverez-vous le défi en tentant de deviner chaque pays avec le moins d'indices possible ?"
             ],
             [
-                "Choose a hint from the three propositions presented. \n \n Don't worry, you will be able to get a new hint if you don't know the answer.",
-                "resources/images/tuto/game_question_en.png"
+                "Mais attention, vous ne possédez que trois vies pour compléter votre partie. Chaque mauvaise suggestion vous en fera perdre une, ainsi que de précieux points.",
+                "resources/images/tuto/lose_life_en.jpg"
             ],
             [
-                "Use all collected clues to guess the country by clicking 'I've found!'. \n \n If you don't know the country, you can click 'New hint' to get a new one.",
-                "resources/images/tuto/game_summary_en.png"
+                "De plus, si vous devinez un pays sans perdre de vies, vous obtiendrez un bonus de série.\n\nEssayez de réaliser une série parfaite pour doubler votre score !",
+                "resources/images/tuto/multipliers.jpg"
             ],
             [
-                "Choose the right country from the dropdown menu and click 'Validate'. \n \n Click 'Back' to return to your clues.",
-                "resources/images/tuto/game_over_en.png"
+                "Par ailleurs, les vies qui vous resteront à la fin de votre partie vous rapporteront chacune quelques points.\n\nTentez de réaliser le meilleur score possible !",
+                "resources/images/tuto/end_game_en.jpg"
             ],
             [
-                "If you're wrong, you can submit a new proposition or click 'Continue' to get a new hint. \n\n You will loose a life for each wrong answer.",
-                "resources/images/tuto/defeat_en.png"
+                "Une fois quelques parties terminées, vous aurez acquis un certain nombre de points. Vous pourrez vous rendre dans le menu 'Galerie' pour les dépenser afin d'obtenir de nouveaux fonds.\n\nCollectez-les tous !",
+                "resources/images/tuto/gallery_en.jpg"
             ],
             [
-                "You are given 3 lives at the beginning of the game. \n \n If you run out of lives, you can watch an ad to get a new one.",
-                "resources/images/tuto/defeat_en.png"
+                "Finalement, grâce au menu 'Statistiques', vous pourrez découvrir vos meilleurs scores sur chaque continent !\n\nParviendrez-vous à deviner tous les pays du monde ?",
+                "resources/images/tuto/stats_en.jpg"
             ],
             [
-                "Don't worry, your lives will recharge on their own over time!",
-                "resources/images/tuto/defeat_en.png"
+                "Et si vous êtes un ou une pro de la géographie, réussirez-vous à tous les deviner en n'utilisant que des indices 3 étoiles ?",
+                "resources/images/tuto/stats_3_en.jpg"
             ],
             [
-                "Go back to the home screen to see your newest highscore and percentage of guessed countries for each continent.",
-                "resources/images/tuto/home_score_update_en.png"
-            ],
-            [
-                "Enjoy the game! \n \n LupaDevStudio's team "
+                "Profitez du jeu ! \n \n L'équipe LupaDevStudio "
             ]
         ]
     }

@@ -219,13 +219,14 @@ class GalleryScreen(GeozzleScreen):
 
             # All the backgrounds that has been unlocked
             for background in list_backgrounds:
-                full_path = PATH_STICKERS + code_continent + "/" + background
+                full_path_sticker = PATH_STICKERS + code_continent + "/" + background
+                full_path = PATH_BACKGROUNDS + code_continent + "/" + background
                 release_function = partial(
                         self.manager.change_background, background_path=full_path)
                 disable_button = False
 
                 image = ImageButton(
-                    source=full_path,
+                    source=full_path_sticker,
                     size_hint=(None, None),
                     height=sv_height - 15 * self.font_ratio * 2 - 8 * self.font_ratio,
                     width=80 * self.font_ratio,
@@ -238,7 +239,6 @@ class GalleryScreen(GeozzleScreen):
 
             for i in range(len(list_backgrounds), number_backgrounds):
                 full_path = PATH_STICKERS + "unknown_background.jpg"
-                def release_function(): return 1 + 1
                 disable_button = True
                 image = ImageButton(
                     source=full_path,
@@ -247,7 +247,6 @@ class GalleryScreen(GeozzleScreen):
                     width=80 * self.font_ratio,
                     pos_hint={"center_y": 0.5},
                     fit_mode="cover",
-                    release_function=release_function,
                     disable_button=disable_button
                 )
                 image.color = DICT_CONTINENT_SECOND_COLOR[code_continent]
