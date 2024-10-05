@@ -976,6 +976,7 @@ class UserData():
             "unlocked_backgrounds", [])
         if self.unlocked_backgrounds == []:
             self.init_backgrounds()
+        self.gallery_tutorial = data.get("gallery_tutorial", True)
 
         # Save changes
         self.save_changes()
@@ -1137,7 +1138,7 @@ class UserData():
         # Save the changes
         self.save_changes()
 
-    def buy_new_background(self) -> dict:
+    def buy_new_background(self, cheat_mode: bool = False) -> dict:
         dict_return = {}
 
         # Reduce the number of points
@@ -1147,6 +1148,12 @@ class UserData():
         code_continent = rd.choice(list(DICT_CONTINENTS_PRIMARY_COLOR.keys()))
         code_background = rd.choice(os.listdir(
             PATH_BACKGROUNDS + code_continent))
+        
+        # Choose a background the user doesn't have
+        if cheat_mode:
+            while code_background in self.unlocked_backgrounds:
+                code_background = rd.choice(os.listdir(
+                    PATH_BACKGROUNDS + code_continent))
 
         # If the background bought is new
         if code_background not in self.unlocked_backgrounds:
@@ -1192,6 +1199,7 @@ class UserData():
         data["music_volume"] = self.music_volume
         data["sound_volume"] = self.sound_volume
         data["unlocked_backgrounds"] = self.unlocked_backgrounds
+        data["gallery_tutorial"] = self.gallery_tutorial
 
         # Save this dictionary
         save_json_file(

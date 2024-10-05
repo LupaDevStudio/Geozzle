@@ -15,7 +15,8 @@ from functools import partial
 ### Kivy imports ###
 
 from kivy.properties import (
-    StringProperty
+    StringProperty,
+    BooleanProperty
 )
 from kivy.uix.label import Label
 
@@ -33,7 +34,8 @@ from screens.custom_widgets import (
     MessagePopup,
     CustomScrollview,
     MyScrollViewLayout,
-    MyScrollViewVerticalLayout
+    MyScrollViewVerticalLayout,
+    TutorialView
 )
 from tools.constants import (
     PRICE_BACKGROUND,
@@ -64,6 +66,7 @@ class GalleryScreen(GeozzleScreen):
 
     points_label = StringProperty()
     buy_background_label = StringProperty()
+    tutorial_mode = BooleanProperty(False)
 
     dict_type_screen = {
         SCREEN_TITLE: {
@@ -100,10 +103,37 @@ class GalleryScreen(GeozzleScreen):
         super().on_pre_enter(*args)
         self.fill_scrollview()
 
+        if USER_DATA.gallery_tutorial:
+            self.tutorial_mode = True
+            # Remove the gallery tutorial mode
+            USER_DATA.gallery_tutorial = False
+            USER_DATA.points += PRICE_BACKGROUND
+            self.reload_language()
+            USER_DATA.save_changes()
+
+            # Add a modal view to allow only the button to buy a new background
+            TutorialView(widget_to_show=self.ids["buy_background_button"])
+            # Display popup with explanations
+            popup = MessagePopup(
+                title=TEXT.tutorial["tutorial_title"],
+                primary_color=self.continent_color,
+                secondary_color=self.secondary_continent_color,
+                center_label_text=TEXT.tutorial["buy_background_tutorial"],
+                font_ratio=self.font_ratio,
+                ok_button_label=TEXT.popup["close"]
+            )
+            popup.open()
+
     def buy_background(self):
+
         # The user has enough points to buy the background
         if USER_DATA.can_buy_background:
-            dict_details = USER_DATA.buy_new_background()
+            # Give a new background for the tutorial
+            if self.tutorial_mode:
+                self.tutorial_mode = False
+                dict_details = USER_DATA.buy_new_background(cheat_mode=True)
+            else:
+                dict_details = USER_DATA.buy_new_background()
             self.reload_language()
             code_continent = dict_details["code_continent"]
             full_path = dict_details["full_path"]

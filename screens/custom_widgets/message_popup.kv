@@ -8,8 +8,8 @@
        
         ColoredRoundedButton:
             id: ok_button
-            size_hint: (0.4,0.15*2)
-            pos_hint: {"center_x":0.5,"y":0.1}
+            size_hint: (0.4, 0.15*6/4)
+            pos_hint: {"center_x":0.5,"y":0.075}
             font_ratio: root.font_ratio
             font_size: SMALL_BUTTON_FONT_SIZE
             text: root.ok_button_label
@@ -20,8 +20,8 @@
         
         Label:
             id: center_label
-            size_hint: (0.8, 0.55)
-            pos_hint: {"center_x":0.5,"top":0.95}
+            size_hint: (0.9, 0.55)
+            pos_hint: {"center_x":0.5,"center_y":0.65}
             font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
             font_name: PATH_TEXT_FONT
             text: root.center_label_text
