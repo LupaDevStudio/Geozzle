@@ -66,6 +66,7 @@ class CountryLineScore(RelativeLayout):
 
 class EndGamePopup(CustomPopup):
 
+    popup_size = ObjectProperty((0.92, 0.8))
     # {"code_continent": {
         # "country_name": str,
         # "guessed": bool,

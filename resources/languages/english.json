@@ -61,7 +61,7 @@
         "wrong_country_text": "The country you selected is incorrect. Try another one or gather more clues !",
         "buy_life_message": "You don't have any lives left. Would you like to watch an ad to continue playing?",
         "buy_life_title": "Lives depleted",
-        "nb_lives_at_the_end": "Number of lives left",
+        "nb_lives_at_the_end": "Points for the remaining lives",
         "total_score": "TOTAL",
         "guessed": "Guessed country",
         "clues": "Used clues",

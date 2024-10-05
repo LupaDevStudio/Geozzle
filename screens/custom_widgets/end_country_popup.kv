@@ -69,6 +69,7 @@
         country_name: root.country_name
         color: root.continent_color
         shadow_color: TRANSPARENT
+        font_size: SMALL_SCORE_FONT_SIZE
 
     Label:
         size_hint: (0.48, 0.9)
@@ -86,7 +87,7 @@
 
     Label:
         size_hint: (0.2, 0.9)
-        pos_hint: {"right":0.94, "center_y": 0.5}
+        pos_hint: {"right":0.93, "center_y": 0.5}
         font_size: SMALL_SCORE_FONT_SIZE * root.font_ratio
         font_name: PATH_TEXT_FONT
         text: root.score_label
@@ -108,15 +109,15 @@
                 rgba: BLACK
             Line:
                 width: BUTTON_OUTLINE_WIDTH*root.font_ratio
-                points: (self.x+self.width*0.025, self.y+0.425*self.height, self.x+self.width*0.95, self.y+0.425*self.height)
+                points: (self.x+self.width*0.025, self.y+0.35*self.height, self.x+self.width*0.95, self.y+0.35*self.height)
             Line:
                 width: BUTTON_OUTLINE_WIDTH*root.font_ratio
-                points: (self.x+self.width*0.025, self.y+0.325*self.height, self.x+self.width*0.95, self.y+0.325*self.height)
+                points: (self.x+self.width*0.025, self.y+0.25*self.height, self.x+self.width*0.95, self.y+0.25*self.height)
 
         ColoredRoundedButton:
             id: ok_button
-            size_hint: (0.5, 0.15)
-            pos_hint: {"center_x":0.5,"center_y":0.12}
+            size_hint: (0.5, 0.15*6/8)
+            pos_hint: {"center_x":0.5, "y":0.025}
             font_ratio: root.font_ratio
             font_size: SMALL_BUTTON_FONT_SIZE
             text: root.ok_button_label
@@ -126,8 +127,8 @@
             release_function: root.confirm
         
         RelativeLayout:
-            pos_hint: {"center_x": 0.5, "y": 0.45}
-            size_hint: (0.95, 1 - 0.45 - 0.025)
+            pos_hint: {"center_x": 0.5, "y": 0.375}
+            size_hint: (0.95, 1 - 0.375 - 0.025)
 
             CustomScrollview:
                 id: scrollview
@@ -149,7 +150,7 @@
 
         Label:
             size_hint: (0.8, 0.05)
-            pos_hint: {"x":0.05, "y":0.35}
+            pos_hint: {"x":0.05, "y":0.275}
             font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
             font_name: PATH_TEXT_FONT
             text: root.number_lives_at_the_end_label
@@ -162,7 +163,7 @@
 
         Label:
             size_hint: (0.8, 0.05)
-            pos_hint: {"right":0.9, "y":0.35}
+            pos_hint: {"right":0.9, "y":0.275}
             font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
             font_name: PATH_TEXT_FONT
             text: str(root.number_lives_at_the_end*150)
@@ -177,7 +178,7 @@
 
         Label:
             size_hint: (0.8, 0.05)
-            pos_hint: {"x":0.05, "y":0.25}
+            pos_hint: {"x":0.05, "y":0.175}
             font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
             font_name: PATH_TEXT_FONT
             text: root.total_score_label
@@ -190,7 +191,7 @@
 
         Label:
             size_hint: (0.8, 0.05)
-            pos_hint: {"right":0.9, "y":0.25}
+            pos_hint: {"right":0.9, "y":0.175}
             font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
             font_name: PATH_TEXT_FONT
             text: str(root.total_score)

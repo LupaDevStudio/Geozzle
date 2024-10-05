@@ -62,7 +62,7 @@
         "wrong_country_text": "Le pays que vous avez sélectionné est incorrect. Essayez-en un autre ou collectez davantage d'indices !",
         "buy_life_message": "Vous n'avez plus de vies, souhaitez-vous regarder une publicité pour continuer votre partie ?",
         "buy_life_title": "Vies épuisées",
-        "nb_lives_at_the_end": "Nombre de vies restantes",
+        "nb_lives_at_the_end": "Points pour les vies restantes",
         "total_score": "TOTAL",
         "guessed": "Pays deviné",
         "clues": "Indices utilisés",
