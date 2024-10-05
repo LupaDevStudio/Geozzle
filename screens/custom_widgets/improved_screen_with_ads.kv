@@ -43,7 +43,7 @@
     ThreeLives:
         id: three_lives
         continent_color: root.continent_color
-        pos_hint: {"center_x": 0.5, "top":0.975}
+        pos_hint: {"center_x": 0.5, "top":0.975} if not IOS_MODE else {"center_x": 0.5, "top":0.95}
         size_hint: (0.33, None)
         height: 0.8*LOGO_SIZE*root.width
         number_lives_on: root.number_lives_on

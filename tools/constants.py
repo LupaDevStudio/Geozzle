@@ -45,7 +45,7 @@ __version__ = "2.1.0"
 
 # SCREENSHOT_SCALE = 2.796
 SCREENSHOT_SCALE = 2.732
-SCREENSHOT_MODE = True
+SCREENSHOT_MODE = False
 
 ### Mode ###
 
