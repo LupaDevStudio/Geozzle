@@ -45,7 +45,8 @@ from tools.geozzle import (
     TEXT,
     USER_DATA,
     SHARED_DATA,
-    AD_CONTAINER,
+    REWARDED_AD_CONTAINER,
+    INTERSTITIAL_AD_CONTAINER,
     get_nb_stars
 )
 from screens.custom_widgets import (
@@ -289,7 +290,8 @@ class GameOverScreen(GeozzleScreen):
                     def watch_ad_with_callback(*args):
                         sound_mixer.change_volume(0)
                         music_mixer.change_volume(0)
-                        AD_CONTAINER.watch_ad(partial(self.ad_callback, popup))
+                        REWARDED_AD_CONTAINER.watch_ad(
+                            partial(self.ad_callback, popup))
                     popup.right_release_function = watch_ad_with_callback
                     popup.left_release_function = self.finish_game
                     popup.open()
@@ -348,7 +350,7 @@ class GameOverScreen(GeozzleScreen):
                 list_clues=dict_details["list_clues"]) if guessed else 0
             flag_image = PATH_FLAG_IMAGES + code_country + \
                 ".png" if guessed else PATH_IMAGES_FLAG_UNKNOWN
-            flag_color = DICT_CONTINENT_SECOND_COLOR[code_continent] if guessed else WHITE
+            flag_color = DICT_CONTINENT_SECOND_COLOR[code_continent] if not guessed else WHITE
 
             dict_score_details_countries[code_continent] = {
                 "country_name": country_name,
@@ -403,7 +405,7 @@ class GameOverScreen(GeozzleScreen):
         if rd.random() > 0.6 and USER_DATA.get_total_progress() > 10:
             sound_mixer.change_volume(0)
             music_mixer.change_volume(0)
-            AD_CONTAINER.watch_ad(ad_callback=self.reload_ad)
+            INTERSTITIAL_AD_CONTAINER.watch_ad(ad_callback=self.reload_ad)
         self.go_to_home()
 
     def reload_ad():
@@ -411,13 +413,17 @@ class GameOverScreen(GeozzleScreen):
         sound_mixer.change_volume(USER_DATA.sound_volume)
         music_mixer.change_volume(USER_DATA.music_volume)
 
-        AD_CONTAINER.load_ad()
+        # Reload ad
+        INTERSTITIAL_AD_CONTAINER.load_ad()
 
     @mainthread
     def ad_callback(self, popup: TwoButtonsPopup):
         # Unmute sound and music
         sound_mixer.change_volume(USER_DATA.sound_volume)
         music_mixer.change_volume(USER_DATA.music_volume)
+
+        # Reload ad
+        REWARDED_AD_CONTAINER.load_ad()
 
         USER_DATA.game.watch_ad()
         self.number_lives_on = USER_DATA.game.number_lives

@@ -38,7 +38,7 @@ from tools.basic_tools import (
 
 ### Version ###
 
-__version__ = "2.0.3"
+__version__ = "2.0.7"
 
 ### Mode ###
 
@@ -121,6 +121,7 @@ SMALL_SCORE_FONT_SIZE = 13.5
 
 REWARD_INTERSTITIAL = "ca-app-pub-2909842258525517/8121987815"
 REWARD_AD = "ca-app-pub-2909842258525517/2227010061"
+INTERSTITIAL_AD = "ca-app-pub-2909842258525517/7261249864"
 NUMBER_CREDITS = 1
 
 ### Scores ###

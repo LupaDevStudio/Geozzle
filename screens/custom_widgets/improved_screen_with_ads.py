@@ -26,7 +26,7 @@ from kivy.animation import Animation, AnimationTransition
 ### Local imports ###
 
 from tools.kivy_tools import ImprovedScreen
-from tools.geozzle import AD_CONTAINER
+from tools.geozzle import REWARDED_AD_CONTAINER
 from screens.custom_widgets import (
     TwoButtonsPopup,
     MessagePopup
@@ -98,7 +98,7 @@ class ImprovedScreenWithAds(ImprovedScreen):
                 font_ratio=self.font_ratio
             )
             watch_ad_with_callback = partial(
-                AD_CONTAINER.watch_ad, partial(self.ad_callback, popup), partial(self.error_ad_loading_message, popup))
+                REWARDED_AD_CONTAINER.watch_ad, partial(self.ad_callback, popup), partial(self.error_ad_loading_message, popup))
             popup.right_release_function = watch_ad_with_callback
             popup.left_button_label = TEXT.popup["cancel"]
             popup.open()
@@ -108,7 +108,7 @@ class ImprovedScreenWithAds(ImprovedScreen):
         self.number_lives_on += 1
         USER_DATA.game.add_life()
         popup.dismiss()
-        AD_CONTAINER.load_ad()
+        REWARDED_AD_CONTAINER.load_ad()
 
     @mainthread
     def error_ad_loading_message(self, popup: TwoButtonsPopup):

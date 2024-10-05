@@ -25,7 +25,8 @@ from tools.constants import (
     PRICE_BACKGROUND,
     LIST_CONTINENTS,
     REWARD_AD,
-    __version__
+    __version__,
+    INTERSTITIAL_AD
 )
 from tools.path import (
     PATH_BACKGROUNDS,
@@ -48,7 +49,8 @@ if ANDROID_MODE:
     from tools.kivads import (
         RewardedInterstitial,
         RewardedAd,
-        TestID
+        TestID,
+        InterstitialAd
     )
 
 if IOS_MODE:
@@ -259,7 +261,7 @@ def get_nb_stars(list_clues: list[str]) -> int:
 #############
 
 
-class AdContainer():
+class RewardedAdContainer():
 
     nb_max_reload = 3
 
@@ -292,7 +294,6 @@ class AdContainer():
                 self.current_ad.on_reward = ad_callback
                 self.current_ad.show()
         elif IOS_MODE:
-            # self.current_ad.RewardedView()
             self.current_ad.InterstitialView()
             ad_callback()
         else:
@@ -303,18 +304,71 @@ class AdContainer():
         print("try to load ad")
         if ANDROID_MODE:
             self.current_ad = RewardedAd(
-                # REWARD_INTERSTITIAL,
-                # TestID.REWARD,
                 REWARD_AD,
-                on_reward=None)
+                on_reward=None
+            )
         elif IOS_MODE:
-            # self.current_ad = autoclass("adRewarded").alloc().init()
             self.current_ad = autoclass("adInterstitial").alloc().init()
         else:
             self.current_ad = None
 
 
-AD_CONTAINER = AdContainer()
+REWARDED_AD_CONTAINER = RewardedAdContainer()
+
+
+class InterstitialAdContainer():
+
+    nb_max_reload = 3
+
+    def __init__(self) -> None:
+        self.current_ad = None
+        self.load_ad()
+        print("Ad container initialization")
+
+    def watch_ad(self, ad_callback: Callable, ad_fail: Callable = lambda: 1 + 1):
+        reload_id = 0
+        if ANDROID_MODE:
+            self.current_ad: InterstitialAd
+            print("try to show ads")
+            print("Ad state:", self.current_ad.is_loaded())
+
+            # Reload ads if fail
+            while not self.current_ad.is_loaded() and reload_id < self.nb_max_reload:
+                self.current_ad = None
+                self.load_ad()
+                time.sleep(0.3)
+                reload_id += 1
+                print("Reload ad", reload_id)
+
+            # Check if ads is finally loaded
+            if not self.current_ad.is_loaded():
+                ad_fail()
+                self.current_ad = None
+                self.load_ad()
+            else:
+                self.current_ad.on_reward = ad_callback
+                self.current_ad.show()
+        elif IOS_MODE:
+            self.current_ad.InterstitialView()
+            ad_callback()
+        else:
+            print("No ads to show outside mobile mode")
+            ad_callback()
+
+    def load_ad(self):
+        print("try to load ad")
+        if ANDROID_MODE:
+            self.current_ad = InterstitialAd(
+                INTERSTITIAL_AD
+            )
+        elif IOS_MODE:
+            self.current_ad = autoclass("adInterstitial").alloc().init()
+        else:
+            self.current_ad = None
+
+
+INTERSTITIAL_AD_CONTAINER = InterstitialAdContainer()
+
 
 ############
 ### Game ###
@@ -763,7 +817,7 @@ class Game():
         # Compute the hint score
         hint_score = self.compute_hint_score_from_penalty(penalty)
 
-        return 2*hint_score
+        return 2 * hint_score
 
     def compute_country_score(self, code_country: str):
         """
@@ -1145,7 +1199,7 @@ class UserData():
         code_continent = rd.choice(list(DICT_CONTINENTS_PRIMARY_COLOR.keys()))
         code_background = rd.choice(os.listdir(
             PATH_BACKGROUNDS + code_continent))
-        
+
         # Choose a background the user doesn't have
         if cheat_mode:
             while code_background in self.unlocked_backgrounds:
