@@ -325,7 +325,7 @@ class InterstitialAdContainer():
         self.load_ad()
         print("Ad container initialization")
 
-    def watch_ad(self, ad_callback: Callable, ad_fail: Callable = lambda: 1 + 1):
+    def watch_ad(self):
         reload_id = 0
         if ANDROID_MODE:
             self.current_ad: InterstitialAd
@@ -342,18 +342,14 @@ class InterstitialAdContainer():
 
             # Check if ads is finally loaded
             if not self.current_ad.is_loaded():
-                ad_fail()
                 self.current_ad = None
                 self.load_ad()
             else:
-                self.current_ad.on_reward = ad_callback
                 self.current_ad.show()
         elif IOS_MODE:
             self.current_ad.InterstitialView()
-            ad_callback()
         else:
             print("No ads to show outside mobile mode")
-            ad_callback()
 
     def load_ad(self):
         print("try to load ad")

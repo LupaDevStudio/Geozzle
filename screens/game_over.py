@@ -402,13 +402,14 @@ class GameOverScreen(GeozzleScreen):
 
     def go_to_home_and_watch_potentially_an_ad(self):
         # An ad is displayed randomly at the end of the game, if the user has completed the game to more than 10%
-        if rd.random() > 0.6 and USER_DATA.get_total_progress() > 10:
+        if rd.random() > 0.5 and USER_DATA.get_total_progress() > 10:
             sound_mixer.change_volume(0)
             music_mixer.change_volume(0)
-            INTERSTITIAL_AD_CONTAINER.watch_ad(ad_callback=self.reload_ad)
+            INTERSTITIAL_AD_CONTAINER.watch_ad()
+            Clock.schedule_once(self.reload_ad, 7)
         self.go_to_home()
 
-    def reload_ad():
+    def reload_ad(self, *args):
         # Unmute sound and music
         sound_mixer.change_volume(USER_DATA.sound_volume)
         music_mixer.change_volume(USER_DATA.music_volume)
