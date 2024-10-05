@@ -27,8 +27,8 @@ from tools.geozzle import (
 from tools.constants import (
     BLACK,
     WHITE,
-    DICT_CONTINENT_SECOND_COLOR,
-    DICT_CONTINENTS_PRIMARY_COLOR
+    DICT_CONTINENTS_PRIMARY_COLOR,
+    SCORE_GUESSED_COUNTRY
 )
 
 #############
@@ -104,7 +104,7 @@ class EndGamePopup(CustomPopup):
         for code_continent in self.dict_score_details_countries:
             dict_details = self.dict_score_details_countries[code_continent]
             continent_color = DICT_CONTINENTS_PRIMARY_COLOR[code_continent]
-            score_guessed = 100 if dict_details["guessed"] else 0
+            score_guessed = SCORE_GUESSED_COUNTRY if dict_details["guessed"] else 0
             score_clues = dict_details["score_clues"]
             multiplier = dict_details["multiplier"]
             total_score_country = int((score_guessed + score_clues) * multiplier)

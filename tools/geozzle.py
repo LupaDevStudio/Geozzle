@@ -10,7 +10,6 @@ Module of the main backend of Geozzle.
 
 import random as rd
 import time
-import copy
 import os
 from typing import Literal, Callable
 
@@ -19,9 +18,7 @@ from typing import Literal, Callable
 from tools.constants import (
     DICT_COUNTRIES,
     DICT_HINTS_INFORMATION,
-    CURRENT_COUNTRY_INIT,
-    REWARD_INTERSTITIAL,
-    LIST_CLUES_EXCEPTIONS,
+    SCORE_GUESSED_COUNTRY,
     DICT_WIKIDATA_LANGUAGE,
     NUMBER_CREDITS,
     DICT_CONTINENTS_PRIMARY_COLOR,
@@ -766,7 +763,7 @@ class Game():
         # Compute the hint score
         hint_score = self.compute_hint_score_from_penalty(penalty)
 
-        return hint_score
+        return 2*hint_score
 
     def compute_country_score(self, code_country: str):
         """
@@ -788,8 +785,8 @@ class Game():
 
         if self.dict_guessed_countries[code_country]["guessed"] is True:
 
-            # Add 100 pts if the country is guessed
-            country_score += 100
+            # Add SCORE_GUESSED_COUNTRY pts if the country is guessed
+            country_score += SCORE_GUESSED_COUNTRY
 
             # Add the hint score
             country_score += self.compute_hint_score(code_country)

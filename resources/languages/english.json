@@ -115,46 +115,46 @@
         "buy_background_tutorial": "With the points gathered during the game, you can buy new backgrounds. Here are 2000 points for your first purchase!",
         "tutorial_content": [
             [
-                "Bienvenue dans le tutoriel de Geozzle !\n\nCliquez sur 'Suivant' pour continuer.",
+                "Welcome to the Geozzle tutorial!\n\nClick 'Next' to continue.",
                 "resources/images/tuto/home_en.jpg"
             ],
             [
-                "Chaque partie se compose de six phases. Au cours de chacune, vous devrez deviner un pays d'un continent spécifique en récoltant des indices, tels que la superficie, le drapeau ou encore l'hymne national.",
+                "Each game consists of six phases. During each phase, you will need to guess a country from a specific continent by gathering clues, such as the area, the flag, or the national anthem.",
                 "resources/images/tuto/game_en.jpg"
             ],
             [
-                "Les indices sont répartis dans trois catégories : 1 étoile, 2 étoiles et 3 étoiles.\nPlus un indice possède d'étoiles, plus le challenge pour deviner le pays sera relevé ! Mais moins un indice aura d'étoiles, moins vous gagnerez de points.",
+                "The clues are divided into three categories: 1 star, 2 stars, and 3 stars.\nThe more stars a clue has, the more challenging it will be to guess the country, and thus the more points it will earn!",
                 "resources/images/tuto/clue_en.jpg"
             ],
             [
-                "Et le plus d'indices vous utiliserez, le plus vous perdrez de points !\n\nRelèverez-vous le défi en tentant de deviner chaque pays avec le moins d'indices possible ?"
+                "And the more clues you use, the more points you will lose!\n\nWill you take on the challenge of trying to guess each country with as few clues as possible?"
             ],
             [
-                "Mais attention, vous ne possédez que trois vies pour compléter votre partie. Chaque mauvaise suggestion vous en fera perdre une, ainsi que de précieux points.",
+                "But be careful, you only have three lives to complete your game. Each wrong guess will cost you one life, along with valuable points.",
                 "resources/images/tuto/lose_life_en.jpg"
             ],
             [
-                "De plus, si vous devinez un pays sans perdre de vies, vous obtiendrez un bonus de série.\n\nEssayez de réaliser une série parfaite pour doubler votre score !",
+                "Additionally, if you guess a country without losing any lives, you will receive a streak bonus.\n\nTry to achieve a perfect streak to double your score!",
                 "resources/images/tuto/multipliers.jpg"
             ],
             [
-                "Par ailleurs, les vies qui vous resteront à la fin de votre partie vous rapporteront chacune quelques points.\n\nTentez de réaliser le meilleur score possible !",
+                "Moreover, the lives you have left at the end of your game will earn you a few points each.\n\nAim to achieve the best score possible!",
                 "resources/images/tuto/end_game_en.jpg"
             ],
             [
-                "Une fois quelques parties terminées, vous aurez acquis un certain nombre de points. Vous pourrez vous rendre dans le menu 'Galerie' pour les dépenser afin d'obtenir de nouveaux fonds.\n\nCollectez-les tous !",
+                "Once you have completed a few games, you will have earned a certain number of points. You can go to the 'Gallery' menu to spend them on new backgrounds.\n\nCollect them all!",
                 "resources/images/tuto/gallery_en.jpg"
             ],
             [
-                "Finalement, grâce au menu 'Statistiques', vous pourrez découvrir vos meilleurs scores sur chaque continent !\n\nParviendrez-vous à deviner tous les pays du monde ?",
+                "Finally, through the 'Statistics' menu, you can discover your best scores on each continent!\n\nWill you manage to guess all the countries in the world?",
                 "resources/images/tuto/stats_en.jpg"
             ],
             [
-                "Et si vous êtes un ou une pro de la géographie, réussirez-vous à tous les deviner en n'utilisant que des indices 3 étoiles ?",
+                "And if you're a geography pro, will you be able to guess them all using only 3-stars clues?",
                 "resources/images/tuto/stats_3_en.jpg"
             ],
             [
-                "Profitez du jeu ! \n \n L'équipe LupaDevStudio "
+                "Enjoy the game!\n\nThe LupaDevStudio Team"
             ]
         ]
     }
