@@ -41,7 +41,8 @@ class CircleProgressBar(Image):
             **kwargs):
         super().__init__(**kwargs)
         self.bind(progress=self.update_progress_angle)
+        self.update_progress_angle()
 
-    def update_progress_angle(self, value, base_widget):
+    def update_progress_angle(self, *args):
         self.progress_angle = self.progress / 100 * 360
         self.completion_label_text = f"{int(self.progress)}%"

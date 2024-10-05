@@ -23,12 +23,17 @@ from kivy.properties import (
     ObjectProperty
 )
 
+
 ### Local imports ###
 
 from tools.basic_tools import get_image_size
 from tools.constants import (
     FPS,
     RATE_CHANGE_OPACITY
+)
+from tools.path import (
+    ANDROID_MODE,
+    IOS_MODE
 )
 
 ###############
@@ -263,8 +268,15 @@ class ImprovedScreen(Screen):
         """
         Update the font_name ratio to use on the screen to keep letter size constant with Window size changes.
         """
-        self.font_ratio = Window.size[1] / \
-            600 + (Window.size[0] / Window.size[1] - 1) * 0.5
+        # self.font_ratio = Window.size[1] / \
+        #     600 + (Window.size[0] / Window.size[1] - 1) * 0.5
+
+        if ANDROID_MODE or IOS_MODE:
+            self.font_ratio = Window.size[1] / \
+                600 + (Window.size[0] / Window.size[1] - 1) * 0.5
+        else:
+            self.font_ratio = Window.size[1] / \
+                600 + (Window.size[0] / Window.size[1] - 1) * 0.29
 
     def disable_widget(self, widget_id: str):
         """

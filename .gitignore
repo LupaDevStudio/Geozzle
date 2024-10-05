@@ -26,7 +26,7 @@ ideas.md
 
 # Data folder
 data
-# data.json
+data.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

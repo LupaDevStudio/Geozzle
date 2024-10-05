@@ -11,7 +11,15 @@ Module to create a popup with a custom style.
 from kivy.uix.popup import Popup
 from kivy.properties import (
     ColorProperty,
-    NumericProperty
+    NumericProperty,
+    ObjectProperty
+)
+
+### Local imports ###
+
+from tools.constants import (
+    BLACK,
+    WHITE
 )
 
 #############
@@ -21,6 +29,8 @@ from kivy.properties import (
 
 class CustomPopup(Popup):
 
-    primary_color = ColorProperty((0.3, 0.3, 0.3, 1))
-    secondary_color = ColorProperty((0.3, 0.3, 0.3, 1))
+    popup_size = ObjectProperty((0.85,0.6))
+    title_color = ColorProperty(BLACK)
+    primary_color = ColorProperty(BLACK)
+    secondary_color = ColorProperty(WHITE)
     font_ratio = NumericProperty(1)

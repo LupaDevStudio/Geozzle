@@ -27,13 +27,15 @@ from kivy.clock import Clock
 
 from tools.path import (
     PATH_IMAGES,
-    PATH_BACKGROUNDS
+    ANDROID_MODE,
+    IOS_MODE
 )
 from tools.constants import (
-    ANDROID_MODE,
-    IOS_MODE,
     FPS,
     MSAA_LEVEL
+)
+from tools.geozzle import (
+    SHARED_DATA
 )
 import screens.opening
 
@@ -91,45 +93,60 @@ class WindowManager(ScreenManager):
                     screen.set_back_image_path(
                         current_screen.second_back_image_path, "second")
 
-    def change_background(self, *args):
+    def change_background(self, *args, background_path=None):
         # Get current screen to change its background
         current_screen = self.get_screen(self.current)
 
         # Change the image of the background
         if current_screen.opacity_state == "main":
-            image = rd.choice(os.listdir(PATH_BACKGROUNDS +
-                              current_screen.code_continent))
+            if background_path is not None:
+                image = background_path
+            else:
+                image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
 
-            # verify that the new image is not the same as the current one
-            while image == current_screen.back_image_path.split("/")[-1]:
-                image = rd.choice(os.listdir(
-                    PATH_BACKGROUNDS + current_screen.code_continent))
+            # Verify that the new image is not the same as the current one
+            while image == current_screen.back_image_path and background_path is None:
+                image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
 
-            current_screen.set_back_image_path(
-                back_image_path=PATH_BACKGROUNDS + current_screen.code_continent + "/" + image,
-                mode="second"
-            )
+            if image != current_screen.back_image_path:
+                current_screen.set_back_image_path(
+                    back_image_path=image,
+                    mode="second"
+                )
+                change_image = True
+            else:
+                change_image = False
 
         else:
-            image = rd.choice(os.listdir(PATH_BACKGROUNDS +
-                              current_screen.code_continent))
+            if background_path is not None:
+                image = background_path
+            else:
+                image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
 
-            # verify that the new image is not the same as the current one
-            while image == current_screen.second_back_image_path.split("/")[-1]:
-                image = rd.choice(os.listdir(
-                    PATH_BACKGROUNDS + current_screen.code_continent))
+            # Verify that the new image is not the same as the current one
+            while image == current_screen.second_back_image_path and background_path is None:
+                image = rd.choice(SHARED_DATA.list_unlocked_backgrounds)
 
-            current_screen.set_back_image_path(
-                back_image_path=PATH_BACKGROUNDS + current_screen.code_continent + "/" + image,
-                mode="main"
-            )
+            if image != current_screen.second_back_image_path:
+                current_screen.set_back_image_path(
+                    back_image_path=image,
+                    mode="main"
+                )
+                change_image = True
+            else:
+                change_image = False
 
-        # Schedule the change of the opacity to have a smooth transition
-        Clock.schedule_interval(
-            current_screen.change_background_opacity, 1 / FPS)
-        current_screen.is_transition = True
+        if change_image:
+            # Schedule the change of the opacity to have a smooth transition
+            Clock.schedule_interval(
+                current_screen.change_background_opacity, 1 / FPS)
+            current_screen.is_transition = True
 
-        self.propagate_background_on_other_screens()
+            # Start the color animation
+            current_screen.animate_color_change()
+
+            # Inform other screens of the change
+            self.propagate_background_on_other_screens()
 
 
 class MainApp(App, Widget):

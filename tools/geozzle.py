@@ -10,24 +10,35 @@ Module of the main backend of Geozzle.
 
 import random as rd
 import time
-import copy
+import os
+from typing import Literal, Callable
 
 ### Local imports ###
 
 from tools.constants import (
-    USER_DATA,
-    MAX_HIGHSCORE,
-    TEXT,
     DICT_COUNTRIES,
     DICT_HINTS_INFORMATION,
-    CURRENT_COUNTRY_INIT,
+    SCORE_GUESSED_COUNTRY,
+    DICT_WIKIDATA_LANGUAGE,
+    NUMBER_CREDITS,
+    DICT_CONTINENTS_PRIMARY_COLOR,
+    PRICE_BACKGROUND,
+    LIST_CONTINENTS,
+    REWARD_AD,
+    __version__,
+    INTERSTITIAL_AD
+)
+from tools.path import (
+    PATH_BACKGROUNDS,
     ANDROID_MODE,
     IOS_MODE,
-    REWARD_INTERSTITIAL,
-    LIST_CLUES_EXCEPTIONS,
-    DICT_WIKIDATA_LANGUAGE
+    PATH_LANGUAGE,
+    PATH_USER_DATA
 )
-
+from tools.basic_tools import (
+    load_json_file,
+    save_json_file
+)
 from tools.sparql import (
     request_all_clues
 )
@@ -36,7 +47,10 @@ from tools.kivyreview import (
 )
 if ANDROID_MODE:
     from tools.kivads import (
-        RewardedInterstitial
+        RewardedInterstitial,
+        RewardedAd,
+        TestID,
+        InterstitialAd
     )
 
 if IOS_MODE:
@@ -235,100 +249,52 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
     return value_clue
 
 
-def calculate_score_clues(part_highscore: float, nb_clues: int) -> int:
-    """
-    Calculate the score of the user depending only on the number of clues used.
-
-    Parameters
-    ----------
-    part_highscore : float
-        Part of the score to attribute to the clues.
-    nb_clues : int
-        Number of clues used to guess the country.
-
-    Returns
-    -------
-    int
-        Score of the user for the clues part.
-    """
-    # If the user guesses with less than 3 clues, he has all points
-    if nb_clues <= 3:
-        return part_highscore
-
-    # Lose points after, until using more than 12 clues
-    part_highscore = part_highscore * (1 - (nb_clues - 3) / 9)
-
-    # No negative score
-    if part_highscore <= 0:
-        return 0
-
-    return part_highscore
-
-
-# # Create the ad instance
-# if ANDROID_MODE:
-#     ad = RewardedInterstitial(REWARD_INTERSTITIAL, on_reward=None)
-# elif IOS_MODE:
-#     ad = autoclass("adInterstitial").alloc().init()
-# else:
-#     ad = None
-
-
-# def load_ad():
-#     global ad
-#     if ANDROID_MODE:
-#         ad = RewardedInterstitial(REWARD_INTERSTITIAL, on_reward=None)
-#     elif IOS_MODE:
-#         ad = autoclass("adInterstitial").alloc().init()
-#     else:
-#         ad = None
-
-
-# def watch_ad(ad_callback, ad_fail=lambda: 1 + 1):
-#     global ad
-#     if ANDROID_MODE:
-#         print("try to show ads")
-#         print("Ad is loaded", ad.is_loaded())
-#         if not ad.is_loaded():
-#             ad_fail()
-#             ad = None
-#             load_ad()
-#         else:
-#             ad.on_reward = ad_callback
-#             ad.show()
-#     elif IOS_MODE:
-#         ad.InterstitialView()
-#         ad_callback()
-#     else:
-#         print("No ads to show outside mobile mode")
-#         ad_callback()
+def get_nb_stars(list_clues: list[str]) -> int:
+    nb_stars = 3
+    for code_clue in list_clues:
+        if DICT_HINTS_INFORMATION[code_clue]["category"] < nb_stars:
+            nb_stars = DICT_HINTS_INFORMATION[code_clue]["category"]
+    return nb_stars
 
 #############
 ### Class ###
 #############
 
 
-class AdContainer():
+class RewardedAdContainer():
+
+    nb_max_reload = 3
+
     def __init__(self) -> None:
-        self.ads_list = []
+        self.current_ad = None
         self.load_ad()
         print("Ad container initialization")
 
-    def watch_ad(self, ad_callback, ad_fail=lambda: 1 + 1):
-        current_ad = self.ads_list[-1]
+    def watch_ad(self, ad_callback: Callable, ad_fail: Callable = lambda: 1 + 1):
+        reload_id = 0
         if ANDROID_MODE:
-            current_ad: RewardedInterstitial
+            self.current_ad: RewardedAd
             print("try to show ads")
-            print("Ad is loaded", current_ad.is_loaded())
-            if not current_ad.is_loaded():
+            print("Ad state:", self.current_ad.is_loaded())
+
+            # Reload ads if fail
+            while not self.current_ad.is_loaded() and reload_id < self.nb_max_reload:
+                self.current_ad = None
+                self.load_ad()
+                time.sleep(0.3)
+                reload_id += 1
+                print("Reload ad", reload_id)
+
+            # Check if ads is finally loaded
+            if not self.current_ad.is_loaded():
                 ad_fail()
-                current_ad = None
+                self.current_ad = None
                 self.load_ad()
             else:
-                current_ad.on_reward = ad_callback
-                current_ad.show()
+                self.current_ad.on_reward = ad_callback
+                self.current_ad.show()
         elif IOS_MODE:
-            current_ad.InterstitialView()
+            self.current_ad.InterstitialView()
             ad_callback()
         else:
             print("No ads to show outside mobile mode")
@@ -337,237 +303,426 @@ class AdContainer():
     def load_ad(self):
         print("try to load ad")
         if ANDROID_MODE:
-            self.ads_list.append(RewardedInterstitial(
-                REWARD_INTERSTITIAL, on_reward=None))
+            self.current_ad = RewardedAd(
+                REWARD_AD,
+                on_reward=None
+            )
         elif IOS_MODE:
-            self.ads_list.append(autoclass("adInterstitial").alloc().init())
+            self.current_ad = autoclass("adInterstitial").alloc().init()
         else:
-            self.ads_list.append(None)
+            self.current_ad = None
 
 
-AD_CONTAINER = AdContainer()
+REWARDED_AD_CONTAINER = RewardedAdContainer()
+
+
+class InterstitialAdContainer():
+
+    nb_max_reload = 3
+
+    def __init__(self) -> None:
+        self.current_ad = None
+        self.load_ad()
+        print("Ad container initialization")
+
+    def watch_ad(self):
+        reload_id = 0
+        if ANDROID_MODE:
+            self.current_ad: InterstitialAd
+            print("try to show ads")
+            print("Ad state:", self.current_ad.is_loaded())
+
+            # Reload ads if fail
+            while not self.current_ad.is_loaded() and reload_id < self.nb_max_reload:
+                self.current_ad = None
+                self.load_ad()
+                time.sleep(0.3)
+                reload_id += 1
+                print("Reload ad", reload_id)
+
+            # Check if ads is finally loaded
+            if not self.current_ad.is_loaded():
+                self.current_ad = None
+                self.load_ad()
+            else:
+                self.current_ad.show()
+        elif IOS_MODE:
+            self.current_ad.InterstitialView()
+        else:
+            print("No ads to show outside mobile mode")
+
+    def load_ad(self):
+        print("try to load ad")
+        if ANDROID_MODE:
+            self.current_ad = InterstitialAd(
+                INTERSTITIAL_AD
+            )
+        elif IOS_MODE:
+            self.current_ad = autoclass("adInterstitial").alloc().init()
+        else:
+            self.current_ad = None
+
+
+INTERSTITIAL_AD_CONTAINER = InterstitialAdContainer()
+
+
+############
+### Game ###
+############
 
 
 class Game():
-    # Number of lives left for the continent
+    # Number of lives left for this game
     number_lives: int
-    # Number of lives used for this game
-    number_lives_used_game: int
-    code_continent: str
-    wikidata_code_country: str
-    dict_clues: dict
-    # List of the at most three hints randomly choosen
-    list_current_hints: list
-    # The list of the wikidata code countries
-    list_all_countries: list
-    # The countries left to guess (wikidata code countries)
-    list_countries_left: list
-    # Dict of all clues (not only the one selected by the user)
-    dict_all_clues: dict
 
-    def create_new_game(self, code_continent: str = "Europe") -> bool:
-        """
-        Create a new game.
+    # Number of credits left to use
+    number_credits: int
 
-        Parameters
-        ----------
-        continent : str, optional (default is "Europe")
-            Code name of the continent.
+    # List of the continents
+    list_continents: list[str]
 
-        Returns
-        -------
-        bool
-            Whether the creation of the game has worked or not.
-        """
-        self.code_continent = code_continent
-        has_success = self.load_data()
-        return has_success
+    # List of countries to guess (wikidata codes)
+    list_countries_to_guess: list[str]
 
-    def is_already_loaded(self) -> bool:
-        """
-        Indicate if the game is already loaded or not.
+    # Dict of countries encountered during the game
+    # {"code_country": {"list_clues": ["clue_1" ,"clue_2"], "multiplier": 1.2, "guessed": True, "nb_lives_used":0}}
+    dict_guessed_countries: dict
 
-        Returns
-        -------
-        bool
-            _description_
-        """
-        user_data_continent = USER_DATA.continents[self.code_continent]
-        last_country = user_data_continent["current_country"]
-        if last_country["country"] != "":
-            if TEXT.language not in last_country["dict_all_clues"]:
+    # List of the codes of the current clues
+    list_current_clues: list[str]
+
+    # Dict of the results of the request for the current country
+    # {"english": {"capital": "London", ...}, "french": {"capital": "Londres", ...}}
+    dict_details_country: dict
+
+    # Index of the current country in the list of countries to guess successively
+    current_country_index: int
+
+    # List of the wikidata codes of the all the other countries in the spinner
+    # ["code_country_1", "code_country_2", ...].}
+    list_countries_in_spinner: list[str]
+
+    # Tutorial mode
+    tutorial_mode: bool
+
+    @ property
+    def has_lives(self) -> bool:
+        return self.number_lives > 0
+
+    @ property
+    def can_watch_ad(self) -> bool:
+        return self.number_credits > 0
+
+    @ property
+    def current_guess_country(self) -> str:
+        """Wikidata code of the country to guess currently"""
+        return self.list_countries_to_guess[self.current_country_index]
+
+    @ property
+    def current_guess_continent(self) -> str:
+        """Code of the current continent"""
+        return self.list_continents[self.current_country_index]
+
+    @ property
+    def data_already_loaded(self) -> bool:
+        """If the data of the current country has already been downloaded from wikidata."""
+        try:
+            if self.dict_details_country == {}:
                 return False
-            else:
-                return True
-        else:
+            return TEXT.language in self.dict_details_country
+        except:
+            self.reset_all_game_data()
             return False
 
-    def load_data(self) -> bool:
+    @property
+    def current_multiplier(self) -> float:
+        # Count the streak i.e. the number of countries guessed without mistakes
+        streak = 0
+        for i in range(self.current_country_index):
+            country_code = self.list_countries_to_guess[i]
+            nb_lives_used = self.dict_guessed_countries[country_code]["nb_lives_used"]
+            if nb_lives_used == 0:
+                streak += 1
+            else:
+                streak = 0
+        # Reset the multiplier if the user has lost a life in this country
+        if self.dict_guessed_countries[self.current_guess_country]["nb_lives_used"] > 0:
+            streak = 0
+
+        # Compute the multiplier
+        multiplier = 1. + 0.2 * streak
+
+        return multiplier
+
+    @property
+    def nb_stars_current_country(self):
+        list_clues = self.dict_guessed_countries[self.current_guess_country]["list_clues"]
+        return get_nb_stars(list_clues)
+
+    def __init__(self, dict_to_load: dict) -> None:
+        self.number_lives = dict_to_load.get("number_lives", 3)
+        self.number_credits = dict_to_load.get(
+            "number_credits", NUMBER_CREDITS)
+        self.current_country_index = dict_to_load.get(
+            "current_country_index", 0)
+
+        self.list_continents = dict_to_load.get(
+            "list_continents", [])
+        self.list_countries_to_guess = dict_to_load.get(
+            "list_countries_to_guess", [])
+        self.list_current_clues = dict_to_load.get(
+            "list_current_clues", [])
+
+        self.dict_guessed_countries = dict_to_load.get(
+            "dict_guessed_countries", {})
+        self.dict_details_country = dict_to_load.get(
+            "dict_details_country", {})
+        self.list_countries_in_spinner = dict_to_load.get(
+            "list_countries_in_spinner", [])
+
+        self.tutorial_mode = dict_to_load.get("tutorial_mode", True)
+
+    def build_list_continents(self):
+        self.list_continents = LIST_CONTINENTS.copy()
+        rd.shuffle(self.list_continents)
+
+    def get_random_country(self, code_continent: str, nb_for_random_choice: int = 3):
         """
-        Load the data for a new game.
-        It also load the data of the previous game is there was an ongoing one.
-        It also create the request to get all clues of the current country.
+        Select a random country of the given continent.
 
         Parameters
         ----------
-        None
+        code_continent : str
+            Continent code.
+        nb_for_random_choice : int, optional (default is 3)
+            Number of countries to select among the least played for the random choice.
 
         Returns
         -------
-        bool
-            Whether the creation of the game has worked or not.
+        str
+            Code of the country.
         """
-        user_data_continent = USER_DATA.continents[self.code_continent]
-        last_country = user_data_continent["current_country"]
 
-        self.list_current_hints = last_country["list_current_hints"]
-        self.number_lives = user_data_continent["number_lives"]
-        self.number_lives_used_game = last_country["number_lives_used_game"]
-        self.dict_clues = last_country["dict_clues"]
+        # Get the list of countries
+        countries_list = list(DICT_COUNTRIES["english"][code_continent].keys())
+        rd.shuffle(countries_list)
 
-        self.list_all_countries = list(
-            DICT_COUNTRIES[USER_DATA.language][self.code_continent].keys())
-        self.list_countries_left = [
-            country for country in self.list_all_countries if not country in user_data_continent["countries_unlocked"]]
+        # Get the number of times each country has been played
+        nb_times_played_list = []
+        for country in countries_list:
+            if country in USER_DATA.stats[code_continent]:
+                nb_times_played_list.append(
+                    USER_DATA.stats[code_continent][country]["nb_times_played"])
+            else:
+                nb_times_played_list.append(0)
 
-        if last_country["country"] != "":
-            self.wikidata_code_country = last_country["country"]
-            self.dict_all_clues = last_country["dict_all_clues"]
+        # Sort the indices of the list
+        index_order = [i[0]
+                       for i in sorted(enumerate(nb_times_played_list), key=lambda x: x[1])]
 
-            # If the user has changed the language, load the clues in the new language
-            if TEXT.language not in self.dict_all_clues:
-                has_success = self.load_dict_all_clues()
-                if not has_success:
-                    return False
-                self.dict_clues[TEXT.language] = {}
-            self.fill_dict_clues()
+        # Extract the countries for the random choice
+        countries_for_random_choice = []
+        for i in range(nb_for_random_choice):
+            countries_for_random_choice.append(countries_list[index_order[i]])
 
-        else:
-            self.wikidata_code_country = rd.choice(self.list_countries_left)
-            self.dict_all_clues = {}
+        # Pick a random country
+        country_index = rd.randrange(nb_for_random_choice)
 
-            # Request all clues for the current country in French and English
-            has_success = self.load_dict_all_clues()
-            if not has_success:
+        return countries_for_random_choice[country_index]
+
+    def get_other_countries_for_spinner_list(self, code_continent: str, current_country, nb_side_countries=11):
+        # Get the list of countries in the continent
+        countries_list = list(
+            DICT_COUNTRIES["english"][code_continent].keys())
+
+        # Exclude the current_country
+        countries_list.remove(current_country)
+
+        # Shuffle the list
+        rd.shuffle(countries_list)
+
+        # Select a sample
+        other_countries_for_spinner_list = countries_list[:nb_side_countries]
+
+        return other_countries_for_spinner_list
+
+    def build_list_countries(self):
+        self.list_countries_to_guess = []
+
+        # Iterate over the continents to choose one country for each
+        for code_continent in self.list_continents:
+            country = self.get_random_country(code_continent)
+            self.list_countries_to_guess.append(country)
+
+    def build_list_countries_in_spinner(self):
+        # Add additional countries
+        self.list_countries_in_spinner = self.get_other_countries_for_spinner_list(
+            self.current_guess_continent, self.current_guess_country)
+
+        # Add the answer in the list
+        self.list_countries_in_spinner.append(self.current_guess_country)
+
+        # Shuffle
+        rd.shuffle(self.list_countries_in_spinner)
+
+    def build_dict_details_country(self):
+        # Reload only if no data available in the language
+        if USER_DATA.language not in self.dict_details_country:
+            self.dict_details_country[USER_DATA.language] = request_all_clues(
+                wikidata_code_country=self.current_guess_country,
+                code_continent=self.current_guess_continent, wikidata_language=DICT_WIKIDATA_LANGUAGE[USER_DATA.language])
+
+            if self.dict_details_country[USER_DATA.language] is None:
+                del self.dict_details_country[USER_DATA.language]
                 return False
 
-            # Update the information in the USER_DATA
-            USER_DATA.continents[self.code_continent][
-                "current_country"]["country"] = self.wikidata_code_country
-            USER_DATA.save_changes()
+            # Find alternative language
+            if USER_DATA.language == "french":
+                alternative_language = "english"
+            else:
+                alternative_language = "french"
+
+            # Deal with cases when user request in a language and change and not the same clues in both languages
+            for code_clue in self.dict_guessed_countries[self.current_guess_country]["list_clues"]:
+                if code_clue not in self.dict_details_country[USER_DATA.language]:
+                    self.dict_details_country[USER_DATA.language][
+                        code_clue] = self.dict_details_country[alternative_language][code_clue]
+
         return True
 
-    def load_dict_all_clues(self) -> bool:
-        """
-        Load the dict of all clues with requests to Wikidata, in the current language.
+    def build_dict_guessed_countries(self):
+        self.dict_guessed_countries = {
+            country_code: {
+                "list_clues": [],
+                "multiplier": 1,
+                "guessed": False,
+                "nb_lives_used": 0} for country_code in self.list_countries_to_guess
+        }
 
-        Parameters
-        ----------
-        None
+    def detect_tutorial_number_clue(self, number_clue: int):
+        return len(self.dict_guessed_countries[self.current_guess_country]["list_clues"]) == number_clue
 
-        Returns
-        -------
-        bool
-            Boolean indicating if the request has successed or not.
-        """
-        # Get all clues with the sparql request
-        dict_all_clues_current_language = request_all_clues(
-            wikidata_code_country=self.wikidata_code_country,
-            code_continent=self.code_continent,
-            language=DICT_WIKIDATA_LANGUAGE[TEXT.language])
+    def set_tutorial_variables(self):
+        # Set the North America at the beginning of the list of continents
+        self.list_continents.append("North_America")
+        # Set the USA as the first country to guess
+        self.list_countries_to_guess.append("Q30")
 
-        if dict_all_clues_current_language is None:
+        # Build the rest of the lists
+        for code_continent in LIST_CONTINENTS:
+            if code_continent != "North_America":
+                self.list_continents.append(code_continent)
+                country = self.get_random_country(code_continent)
+                self.list_countries_to_guess.append(country)
+
+    def launch_game(self) -> bool:
+        try:
+            # Detect if we are in tutorial
+            if self.tutorial_mode and self.list_continents == []:
+                self.set_tutorial_variables()
+            else:
+                if self.list_continents == []:
+                    self.build_list_continents()
+                if self.list_countries_to_guess == []:
+                    self.build_list_countries()
+
+            if self.dict_guessed_countries == {}:
+                self.build_dict_guessed_countries()
+            if self.list_countries_in_spinner == []:
+                self.build_list_countries_in_spinner()
+            request_status = self.build_dict_details_country()
+
+            if not request_status:
+                USER_DATA.save_changes()
+                return False
+
+            if self.list_current_clues == []:
+                self.choose_clues()
+                # Set the population as the first clue to guess in the tutorial
+                if self.tutorial_mode and self.detect_tutorial_number_clue(number_clue=0):
+                    self.list_current_clues[2] = "population"
+
+            # Save the changes
+            USER_DATA.save_changes()
+
+            return True
+
+        # If there is a corruption in the data
+        except:
+            self.reset_all_game_data()
             return False
 
-        self.dict_all_clues[TEXT.language] = dict_all_clues_current_language
+    def choose_clues(self):
+        """
+        Choose the four clues that will be proposed to the player.
+        If possible, the three categories should be available.
+        """
 
-        # Update the user data
-        USER_DATA.continents[self.code_continent][
-            "current_country"]["dict_all_clues"] = self.dict_all_clues
+        # Extract the list of clues that have already been used
+        clues_already_used = self.dict_guessed_countries[self.current_guess_country]["list_clues"]
+
+        # Create the list of all 1 star, 2 stars and 3 stars clues avoiding the ones that have already been used
+        clues_by_categories = {1: [], 2: [], 3: []}
+        for clue in DICT_HINTS_INFORMATION:
+            current_category = DICT_HINTS_INFORMATION[clue]["category"]
+            if clue not in clues_already_used and clue in self.dict_details_country[USER_DATA.language]:
+                clues_by_categories[current_category].append(clue)
+
+        # Count the number of clues for each category
+        nb_clues_per_category = {
+            1: len(clues_by_categories[1]),
+            2: len(clues_by_categories[2]),
+            3: len(clues_by_categories[3])
+        }
+        remaining_clues = []
+
+        # Add the clues for each category
+        list_current_clues = []
+        for i in range(1, 4):
+            if nb_clues_per_category[i] > 0:
+                clue_index = rd.randrange(nb_clues_per_category[i])
+                list_current_clues.append(clues_by_categories[i][clue_index])
+                for j in range(nb_clues_per_category[i]):
+                    if j == clue_index:
+                        continue
+                    remaining_clues.append(clues_by_categories[i][j])
+
+        # Add additional random clues
+        shuffled_indices = list(range(len(remaining_clues)))
+        rd.shuffle(shuffled_indices)
+        additional_clues_indices = shuffled_indices[:min(
+            len(remaining_clues), 4 - len(list_current_clues))]
+        for i in range(len(additional_clues_indices)):
+            list_current_clues.append(
+                remaining_clues[additional_clues_indices[i]])
+
+        # Update the list
+        self.list_current_clues = list_current_clues.copy()
+
+        # Fill the list with None values
+        while len(self.list_current_clues) < 4:
+            self.list_current_clues.append(None)
+
+    def ask_clue(self, code_clue: str):
+        # Add the new clue in the list of clues used
+        self.dict_guessed_countries[self.current_guess_country][
+            "list_clues"].append(code_clue)
+
+        # Reset the list of clues
+        self.list_current_clues = []
+        self.choose_clues()
+        # Set the flag as the second clue to guess in the tutorial
+        if self.tutorial_mode and self.detect_tutorial_number_clue(number_clue=1):
+            self.list_current_clues[1] = "flag"
+
+        # Save the changes
         USER_DATA.save_changes()
 
-        return True
+    def watch_ad(self):
+        self.number_lives += 1
+        self.number_credits -= 1
 
-    def fill_dict_clues(self):
-        """
-        Fill the dict of clues of the current language, depending of the one of the other language.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        # Detect the reference language
-        if TEXT.language == "english":
-            ref_language = "french"
-        else:
-            ref_language = "english"
-
-        if len(self.dict_clues[ref_language]) > len(self.dict_clues[TEXT.language]):
-
-            # Add all clues of the reference dict of clues in the other one
-            for code_clue in self.dict_clues[ref_language]:
-                # Check if the clue exists in the results of the query
-                if code_clue in self.dict_all_clues[TEXT.language]:
-                    self.add_clue(code_clue=code_clue)
-
-    def select_clue(self, name_clue: str):
-        """
-        Select the code name of the value and add it into the dictionary.
-
-        Parameters
-        ----------
-        name_clue : str
-            Name of the clue (depending on the language)
-
-        Returns
-        -------
-        None
-        """
-        # Reset the list of hints
-        self.list_current_hints = []
-        USER_DATA.continents[self.code_continent][
-            "current_country"]["list_current_hints"] = []
-
-        # Get the code of the clue with its name
-        for code_clue in TEXT.clues:
-            if TEXT.clues[code_clue] == name_clue:
-                break
-
-        self.add_clue(code_clue=code_clue)
-
-    def add_clue(self, code_clue: str):
-        """
-        Add a clue in the dictionary of clues corresponding to the language.
-
-        Parameters
-        ----------
-        name_clue : str
-            Name of the clue (depending on the language)
-
-        Returns
-        -------
-        None
-        """
-
-        if not code_clue in ["ISO_3_code", "flag"]:
-            try:
-                value_clue = format_clue(
-                    code_clue=code_clue,
-                    value_clue=self.dict_all_clues[TEXT.language][code_clue],
-                    language=TEXT.language)
-            except:
-                print("Error in formatting")
-                value_clue = self.dict_all_clues[TEXT.language][code_clue]
-        else:
-            value_clue = self.dict_all_clues[TEXT.language][code_clue]
-        self.dict_clues[TEXT.language][code_clue] = value_clue
-
-        USER_DATA.continents[self.code_continent][
-            "current_country"]["dict_clues"][TEXT.language][code_clue] = value_clue
+        # Save the changes
         USER_DATA.save_changes()
 
     def check_country(self, guessed_country: str) -> bool:
@@ -584,146 +739,492 @@ class Game():
         bool
             Boolean according to which the country proposed by the user is correct or not.
         """
-        # Find the wikidata code associated to the country
-        for wikidata_code_country in DICT_COUNTRIES[USER_DATA.language][self.code_continent]:
-            if DICT_COUNTRIES[USER_DATA.language][self.code_continent][wikidata_code_country] == guessed_country:
+
+        # Convert the name of the guessed country to its key
+        for country_code in DICT_COUNTRIES[USER_DATA.language][self.current_guess_continent]:
+            country_name = DICT_COUNTRIES[USER_DATA.language][self.current_guess_continent][country_code]
+            if country_name == guessed_country:
                 break
 
-        # Check if the user has found the correct country
-        if self.wikidata_code_country == wikidata_code_country:
-            USER_DATA.continents[self.code_continent]["countries_unlocked"].append(
-                wikidata_code_country)
-            USER_DATA.continents[self.code_continent]["current_country"] = copy.deepcopy(
-                CURRENT_COUNTRY_INIT)
-            USER_DATA.save_changes()
-            self.list_countries_left.remove(wikidata_code_country)
-            return True
+        # Check if the country is the correct one
+        res = country_code == self.current_guess_country
 
-        # Reduce the number of lives if the user has made a mistake
-        self.number_lives -= 1
-        self.number_lives_used_game += 1
-        USER_DATA.continents[self.code_continent]["number_lives"] = self.number_lives
-        USER_DATA.continents[self.code_continent]["current_country"][
-            "number_lives_used_game"] = self.number_lives_used_game
-        if USER_DATA.continents[self.code_continent]["lost_live_date"] is None:
-            USER_DATA.continents[self.code_continent]["lost_live_date"] = time.time(
-            )
-        USER_DATA.save_changes()
-        return False
-
-    def detect_game_over(self) -> bool:
-        """
-        Detect if this is the game over or not.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        bool
-            Boolean according to which it is the game over or not.
-        """
-        # Reset the current dict of clues
-        if self.number_lives <= 0:
-            return True
-        return False
-
-    def reset_data_game_over(self):
-        """
-        When the user is in game over, the dict of clues is resetted.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        USER_DATA.continents[self.code_continent]["current_country"] = copy.deepcopy(
-            CURRENT_COUNTRY_INIT)
-        USER_DATA.save_changes()
-
-    def update_percentage(self):
-        """
-        Update the percentage of completion of the continent.
-        It is calculated based on the number of countries already guessed.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-        """
-        # 100% of completion when the continent is over
-        if self.list_countries_left == []:
-            percentage = 100
-
+        # Set the country to guessed if the user was right
+        if res:
+            self.dict_guessed_countries[self.current_guess_country]["guessed"] = True
+        # Reduce the number of lives if the user was wrong
         else:
-            nb_all_countries = len(self.list_all_countries)
-            nb_guessed_countries = len(
-                USER_DATA.continents[self.code_continent]["countries_unlocked"])
-            percentage = int(100 * (nb_guessed_countries / nb_all_countries))
+            self.number_lives -= 1
+            self.dict_guessed_countries[self.current_guess_country]["nb_lives_used"] += 1
+            self.dict_guessed_countries[self.current_guess_country]["multiplier"] = 1.
 
-        # Launch the review if the user reaches 30% for the first time
-        if percentage > 30:
-            has_already_reached_30 = False
-            for continent_key in USER_DATA.continents:
-                if USER_DATA.continents[continent_key]["percentage"] > 30:
-                    has_already_reached_30 = True
-            if not has_already_reached_30 and ANDROID_MODE:
-                request_review()
-
-        # Save the changes in the USER_DATA
-        USER_DATA.continents[self.code_continent]["percentage"] = percentage
+        # Save the changes
         USER_DATA.save_changes()
 
-    def update_score(self) -> int:
+        return res
+
+    @staticmethod
+    def compute_hint_score_from_penalty(penalty: int):
         """
-        Update the score of the user in its data when he has guessed a country.
-        The score is divided into two parts:
-            - the number of lives he used to guess the country
-            - the number of clues he used to guess the country
+        Compute the hint score using the penalty.
 
         Parameters
         ----------
-        None
+        penalty : int
+            Penalty applied for using hints.
 
         Returns
         -------
         int
-            Current score
+            Hint score.
         """
-        current_score = 0
-        highscore = USER_DATA.continents[self.code_continent]["highscore"]
-        part_highscore = MAX_HIGHSCORE / len(self.list_all_countries)
-        half_part_highscore = part_highscore / 2
 
-        # Depending on the number of lives => half the score
-        current_score += (max(3 - self.number_lives_used_game, 0)
-                          * half_part_highscore) / 3
+        hint_score = ((319 / pow((penalty + 3.7), 0.6)) - 29.2) * 1.5
+        return int(hint_score)
 
-        # Depending on the number of clues used => the other half of the score
-        current_score += calculate_score_clues(
-            part_highscore=half_part_highscore,
-            nb_clues=len(self.dict_clues[TEXT.language])
-        )
+    def compute_hint_score(self, code_country: str):
+        """
+        Compute the score of the hints used for the country.
 
-        # Set the max score to 10 000
-        new_score = min(10000, highscore + current_score)
+        Parameters
+        ----------
+        code_country : str
+            Code of the country.
 
-        # Save the changes in the USER_DATA
-        USER_DATA.continents[self.code_continent]["highscore"] = new_score
+        Returns
+        -------
+        float
+            Score of the hints.
+        """
+
+        # Get the list of hints used
+        hints_used = self.dict_guessed_countries[code_country]["list_clues"]
+
+        # Order the hints by category
+        clues_by_categories = {1: [], 2: [], 3: []}
+        for clue in hints_used:
+            current_category = DICT_HINTS_INFORMATION[clue]["category"]
+            clues_by_categories[current_category].append(clue)
+
+        # Compute the penalty
+        penalty = 5 * len(clues_by_categories[1]) + 3 * len(
+            clues_by_categories[2]) + 1 * len(clues_by_categories[3])
+
+        # Compute the hint score
+        hint_score = self.compute_hint_score_from_penalty(penalty)
+
+        return 2 * hint_score
+
+    def compute_country_score(self, code_country: str):
+        """
+        Compute the score associated to a country.
+
+        Parameters
+        ----------
+        code_country : str
+            Code of the country.
+
+        Returns
+        -------
+        int
+            Score of the country.
+        """
+
+        # Allocate a variable to store the score of the country
+        country_score = 0
+
+        if self.dict_guessed_countries[code_country]["guessed"] is True:
+
+            # Add SCORE_GUESSED_COUNTRY pts if the country is guessed
+            country_score += SCORE_GUESSED_COUNTRY
+
+            # Add the hint score
+            country_score += self.compute_hint_score(code_country)
+
+        # Apply the multiplier
+        country_score = int(country_score *
+                            self.dict_guessed_countries[code_country]["multiplier"])
+
+        return country_score
+
+    def compute_country_and_game_score(self) -> tuple[int, int]:
+        """
+        Compute the score of the current country and a partial score for the game without end bonus.
+
+        Returns
+        -------
+        tuple[int, int]
+            Country score and game score.
+        """
+
+        game_score = 0
+        for i in range(self.current_country_index + 1):
+            country_score = self.compute_country_score(
+                code_country=self.list_countries_to_guess[i])
+            game_score += country_score
+
+        return country_score, game_score
+
+    def finish_country(self) -> bool:
+        """Return if the game is finished or not."""
+
+        # Update the index of the current country
+        self.current_country_index += 1
+
+        # Save the changes
         USER_DATA.save_changes()
 
-        return current_score
+        # Check the end of the game or not
+        return self.current_country_index == 6
 
-    def choose_three_clues(self):
+    def go_to_next_country(self) -> bool:
+        # Update the multiplier
+        self.dict_guessed_countries[self.current_guess_country]["multiplier"] = self.current_multiplier
+
+        # Rebuild the list of countries in spinner
+        self.list_countries_in_spinner = []
+        self.build_list_countries_in_spinner()
+
+        # Rebuild the dict of details of the next country
+        self.dict_details_country = {}
+        request_status = self.build_dict_details_country()
+
+        if not request_status:
+            self.list_current_clues = []
+            USER_DATA.save_changes()
+            return False
+
+        # Rebuild the list of current clues
+        self.list_current_clues = []
+        self.choose_clues()
+
+        # Save the changes
+        USER_DATA.save_changes()
+
+        return True
+
+    def compute_final_game_score(self) -> int:
         """
-        Choose three new clues given their probability to appear.
+        Compute the final score of a game.
+
+        Returns
+        -------
+        int
+            Final game score.
+        """
+
+        # Allocate a variable to compute the score
+        game_score = 0
+
+        # Iterate over the countries to compute their scores
+        for i in range(len(self.list_countries_to_guess)):
+            country_score = self.compute_country_score(
+                code_country=self.list_countries_to_guess[i])
+            game_score += country_score
+
+        # Add bonus if some lives are remaining at the end
+        game_score += self.number_lives * 150
+
+        return game_score
+
+    def end_game(self):
+        """
+        End the current game and reset the class.
+        """
+
+        final_score = self.compute_final_game_score()
+        USER_DATA.update_points_and_score(score=final_score)
+        USER_DATA.update_stats(
+            dict_guessed_countries=self.dict_guessed_countries,
+            list_continents=self.list_continents)
+
+        # Reset all variables in the game when it's over
+        self.reset_all_game_data()
+
+        return final_score
+
+    def reset_all_game_data(self):
+        """
+        Reset all game data at the end of a game, or if there is some corruption.
+        """
+
+        # Reset all variables in the game when it's over
+        self.number_lives = 3
+        self.number_credits = NUMBER_CREDITS
+        self.current_country_index = 0
+        self.list_continents = []
+        self.list_countries_to_guess = []
+        self.list_current_clues = []
+        self.dict_guessed_countries = {}
+        self.dict_details_country = {}
+        self.list_countries_in_spinner = []
+        self.tutorial_mode = False
+
+        # Save the changes
+        USER_DATA.save_changes()
+
+    def export_as_dict(self) -> dict:
+        return {
+            "number_lives": self.number_lives,
+            "number_credits": self.number_credits,
+            "list_continents": self.list_continents,
+            "list_countries_to_guess": self.list_countries_to_guess,
+            "dict_guessed_countries": self.dict_guessed_countries,
+            "list_current_clues": self.list_current_clues,
+            "dict_details_country": self.dict_details_country,
+            "current_country_index": self.current_country_index,
+            "list_countries_in_spinner": self.list_countries_in_spinner,
+            "tutorial_mode": self.tutorial_mode
+        }
+
+#################
+### User data ###
+#################
+
+
+class UserData():
+    """
+    A class to store the user data.
+    """
+
+    @property
+    def can_buy_background(self):
+        return self.points >= PRICE_BACKGROUND
+
+    def __init__(self) -> None:
+        data = load_json_file(PATH_USER_DATA)
+        self.version: str = data.get("version", "")
+        # Reset the data of the user (for the v1 of the game)
+        if self.version == "":
+            data = {}
+            self.version = __version__
+        # Update the version of the application
+        elif self.version != __version__:
+            self.version = __version__
+
+        self.game: Game = Game(data.get("game", {}))
+        self.language: Literal["english", "french"] = data.get(
+            "language", "english")
+        self.sound_volume: float = data.get("sound_volume", 0.5)
+        self.music_volume: float = data.get("music_volume", 0.5)
+        self.highscore: int = data.get("highscore", 0)
+        self.points: int = data.get("points", 0)
+        self.stats: int = data.get(
+            "stats",
+            {
+                "Europe": {},
+                "Asia": {},
+                "Africa": {},
+                "North_America": {},
+                "South_America": {},
+                "Oceania": {},
+            })
+        self.unlocked_backgrounds: list[str] = data.get(
+            "unlocked_backgrounds", [])
+        if self.unlocked_backgrounds == []:
+            self.init_backgrounds()
+        self.gallery_tutorial = data.get("gallery_tutorial", True)
+
+        # Save changes
+        self.save_changes()
+
+    def init_backgrounds(self):
+        """
+        Give a background for each continent when the user starts playing for the first time.
+        """
+
+        for code_continent in LIST_CONTINENTS:
+            code_background = rd.choice(os.listdir(
+                PATH_BACKGROUNDS + code_continent))
+            self.unlocked_backgrounds.append(code_background)
+
+    def get_nb_countries_with_stars(self, code_continent: str, target_nb_stars: int) -> int:
+        """
+        Compute the number of countries for a given continent with the target number of stars.
+
+        Parameters
+        ----------
+        code_continent : str
+            Continent code.
+        target_nb_stars : int
+            Number of stars to target.
+
+        Returns
+        -------
+        int
+            Number of countries
+        """
+
+        nb_countries = 0
+        for country in self.stats[code_continent]:
+            nb_stars = self.stats[code_continent][country]["nb_stars"]
+            if nb_stars >= target_nb_stars:
+                nb_countries += 1
+
+        return nb_countries
+
+    def get_nb_countries(self, code_continent: str):
+        """
+        Compute the number of countries in a given continent.
+
+        Parameters
+        ----------
+        code_continent : str
+            Continent code.
+
+        Returns
+        -------
+        int
+            Number of countries
+        """
+
+        return len(DICT_COUNTRIES["english"][code_continent])
+
+    def get_nb_stars_on_continent(self, code_continent: str):
+        """
+        Return the number of stars obtained on a given continent.
+
+        Parameters
+        ----------
+        code_continent : str
+            Continent code.
+
+        Returns
+        -------
+        int
+            Number of stars obtained on the continent.
+        """
+
+        nb_stars_on_continent = 0
+        for country in self.stats[code_continent]:
+            nb_stars = self.stats[code_continent][country]["nb_stars"]
+            nb_stars_on_continent += nb_stars
+
+        return nb_stars_on_continent
+
+    def get_continent_progress(self, code_continent: str) -> int:
+        """
+        Return the progress of the continent in percent.
+        This number corresponds to the number of stars obtained divided by the total number of stars.
+
+        Parameters
+        ----------
+        code_continent : str
+            Continent code.
+
+        Returns
+        -------
+        int
+            Percentage of progress.
+        """
+
+        # Extract the data
+        nb_stars_on_continent = self.get_nb_stars_on_continent(code_continent)
+        nb_countries_on_continent = self.get_nb_countries(code_continent)
+
+        # Compute the percentage
+        percentage = int(
+            100 * nb_stars_on_continent / (3 * nb_countries_on_continent))
+
+        return percentage
+
+    def get_total_progress(self) -> int:
+        """
+        Compute the total progress of the player.
+
+        Returns
+        -------
+        int
+            Total percentage of progress of the player.
+        """
+        total_stars_user = 0
+        total_stars = 0
+        for code_continent in LIST_CONTINENTS:
+            total_stars_user += self.get_nb_stars_on_continent(
+                code_continent=code_continent)
+            total_stars += 3 * self.get_nb_countries(
+                code_continent=code_continent)
+        return int(100 * total_stars_user / total_stars)
+
+    def check_country_is_new(self, code_continent: str, code_country: str, nb_stars: int) -> bool:
+        if code_country in self.stats[code_continent]:
+            return nb_stars > self.stats[code_continent][code_country]["nb_stars"]
+        return True
+
+    def update_points_and_score(self, score: int):
+        # Update the number of points
+        self.points += score
+
+        # Update the highscore if needed
+        if score > self.highscore:
+            self.highscore = score
+
+        # Save the changes
+        self.save_changes()
+
+    def update_stats(self, dict_guessed_countries: dict, list_continents: list[str]):
+        counter = 0
+        for code_country in dict_guessed_countries:
+            dict_details = dict_guessed_countries[code_country]
+            if dict_details["guessed"]:
+                code_continent = list_continents[counter]
+                if not code_country in self.stats[code_continent]:
+                    self.stats[code_continent][code_country] = {
+                        "nb_times_played": 0,
+                        "nb_stars": 1
+                    }
+                self.stats[code_continent][code_country]["nb_times_played"] += 1
+                nb_stars = get_nb_stars(
+                    list_clues=dict_details["list_clues"])
+                if nb_stars > self.stats[code_continent][code_country]["nb_stars"]:
+                    self.stats[code_continent][code_country]["nb_stars"] = nb_stars
+            else:
+                break
+            counter += 1
+
+        # Save the changes
+        self.save_changes()
+
+    def buy_new_background(self, cheat_mode: bool = False) -> dict:
+        dict_return = {}
+
+        # Reduce the number of points
+        self.points -= PRICE_BACKGROUND
+
+        # Choose randomly the continent and the background
+        code_continent = rd.choice(list(DICT_CONTINENTS_PRIMARY_COLOR.keys()))
+        code_background = rd.choice(os.listdir(
+            PATH_BACKGROUNDS + code_continent))
+
+        # Choose a background the user doesn't have
+        if cheat_mode:
+            while code_background in self.unlocked_backgrounds:
+                code_background = rd.choice(os.listdir(
+                    PATH_BACKGROUNDS + code_continent))
+
+        # If the background bought is new
+        if code_background not in self.unlocked_backgrounds:
+            self.unlocked_backgrounds.append(code_background)
+            dict_return["is_new"] = True
+        else:
+            dict_return["is_new"] = False
+
+        # Add the background in the shared data
+        full_path = SHARED_DATA.add_new_background(
+            code_background=code_background,
+            code_continent=code_continent)
+
+        # Save the changes
+        self.save_changes()
+
+        dict_return["code_continent"] = code_continent
+        dict_return["full_path"] = full_path
+
+        return dict_return
+
+    def save_changes(self) -> None:
+        """
+        Save the changes in the data.
 
         Parameters
         ----------
@@ -731,97 +1232,104 @@ class Game():
 
         Returns
         -------
-        (str, str, str)
-            Tuple of the three types of clues.
-        """
-        dict_probabilities = {}
-        hint_1 = None
-        hint_2 = None
-        hint_3 = None
-
-        # Load the preselected clues if there are some
-        if self.list_current_hints != []:
-            hint_1 = self.list_current_hints[0]
-            if len(self.list_current_hints) >= 2:
-                hint_2 = self.list_current_hints[1]
-                if len(self.list_current_hints) >= 3:
-                    hint_3 = self.list_current_hints[2]
-
-            return hint_1, hint_2, hint_3
-
-        # Choose three new clues
-        for type_clue in self.dict_all_clues[TEXT.language]:
-            # Check if the clue has not already been selected
-            if not type_clue in self.dict_clues[TEXT.language] and not type_clue in LIST_CLUES_EXCEPTIONS:
-                # Get the probability of the clue
-                dict_probabilities[type_clue] = DICT_HINTS_INFORMATION[type_clue]
-
-        if dict_probabilities != {}:
-            # Sum all probabilities
-            total = sum(dict_probabilities.values())
-
-            for type_clue in dict_probabilities:
-                dict_probabilities[type_clue] /= total
-
-            hint_1 = self.choose_clue(dict_probabilities)
-            self.list_current_hints.append(hint_1)
-
-            # Choose a second distinct clue
-            if len(dict_probabilities) != 1:
-                hint_2 = hint_1
-                while hint_2 == hint_1:
-                    hint_2 = self.choose_clue(dict_probabilities)
-                self.list_current_hints.append(hint_2)
-
-                # Choose a third distinct clue
-                if len(dict_probabilities) != 2:
-                    hint_3 = hint_1
-                    while hint_3 == hint_1 or hint_3 == hint_2:
-                        hint_3 = self.choose_clue(dict_probabilities)
-                    self.list_current_hints.append(hint_3)
-
-        USER_DATA.continents[self.code_continent][
-            "current_country"]["list_current_hints"] = self.list_current_hints
-        USER_DATA.save_changes()
-
-        return hint_1, hint_2, hint_3
-
-    def choose_clue(self, dict_probabilities: dict) -> str:
-        """
-        Select randomly a clue given the probabilities of the clues.
-
-        Parameters
-        ----------
-        dict_probabilities : dict
-            Dictionary of clues with their associated probability.
-
-        Returns
-        -------
-        str
-            Name of the randomly choosen clue.
-        """
-        probability = rd.random()
-        sum_probabilities = 0
-        for key in dict_probabilities:
-            value_probability = dict_probabilities[key]
-            if probability <= value_probability + sum_probabilities:
-                return key
-            sum_probabilities += value_probability
-
-    def add_life(self):
-        """
-        Add a life to the user after he watches an add.
-
-        Parameters
-        ----------
         None
+        """
+
+        # Create the dictionary of data
+        data = {}
+        data["version"] = self.version
+        data["language"] = self.language
+        data["game"] = self.game.export_as_dict()
+        data["stats"] = self.stats
+        data["points"] = self.points
+        data["highscore"] = self.highscore
+        data["music_volume"] = self.music_volume
+        data["sound_volume"] = self.sound_volume
+        data["unlocked_backgrounds"] = self.unlocked_backgrounds
+        data["gallery_tutorial"] = self.gallery_tutorial
+
+        # Save this dictionary
+        save_json_file(
+            file_path=PATH_USER_DATA,
+            dict_to_save=data)
+
+
+USER_DATA = UserData()
+
+############
+### Text ###
+############
+
+
+class Text():
+    def __init__(self, language) -> None:
+        self.language = language
+        self.change_language(language)
+
+    def change_language(self, language):
+        """
+        Change the language of the text contained in the class.
+
+        Parameters
+        ----------
+        language : str
+            Code of the desired language.
 
         Returns
         -------
         None
         """
-        self.number_lives += 1
-        USER_DATA.continents[self.code_continent]["number_lives"] += 1
-        if self.number_lives == 3:
-            USER_DATA.continents[self.code_continent]["lost_live_date"] = None
-        USER_DATA.save_changes()
+        # Change the language
+        self.language = language
+
+        # Load the json file
+        data = load_json_file(PATH_LANGUAGE + language + ".json")
+
+        # Split the text contained in the screens
+        self.titles = data["titles"]
+        self.home = data["home"]
+        self.settings = data["settings"]
+        self.gallery = data["gallery"]
+        self.stats = data["stats"]
+        self.game_question = data["game_question"]
+        self.game_summary = data["game_summary"]
+        self.game_over = data["game_over"]
+        self.clues = data["clues"]
+        self.tutorial = data["tutorial"]
+        self.popup = data["popup"]
+
+
+TEXT = Text(language=USER_DATA.language)
+
+
+###################
+### Backgrounds ###
+###################
+
+class SharedData():
+    list_unlocked_backgrounds: list[str]  # list of the path of the images
+
+    def __init__(self) -> None:
+        self.list_unlocked_backgrounds = []
+        for code_continent in list(DICT_CONTINENTS_PRIMARY_COLOR.keys()):
+            for code_background in os.listdir(PATH_BACKGROUNDS + code_continent):
+                if code_background in USER_DATA.unlocked_backgrounds:
+                    self.add_new_background(
+                        code_background=code_background,
+                        code_continent=code_continent)
+
+    def choose_random_background_continent(self, code_continent: str):
+        list_corresponding_backgrounds = []
+        for full_path in self.list_unlocked_backgrounds:
+            if code_continent in full_path:
+                list_corresponding_backgrounds.append(full_path)
+        return rd.choice(list_corresponding_backgrounds)
+
+    def add_new_background(self, code_background: str, code_continent: str) -> str:
+        full_path = PATH_BACKGROUNDS + code_continent + "/" + code_background
+        if full_path not in self.list_unlocked_backgrounds:
+            self.list_unlocked_backgrounds.append(full_path)
+        return full_path
+
+
+SHARED_DATA = SharedData()

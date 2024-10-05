@@ -1,4 +1,29 @@
 {
+    "titles": {
+        "settings": "Settings",
+        "stats": "Statistics",
+        "gallery": "Gallery"
+    },
+    "settings": {
+        "music": "Music volume",
+        "sound": "Sound effects volume",
+        "language": "Language",
+        "tutorial": "Tutorial",
+        "credits": "Credits",
+        "credits_text": "Game created by:\n\nAgathe, Laure, Paul and Romain",
+        "version": "Version [VERSION]",
+        "nb_credits": "Number of credits: "
+    },
+    "gallery": {
+        "points": "Points: [POINTS]",
+        "buy_background": "Buy 1 random background\n[POINTS] points",
+        "new_background": "Congrats! You've got a new background!",
+        "already_bought_background": "You already have this background... Try again!"
+    },
+    "stats": {
+        "highscore": "Highscore: [HIGHSCORE]",
+        "details": "Details"
+    },
     "home": {
         "Europe": "Europe",
         "Asia": "Asia",
@@ -6,49 +31,51 @@
         "North_America": "North America",
         "South_America": "South America",
         "Oceania": "Oceania",
-        "highscore": "Score: ",
-        "play": "Play",
-        "watch_ad": "Watch",
-        "cancel": "Cancel",
-        "buy_life_message": "You don't have any lives left at the moment. Would you like to watch an ad to continue playing?",
-        "buy_life_title": "Lives depleted",
-        "ask_restart_title": "Restart the continent",
-        "ask_restart_message": "Do you really want to start this continent all over again? You won't be able to retrieve your current data.",
-        "restart": "Restart"
+        "highscore": "Highscore: ",
+        "play": "Play"
     },
     "popup": {
-        "buy_life_title": "Life Reload",
-        "next_life_in": "Your next life will recharge in [TIME] min.",
-        "buy_life_text": "If you wish to recharge a life more quickly, you can watch an advertisement.",
-        "full_life_text": "Congratulations, you have all your lives, so try to guess a new country!",
         "watch_ad": "Watch",
         "close": "Close",
         "yes": "Yes",
         "no": "No",
+        "cancel": "Cancel",
         "loading": "Loading...",
-        "loading_title": "Loading"
+        "loading_title": "Loading",
+        "buy_background_impossible_title": "Unable to purchase",
+        "buy_background_impossible_text": "You can't buy backgrounds right now, you don't have enough points: you need [NB_POINTS]. Try again later!"
     },
     "game_over": {
         "title": "Which country is it?",
-        "congrats": "Congratulations!",
-        "defeat": "Wrong choice!",
-        "game_over": "Defeat...",
         "validate": "Validate",
-        "continue": "Continue",
-        "next_country": "Next country",
-        "finish_continent": "You've successfully guessed all the countries in this continent, congratulations!",
-        "button_back": "Back",
+        "button_back": "Back to clues",
+        "score_popup_text": "Score of the country: [SCORE]\nTotal score: [SCORE_GAME]",
+        "congrats": "Congratulations!",
+        "next_continent": "Next continent",
+        "recaps_title": "Overview of the game",
+        "finish_game": "End the game",
         "go_to_home": "Go back to menu",
         "select_country_title": "Error in choice",
-        "select_country_message": "You must select a country from the dropdown menu."
+        "select_country_message": "You must select a country from the dropdown menu.",
+        "wrong_country_title": "Wrong country",
+        "wrong_country_text": "The country you selected is incorrect. Try another one or gather more clues !",
+        "buy_life_message": "You don't have any lives left. Would you like to watch an ad to continue playing?",
+        "buy_life_title": "Lives depleted",
+        "nb_lives_at_the_end": "Points for the remaining lives",
+        "game_over_title": "Game over",
+        "game_over_text": "You lost all your lives. The country to guess was [COUNTRY].",
+        "total_score": "TOTAL",
+        "guessed": "Guessed country",
+        "clues": "Used clues",
+        "multiplier": "Multiplier"
     },
     "game_question": {
-        "title": "Choose a clue from the provided options",
-        "no_more_clues": "You don't have any clue left to guess this country."
+        "title": "Choose a clue"
     },
     "game_summary": {
         "i_found": "I've found!",
         "new_hint": "New hint",
+        "no_more_clues": "No more clues",
         "title": "Which country is it?",
         "zoom_flag_title": "Flag",
         "zoom_geojson_title": "Country shape"
@@ -63,7 +90,6 @@
         "flag": "Flag",
         "currency": "Currency",
         "age_of_majority": "Age of majority",
-        "human_development_index": "Human Development Index",
         "country_calling_code": "Country calling code",
         "license_plate_code": "License plate code",
         "nominal_GDP": "Nominal GDP",
@@ -83,51 +109,52 @@
         "next": "Next",
         "previous": "Previous",
         "close": "Close",
+        "int_tutorial_1": "This screen lets you choose clues to guess a country. The more stars, the more points. Let's start with the population!",
+        "int_tutorial_2": "Here you can see the clues we've collected. Let's choose another one for an easier guess!",
+        "int_tutorial_3": "Once you've got enough clues, you can suggest a country. Let's go !",
+        "buy_background_tutorial": "With the points gathered during the game, you can buy new backgrounds. Here are 5000 points for your first purchase!",
         "tutorial_content": [
             [
-                "Welcome to Geozzle's tutorial! \n \n This tutorial will guide you through the game's features. \n \n Click 'Next' to continue."
+                "Welcome to the Geozzle tutorial!\n\nClick 'Next' to continue.",
+                "resources/images/tuto/home_en.jpg"
             ],
             [
-                "The goal of the game is to gather clues and attempt to guess every country in the selected continent! \n \n Remember, the more clues you use, the fewer points you'll earn!"
+                "Each game consists of six phases. During each phase, you will need to guess a country from a specific continent by gathering clues, such as the area, the flag, or the national anthem.",
+                "resources/images/tuto/game_en.jpg"
             ],
             [
-                "On the welcome screen, you can select the continent you want to play in using the arrows on the sides of the screen.",
-                "resources/images/tuto/home_screen_en.png"
+                "The clues are divided into three categories: 1 star, 2 stars, and 3 stars.\nThe more stars a clue has, the more challenging it will be to guess the country, and thus the more points it will earn!",
+                "resources/images/tuto/clue_en.jpg"
             ],
             [
-                "Click 'Play' to start the game!",
-                "resources/images/tuto/home_screen_en.png"
+                "And the more clues you use, the more points you will lose!\n\nWill you take on the challenge of trying to guess each country with as few clues as possible?"
             ],
             [
-                "Choose a hint from the three propositions presented. \n \n Don't worry, you will be able to get a new hint if you don't know the answer.",
-                "resources/images/tuto/game_question_en.png"
+                "But be careful, you only have three lives to complete your game. Each wrong guess will cost you one life, along with valuable points.",
+                "resources/images/tuto/lose_life_en.jpg"
             ],
             [
-                "Use all collected clues to guess the country by clicking 'I've found!'. \n \n If you don't know the country, you can click 'New hint' to get a new one.",
-                "resources/images/tuto/game_summary_en.png"
+                "Additionally, if you guess a country without losing any lives, you will receive a streak bonus.\n\nTry to achieve a perfect streak to double your score!",
+                "resources/images/tuto/multipliers.jpg"
             ],
             [
-                "Choose the right country from the dropdown menu and click 'Validate'. \n \n Click 'Back' to return to your clues.",
-                "resources/images/tuto/game_over_en.png"
+                "Moreover, the lives you have left at the end of your game will earn you a few points each.\n\nAim to achieve the best score possible!",
+                "resources/images/tuto/end_game_en.jpg"
             ],
             [
-                "If you're wrong, you can submit a new proposition or click 'Continue' to get a new hint. \n\n You will loose a life for each wrong answer.",
-                "resources/images/tuto/defeat_en.png"
+                "Once you have completed a few games, you will have earned a certain number of points. You can go to the 'Gallery' menu to spend them on new backgrounds.\n\nCollect them all!",
+                "resources/images/tuto/gallery_en.jpg"
             ],
             [
-                "You are given 3 lives at the beginning of the game. \n \n If you run out of lives, you can watch an ad to get a new one.",
-                "resources/images/tuto/defeat_en.png"
+                "Finally, through the 'Statistics' menu, you can discover your best scores on each continent!\n\nWill you manage to guess all the countries in the world?",
+                "resources/images/tuto/stats_en.jpg"
             ],
             [
-                "Don't worry, your lives will recharge on their own over time!",
-                "resources/images/tuto/defeat_en.png"
+                "And if you're a geography pro, will you be able to guess them all using only 3-stars clues?",
+                "resources/images/tuto/stats_3_en.jpg"
             ],
             [
-                "Go back to the home screen to see your newest highscore and percentage of guessed countries for each continent.",
-                "resources/images/tuto/home_score_update_en.png"
-            ],
-            [
-                "Enjoy the game! \n \n LupaDevStudio's team "
+                "Enjoy the game!\n\nThe LupaDevStudio Team"
             ]
         ]
     }

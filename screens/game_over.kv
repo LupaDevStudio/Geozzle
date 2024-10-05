@@ -6,7 +6,7 @@
         text: root.title_label
         font_name: PATH_TITLE_FONT
         font_size: MAIN_TEXT_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.85}
+        pos_hint: {"center_x":0.5, "center_y":0.66}
         outline_width: max(SUBTITLE_OUTLINE_WIDTH * root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
         color: root.continent_color
@@ -17,63 +17,16 @@
         valign: "center"
         line_height: 1
 
-    RoundedButtonImage:
-        image_path: PATH_IMAGES + "home.png"
-        pos_hint: {"x":0.05, "top":0.975}
-        size_hint: (0.1, None)
-        height: self.width
-        colors: root.continent_color
-        on_release: root.go_to_home()
-    
     CustomSpinner:
         id: country_spinner
-        pos_hint: {"center_x":0.5, "center_y":0.7}
-        size_hint: (0.8,0.1)
+        pos_hint: {"center_x":0.5, "center_y":0.56}
+        size_hint: (0.8, 0.1)
         text: ""
         values: root.list_countries
         font_ratio: root.font_ratio
         border_color: root.continent_color
         text_color: root.continent_color
-        select_color: root.background_color
-
-    # Congratulation or defeat message
-    Label:
-        text: root.congrats_defeat_message
-        font_name: PATH_TITLE_FONT
-        font_size: HIGHSCORE_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.575}
-        outline_width: max(SUBTITLE_OUTLINE_WIDTH * root.font_ratio,1)
-        outline_color: TITLE_OUTLINE_COLOR
-        color: root.continent_color
-        size: self.size
-        text_size: (root.width*0.9,None)
-        shorten: False
-        halign: "center"
-        valign: "center"
-        line_height: 1
-
-    ThreeLives:
-        continent_color: root.continent_color
-        pos_hint: {"center_x":0.5, "center_y":0.475}
-        size_hint: (0.5, 0.15)
-        number_lives_on: root.number_lives_on
-        release_function: root.open_buy_life_popup
-
-    # Score indication
-    Label:
-        text: root.score_label
-        font_name: PATH_TITLE_FONT
-        font_size: HIGHSCORE_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.375}
-        outline_width: max(SUBTITLE_OUTLINE_WIDTH * root.font_ratio,1)
-        outline_color: TITLE_OUTLINE_COLOR
-        color: root.continent_color
-        size: self.size
-        text_size: (root.width*0.9,None)
-        shorten: False
-        halign: "center"
-        valign: "center"
-        line_height: 1
+        select_color: root.secondary_continent_color
 
     # Validate button
     ColoredRoundedButton:
@@ -83,18 +36,18 @@
         font_size: BUTTON_FONT_SIZE
         pos_hint: {"center_x":0.5, "center_y":0.25}
         size_hint: (0.45, 0.075)
-        color_label: root.background_color
+        color_label: root.secondary_continent_color
         release_function: root.submit_country
         font_ratio: root.font_ratio
 
     # Continue game button
     ColoredRoundedButton:
-        id: continue_button
-        background_color: root.background_color
-        text: root.continue_game_label
+        id: back_button
+        background_color: root.secondary_continent_color
+        text: root.back_label
         font_size: BUTTON_FONT_SIZE
         pos_hint: {"center_x":0.5, "center_y":0.1}
         size_hint: (0.45, 0.075)
         color_label: root.continent_color
-        release_function: root.go_to_next_screen
+        release_function: root.go_back_to_summary
         font_ratio: root.font_ratio

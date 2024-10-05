@@ -8,18 +8,13 @@ Module to create the game screen with the summary of all clues.
 
 ### Python imports ###
 
-import os
 import random as rd
 from typing import Literal
-from functools import partial
 
 ### Kivy imports ###
 
-from kivy.clock import Clock
 from kivy.properties import (
-    StringProperty,
-    ColorProperty,
-    NumericProperty
+    StringProperty
 )
 from kivy.uix.label import Label
 from screens.custom_widgets.image_popup import ImagePopup
@@ -27,22 +22,33 @@ from screens.custom_widgets.image_popup import ImagePopup
 ### Local imports ###
 
 from tools.path import (
-    PATH_BACKGROUNDS,
     PATH_TEXT_FONT,
     PATH_IMAGES_FLAG,
     PATH_IMAGES_FLAG_UNKNOWN,
     PATH_IMAGES_GEOJSON
 )
 from tools.constants import (
-    DICT_CONTINENTS,
-    LIST_CONTINENTS,
-    DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED,
-    TIME_CHANGE_BACKGROUND,
-    TEXT
+    WHITE,
+    SCREEN_TITLE,
+    SCREEN_ICON_LEFT_UP,
+    SCREEN_THREE_LIVES,
+    SCREEN_MULTIPLIER,
+    SCREEN_CONTINENT_PROGRESS_BAR,
+    SCREEN_COUNTRY_STARS,
+    SCREEN_NB_CREDITS,
+    DARK_GRAY,
+    GRAY
 )
-from screens.custom_widgets import ImprovedScreenWithAds
-from tools import (
-    game
+from tools.geozzle import (
+    USER_DATA,
+    TEXT,
+    SHARED_DATA,
+    format_clue
+)
+from screens.custom_widgets import (
+    GeozzleScreen,
+    TutorialView,
+    MessagePopup
 )
 
 #############
@@ -54,64 +60,68 @@ class ScrollViewLabel(Label):
     pass
 
 
-class GameSummaryScreen(ImprovedScreenWithAds):
+class GameSummaryScreen(GeozzleScreen):
 
-    previous_screen_name = StringProperty()
-    code_continent = StringProperty(LIST_CONTINENTS[0])
-    continent_color = ColorProperty(DICT_CONTINENTS[LIST_CONTINENTS[0]])
-    background_color = ColorProperty(
-        DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[LIST_CONTINENTS[0]])
-    number_lives_on = NumericProperty()
     dict_scrollview_widgets = {}
     text_found_country = StringProperty()
-    current_hint = StringProperty()  # the name of the new hint
     get_new_hint = StringProperty()
     title_label = StringProperty()
 
+    dict_type_screen = {
+        SCREEN_TITLE: {},
+        SCREEN_ICON_LEFT_UP: {},
+        SCREEN_MULTIPLIER: "",
+        SCREEN_THREE_LIVES: "",
+        SCREEN_CONTINENT_PROGRESS_BAR: "",
+        SCREEN_COUNTRY_STARS: "",
+        SCREEN_NB_CREDITS: "",
+    }
+
     def __init__(self, **kwargs) -> None:
         super().__init__(
-            back_image_path=PATH_BACKGROUNDS + self.code_continent + "/" +
-            rd.choice(os.listdir(PATH_BACKGROUNDS + self.code_continent)),
+            back_image_path=rd.choice(SHARED_DATA.list_unlocked_backgrounds),
             font_name=PATH_TEXT_FONT,
             **kwargs)
 
-        self.bind(code_continent=self.update_color)
-        self.bind(current_hint=self.bind_function)
-        self.update_text()
-
     def on_pre_enter(self, *args):
-        self.update_font_ratio()
+        super().on_pre_enter(*args)
+
         self.update_scroll_view()
-        self.update_text()
         self.update_images()
 
-        return super().on_pre_enter(*args)
-
-    def on_enter(self, *args):
-
-        if len(game.dict_clues[TEXT.language]) < 2:
+        if len(USER_DATA.game.dict_guessed_countries[USER_DATA.game.current_guess_country]["list_clues"]) < 2:
             self.ids.scrollview.scroll_y = 1
 
-        # Schedule the change of background
-        Clock.schedule_interval(
-            self.manager.change_background, TIME_CHANGE_BACKGROUND)
+        # Tutorial mode
+        if USER_DATA.game.tutorial_mode:
+            if USER_DATA.game.detect_tutorial_number_clue(number_clue=1):
+                # Add modal view to force to go back to clues
+                TutorialView(self.ids.clue_button)
+                # Display popup with explanations
+                popup = MessagePopup(
+                    title=TEXT.tutorial["tutorial_title"],
+                    primary_color=self.continent_color,
+                    secondary_color=self.secondary_continent_color,
+                    center_label_text=TEXT.tutorial["int_tutorial_2"],
+                    font_ratio=self.font_ratio,
+                    ok_button_label=TEXT.popup["close"]
+                )
+                popup.open()
+            if USER_DATA.game.detect_tutorial_number_clue(number_clue=2):
+                # Add modal view to force to go to i found
+                TutorialView(self.ids.i_found_button)
+                # Display popup with explanations
+                popup = MessagePopup(
+                    title=TEXT.tutorial["tutorial_title"],
+                    primary_color=self.continent_color,
+                    secondary_color=self.secondary_continent_color,
+                    center_label_text=TEXT.tutorial["int_tutorial_3"],
+                    font_ratio=self.font_ratio,
+                    ok_button_label=TEXT.popup["close"]
+                )
+                popup.open()
 
-        self.number_lives_on = game.number_lives
-
-        return super().on_enter(*args)
-
-    def on_pre_leave(self, *args):
-
-        # Unschedule the clock updates
-        Clock.unschedule(self.manager.change_background,
-                         TIME_CHANGE_BACKGROUND)
-
-        return super().on_leave(*args)
-
-    def bind_function(self, base_widget, value):
-        pass
-
-    def update_text(self):
+    def reload_language(self):
         """
         Update the labels depending on the language.
 
@@ -123,30 +133,49 @@ class GameSummaryScreen(ImprovedScreenWithAds):
         -------
         None
         """
-        self.text_found_country = TEXT.game_summary["i_found"]
-        self.get_new_hint = TEXT.game_summary["new_hint"]
+        self.dict_type_screen[SCREEN_TITLE]["title"] = TEXT.home[self.code_continent]
+
         self.title_label = TEXT.game_summary["title"]
+        self.text_found_country = TEXT.game_summary["i_found"]
+
+        # Avoid the user to go on game question if no more clues
+        if USER_DATA.game.list_current_clues == [None, None, None, None]:
+            self.ids.clue_button.disable_button = True
+            self.ids.clue_button.background_color = GRAY
+            self.ids.clue_button.color_label = DARK_GRAY
+            self.get_new_hint = TEXT.game_summary["no_more_clues"]
+        else:
+            self.ids.clue_button.disable_button = False
+            self.ids.clue_button.background_color = self.secondary_continent_color
+            self.ids.clue_button.color_label = self.continent_color
+            self.get_new_hint = TEXT.game_summary["new_hint"]
+
+        super().reload_language()
 
     def update_images(self):
         # Update the flag image
-        if "flag" in game.dict_clues[TEXT.language]:
+        if "flag" in USER_DATA.game.dict_guessed_countries[USER_DATA.game.current_guess_country]["list_clues"]:
             self.ids.flag_image.reload()
-            self.ids.flag_image.source = PATH_IMAGES_FLAG + self.code_continent.lower() + \
-                ".png"
+            self.ids.flag_image.source = PATH_IMAGES_FLAG + \
+                USER_DATA.game.current_guess_country + ".png"
             self.ids.flag_image.disable_button = False
+            self.ids.flag_image.color = WHITE
         else:
             self.ids.flag_image.source = PATH_IMAGES_FLAG_UNKNOWN
             self.ids.flag_image.disable_button = True
+            self.ids.flag_image.color = self.secondary_continent_color
 
         # Update the geojson image
-        if "ISO_3_code" in game.dict_clues[TEXT.language]:
+        if "ISO_3_code" in USER_DATA.game.dict_guessed_countries[USER_DATA.game.current_guess_country]["list_clues"]:
             self.ids.geojson_image.reload()
-            self.ids.geojson_image.source = PATH_IMAGES_GEOJSON + game.dict_clues[TEXT.language]["ISO_3_code"] + \
+            self.ids.geojson_image.source = PATH_IMAGES_GEOJSON + USER_DATA.game.dict_details_country[TEXT.language]["ISO_3_code"] + \
                 ".png"
             self.ids.geojson_image.disable_button = False
+            self.ids.geojson_image.color = self.continent_color
         else:
             self.ids.geojson_image.source = PATH_IMAGES_FLAG_UNKNOWN
             self.ids.geojson_image.disable_button = True
+            self.ids.geojson_image.color = self.secondary_continent_color
 
     def reset_scroll_view(self, *_):
         """
@@ -160,7 +189,7 @@ class GameSummaryScreen(ImprovedScreenWithAds):
         -------
         None
         """
-        self.ids.scrollview_layout.reset_screen()
+        self.ids.scrollview_layout.reset_scrollview()
         self.dict_scrollview_widgets = {}
 
     def update_scroll_view(self):
@@ -175,17 +204,24 @@ class GameSummaryScreen(ImprovedScreenWithAds):
         -------
         None
         """
-        for key in game.dict_clues[TEXT.language]:
-            if not key in ["flag", "ISO_3_code"]:
+        # Force the update of colors to avoid the slight smoothing
+        self.update_colors()
+        for code_clue in USER_DATA.game.dict_guessed_countries[USER_DATA.game.current_guess_country]["list_clues"]:
+            if not code_clue in ["flag", "ISO_3_code"]:
 
                 # Add the labels which are not already in the scrollview
-                if not key in self.dict_scrollview_widgets:
+                if not code_clue in self.dict_scrollview_widgets:
+                    text = format_clue(
+                        code_clue=code_clue,
+                        value_clue=USER_DATA.game.dict_details_country[TEXT.language][code_clue],
+                        language=TEXT.language
+                    )
 
                     label_clue = ScrollViewLabel(
-                        text=game.dict_clues[TEXT.language][key],
+                        text=text,
                         color=self.continent_color,
                         font_name=self.font_name,
-                        font_size=17 * self.font_ratio,
+                        font_size=16 * self.font_ratio,
                         halign="left",
                         valign="middle",
                         shorten=False,
@@ -193,29 +229,7 @@ class GameSummaryScreen(ImprovedScreenWithAds):
                     )
                     self.ids.scrollview_layout.add_widget(label_clue)
 
-                    self.dict_scrollview_widgets[key] = label_clue
-
-            else:
-                self.update_images()
-
-    def update_color(self, base_widget, value):
-        """
-        Update the code of the continent and its related attributes.
-
-        Parameters
-        ----------
-        base_widget : kivy.uix.widget
-            Self
-        value : string
-            Value of code_continent
-
-        Returns
-        -------
-        None
-        """
-        self.continent_color = DICT_CONTINENTS[self.code_continent]
-        self.background_color = DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[
-            self.code_continent]
+                    self.dict_scrollview_widgets[code_clue] = label_clue
 
     def go_to_game_over(self):
         self.manager.get_screen(
@@ -227,24 +241,19 @@ class GameSummaryScreen(ImprovedScreenWithAds):
             "game_question").previous_screen_name = "game_summary"
         self.manager.current = "game_question"
 
-    def go_back_to_home(self):
-        self.manager.get_screen(
-            "home").previous_screen_name = "game_summary"
-        self.manager.current = "home"
-
     def open_popup_image(self, mode: Literal["flag", "geojson"]):
         if mode == "flag":
-            image_source = PATH_IMAGES_FLAG + self.code_continent.lower() + ".png"
+            image_source = PATH_IMAGES_FLAG + USER_DATA.game.current_guess_country + ".png"
         elif mode == "geojson":
             image_source = PATH_IMAGES_GEOJSON + \
-                game.dict_clues[TEXT.language]["ISO_3_code"] + ".png"
-            print(image_source)
+                USER_DATA.game.dict_details_country[TEXT.language]["ISO_3_code"] + ".png"
         popup = ImagePopup(
             primary_color=self.continent_color,
-            secondary_color=DICT_CONTINENT_THEME_BUTTON_BACKGROUND_COLORED[self.code_continent],
+            secondary_color=self.secondary_continent_color,
             title=TEXT.game_summary["zoom_" + mode + "_title"],
             font_ratio=self.font_ratio,
-            image_source=image_source
+            image_source=image_source,
+            ok_button_label=TEXT.popup["close"]
         )
         popup.mode = mode
         popup.open()

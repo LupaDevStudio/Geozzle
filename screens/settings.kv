@@ -1,0 +1,122 @@
+#:kivy 2.2.1
+
+<SettingsScreen>:
+
+    # Lupa button
+    CircleIconButton:
+        source: PATH_IMAGES + "lupa_logo.png"
+        pos_hint: {"right":0.95, "top":0.975}
+        size_hint: (LOGO_SIZE, None)
+        height: self.width
+        release_function: root.open_lupa_website
+
+    # Sous sous button
+    RoundedButtonImage:
+        image_path: PATH_IMAGES + "life_on.png"
+        pos_hint: {"right":0.95, "y":0.025}
+        size_hint: (LOGO_SIZE, None)
+        height: self.width
+        colors: root.continent_color
+        release_function: root.open_sous_sous
+
+    # Language label
+    Label:
+        text: root.language_label
+        font_name: root.font_name
+        font_size: SUB_TEXT_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.75}
+        outline_width: max(SUBTITLE_OUTLINE_WIDTH* root.font_ratio,1)
+        outline_color: TITLE_OUTLINE_COLOR
+        color: root.continent_color
+
+    # Language button
+    CircleIconButton:
+        source: PATH_LANGUAGES_IMAGES + "english.png"
+        pos_hint: {"x":0.3, "center_y":0.65}
+        size_hint: (LOGO_SIZE, None)
+        height: self.width
+        release_function: root.change_language
+        is_selected: root.code_language == "english"
+        font_ratio: root.font_ratio
+
+    # Language button
+    CircleIconButton:
+        source: PATH_LANGUAGES_IMAGES + "french.png"
+        pos_hint: {"right":0.7, "center_y":0.65}
+        size_hint: (LOGO_SIZE, None)
+        height: self.width
+        release_function: root.change_language_to_french
+        is_selected: root.code_language == "french"
+        font_ratio: root.font_ratio
+
+    Label:
+        text: root.music_volume_label
+        font_name: root.font_name
+        font_size: SUB_TEXT_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.55}
+        outline_width: max(SUBTITLE_OUTLINE_WIDTH* root.font_ratio,1)
+        outline_color: TITLE_OUTLINE_COLOR
+        color: root.continent_color
+
+    CustomSlider:
+        id: music_slider
+        min: 0
+        max: 1
+        value: root.music_volume
+        slider_value: 0.5
+        size_hint: (0.6, 0.03)
+        pos_hint: {"center_x":0.5, "center_y":0.475}
+        font_ratio: root.font_ratio
+        secondary_color: root.secondary_continent_color
+        primary_color: root.continent_color
+
+    Label:
+        text: root.sound_volume_label
+        font_name: root.font_name
+        font_size: SUB_TEXT_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.4}
+        outline_width: max(SUBTITLE_OUTLINE_WIDTH* root.font_ratio,1)
+        outline_color: TITLE_OUTLINE_COLOR
+        color: root.continent_color
+
+    CustomSlider:
+        id: sound_slider
+        min: 0
+        max: 1
+        value: root.sound_volume
+        size_hint: (0.6, 0.03)
+        pos_hint: {"center_x":0.5, "center_y":0.325}
+        font_ratio: root.font_ratio
+        secondary_color: root.secondary_continent_color
+        primary_color: root.continent_color
+
+    # Tutorial button
+    CustomButton:
+        text: root.tutorial_label
+        pos_hint: {"center_x":0.5, "center_y":0.225}
+        size_hint: (0.4, 0.075)
+        release_function: root.launch_tutorial
+        font_ratio: root.font_ratio
+        font_size: SUB_TEXT_FONT_SIZE
+        color_label: root.continent_color
+
+    # Credits button
+    CustomButton:
+        text: root.credits_label
+        # pos_hint: {"center_x":0.5, "center_y":0.15}
+        pos_hint: {"center_x":0.5, "center_y":0.12}
+        size_hint: (0.4, 0.075)
+        release_function: root.open_credits_popup
+        font_ratio: root.font_ratio
+        font_size: SUB_TEXT_FONT_SIZE
+        color_label: root.continent_color
+
+    # Version label
+    Label:
+        text: root.version_label
+        font_name: root.font_name
+        font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
+        pos_hint: {"center_x":0.5, "center_y":0.04}
+        outline_width: max(SUBTITLE_OUTLINE_WIDTH* root.font_ratio,1)
+        outline_color: TITLE_OUTLINE_COLOR
+        color: root.continent_color

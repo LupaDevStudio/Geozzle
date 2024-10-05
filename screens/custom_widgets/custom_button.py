@@ -37,7 +37,7 @@ class CustomButton(ButtonBehavior, Widget):
     A custom button with a white round rectangle background.
     """
 
-    background_color = CUSTOM_BUTTON_BACKGROUND_COLOR
+    background_color = ColorProperty(CUSTOM_BUTTON_BACKGROUND_COLOR)
     text = StringProperty()
     text_filling_ratio = NumericProperty()
     font_size = NumericProperty()
@@ -72,5 +72,6 @@ class CustomButton(ButtonBehavior, Widget):
 
     def on_release(self):
         if not self.disable_button:
-            self.release_function()
+            if self.collide_point(self.last_touch.x, self.last_touch.y):
+                self.release_function()
             self.opacity = 1

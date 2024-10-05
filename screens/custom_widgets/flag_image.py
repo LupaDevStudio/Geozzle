@@ -22,7 +22,8 @@ from tools.path import (
     PATH_IMAGES_FLAG_UNKNOWN
 )
 from tools.constants import (
-    OPACITY_ON_BUTTON_PRESS
+    OPACITY_ON_BUTTON_PRESS,
+    BUTTON_OUTLINE_WIDTH
 )
 from tools import sound_mixer
 
@@ -36,6 +37,7 @@ class FlagImage(ButtonBehavior, Image):
     primary_color = ColorProperty((0, 0, 0, 1))
     stretch_mode = StringProperty("height")
     font_ratio = NumericProperty(1)
+    outline_width = NumericProperty(BUTTON_OUTLINE_WIDTH)
 
     def __init__(self,
                  release_function=lambda: 1 + 1,
@@ -73,5 +75,6 @@ class FlagImage(ButtonBehavior, Image):
 
     def on_release(self):
         if not self.disable_button:
-            self.release_function()
+            if self.collide_point(self.last_touch.x, self.last_touch.y):
+                self.release_function()
             self.opacity = 1

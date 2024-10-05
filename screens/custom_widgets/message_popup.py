@@ -17,7 +17,7 @@ from kivy.properties import (
 ### Local imports ###
 
 from screens.custom_widgets.custom_popup import CustomPopup
-from tools.constants import (
+from tools.geozzle import (
     TEXT
 )
 
@@ -28,12 +28,11 @@ from tools.constants import (
 
 class MessagePopup(CustomPopup):
 
-    ok_button_label = StringProperty(TEXT.home["cancel"])
+    popup_size = ObjectProperty((0.85, 0.4))
+    ok_button_label = StringProperty(TEXT.popup["close"])
     center_label_text = StringProperty()
-    release_function = ObjectProperty()
+    release_function = ObjectProperty(lambda: 1 + 1)
 
-    def __init__(self, **kwargs):
-        if not "release_function" in kwargs:
-            super().__init__(release_function=self.dismiss, **kwargs)
-        else:
-            super().__init__(**kwargs)
+    def confirm(self):
+        self.dismiss()
+        self.release_function()

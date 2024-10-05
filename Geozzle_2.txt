@@ -1,0 +1,26 @@
+mode partie normale qui fait deviner un pays de chaque continent, l'ordre des continents est fixe.
+trois vies pour faire la série, juste une pub pour un crédit supplémentaire
+système de séries => quand on devine plusieurs pays d'affilée
+système de bonus => quand on ne devine avec qu'un seul indice
+système d'étoiles sur les indices, enregistrement dans les achievements de la performance sur chaque pays
+a chaque fois on aurait un indice 3 étoiles, un indice 2 étoiles, un indice 1 étoile, et un autre random => 4 indices il faut en choisir un
+système de points, classement en ligne avec la meilleure partie du jour et la meilleure partie au total (et stocker les dix meilleurs scores du joueur dans son appli)
+
+score : dépend du nombre d'indices utilisés et de leur nombre d'étoiles, du nombre de vies utilisées (3 indice 3 étoiles = 1 indice 1 étoile) 
+
+limiter le nombre de pays présents dans le spinner
+
+sélection à chaque fois parmi les pays les moins joués 
+
+score de complétion par continent nombre d'étoiles avec palier, le but au début est juste de deviner tous les pays, puis avec 2 étoiles puis avec 3.
+pub à la fin de chaque partie
+
+notifs de rappel à l'utilisateur
+ 
+possibilité avec les points d'acheter des fonds, fonctionne comme des cartes paninis, aléatoire et doubles possibles.
+Galerie pour voir tous les fonds
+
+boutons collants à régler
+
+mettre le lien pour les sous sous dans la popoche sur l'appli
+

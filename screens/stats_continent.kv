@@ -1,0 +1,20 @@
+#:kivy 2.2.1
+
+<StatsContinentScreen>:
+
+    RelativeLayout:
+        pos_hint: {"center_x": 0.5}
+        y: 0.025*2*root.height + root.width*LOGO_SIZE
+        size_hint: (0.9, None)
+        height: (0.8-0.025*3)*root.height - root.width*LOGO_SIZE
+
+        CustomScrollview:
+            id: scrollview
+            bar_width: 0
+            size_hint: (1, 1)
+
+            MyScrollViewLayout:
+                id: scrollview_layout
+                cols: 3
+                spacing: 10*root.font_ratio
+                padding: 10*root.font_ratio

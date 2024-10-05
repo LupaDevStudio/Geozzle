@@ -9,12 +9,12 @@ Module to create custom buttons with round transparent white background.
 ### Kivy imports ###
 
 from kivy.uix.relativelayout import RelativeLayout
-from kivy.uix.behaviors import ButtonBehavior
 from kivy.properties import (
     StringProperty,
     NumericProperty,
     ColorProperty,
-    ObjectProperty
+    ObjectProperty,
+    BooleanProperty
 )
 
 ### Local imports ###
@@ -23,10 +23,8 @@ from tools.path import (
     PATH_IMAGES
 )
 from tools.constants import (
-    OPACITY_ON_BUTTON_PRESS
-)
-from tools import (
-    sound_mixer
+    WHITE,
+    BLACK
 )
 
 #############
@@ -34,30 +32,30 @@ from tools import (
 #############
 
 
-class ThreeLives(ButtonBehavior, RelativeLayout):
+class ThreeLives(RelativeLayout):
     """
     The indicator of lives.
     """
 
-    continent_color = ColorProperty((0, 0, 0, 1))
+    continent_color = ColorProperty(BLACK)
+    background_color = ColorProperty(WHITE)
     number_lives_on = NumericProperty(3)
     image_path_1 = StringProperty(PATH_IMAGES + "life_on.png")
     image_path_2 = StringProperty(PATH_IMAGES + "life_on.png")
     image_path_3 = StringProperty(PATH_IMAGES + "life_on.png")
+    release_function = ObjectProperty(lambda: 1 + 1)
+    disable_button = BooleanProperty(False)
+    font_ratio = NumericProperty(1)
 
-    def __init__(
-            self,
-            release_function=lambda: 1 + 1,
-            ** kwargs):
+    def __init__(self, ** kwargs):
         super().__init__(**kwargs)
 
         self.always_release = True
 
-        self.release_function = release_function
-
         self.bind(number_lives_on=self.update_lives)
+        self.update_lives()
 
-    def update_lives(self, base_widget, value):
+    def update_lives(self, *args):
         if self.number_lives_on >= 1:
             self.image_path_3 = PATH_IMAGES + "life_on.png"
         else:
@@ -72,13 +70,3 @@ class ThreeLives(ButtonBehavior, RelativeLayout):
             self.image_path_1 = PATH_IMAGES + "life_on.png"
         else:
             self.image_path_1 = PATH_IMAGES + "life_off.png"
-
-    def on_press(self):
-        if not self.disabled:
-            self.opacity = OPACITY_ON_BUTTON_PRESS
-            sound_mixer.play("click")
-
-    def on_release(self):
-        self.release_function()
-        self.opacity = 1
-        return super().on_release()

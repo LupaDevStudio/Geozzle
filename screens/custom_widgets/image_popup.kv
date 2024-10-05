@@ -18,14 +18,29 @@
             text_font_name: PATH_TEXT_FONT
             background_color: root.secondary_color
             color_label: root.primary_color
-            release_function: root.release_function
+            release_function: root.close_popup
+
+        Image:
+            source: root.image_source
+            opacity: 1 if root.mode == "image" else 0
+            size_hint: (0.5, 0.7)
+            pos_hint: {"center_x":0.5,"center_y":0.6}
+            fit_mode: "cover"
+
+        # Badge of the right top corner of the image
+        Image:
+            source: root.badge_image_source
+            opacity: 1 if root.badge_mode else 0
+            size_hint: (0.2, None)
+            height: self.width
+            pos_hint: {"center_x":0.75, "center_y":0.9}
 
         FlagImage:
             source: root.image_source
             size_hint: (0.6,None)
             pos_hint: {"center_x":0.5,"center_y":0.6}
             primary_color: root.primary_color
-            disable_button : True
+            disable_button: True
             opacity: 1 if root.mode == "flag" else 0
             font_ratio: root.font_ratio
             stretch_mode: "width"
@@ -36,7 +51,7 @@
             pos_hint: {"center_x":0.5,"center_y":0.6}
             color: root.primary_color
             primary_color: root.primary_color
-            disable_button : True
+            disable_button: True
             opacity: 1 if root.mode == "geojson" else 0
             font_ratio: root.font_ratio
             stretch_mode: "width"

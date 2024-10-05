@@ -1,20 +1,70 @@
 {
-    "official_language": 1,
-    "motto": 2,
-    "anthem": 0.5,
-    "flag": 1,
-    "capital": 2,
-    "currency": 4,
-    "age_of_majority": 5,
-    "human_development_index": 5,
-    "country_calling_code": 4,
-    "license_plate_code": 2,
-    "nominal_GDP": 5,
-    "head_of_state": 1.5,
-    "head_of_government": 2,
-    "top_level_internet_domain": 0.5,
-    "driving_side": 5,
-    "area": 5,
-    "population": 4,
-    "ISO_3_code": 1
+    "official_language": {
+        "probability": 1,
+        "category": 2
+    },
+    "motto": {
+        "probability": 2,
+        "category": 2
+    },
+    "anthem": {
+        "probability": 0.5,
+        "category": 1
+    },
+    "flag": {
+        "probability": 1,
+        "category": 2
+    },
+    "capital": {
+        "probability": 2,
+        "category": 2
+    },
+    "currency": {
+        "probability": 4,
+        "category": 2
+    },
+    "age_of_majority": {
+        "probability": 5,
+        "category": 3
+    },
+    "country_calling_code": {
+        "probability": 4,
+        "category": 3
+    },
+    "license_plate_code": {
+        "probability": 0.5,
+        "category": 1
+    },
+    "nominal_GDP": {
+        "probability": 5,
+        "category": 3
+    },
+    "head_of_state": {
+        "probability": 2,
+        "category": 2
+    },
+    "head_of_government": {
+        "probability": 2,
+        "category": 2
+    },
+    "top_level_internet_domain": {
+        "probability": 0.5,
+        "category": 1
+    },
+    "driving_side": {
+        "probability": 5,
+        "category": 3
+    },
+    "area": {
+        "probability": 4,
+        "category": 3
+    },
+    "population": {
+        "probability": 4,
+        "category": 3
+    },
+    "ISO_3_code": {
+        "probability": 1,
+        "category": 2
+    }
 }
