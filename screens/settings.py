@@ -169,3 +169,6 @@ class SettingsScreen(GeozzleScreen):
         None
         """
         webbrowser.open("https://lupadevstudio.com", 2)
+
+    def open_sous_sous(self):
+        webbrowser.open("https://github.com/sponsors/LupaDevStudio", 2)

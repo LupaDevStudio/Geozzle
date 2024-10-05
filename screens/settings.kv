@@ -10,6 +10,15 @@
         height: self.width
         release_function: root.open_lupa_website
 
+    # Sous sous button
+    RoundedButtonImage:
+        image_path: PATH_IMAGES + "life_on.png"
+        pos_hint: {"right":0.95, "y":0.025}
+        size_hint: (LOGO_SIZE, None)
+        height: self.width
+        colors: root.continent_color
+        release_function: root.open_sous_sous
+
     # Language label
     Label:
         text: root.language_label
