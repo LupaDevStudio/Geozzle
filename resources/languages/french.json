@@ -17,8 +17,8 @@
     "gallery": {
         "points": "Points : [POINTS]",
         "buy_background": "Acheter 1 fond aléatoire\n[POINTS] points",
-        "new_background": "Bravo, tu as obtenu un nouveau fond !",
-        "already_bought_background": "Dommage, tu avais déjà ce fond..."
+        "new_background": "Bravo, vous avez obtenu un nouveau fond !",
+        "already_bought_background": "Dommage, vous aviez déjà ce fond..."
     },
     "stats": {
         "highscore": "Meilleur score : [HIGHSCORE]",
@@ -113,7 +113,7 @@
         "int_tutorial_1": "Cet écran vous permet de choisir des indices pour deviner un pays. Plus il y a d'étoiles, plus vous gagnerez de points. Commençons par la population !",
         "int_tutorial_2": "Vous pouvez voir ici les indices collectés. Choisissons-en un autre pour deviner plus facilement !",
         "int_tutorial_3": "Une fois que vous avez assez d'indices, vous pouvez proposer un pays. Allons-y !",
-        "buy_background_tutorial": "À l'aide des points récoltés au fur et à mesure des parties, vous pouvez acheter de nouveaux fonds. Voici 2000 points pour votre premier achat !",
+        "buy_background_tutorial": "À l'aide des points récoltés au fur et à mesure des parties, vous pouvez acheter de nouveaux fonds. Voici 5000 points pour votre premier achat !",
         "tutorial_content": [
             [
                 "Bienvenue dans le tutoriel de Geozzle !\n\nCliquez sur 'Suivant' pour continuer.",

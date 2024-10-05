@@ -112,7 +112,7 @@
         "int_tutorial_1": "This screen lets you choose clues to guess a country. The more stars, the more points. Let's start with the population!",
         "int_tutorial_2": "Here you can see the clues we've collected. Let's choose another one for an easier guess!",
         "int_tutorial_3": "Once you've got enough clues, you can suggest a country. Let's go !",
-        "buy_background_tutorial": "With the points gathered during the game, you can buy new backgrounds. Here are 2000 points for your first purchase!",
+        "buy_background_tutorial": "With the points gathered during the game, you can buy new backgrounds. Here are 5000 points for your first purchase!",
         "tutorial_content": [
             [
                 "Welcome to the Geozzle tutorial!\n\nClick 'Next' to continue.",

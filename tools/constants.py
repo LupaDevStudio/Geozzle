@@ -38,7 +38,7 @@ from tools.basic_tools import (
 
 ### Version ###
 
-__version__ = "2.0.0"
+__version__ = "2.0.2"
 
 ### Mode ###
 
@@ -129,7 +129,7 @@ SCORE_GUESSED_COUNTRY = 25
 
 ### Gallery ###
 
-PRICE_BACKGROUND = 2000
+PRICE_BACKGROUND = 5000
 
 ### Screen ###
 
