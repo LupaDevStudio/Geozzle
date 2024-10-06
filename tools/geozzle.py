@@ -42,17 +42,12 @@ from tools.basic_tools import (
 from tools.sparql import (
     request_all_clues
 )
-from tools.kivyreview import (
-    request_review
-)
 from tools.language_finder import (
     find_device_language
 )
 if ANDROID_MODE:
     from tools.kivads import (
-        RewardedInterstitial,
         RewardedAd,
-        TestID,
         InterstitialAd
     )
 

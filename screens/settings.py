@@ -25,8 +25,6 @@ from tools.path import (
 )
 from screens.custom_widgets import GeozzleScreen
 from tools.constants import (
-    BLACK,
-    GRAY,
     SCREEN_TITLE,
     SCREEN_ICON_LEFT_UP,
     __version__

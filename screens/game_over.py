@@ -57,6 +57,9 @@ from screens.custom_widgets import (
     EndGamePopup,
     GeozzleScreen
 )
+from tools.kivyreview import (
+    request_review
+)
 from tools import (
     sound_mixer,
     music_mixer
@@ -407,6 +410,11 @@ class GameOverScreen(GeozzleScreen):
             music_mixer.change_volume(0)
             INTERSTITIAL_AD_CONTAINER.watch_ad()
             Clock.schedule_once(self.reload_ad, 7)
+        elif USER_DATA.get_total_progress() > 10:
+            try:
+                request_review()
+            except:
+                pass
         self.go_to_home()
 
     def reload_ad(self, *args):
