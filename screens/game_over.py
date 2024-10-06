@@ -330,11 +330,12 @@ class GameOverScreen(GeozzleScreen):
 
     def finish_game(self, game_over_mode: bool = True):
 
+        # Avoid the problems with the negative lives
+        if USER_DATA.game.number_lives < 0:
+            USER_DATA.game.number_lives = 0
+
         # Get the number of lives
         number_of_lives = USER_DATA.game.number_lives
-        # Avoid the problems with the negative lives
-        if number_of_lives < 0:
-            number_of_lives = 0
 
         # Get the code of the country currently to guess
         if game_over_mode:
