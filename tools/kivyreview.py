@@ -7,7 +7,6 @@ if platform == "android":
 
     context = mActivity.getApplicationContext()
     YourReviewHandler = autoclass('org.org.kivyreview.ReviewHandler')
-    LanguageFinder = autoclass('org.org.kivyreview.LanguageFinder')
     PythonActivity = autoclass('org.kivy.android.PythonActivity')
 
     def request_review(*_):

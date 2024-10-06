@@ -2,11 +2,15 @@ from kivy.utils import platform
 
 
 if platform == "android":
-    from android import autoclass
-    LanguageFinder = autoclass('org.org.kivyreview.LanguageFinder')
+    from android import PythonJavaClass, autoclass, java_method, mActivity
+
+    context = mActivity.getApplicationContext()
+    LanguageFinder = autoclass('org.org.language_finder.LanguageFinder')
 
     def find_device_language(*_):
-        language = LanguageFinder.get_device_language()
+        language_finder = LanguageFinder()
+        language_finder.get_device_language()
+        language = language_finder.language
         print(language)
         return language
 else:
