@@ -45,6 +45,9 @@ from tools.sparql import (
 from tools.kivyreview import (
     request_review
 )
+from tools.language_finder import (
+    find_device_language
+)
 if ANDROID_MODE:
     from tools.kivads import (
         RewardedInterstitial,
@@ -1003,8 +1006,9 @@ class UserData():
             self.version = __version__
 
         self.game: Game = Game(data.get("game", {}))
+        device_language = self.get_device_language()
         self.language: Literal["english", "french"] = data.get(
-            "language", "english")
+            "language", device_language)
         self.sound_volume: float = data.get("sound_volume", 0.5)
         self.music_volume: float = data.get("music_volume", 0.5)
         self.highscore: int = data.get("highscore", 0)
@@ -1027,6 +1031,22 @@ class UserData():
 
         # Save changes
         self.save_changes()
+
+    @staticmethod
+    def get_device_language():
+        print("BABOU")
+        try:
+            language_code = find_device_language()
+            print(language_code)
+            if "fr" in language_code:
+                device_language = "french"
+            else:
+                device_language = "english"
+
+            return device_language
+        except Exception as error:
+            print(error)
+            return "english"
 
     def init_backgrounds(self):
         """

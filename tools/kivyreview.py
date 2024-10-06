@@ -7,6 +7,7 @@ if platform == "android":
 
     context = mActivity.getApplicationContext()
     YourReviewHandler = autoclass('org.org.kivyreview.ReviewHandler')
+    LanguageFinder = autoclass('org.org.kivyreview.LanguageFinder')
     PythonActivity = autoclass('org.kivy.android.PythonActivity')
 
     def request_review(*_):
@@ -15,4 +16,4 @@ if platform == "android":
         review_handler.requestReview()
 else:
     def request_review(*_):
-        print("In app review is only possible on android devices.")
+        print("In app review is only possible on Android devices.")
