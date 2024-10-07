@@ -206,7 +206,11 @@ class MainApp(App, Widget):
 if __name__ == "__main__":
     if not (ANDROID_MODE or IOS_MODE):
         Window.size = (405, 720)
+        # For screenshots for App Store Iphone
         # Window.size = (461, 1000)
+        # For screenshots for App Store Ipad
         # Window.size = (750, 1000)
+        # For screenshots for Play Store
+        # Window.size = (400, 720)
     main_app = MainApp()
     main_app.run()
