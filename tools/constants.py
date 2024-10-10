@@ -25,7 +25,8 @@ from tools.path import (
     PATH_QUERIES_CONTINENT,
     PATH_DICT_HINTS_INFORMATION,
     PATH_MULTIPLIERS_IMAGES,
-    PATH_NEW_IMAGES
+    PATH_NEW_IMAGES,
+    PATH_SECRETS_DICT
 )
 from tools.basic_tools import (
     load_json_file,
@@ -54,6 +55,12 @@ DEBUG_MODE = False
 FPS = 30
 MSAA_LEVEL = 2
 BACK_ARROW_SIZE = 0.2
+
+### Database connection ###
+
+SECRETS_DICT = load_json_file(PATH_SECRETS_DICT)
+SUPABASE_URL = SECRETS_DICT["supabase_url"]
+SUPABASE_API_KEY = SECRETS_DICT["api_key"]
 
 ### Data loading ###
 

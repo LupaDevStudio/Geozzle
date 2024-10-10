@@ -10,8 +10,12 @@ Module of the main backend of Geozzle.
 
 import random as rd
 import time
+import datetime
 import os
 from typing import Literal, Callable
+import uuid
+import requests
+import json
 
 ### Local imports ###
 
@@ -26,7 +30,9 @@ from tools.constants import (
     LIST_CONTINENTS,
     REWARD_AD,
     __version__,
-    INTERSTITIAL_AD
+    INTERSTITIAL_AD,
+    SUPABASE_URL,
+    SUPABASE_API_KEY
 )
 from tools.path import (
     PATH_BACKGROUNDS,
@@ -1023,13 +1029,16 @@ class UserData():
         if self.unlocked_backgrounds == []:
             self.init_backgrounds()
         self.gallery_tutorial = data.get("gallery_tutorial", True)
+        self.db_info = data.get("db_info", {})
+        if self.db_info == {}:
+            self.db_info["user_id"] = str(uuid.uuid4())
+            self.db_info["ranking"] = None
 
         # Save changes
         self.save_changes()
 
     @staticmethod
     def get_device_language():
-        print("BABOU")
         try:
             language_code = find_device_language()
             print(language_code)
@@ -1042,6 +1051,66 @@ class UserData():
         except Exception as error:
             print(error)
             return "english"
+
+    def get_world_ranking(self):
+        """
+        Get the world ranking of the user.
+        """
+
+        # Configure header
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {SUPABASE_API_KEY}",
+            "apikey": SUPABASE_API_KEY
+        }
+
+        # Do a GET request
+        response = requests.get(SUPABASE_URL, headers=headers)
+
+        # Check response
+        # TODO AGATHE : traiter les données pour trouver le rang
+        if response.status_code == 200:
+            data = response.json()
+            print("Données récupérées avec succès :",
+                  json.dumps(data, indent=4))
+        else:
+            print("Erreur lors de la récupération des données :",
+                  response.status_code, response.text)
+
+    def push_user_highscore(self):
+        """
+        Push the highscore of the user to the database.
+        """
+
+        # Create a timestamp
+        timestamp = datetime.datetime.now().isoformat() + "Z"
+
+        # Prepare the data
+        data = {
+            "id": self.db_info["user_id"],
+            "last_edited_at": timestamp,
+            "score": self.highscore
+        }
+
+        # Configure header
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {SUPABASE_API_KEY}",
+            "apikey": SUPABASE_API_KEY,
+            "Prefer": "return=representation"
+        }
+
+        # Do a POST request
+        response = requests.post(
+            SUPABASE_URL, headers=headers, data=json.dumps(data))
+
+        # Check response
+        # TODO Agathe : définir quoi faire si la requête échoue, rééssayer quelques fois ?
+        if response.status_code == 201:
+            print("Données insérées avec succès :", response.json())
+        else:
+            print("Erreur lors de l'insertion :",
+                  response.status_code, response.text)
 
     def init_backgrounds(self):
         """
@@ -1240,14 +1309,6 @@ class UserData():
     def save_changes(self) -> None:
         """
         Save the changes in the data.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
         """
 
         # Create the dictionary of data
@@ -1262,6 +1323,7 @@ class UserData():
         data["sound_volume"] = self.sound_volume
         data["unlocked_backgrounds"] = self.unlocked_backgrounds
         data["gallery_tutorial"] = self.gallery_tutorial
+        data["db_info"] = self.db_info
 
         # Save this dictionary
         save_json_file(
