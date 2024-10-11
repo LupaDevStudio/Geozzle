@@ -1100,43 +1100,46 @@ class UserData():
         """
         Push the highscore of the user to the database.
         """
-        # Create a timestamp
-        timestamp = datetime.datetime.now().isoformat() + "Z"
+        try:
+            # Create a timestamp
+            timestamp = datetime.datetime.now().isoformat() + "Z"
 
-        # Prepare the data
-        update_data = {
-            "last_edited_at": timestamp,
-            "score": self.highscore
-        }
+            # Prepare the data
+            update_data = {
+                "last_edited_at": timestamp,
+                "score": self.highscore
+            }
 
-        # Configure header
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {SUPABASE_API_KEY}",
-            "apikey": SUPABASE_API_KEY,
-            "Prefer": "return=representation"
-        }
+            # Configure header
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {SUPABASE_API_KEY}",
+                "apikey": SUPABASE_API_KEY,
+                "Prefer": "return=representation"
+            }
 
-        # Do a POST request
-        data = {"id": self.db_info["user_id"]}
-        for key in update_data:
-            data[key] = update_data[key]
-        response = requests.post(
-            SUPABASE_URL_SCORES, headers=headers, data=json.dumps(data))
+            # Do a POST request
+            data = {"id": self.db_info["user_id"]}
+            for key in update_data:
+                data[key] = update_data[key]
+            response = requests.post(
+                SUPABASE_URL_SCORES, headers=headers, data=json.dumps(data))
 
-        if response.status_code in [200, 201]:
-            print("Push réussi :", response.json())
-        else:
-            print(f"Erreur {response.status_code}: {response.text}")
-            # PATCH request to update the data
-            response = requests.patch(
-                f"{SUPABASE_URL_SCORES}?id=eq.{self.db_info['user_id']}",
-                headers=headers,
-                data=json.dumps(update_data))
             if response.status_code in [200, 201]:
-                print("Mise à jour réussie :", response.json())
+                print("Push réussi :", response.json())
             else:
                 print(f"Erreur {response.status_code}: {response.text}")
+                # PATCH request to update the data
+                response = requests.patch(
+                    f"{SUPABASE_URL_SCORES}?id=eq.{self.db_info['user_id']}",
+                    headers=headers,
+                    data=json.dumps(update_data))
+                if response.status_code in [200, 201]:
+                    print("Mise à jour réussie :", response.json())
+                else:
+                    print(f"Erreur {response.status_code}: {response.text}")
+        except:
+            return
 
     def push_user_data(self) -> bool:
         """
@@ -1187,34 +1190,34 @@ class UserData():
             return False
 
     def pull_user_data(self, user_id: str) -> bool:
-        # try:
-        # Configure header
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {SUPABASE_API_KEY}",
-            "apikey": SUPABASE_API_KEY
-        }
+        try:
+            # Configure header
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {SUPABASE_API_KEY}",
+                "apikey": SUPABASE_API_KEY
+            }
 
-        # Do a GET request for the score and the id only
-        response = requests.get(
-            f"{SUPABASE_URL_DATA}?id=eq.{user_id}",
-            headers=headers)
+            # Do a GET request for the score and the id only
+            response = requests.get(
+                f"{SUPABASE_URL_DATA}?id=eq.{user_id}",
+                headers=headers)
 
-        # Check response
-        if response.status_code == 200:
-            data: list = response.json()
-            print("Données récupérées avec succès :",
-                json.dumps(data, indent=4))
-            dict_to_load = json.loads(data[0]["user_data"])
-            self.load_data(data=dict_to_load)
-            self.save_changes()
-            return True
-        else:
-            print("Erreur lors de la récupération des données :",
-                response.status_code, response.text)
+            # Check response
+            if response.status_code == 200:
+                data: list = response.json()
+                print("Données récupérées avec succès :",
+                    json.dumps(data, indent=4))
+                dict_to_load = json.loads(data[0]["user_data"])
+                self.load_data(data=dict_to_load)
+                self.save_changes()
+                return True
+            else:
+                print("Erreur lors de la récupération des données :",
+                    response.status_code, response.text)
+                return False
+        except:
             return False
-        # except:
-        #     return False
 
     def init_backgrounds(self):
         """
