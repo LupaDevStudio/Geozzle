@@ -12,7 +12,22 @@
         "credits": "Crédits",
         "credits_text": "Jeu réalisé par :\n\nAgathe, Laure, Paul et Romain",
         "version": "Version [VERSION]",
-        "nb_credits": "Nombre de crédits : "
+        "nb_credits": "Nombre de crédits : ",
+        "cloud_popup_title": "Sauvegarde en ligne",
+        "cloud_popup_text": "Ici, vous pouvez gérer la sauvegarde en ligne de vos données de jeu.\n\nVoici votre identifiant unique, créé aléatoirement au premier lancement du jeu. Copiez-le pour récupérer vos données ultérieurement en cas de désinstallation de l'application ou en cas d'utilisation de Geozzle sur un autre appareil.",
+        "export_button": "Exporter mes données",
+        "import_button": "Importer des données",
+        "export_success_title": "Données exportées",
+        "export_success_text": "Vos données, associées à l'identifiant [USER_ID], ont bien été exportées sur la base de données en ligne.\n\nVous pourrez donc les récupérer ultérieurement sur un autre appareil ou alors en cas de désinstallation de l'application grâce à votre identifiant unique.\n\nPensez néanmoins à réexporter vos données si vous effectuez des modifications entre-temps. La sauvegarde n'est pas effectuée automatiquement.",
+        "export_fail_title": "Échec de l'export des données",
+        "export_fail_text": "L'export des données sur la base de données en ligne a échoué. Veuillez vérifier votre connexion ou revenir ultérieurement.",
+        "import_title": "Import de données",
+        "import_text": "Saisissez votre identifiant unique pour récupérer les données associées que vous avez exportées auparavant sur la base de données en ligne.",
+        "import_warning": "Récupérer les données en ligne liées à cet identifiant écrasera les données de cette partie en cours. Soyez sûr.e que les données sur la base en ligne sont bien celles que vous souhaitez conserver.",
+        "import_success_title": "Import des données réussi",
+        "import_success_text": "Les données associées à l'identifiant [USER_ID] ont bien été importées.",
+        "import_fail_title": "Échec de l'import des données",
+        "import_fail_text": "Les données n'ont pas pu être importées. Vérifiez l'identifiant unique vous avez entré ainsi que votre connexion, puis réessayez."
     },
     "gallery": {
         "points": "Points : [POINTS]",

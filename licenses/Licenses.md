@@ -24,3 +24,5 @@ The following list includes all the references of the assets used by this applic
 - <a href="https://www.flaticon.com/free-icons/picture" title="picture icons">Picture icons created by Pixel perfect - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/statistics" title="statistics icons">Statistics icons created by Freepik - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/like" title="like icons">Like icons created by Cuputo - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/warning" title="warning icons">Warning icons created by Fathema Khanom - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/rain" title="rain icons">Rain icons created by Shashank Singh - Flaticon</a>

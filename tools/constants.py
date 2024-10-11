@@ -59,7 +59,8 @@ BACK_ARROW_SIZE = 0.2
 ### Database connection ###
 
 SECRETS_DICT = load_json_file(PATH_SECRETS_DICT)
-SUPABASE_URL = SECRETS_DICT["supabase_url"]
+SUPABASE_URL_SCORES = SECRETS_DICT["supabase_url_scores"]
+SUPABASE_URL_DATA = SECRETS_DICT["supabase_url_data"]
 SUPABASE_API_KEY = SECRETS_DICT["api_key"]
 
 ### Data loading ###

@@ -12,7 +12,15 @@
         "credits": "Credits",
         "credits_text": "Game created by:\n\nAgathe, Laure, Paul and Romain",
         "version": "Version [VERSION]",
-        "nb_credits": "Number of credits: "
+        "nb_credits": "Number of credits: ",
+        "cloud_popup_title": "Sauvegarde en ligne",
+        "cloud_popup_text": "Ici, vous pouvez gérer la sauvegarde en ligne de vos données de jeu, afin de pouvoir les récupérer ultérieurement en cas de désinstallation de l'application ou en cas d'utilisation d'un autre appareil.\n\nVoici votre identifiant unique, créé aléatoirement au premier lancement du jeu. Copiez-le pour récupérer vos données.",
+        "export_button": "Exporter mes données",
+        "import_button": "Importer des données",
+        "export_success_title": "Données exportées",
+        "export_success_text": "Vos données, associées à l'identifiant [USER_ID] ont bien été exportées sur la base de données en ligne.\n\nVous pourrez donc les récupérer ultérieurement sur un autre appareil ou alors en cas de désinstallation de l'application grâce à votre identifiant unique.\n\nPensez néanmoins à réexporter vos données si vous effectuez des modifications entre-temps. La sauvegarde n'est pas effectuée automatiquement.",
+        "export_fail_title": "Échec de l'export des données",
+        "export_fail_text": "L'export des données sur la base de données en ligne a échoué. Veuillez vérifier votre connexion ou revenir ultérieurement."
     },
     "gallery": {
         "points": "Points: [POINTS]",
