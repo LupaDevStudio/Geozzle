@@ -1052,7 +1052,7 @@ class UserData():
             print(error)
             return "english"
 
-    def get_world_ranking(self):
+    def update_world_ranking(self):
         """
         Get the world ranking of the user.
         """
@@ -1065,14 +1065,25 @@ class UserData():
         }
 
         # Do a GET request
-        response = requests.get(SUPABASE_URL, headers=headers)
+        try:
+            response = requests.get(SUPABASE_URL, headers=headers)
+        except:
+            return
 
         # Check response
-        # TODO AGATHE : traiter les données pour trouver le rang
         if response.status_code == 200:
-            data = response.json()
+            data: list = response.json()
             print("Données récupérées avec succès :",
                   json.dumps(data, indent=4))
+            
+            # Treat data to find the rank
+            data.sort(key=lambda ud: ud["score"], reverse=True)
+            counter = 1
+            for user_data in data:
+                if user_data["id"] == self.db_info["user_id"]:
+                    self.db_info["ranking"] = counter
+                    return
+                counter += 1
         else:
             print("Erreur lors de la récupération des données :",
                   response.status_code, response.text)
@@ -1101,11 +1112,13 @@ class UserData():
         }
 
         # Do a POST request
-        response = requests.post(
-            SUPABASE_URL, headers=headers, data=json.dumps(data))
+        try:
+            response = requests.post(
+                SUPABASE_URL, headers=headers, data=json.dumps(data))
+        except:
+            return
 
         # Check response
-        # TODO Agathe : définir quoi faire si la requête échoue, rééssayer quelques fois ?
         if response.status_code == 201:
             print("Données insérées avec succès :", response.json())
         else:
@@ -1242,6 +1255,9 @@ class UserData():
         # Update the highscore if needed
         if score > self.highscore:
             self.highscore = score
+
+        # Push the highscore on the database
+        self.push_user_highscore()
 
         # Save the changes
         self.save_changes()

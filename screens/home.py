@@ -64,6 +64,7 @@ class HomeScreen(GeozzleScreen):
 
     highscore_label = StringProperty()
     play_label = StringProperty()
+    ranking_label = StringProperty()
 
     dict_type_screen = {
         SCREEN_ICON_LEFT_DOWN: {},
@@ -93,8 +94,21 @@ class HomeScreen(GeozzleScreen):
         self.play_label = TEXT.home["play"]
         self.highscore_label = TEXT.home["highscore"] + \
             str(USER_DATA.highscore)
+        
+        Clock.schedule_once(self.update_ranking)
+
+    def update_ranking(self, *args):
+        # Get the world ranking of the user
+        USER_DATA.update_world_ranking()
+        if USER_DATA.db_info["ranking"] is None:
+            self.ranking_label = ""
+        else:
+            self.ranking_label = TEXT.home["ranking"].replace(
+                "[RANK]", str(USER_DATA.db_info["ranking"]))
 
     def on_enter(self, *args):
+        super().on_enter(*args)
+
         if self.previous_screen_name == "":
             self.manager.propagate_background_on_other_screens()
 
@@ -125,8 +139,6 @@ class HomeScreen(GeozzleScreen):
                 USER_DATA.has_seen_popup_linconym = True
                 USER_DATA.save_changes()
                 popup.open()
-
-        return super().on_enter(*args)
 
     def go_to_linconym(self, popup: TwoButtonsImagePopup):
         popup.dismiss()

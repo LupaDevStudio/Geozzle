@@ -33,7 +33,8 @@
         "South_America": "Amérique du Sud",
         "Oceania": "Océanie",
         "highscore": "Meilleur score : ",
-        "play": "Jouer"
+        "play": "Jouer",
+        "ranking": "Classement mondial : [RANK]"
     },
     "popup": {
         "watch_ad": "Regarder",

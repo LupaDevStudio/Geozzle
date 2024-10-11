@@ -32,7 +32,8 @@
         "South_America": "South America",
         "Oceania": "Oceania",
         "highscore": "Highscore: ",
-        "play": "Play"
+        "play": "Play",
+        "ranking": "World ranking: [RANK]"
     },
     "popup": {
         "watch_ad": "Watch",
