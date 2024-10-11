@@ -218,6 +218,7 @@ class SettingsScreen(GeozzleScreen):
             title = TEXT.settings["import_success_title"]
             text = TEXT.settings["import_success_text"].replace(
                 "[USER_ID]", USER_DATA.db_info["user_id"])
+            self.update_settings_menu_after_import()
         else:
             title = TEXT.settings["import_fail_title"]
             text = TEXT.settings["import_fail_text"]
@@ -230,6 +231,11 @@ class SettingsScreen(GeozzleScreen):
             ok_button_label=TEXT.popup["close"],
         )
         popup.open()
+
+    def update_settings_menu_after_import(self):
+        self.change_language(code_language=USER_DATA.language)
+        self.music_volume = USER_DATA.music_volume
+        self.sound_volume = USER_DATA.sound_volume
 
     def open_lupa_website(self):
         """
