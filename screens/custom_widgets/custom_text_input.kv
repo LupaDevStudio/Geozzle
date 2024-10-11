@@ -1,0 +1,43 @@
+#:kivy 2.2.1
+
+<CustomTextInput>:
+
+    # Line on the bottom of the relative layout
+    canvas.before:
+        Color:
+            rgba: self.primary_color
+        Line:
+            points: [0, 0, self.width, 0]
+            width: self.line_width*self.font_ratio
+
+    TextInput:
+        id: text_input
+        text: root.text
+        pos_hint: {"x": 0, "center_y": 0.5}
+        size_hint: (1, None) if not root.copy_mode else (0.9, None)
+        font_size: root.font_size * root.font_ratio
+        font_name: root.path_font
+        foreground_color: BLACK # Color for the text
+        hint_text: root.hint_text
+        hint_text_color: GRAY
+        height: self.minimum_height
+        multiline: False
+        border: [0,0,0,0]
+        readonly: not root.write_mode
+        background_normal: ""
+        background_disabled_normal: ""
+        background_active: ""
+        background_color: [0,0,0,0]
+        cursor_color: root.primary_color
+        cursor_width: 2 * root.font_ratio
+        selection_color: (root.secondary_color[0], root.secondary_color[1], root.secondary_color[2], 0.5)
+
+    RoundedButtonImage:
+        image_path: PATH_IMAGES + "copy.png"
+        colors: root.primary_color
+        size_hint: (0.1, None)
+        height: self.width
+        pos_hint: {"center_y": 0.5, "right": 1}
+        opacity: 1 if root.copy_mode else 0
+        release_function: root.copy_text
+        disable_button: not root.copy_mode

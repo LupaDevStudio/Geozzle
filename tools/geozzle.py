@@ -31,7 +31,8 @@ from tools.constants import (
     REWARD_AD,
     __version__,
     INTERSTITIAL_AD,
-    SUPABASE_URL,
+    SUPABASE_URL_SCORES,
+    SUPABASE_URL_DATA,
     SUPABASE_API_KEY
 )
 from tools.path import (
@@ -997,6 +998,9 @@ class UserData():
 
     def __init__(self) -> None:
         data = load_json_file(PATH_USER_DATA)
+        self.load_data(data=data)
+
+    def load_data(self, data: dict):
         self.version: str = data.get("version", "")
         # Reset the data of the user (for the v1 of the game)
         if self.version == "":
@@ -1056,74 +1060,164 @@ class UserData():
         """
         Get the world ranking of the user.
         """
-
-        # Configure header
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {SUPABASE_API_KEY}",
-            "apikey": SUPABASE_API_KEY
-        }
-
-        # Do a GET request
         try:
-            response = requests.get(SUPABASE_URL, headers=headers)
-        except:
-            return
 
-        # Check response
-        if response.status_code == 200:
-            data: list = response.json()
-            print("Données récupérées avec succès :",
-                  json.dumps(data, indent=4))
-            
-            # Treat data to find the rank
-            data.sort(key=lambda ud: ud["score"], reverse=True)
-            counter = 1
-            for user_data in data:
-                if user_data["id"] == self.db_info["user_id"]:
-                    self.db_info["ranking"] = counter
-                    return
-                counter += 1
-        else:
-            print("Erreur lors de la récupération des données :",
-                  response.status_code, response.text)
+            # Configure header
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {SUPABASE_API_KEY}",
+                "apikey": SUPABASE_API_KEY
+            }
+
+            # Do a GET request for the score and the id only
+            response = requests.get(
+                f"{SUPABASE_URL_SCORES}?select=id,score",
+                headers=headers)
+
+            # Check response
+            if response.status_code == 200:
+                data: list = response.json()
+                print("Données récupérées avec succès :",
+                    json.dumps(data, indent=4))
+                
+                # Treat data to find the rank
+                data.sort(key=lambda ud: ud["score"], reverse=True)
+                counter = 1
+                for user_data in data:
+                    if user_data["id"] == self.db_info["user_id"]:
+                        self.db_info["ranking"] = counter
+                        return
+                    counter += 1
+            else:
+                print("Erreur lors de la récupération des données :",
+                    response.status_code, response.text)
+                
+        except:
+            print("An error occurred during the pull of the rank.")
+            return
 
     def push_user_highscore(self):
         """
         Push the highscore of the user to the database.
         """
-
-        # Create a timestamp
-        timestamp = datetime.datetime.now().isoformat() + "Z"
-
-        # Prepare the data
-        data = {
-            "id": self.db_info["user_id"],
-            "last_edited_at": timestamp,
-            "score": self.highscore
-        }
-
-        # Configure header
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {SUPABASE_API_KEY}",
-            "apikey": SUPABASE_API_KEY,
-            "Prefer": "return=representation"
-        }
-
-        # Do a POST request
         try:
+            # Create a timestamp
+            timestamp = datetime.datetime.now().isoformat() + "Z"
+
+            # Prepare the data
+            update_data = {
+                "last_edited_at": timestamp,
+                "score": self.highscore
+            }
+
+            # Configure header
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {SUPABASE_API_KEY}",
+                "apikey": SUPABASE_API_KEY,
+                "Prefer": "return=representation"
+            }
+
+            # Do a POST request
+            data = {"id": self.db_info["user_id"]}
+            for key in update_data:
+                data[key] = update_data[key]
             response = requests.post(
-                SUPABASE_URL, headers=headers, data=json.dumps(data))
+                SUPABASE_URL_SCORES, headers=headers, data=json.dumps(data))
+
+            if response.status_code in [200, 201]:
+                print("Push réussi :", response.json())
+            else:
+                print(f"Erreur {response.status_code}: {response.text}")
+                # PATCH request to update the data
+                response = requests.patch(
+                    f"{SUPABASE_URL_SCORES}?id=eq.{self.db_info['user_id']}",
+                    headers=headers,
+                    data=json.dumps(update_data))
+                if response.status_code in [200, 201]:
+                    print("Mise à jour réussie :", response.json())
+                else:
+                    print(f"Erreur {response.status_code}: {response.text}")
         except:
             return
 
-        # Check response
-        if response.status_code == 201:
-            print("Données insérées avec succès :", response.json())
-        else:
-            print("Erreur lors de l'insertion :",
-                  response.status_code, response.text)
+    def push_user_data(self) -> bool:
+        """
+        Push user data on the database.
+        """
+        try:
+            # Example of timestamp
+            timestamp = datetime.datetime.now().isoformat() + "Z"
+
+            # Prepare the data for the update
+            update_data = {
+                "last_edited_at": timestamp,
+                "user_data": json.dumps(self.export_data())
+            }
+
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {SUPABASE_API_KEY}",
+                "apikey": SUPABASE_API_KEY,
+                "Prefer": "return=representation"
+            }
+
+            # Do a POST request
+            data = {"id": self.db_info["user_id"]}
+            for key in update_data:
+                data[key] = update_data[key]
+            response = requests.post(
+                SUPABASE_URL_DATA, headers=headers, data=json.dumps(data))
+
+            if response.status_code in [200, 201]:
+                print("Push réussi :", response.json())
+            else:
+                print(f"Erreur {response.status_code}: {response.text}")
+                # PATCH request to update the data
+                response = requests.patch(
+                    f"{SUPABASE_URL_DATA}?id=eq.{self.db_info['user_id']}",
+                    headers=headers,
+                    data=json.dumps(update_data))
+                if response.status_code in [200, 201]:
+                    print("Mise à jour réussie :", response.json())
+                else:
+                    print(f"Erreur {response.status_code}: {response.text}")
+                    return False
+        
+            return True
+        
+        except:
+            return False
+
+    def pull_user_data(self, user_id: str) -> bool:
+        try:
+            # Configure header
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {SUPABASE_API_KEY}",
+                "apikey": SUPABASE_API_KEY
+            }
+
+            # Do a GET request for the score and the id only
+            response = requests.get(
+                f"{SUPABASE_URL_DATA}?id=eq.{user_id}",
+                headers=headers)
+
+            # Check response
+            if response.status_code == 200:
+                data: list = response.json()
+                print("Données récupérées avec succès :",
+                    json.dumps(data, indent=4))
+                dict_to_load = json.loads(data[0]["user_data"])
+                self.load_data(data=dict_to_load)
+                self.save_changes()
+                return True
+            else:
+                print("Erreur lors de la récupération des données :",
+                    response.status_code, response.text)
+                return False
+        except:
+            return False
 
     def init_backgrounds(self):
         """
@@ -1256,11 +1350,11 @@ class UserData():
         if score > self.highscore:
             self.highscore = score
 
-        # Push the highscore on the database
-        self.push_user_highscore()
-
         # Save the changes
         self.save_changes()
+
+        # Push the highscore on the database
+        self.push_user_highscore()
 
     def update_stats(self, dict_guessed_countries: dict, list_continents: list[str]):
         counter = 0
@@ -1322,11 +1416,7 @@ class UserData():
 
         return dict_return
 
-    def save_changes(self) -> None:
-        """
-        Save the changes in the data.
-        """
-
+    def export_data(self) -> dict:
         # Create the dictionary of data
         data = {}
         data["version"] = self.version
@@ -1340,6 +1430,15 @@ class UserData():
         data["unlocked_backgrounds"] = self.unlocked_backgrounds
         data["gallery_tutorial"] = self.gallery_tutorial
         data["db_info"] = self.db_info
+
+        return data
+
+    def save_changes(self) -> None:
+        """
+        Save the changes in the data.
+        """
+
+        data = self.export_data()
 
         # Save this dictionary
         save_json_file(

@@ -40,7 +40,10 @@ from tools import (
 )
 from screens.custom_widgets import (
     TutorialPopup,
-    MessagePopup
+    MessagePopup,
+    BigMessagePopup,
+    CloudPopup,
+    ImportPopup
 )
 
 #############
@@ -153,6 +156,86 @@ class SettingsScreen(GeozzleScreen):
             ok_button_label=TEXT.popup["close"],
         )
         popup.open()
+
+    def open_cloud_popup(self):
+        popup = CloudPopup(
+            primary_color=self.continent_color,
+            secondary_color=self.secondary_continent_color,
+            title=TEXT.settings["cloud_popup_title"],
+            center_label_text=TEXT.settings["cloud_popup_text"],
+            font_ratio=self.font_ratio,
+            close_button_label=TEXT.popup["close"],
+            left_button_label=TEXT.settings["export_button"],
+            left_release_function=self.export_data,
+            right_button_label=TEXT.settings["import_button"],
+            right_release_function=self.open_import_popup,
+            unique_id=USER_DATA.db_info["user_id"]
+        )
+        popup.open()
+
+    def export_data(self):
+        bool_success = USER_DATA.push_user_data()
+        if bool_success:
+            popup = BigMessagePopup(
+                primary_color=self.continent_color,
+                secondary_color=self.secondary_continent_color,
+                title=TEXT.settings["export_success_title"],
+                center_label_text=TEXT.settings["export_success_text"].replace(
+                    "[USER_ID]", USER_DATA.db_info["user_id"]),
+                font_ratio=self.font_ratio,
+                ok_button_label=TEXT.popup["close"],
+            )
+            popup.open()
+        else:
+            popup = MessagePopup(
+                primary_color=self.continent_color,
+                secondary_color=self.secondary_continent_color,
+                title=TEXT.settings["export_fail_title"],
+                center_label_text=TEXT.settings["export_fail_text"],
+                font_ratio=self.font_ratio,
+                ok_button_label=TEXT.popup["close"],
+            )
+            popup.open()
+
+    def open_import_popup(self):
+        popup = ImportPopup(
+            primary_color=self.continent_color,
+            secondary_color=self.secondary_continent_color,
+            title=TEXT.settings["import_title"],
+            right_button_label=TEXT.popup["validate"],
+            right_release_function=self.import_data,
+            left_button_label=TEXT.popup["cancel"],
+            center_label_text=TEXT.settings["import_text"],
+            warning_label_text=TEXT.settings["import_warning"],
+            font_ratio=self.font_ratio,
+            id_hint_text=TEXT.settings["id_hint_text"]
+        )
+        popup.open()
+
+    def import_data(self, user_id: str):
+        bool_success = USER_DATA.pull_user_data(user_id=user_id)
+        if bool_success:
+            title = TEXT.settings["import_success_title"]
+            text = TEXT.settings["import_success_text"].replace(
+                "[USER_ID]", USER_DATA.db_info["user_id"])
+            self.update_settings_menu_after_import()
+        else:
+            title = TEXT.settings["import_fail_title"]
+            text = TEXT.settings["import_fail_text"]
+        popup = MessagePopup(
+            primary_color=self.continent_color,
+            secondary_color=self.secondary_continent_color,
+            title=title,
+            center_label_text=text,
+            font_ratio=self.font_ratio,
+            ok_button_label=TEXT.popup["close"],
+        )
+        popup.open()
+
+    def update_settings_menu_after_import(self):
+        self.change_language(code_language=USER_DATA.language)
+        self.music_volume = USER_DATA.music_volume
+        self.sound_volume = USER_DATA.sound_volume
 
     def open_lupa_website(self):
         """

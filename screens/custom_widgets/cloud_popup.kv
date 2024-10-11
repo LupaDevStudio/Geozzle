@@ -1,0 +1,142 @@
+#:kivy 2.2.1
+
+
+<CloudPopup>:
+    
+    RelativeLayout:
+        id: popup_layout
+
+        ColoredRoundedButton:
+            id: close_button
+            size_hint: (0.4,0.15*6/7.5)
+            pos_hint: {"center_x":0.5,"center_y":0.12*6/7.5}
+            font_ratio: root.font_ratio
+            font_size: SMALL_BUTTON_FONT_SIZE
+            text: root.close_button_label
+            text_font_name: PATH_TEXT_FONT
+            background_color: root.secondary_color
+            color_label: root.primary_color
+            release_function: root.close_function
+
+        ColoredRoundedButton:
+            id: left_button
+            size_hint: (0.4,0.15*6/7.5)
+            pos_hint: {"center_x":0.25,"center_y":0.315*6/7.5}
+            font_ratio: root.font_ratio
+            font_size: SMALL_BUTTON_FONT_SIZE
+            text: root.left_button_label
+            text_font_name: PATH_TEXT_FONT
+            background_color: root.secondary_color
+            color_label: root.primary_color
+            release_function: root.left_function
+
+        ColoredRoundedButton:
+            id: right_button
+            size_hint: (0.4,0.15*6/7.5)
+            pos_hint: {"center_x":0.75,"center_y":0.315*6/7.5}
+            font_ratio: root.font_ratio
+            font_size: SMALL_BUTTON_FONT_SIZE
+            text: root.right_button_label
+            text_font_name: PATH_TEXT_FONT
+            background_color: root.secondary_color
+            color_label: root.primary_color
+            release_function: root.right_function
+        
+        Label:
+            id: center_label
+            size_hint: (0.9, 0.45)
+            pos_hint: {"center_x":0.5,"top":0.95}
+            font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
+            font_name: PATH_TEXT_FONT
+            text: root.center_label_text
+            size: self.size
+            shorten: False
+            text_size: (self.width,None)
+            color: (0,0,0,1)
+            halign: "center"
+            valign: "middle"
+
+        CustomTextInput:
+            id: id_text_input
+            text: root.unique_id
+            primary_color: root.primary_color
+            secondary_color: root.secondary_color
+            font_ratio: root.font_ratio
+            size_hint: (0.8, 0.1)
+            pos_hint: {"center_x": 0.5}
+            y: right_button.y + right_button.height + 0.075*root.height
+            write_mode: False
+            copy_mode: True
+
+<ImportPopup>:
+    
+    RelativeLayout:
+        id: popup_layout
+
+        ColoredRoundedButton:
+            id: left_button
+            size_hint: (0.4,0.15)
+            pos_hint: {"center_x":0.25,"center_y":0.12}
+            font_ratio: root.font_ratio
+            font_size: SMALL_BUTTON_FONT_SIZE
+            text: root.left_button_label
+            text_font_name: PATH_TEXT_FONT
+            background_color: root.secondary_color
+            color_label: root.primary_color
+            release_function: root.left_function
+
+        ColoredRoundedButton:
+            id: right_button
+            size_hint: (0.4,0.15)
+            pos_hint: {"center_x":0.75,"center_y":0.12}
+            font_ratio: root.font_ratio
+            font_size: SMALL_BUTTON_FONT_SIZE
+            text: root.right_button_label
+            text_font_name: PATH_TEXT_FONT
+            background_color: root.secondary_color
+            color_label: root.primary_color
+            release_function: root.right_function
+        
+        Label:
+            id: center_label
+            size_hint: (0.9, 0.2)
+            pos_hint: {"center_x":0.5,"top":0.95}
+            font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
+            font_name: PATH_TEXT_FONT
+            text: root.center_label_text
+            size: self.size
+            shorten: False
+            text_size: (self.width,None)
+            color: (0,0,0,1)
+            halign: "center"
+            valign: "middle"
+
+        CustomTextInput:
+            id: id_text_input
+            primary_color: root.primary_color
+            secondary_color: root.secondary_color
+            font_ratio: root.font_ratio
+            size_hint: (0.8, 0.1)
+            pos_hint: {"center_x": 0.5}
+            y: warning_label.y + warning_label.height
+            hint_text: root.id_hint_text
+
+        Image:
+            source: PATH_IMAGES + "warning.png"
+            size_hint: (0.15, None)
+            height: self.width
+            pos_hint: {"x": 0.05, "center_y": 0.012+0.075+0.05+0.25}
+
+        Label:
+            id: warning_label
+            size_hint: (0.7, 0.5)
+            pos_hint: {"x": 0.25, "center_y": 0.012+0.075+0.05+0.25}
+            font_size: SMALL_BUTTON_FONT_SIZE * root.font_ratio
+            font_name: PATH_TEXT_FONT
+            text: root.warning_label_text
+            size: self.size
+            shorten: False
+            text_size: (self.width,None)
+            color: (0,0,0,1)
+            halign: "justify"
+            valign: "middle"
