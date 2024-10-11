@@ -8,12 +8,8 @@ Module to create the home screen.
 
 ### Python imports ###
 
-import os
-import webbrowser
 import random as rd
-import time
 from functools import partial
-import copy
 from threading import Thread
 
 ### Kivy imports ###
@@ -27,15 +23,14 @@ from kivy.properties import (
 
 from tools.path import (
     PATH_TEXT_FONT,
-    PATH_IMAGES,
-    ANDROID_MODE,
-    IOS_MODE
+    PATH_MEDALS_IMAGES
 )
-from screens.custom_widgets import GeozzleScreen
+from screens.custom_widgets import (
+    GeozzleScreen
+)
 from tools.constants import (
     TIME_CHANGE_BACKGROUND,
     MAIN_MUSIC_NAME,
-    DICT_CONTINENT_SECOND_COLOR,
     SCREEN_ICON_LEFT_DOWN,
     SCREEN_ICON_RIGHT_DOWN,
     SCREEN_ICON_RIGHT_UP
@@ -46,11 +41,9 @@ from tools.geozzle import (
     SHARED_DATA
 )
 from tools import (
-    music_mixer,
-    sound_mixer
+    music_mixer
 )
 from screens.custom_widgets import (
-    TwoButtonsImagePopup,
     MessagePopup,
     LoadingPopup
 )
@@ -102,9 +95,18 @@ class HomeScreen(GeozzleScreen):
         USER_DATA.update_world_ranking()
         if USER_DATA.db_info["ranking"] is None:
             self.ranking_label = ""
+            self.ids.medal_rank.source = PATH_MEDALS_IMAGES + "no_medal.png"
         else:
             self.ranking_label = TEXT.home["ranking"].replace(
                 "[RANK]", str(USER_DATA.db_info["ranking"]))
+            if USER_DATA.db_info["ranking"] == 1:
+                self.ids.medal_rank.source = PATH_MEDALS_IMAGES + "gold.png"
+            elif USER_DATA.db_info["ranking"] == 2:
+                self.ids.medal_rank.source = PATH_MEDALS_IMAGES + "silver.png"
+            elif USER_DATA.db_info["ranking"] == 3:
+                self.ids.medal_rank.source = PATH_MEDALS_IMAGES + "bronze.png"
+            else:
+                self.ids.medal_rank.source = PATH_MEDALS_IMAGES + "no_medal.png"
 
     def on_enter(self, *args):
         super().on_enter(*args)
@@ -120,34 +122,32 @@ class HomeScreen(GeozzleScreen):
             Clock.schedule_interval(
                 self.manager.change_background, TIME_CHANGE_BACKGROUND)
 
-        # Maybe one day we'll use again this popup to present our next game
-        if False:
-            if USER_DATA.has_finished_one_continent() and not USER_DATA.has_seen_popup_linconym:
-                popup = TwoButtonsImagePopup(
-                    title="Linconym, the new game of LupaDevStudio",
-                    center_label_text="LupaDevStudio is pleased to present you its new game!\n\nDiscover Linconym, a letter game where your goal is to link words together by rearranging letters to form new ones.",
-                    image_source=PATH_IMAGES + "linconym_banner.png",
-                    left_button_label="Cancel",
-                    right_button_label="Discover",
-                    font_ratio=self.font_ratio,
-                    primary_color=self.continent_color,
-                    secondary_color=DICT_CONTINENT_SECOND_COLOR[
-                        self.code_continent],
-                )
-                popup.right_release_function = partial(
-                    self.go_to_linconym, popup)
-                USER_DATA.has_seen_popup_linconym = True
-                USER_DATA.save_changes()
-                popup.open()
+        # if USER_DATA.has_finished_one_continent() and not USER_DATA.has_seen_popup_linconym:
+        #     popup = TwoButtonsImagePopup(
+        #         title="Linconym, the new game of LupaDevStudio",
+        #         center_label_text="LupaDevStudio is pleased to present you its new game!\n\nDiscover Linconym, a letter game where your goal is to link words together by rearranging letters to form new ones.",
+        #         image_source=PATH_IMAGES + "linconym_banner.png",
+        #         left_button_label="Cancel",
+        #         right_button_label="Discover",
+        #         font_ratio=self.font_ratio,
+        #         primary_color=self.continent_color,
+        #         secondary_color=DICT_CONTINENT_SECOND_COLOR[
+        #             self.code_continent],
+        #     )
+        #     popup.right_release_function = partial(
+        #         self.go_to_linconym, popup)
+        #     USER_DATA.has_seen_popup_linconym = True
+        #     USER_DATA.save_changes()
+        #     popup.open()
 
-    def go_to_linconym(self, popup: TwoButtonsImagePopup):
-        popup.dismiss()
-        if ANDROID_MODE:
-            webbrowser.open(
-                "https://play.google.com/store/apps/details?id=lupadevstudio.com.linconym&pli=1", 2)
-        elif IOS_MODE:
-            webbrowser.open(
-                "https://apps.apple.com/app/linconym/id6503208610", 2)
+    # def go_to_linconym(self, popup: TwoButtonsImagePopup):
+    #     popup.dismiss()
+    #     if ANDROID_MODE:
+    #         webbrowser.open(
+    #             "https://play.google.com/store/apps/details?id=lupadevstudio.com.linconym&pli=1", 2)
+    #     elif IOS_MODE:
+    #         webbrowser.open(
+    #             "https://apps.apple.com/app/linconym/id6503208610", 2)
 
     def prepare_gui_to_play_game(self, has_success: bool, *_):
         if self.loading_popup is not None:
