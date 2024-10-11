@@ -39,7 +39,7 @@ from tools.basic_tools import (
 
 ### Version ###
 
-__version__ = "2.1.5"
+__version__ = "2.2.1"
 
 
 ### Debug ###
@@ -62,6 +62,7 @@ SECRETS_DICT = load_json_file(PATH_SECRETS_DICT)
 SUPABASE_URL_SCORES = SECRETS_DICT["supabase_url_scores"]
 SUPABASE_URL_DATA = SECRETS_DICT["supabase_url_data"]
 SUPABASE_API_KEY = SECRETS_DICT["api_key"]
+SUPABASE_TIMEOUT = 3
 
 ### Data loading ###
 

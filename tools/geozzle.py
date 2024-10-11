@@ -33,7 +33,8 @@ from tools.constants import (
     INTERSTITIAL_AD,
     SUPABASE_URL_SCORES,
     SUPABASE_URL_DATA,
-    SUPABASE_API_KEY
+    SUPABASE_API_KEY,
+    SUPABASE_TIMEOUT
 )
 from tools.path import (
     PATH_BACKGROUNDS,
@@ -1072,14 +1073,14 @@ class UserData():
             # Do a GET request for the score and the id only
             response = requests.get(
                 f"{SUPABASE_URL_SCORES}?select=id,score",
-                headers=headers)
+                headers=headers, timeout=SUPABASE_TIMEOUT)
 
             # Check response
             if response.status_code == 200:
                 data: list = response.json()
                 print("Données récupérées avec succès :",
-                    json.dumps(data, indent=4))
-                
+                      json.dumps(data, indent=4))
+
                 # Treat data to find the rank
                 data.sort(key=lambda ud: ud["score"], reverse=True)
                 counter = 1
@@ -1090,8 +1091,8 @@ class UserData():
                     counter += 1
             else:
                 print("Erreur lors de la récupération des données :",
-                    response.status_code, response.text)
-                
+                      response.status_code, response.text)
+
         except:
             print("An error occurred during the pull of the rank.")
             return
@@ -1123,7 +1124,7 @@ class UserData():
             for key in update_data:
                 data[key] = update_data[key]
             response = requests.post(
-                SUPABASE_URL_SCORES, headers=headers, data=json.dumps(data))
+                SUPABASE_URL_SCORES, headers=headers, data=json.dumps(data), timeout=SUPABASE_TIMEOUT)
 
             if response.status_code in [200, 201]:
                 print("Push réussi :", response.json())
@@ -1133,7 +1134,7 @@ class UserData():
                 response = requests.patch(
                     f"{SUPABASE_URL_SCORES}?id=eq.{self.db_info['user_id']}",
                     headers=headers,
-                    data=json.dumps(update_data))
+                    data=json.dumps(update_data), timeout=SUPABASE_TIMEOUT)
                 if response.status_code in [200, 201]:
                     print("Mise à jour réussie :", response.json())
                 else:
@@ -1167,7 +1168,7 @@ class UserData():
             for key in update_data:
                 data[key] = update_data[key]
             response = requests.post(
-                SUPABASE_URL_DATA, headers=headers, data=json.dumps(data))
+                SUPABASE_URL_DATA, headers=headers, data=json.dumps(data), timeout=SUPABASE_TIMEOUT)
 
             if response.status_code in [200, 201]:
                 print("Push réussi :", response.json())
@@ -1177,15 +1178,15 @@ class UserData():
                 response = requests.patch(
                     f"{SUPABASE_URL_DATA}?id=eq.{self.db_info['user_id']}",
                     headers=headers,
-                    data=json.dumps(update_data))
+                    data=json.dumps(update_data), timeout=SUPABASE_TIMEOUT)
                 if response.status_code in [200, 201]:
                     print("Mise à jour réussie :", response.json())
                 else:
                     print(f"Erreur {response.status_code}: {response.text}")
                     return False
-        
+
             return True
-        
+
         except:
             return False
 
@@ -1201,20 +1202,20 @@ class UserData():
             # Do a GET request for the score and the id only
             response = requests.get(
                 f"{SUPABASE_URL_DATA}?id=eq.{user_id}",
-                headers=headers)
+                headers=headers, timeout=SUPABASE_TIMEOUT)
 
             # Check response
             if response.status_code == 200:
                 data: list = response.json()
                 print("Données récupérées avec succès :",
-                    json.dumps(data, indent=4))
+                      json.dumps(data, indent=4))
                 dict_to_load = json.loads(data[0]["user_data"])
                 self.load_data(data=dict_to_load)
                 self.save_changes()
                 return True
             else:
                 print("Erreur lors de la récupération des données :",
-                    response.status_code, response.text)
+                      response.status_code, response.text)
                 return False
         except:
             return False

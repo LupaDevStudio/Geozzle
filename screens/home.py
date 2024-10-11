@@ -14,7 +14,7 @@ from threading import Thread
 
 ### Kivy imports ###
 
-from kivy.clock import Clock
+from kivy.clock import Clock, mainthread
 from kivy.properties import (
     StringProperty
 )
@@ -87,12 +87,13 @@ class HomeScreen(GeozzleScreen):
         self.play_label = TEXT.home["play"]
         self.highscore_label = TEXT.home["highscore"] + \
             str(USER_DATA.highscore)
-        
-        Clock.schedule_once(self.update_ranking)
 
-    def update_ranking(self, *args):
-        # Get the world ranking of the user
-        USER_DATA.update_world_ranking()
+        ranking_update_thread = Thread(target=self.update_ranking)
+        # Clock.schedule_once(self.update_ranking)
+        ranking_update_thread.start()
+
+    @mainthread
+    def update_ranking_display(self, *args):
         if USER_DATA.db_info["ranking"] is None:
             self.ranking_label = ""
             self.ids.medal_rank.source = PATH_MEDALS_IMAGES + "no_medal.png"
@@ -107,6 +108,11 @@ class HomeScreen(GeozzleScreen):
                 self.ids.medal_rank.source = PATH_MEDALS_IMAGES + "bronze.png"
             else:
                 self.ids.medal_rank.source = PATH_MEDALS_IMAGES + "no_medal.png"
+
+    def update_ranking(self, *args):
+        # Get the world ranking of the user
+        USER_DATA.update_world_ranking()
+        Clock.schedule_once(self.update_ranking_display)
 
     def on_enter(self, *args):
         super().on_enter(*args)
