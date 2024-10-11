@@ -9,6 +9,7 @@ Module to create a custom text input with an icon on the left.
 ### Kivy imports ###
 
 from kivy.uix.relativelayout import RelativeLayout
+from kivy.core.clipboard import Clipboard
 from kivy.properties import (
     StringProperty,
     BooleanProperty,
@@ -39,6 +40,7 @@ class CustomTextInput(RelativeLayout):
 
     hint_text = StringProperty()
     write_mode = BooleanProperty(True)
+    copy_mode = BooleanProperty(False)
 
     primary_color = ColorProperty(BLACK)
     secondary_color = ColorProperty(GRAY)
@@ -56,3 +58,6 @@ class CustomTextInput(RelativeLayout):
 
     def get_input_text(self):
         return self.ids.text_input.text
+
+    def copy_text(self):
+        Clipboard.copy(self.get_input_text())
