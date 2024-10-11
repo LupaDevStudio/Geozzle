@@ -1187,33 +1187,34 @@ class UserData():
             return False
 
     def pull_user_data(self, user_id: str) -> bool:
-        try:
-            # Configure header
-            headers = {
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {SUPABASE_API_KEY}",
-                "apikey": SUPABASE_API_KEY
-            }
+        # try:
+        # Configure header
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {SUPABASE_API_KEY}",
+            "apikey": SUPABASE_API_KEY
+        }
 
-            # Do a GET request for the score and the id only
-            response = requests.get(
-                f"{SUPABASE_URL_SCORES}?id=eq.{user_id}",
-                headers=headers)
+        # Do a GET request for the score and the id only
+        response = requests.get(
+            f"{SUPABASE_URL_DATA}?id=eq.{user_id}",
+            headers=headers)
 
-            # Check response
-            if response.status_code == 200:
-                data: list = response.json()
-                print("Données récupérées avec succès :",
-                    json.dumps(data, indent=4))
-                self.load_data(data=data)
-                self.save_changes()
-                return True
-            else:
-                print("Erreur lors de la récupération des données :",
-                    response.status_code, response.text)
-                return False
-        except:
+        # Check response
+        if response.status_code == 200:
+            data: list = response.json()
+            print("Données récupérées avec succès :",
+                json.dumps(data, indent=4))
+            dict_to_load = json.loads(data[0]["user_data"])
+            self.load_data(data=dict_to_load)
+            self.save_changes()
+            return True
+        else:
+            print("Erreur lors de la récupération des données :",
+                response.status_code, response.text)
             return False
+        # except:
+        #     return False
 
     def init_backgrounds(self):
         """

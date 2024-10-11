@@ -22,12 +22,13 @@
         "export_fail_title": "Échec de l'export des données",
         "export_fail_text": "L'export des données sur la base de données en ligne a échoué. Veuillez vérifier votre connexion ou revenir ultérieurement.",
         "import_title": "Import de données",
-        "import_text": "Saisissez votre identifiant unique pour récupérer les données associées que vous avez exportées auparavant sur la base de données en ligne.",
-        "import_warning": "Récupérer les données en ligne liées à cet identifiant écrasera les données de cette partie en cours. Soyez sûr.e que les données sur la base en ligne sont bien celles que vous souhaitez conserver.",
+        "import_text": "Saisissez votre identifiant unique pour récupérer les données associées, que vous avez exportées auparavant.",
+        "import_warning": "Récupérer les données en ligne liées à cet identifiant écrasera les données du jeu en cours. Assurez-vous que les données en ligne soient bien celles que vous souhaitez conserver.",
         "import_success_title": "Import des données réussi",
         "import_success_text": "Les données associées à l'identifiant [USER_ID] ont bien été importées.",
         "import_fail_title": "Échec de l'import des données",
-        "import_fail_text": "Les données n'ont pas pu être importées. Vérifiez l'identifiant unique vous avez entré ainsi que votre connexion, puis réessayez."
+        "import_fail_text": "Les données n'ont pas pu être importées. Vérifiez l'identifiant unique vous avez entré ainsi que votre connexion, puis réessayez.",
+        "id_hint_text": "Identifiant à saisir"
     },
     "gallery": {
         "points": "Points : [POINTS]",
@@ -55,6 +56,7 @@
         "watch_ad": "Regarder",
         "close": "Fermer",
         "cancel": "Annuler",
+        "validate": "Valider",
         "yes": "Oui",
         "no": "Non",
         "loading": "Chargement...",

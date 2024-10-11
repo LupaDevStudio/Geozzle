@@ -42,7 +42,8 @@ from screens.custom_widgets import (
     TutorialPopup,
     MessagePopup,
     BigMessagePopup,
-    CloudPopup
+    CloudPopup,
+    ImportPopup
 )
 
 #############
@@ -197,7 +198,19 @@ class SettingsScreen(GeozzleScreen):
             popup.open()
 
     def open_import_popup(self):
-        print("OPEN POPUP")
+        popup = ImportPopup(
+            primary_color=self.continent_color,
+            secondary_color=self.secondary_continent_color,
+            title=TEXT.settings["import_title"],
+            right_button_label=TEXT.popup["validate"],
+            right_release_function=self.import_data,
+            left_button_label=TEXT.popup["cancel"],
+            center_label_text=TEXT.settings["import_text"],
+            warning_label_text=TEXT.settings["import_warning"],
+            font_ratio=self.font_ratio,
+            id_hint_text=TEXT.settings["id_hint_text"]
+        )
+        popup.open()
 
     def import_data(self, user_id: str):
         bool_success = USER_DATA.pull_user_data(user_id=user_id)
