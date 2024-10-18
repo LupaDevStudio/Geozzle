@@ -2,7 +2,8 @@
     "titles": {
         "settings": "Settings",
         "stats": "Statistics",
-        "gallery": "Gallery"
+        "gallery": "Gallery",
+        "world_ranking": "World ranking"
     },
     "settings": {
         "music": "Music volume",
@@ -39,6 +40,9 @@
     "stats": {
         "highscore": "Highscore: [HIGHSCORE]",
         "details": "Details"
+    },
+    "world_ranking": {
+        "rank": "[RANK]   -   [SCORE]"
     },
     "home": {
         "Europe": "Europe",

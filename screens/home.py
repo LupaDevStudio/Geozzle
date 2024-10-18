@@ -31,6 +31,7 @@ from screens.custom_widgets import (
 from tools.constants import (
     TIME_CHANGE_BACKGROUND,
     MAIN_MUSIC_NAME,
+    SCREEN_ICON_LEFT_UP,
     SCREEN_ICON_LEFT_DOWN,
     SCREEN_ICON_RIGHT_DOWN,
     SCREEN_ICON_RIGHT_UP
@@ -88,8 +89,8 @@ class HomeScreen(GeozzleScreen):
         self.highscore_label = TEXT.home["highscore"] + \
             str(USER_DATA.highscore)
 
+        self.ids.world_ranking_button.disable_button = True
         ranking_update_thread = Thread(target=self.update_ranking)
-        # Clock.schedule_once(self.update_ranking)
         ranking_update_thread.start()
 
     @mainthread
@@ -113,6 +114,9 @@ class HomeScreen(GeozzleScreen):
         # Get the world ranking of the user
         USER_DATA.update_world_ranking()
         Clock.schedule_once(self.update_ranking_display)
+
+        # Enable the button when the pull request is over
+        self.ids.world_ranking_button.disable_button = False
 
     def on_enter(self, *args):
         super().on_enter(*args)
@@ -154,6 +158,11 @@ class HomeScreen(GeozzleScreen):
     #     elif IOS_MODE:
     #         webbrowser.open(
     #             "https://apps.apple.com/app/linconym/id6503208610", 2)
+
+    def go_to_world_ranking(self):
+        self.manager.get_screen(
+            "world_ranking").previous_screen_name = self.manager.current
+        self.manager.current = "world_ranking"
 
     def prepare_gui_to_play_game(self, has_success: bool, *_):
         if self.loading_popup is not None:

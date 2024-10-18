@@ -63,7 +63,8 @@ class OpeningScreen(ImprovedScreen):
             SettingsScreen,
             GalleryScreen,
             StatsScreen,
-            StatsContinentScreen
+            StatsContinentScreen,
+            WorldRankingScreen
         )
 
         screen_files = [file for file in os.listdir(
@@ -84,6 +85,7 @@ class OpeningScreen(ImprovedScreen):
         self.GalleryScreen = GalleryScreen
         self.StatsScreen = StatsScreen
         self.StatsContinentScreen = StatsContinentScreen
+        self.WorldRankingScreen = WorldRankingScreen
 
         Clock.schedule_once(self.load_other_screens)
 
@@ -109,4 +111,7 @@ class OpeningScreen(ImprovedScreen):
         self.manager.add_widget(stats_screen)
         stats_continent_screen = self.StatsContinentScreen(name="stats_continent")
         self.manager.add_widget(stats_continent_screen)
+        world_ranking_screen = self.WorldRankingScreen(name="world_ranking")
+        self.manager.add_widget(world_ranking_screen)
         Clock.schedule_once(self.switch_to_menu)
+        

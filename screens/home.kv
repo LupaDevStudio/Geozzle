@@ -11,6 +11,15 @@
         outline_color: TITLE_OUTLINE_COLOR
         color: root.continent_color
 
+    RoundedButtonImage:
+        id: world_ranking_button
+        pos_hint: {"x":0.05, "top":0.975}
+        size_hint: (LOGO_SIZE, None)
+        height: self.width
+        colors: root.continent_color
+        image_path: PATH_IMAGES + "world_ranking.png"
+        release_function: root.go_to_world_ranking
+
     # Play button
     CustomButton:
         id: play_button

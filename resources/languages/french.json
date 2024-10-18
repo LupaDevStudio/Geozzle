@@ -2,7 +2,8 @@
     "titles": {
         "settings": "Paramètres",
         "stats": "Statistiques",
-        "gallery": "Galerie"
+        "gallery": "Galerie",
+        "world_ranking": "Classement mondial"
     },
     "settings": {
         "music": "Volume de la musique",

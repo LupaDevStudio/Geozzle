@@ -1083,10 +1083,12 @@ class UserData():
 
                 # Treat data to find the rank
                 data.sort(key=lambda ud: ud["score"], reverse=True)
+                self.db_info["world_ranking"] = data
                 counter = 1
                 for user_data in data:
                     if user_data["id"] == self.db_info["user_id"]:
                         self.db_info["ranking"] = counter
+                        self.save_changes()
                         return
                     counter += 1
             else:
