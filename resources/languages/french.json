@@ -85,8 +85,8 @@
         "game_over_title": "Fin du jeu",
         "game_over_text": "Vous avez perdu toutes vos vies. Le pays à deviner était [COUNTRY].",
         "total_score": "TOTAL",
-        "guessed": "Pays deviné",
-        "clues": "Indices utilisés",
+        "guessed": "Points du pays",
+        "clues": "Points des indices",
         "multiplier": "Multiplicateur"
     },
     "game_question": {

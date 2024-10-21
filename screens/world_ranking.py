@@ -106,7 +106,7 @@ class WorldRankingScreen(GeozzleScreen):
         NUMBER_TO_DISPLAY_AROUND = 10
 
         # If there are less than 30 scores, display all scores
-        if len(USER_DATA.db_info["world_ranking"]) <= MAX_NUMBER_TO_DISPLAY:
+        if len(USER_DATA.db_info["world_ranking"]) <= MAX_NUMBER_TO_DISPLAY or USER_DATA.db_info["ranking"] is None:
             list_scores_to_display = self.fill_list_scores_to_display(
                 list_scores_to_display=list_scores_to_display,
                 lower_bound=0,
@@ -150,29 +150,33 @@ class WorldRankingScreen(GeozzleScreen):
                     size_hint=(1, None),
                     height=height
                 )
-                ### Rank label or image ###
+
+                ### Rank label ###
+                rank_label = Label(
+                    text=str(rank),
+                    font_name=self.font_name,
+                    font_size=SUB_TEXT_FONT_SIZE * self.font_ratio,
+                    size_hint=(1, 1),
+                    halign="left",
+                    valign="middle",
+                    color=color,
+                    outline_width=1*self.font_ratio,
+                    outline_color=WHITE
+                )
+                rank_label.bind(size=rank_label.setter('text_size'))
+                relative_layout.add_widget(rank_label)
+
+                ### Rank image for the three first ones ###
                 if rank <= 3:
-                    rank_widget = Image(
+                    rank_image = Image(
                         source=DICT_MEDALS[rank],
                         size_hint=(None, 1),
                         width=height,
-                        pos_hint={"center_y": 0.5}
+                        pos_hint={"center_y": 0.5},
+                        x=height+1*self.font_ratio
                     )
-                else:
-                    rank_widget = Label(
-                        text=str(rank),
-                        font_name=self.font_name,
-                        font_size=SUB_TEXT_FONT_SIZE * self.font_ratio,
-                        size_hint=(1, 1),
-                        halign="left",
-                        valign="middle",
-                        color=color,
-                        outline_width=1*self.font_ratio,
-                        outline_color=WHITE
-                    )
-                    rank_widget.bind(size=rank_widget.setter('text_size'))
-                relative_layout.add_widget(rank_widget)
-                
+                    relative_layout.add_widget(rank_image)
+
                 ### Score label ###
                 score_label = Label(
                     text=str(score),
@@ -188,11 +192,12 @@ class WorldRankingScreen(GeozzleScreen):
                 )
                 score_label.bind(size=score_label.setter('text_size'))
                 relative_layout.add_widget(score_label)
+
                 scrollview_layout.add_widget(relative_layout)
 
             else:
                 label = Label(
-                    text="\n\n\n.\n.\n.\n\n\n",
+                    text=".\n.\n.",
                     font_name=self.font_name,
                     font_size=SUB_TEXT_FONT_SIZE * self.font_ratio,
                     size_hint=(1, None),

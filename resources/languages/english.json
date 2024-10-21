@@ -87,8 +87,8 @@
         "game_over_title": "Game over",
         "game_over_text": "You lost all your lives. The country to guess was [COUNTRY].",
         "total_score": "TOTAL",
-        "guessed": "Guessed country",
-        "clues": "Used clues",
+        "guessed": "Points for country",
+        "clues": "Points for clues",
         "multiplier": "Multiplier"
     },
     "game_question": {
