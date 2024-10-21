@@ -8,7 +8,7 @@
         text: root.title_label
         font_name: PATH_TITLE_FONT
         font_size: MAIN_TEXT_FONT_SIZE * root.font_ratio
-        pos_hint: {"center_x":0.5, "center_y":0.66}
+        pos_hint: {"center_x":0.5, "center_y":0.675}
         outline_width: max(SUBTITLE_OUTLINE_WIDTH * root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
         color: root.continent_color
@@ -24,7 +24,7 @@
         background_color: root.secondary_continent_color
         text: root.hint_1
         font_size: BUTTON_FONT_SIZE
-        pos_hint: {"center_x":0.5, "center_y":0.55}
+        pos_hint: {"center_x":0.5, "center_y":0.57}
         size_hint: (0.75, 0.10)
         color_label: root.continent_color
         font_ratio: root.font_ratio
@@ -36,7 +36,7 @@
         border: root.continent_color
         text: root.hint_2
         font_size: BUTTON_FONT_SIZE
-        pos_hint: {"center_x":0.5, "center_y":0.4}
+        pos_hint: {"center_x":0.5, "center_y":0.445}
         size_hint: (0.75, 0.10)
         color_label: root.continent_color
         font_ratio: root.font_ratio
@@ -47,7 +47,7 @@
         background_color: root.secondary_continent_color
         text: root.hint_3
         font_size: BUTTON_FONT_SIZE
-        pos_hint: {"center_x":0.5, "center_y":0.25}
+        pos_hint: {"center_x":0.5, "center_y":0.32}
         size_hint: (0.75, 0.10)
         color_label: root.continent_color
         font_ratio: root.font_ratio
@@ -58,8 +58,20 @@
         background_color: root.secondary_continent_color
         text: root.hint_4
         font_size: BUTTON_FONT_SIZE
-        pos_hint: {"center_x":0.5, "center_y":0.1}
+        pos_hint: {"center_x":0.5, "center_y":0.195}
         size_hint: (0.75, 0.10)
         color_label: root.continent_color
         font_ratio: root.font_ratio
         number_stars: root.number_stars_4
+
+    # Button to go to the list of clues
+    ColoredRoundedButton:
+        id: clue_button
+        text: root.list_of_clues_label
+        font_size: BUTTON_FONT_SIZE
+        pos_hint: {"center_x":0.5, "y":0.025}
+        size_hint: (0.4, 0.075)
+        release_function: root.go_to_game_summary
+        font_ratio: root.font_ratio
+        color_label: root.continent_color
+        background_color: root.secondary_continent_color

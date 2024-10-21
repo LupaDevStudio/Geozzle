@@ -90,7 +90,8 @@
         "multiplier": "Multiplicateur"
     },
     "game_question": {
-        "title": "Choisissez un nouvel indice"
+        "title": "Choisissez un nouvel indice",
+        "list_of_clues": "Liste des indices"
     },
     "game_summary": {
         "i_found": "J'ai trouvé !",

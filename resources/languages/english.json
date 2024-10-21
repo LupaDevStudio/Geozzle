@@ -92,7 +92,8 @@
         "multiplier": "Multiplier"
     },
     "game_question": {
-        "title": "Choose a clue"
+        "title": "Choose a clue",
+        "list_of_clues": "List of clues"
     },
     "game_summary": {
         "i_found": "I've found!",

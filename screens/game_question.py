@@ -49,6 +49,7 @@ from screens.custom_widgets import GeozzleScreen, TutorialView, MessagePopup
 class GameQuestionScreen(GeozzleScreen):
 
     title_label = StringProperty()
+    list_of_clues_label = StringProperty()
     hint_1 = StringProperty()
     hint_2 = StringProperty()
     hint_3 = StringProperty()
@@ -113,6 +114,7 @@ class GameQuestionScreen(GeozzleScreen):
         -------
         None
         """
+        self.list_of_clues_label = TEXT.game_question["list_of_clues"]
         self.dict_type_screen[SCREEN_TITLE]["title"] = TEXT.home[self.code_continent]
 
         # Display the four hints randomly chosen
