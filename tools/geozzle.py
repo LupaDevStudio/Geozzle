@@ -652,7 +652,11 @@ class Game():
                 self.choose_clues()
                 # Set the population as the first clue to guess in the tutorial
                 if self.tutorial_mode and self.detect_tutorial_number_clue(number_clue=0):
-                    self.list_current_clues[2] = "population"
+                    if self.list_current_clues[2] != "population":
+                        other_clue = self.list_current_clues[2]
+                        self.list_current_clues[2] = "population"
+                        if self.list_current_clues[3] == "population":
+                            self.list_current_clues[3] = other_clue
 
             # Save the changes
             USER_DATA.save_changes()
@@ -725,7 +729,11 @@ class Game():
         self.choose_clues()
         # Set the flag as the second clue to guess in the tutorial
         if self.tutorial_mode and self.detect_tutorial_number_clue(number_clue=1):
-            self.list_current_clues[1] = "flag"
+            if self.list_current_clues[1] != "flag":
+                other_clue = self.list_current_clues[1]
+                self.list_current_clues[1] = "flag"
+                if self.list_current_clues[3] == "flag":
+                    self.list_current_clues[3] = other_clue
 
         # Save the changes
         USER_DATA.save_changes()

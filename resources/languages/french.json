@@ -130,10 +130,10 @@
         "next": "Suivant",
         "previous": "Précédent",
         "close": "Fermer",
-        "int_tutorial_1": "Cet écran vous permet de choisir des indices pour deviner un pays. Plus il y a d'étoiles, plus vous gagnerez de points. Commençons par la population !",
-        "int_tutorial_2": "Vous pouvez voir ici les indices collectés. Choisissons-en un autre pour deviner plus facilement !",
+        "int_tutorial_1": "Cet écran vous permet de choisir des indices pour deviner un pays. Les indices sont répartis en trois catégories, symbolisées par le nombre d'étoiles. Plus il y a d'étoiles, plus vous gagnerez de points.\nCommençons par la population !",
+        "int_tutorial_2": "Vous pouvez voir ici les indices collectés. \nChoisissons-en un autre pour deviner plus facilement : n'utiliser que des indices trois étoiles peut être trop dur pour commencer !",
         "int_tutorial_3": "Une fois que vous avez assez d'indices, vous pouvez proposer un pays. Allons-y !",
-        "buy_background_tutorial": "À l'aide des points récoltés au fur et à mesure des parties, vous pouvez acheter de nouveaux fonds. Voici 5000 points pour votre premier achat !",
+        "buy_background_tutorial": "À l'aide des points récoltés au fur et à mesure des parties, vous pouvez acheter de nouveaux fonds.\nVoici 5000 points pour votre premier achat !",
         "tutorial_content": [
             [
                 "Bienvenue dans le tutoriel de Geozzle !\n\nCliquez sur 'Suivant' pour continuer.",
