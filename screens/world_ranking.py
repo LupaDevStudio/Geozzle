@@ -16,8 +16,6 @@ from threading import Thread
 from kivy.properties import (
     StringProperty
 )
-from kivy.core.window import Window
-from kivy.clock import Clock, mainthread
 from kivy.uix.label import Label
 from kivy.uix.image import Image
 from kivy.uix.relativelayout import RelativeLayout
@@ -25,21 +23,17 @@ from kivy.uix.relativelayout import RelativeLayout
 ### Local imports ###
 
 from tools.path import (
-    PATH_TEXT_FONT,
-    PATH_MEDALS_IMAGES
+    PATH_TEXT_FONT
 )
 from screens.custom_widgets import (
     GeozzleScreen,
     MyScrollViewLayout
 )
 from tools.constants import (
-    LIST_CONTINENTS,
+    DICT_MEDALS,
     SCREEN_TITLE,
     SCREEN_ICON_LEFT_UP,
-    DICT_CONTINENTS_PRIMARY_COLOR,
-    DICT_CONTINENT_SECOND_COLOR,
     SUB_TEXT_FONT_SIZE,
-    SUBTITLE_OUTLINE_WIDTH,
     WHITE,
     BLACK
 )
@@ -151,26 +145,36 @@ class WorldRankingScreen(GeozzleScreen):
                 color = BLACK
                 if USER_DATA.db_info["ranking"] == rank:
                     color = self.continent_color
+                height = 25*self.font_ratio
                 relative_layout = RelativeLayout(
                     size_hint=(1, None),
-                    height=20*self.font_ratio
+                    height=height
                 )
-                # Rank label
-                label = Label(
-                    text=str(rank),
-                    font_name=self.font_name,
-                    font_size=SUB_TEXT_FONT_SIZE * self.font_ratio,
-                    size_hint=(1, 1),
-                    halign="left",
-                    valign="middle",
-                    color=color,
-                    outline_width=1*self.font_ratio,
-                    outline_color=WHITE
-                )
-                label.bind(size=label.setter('text_size'))
-                relative_layout.add_widget(label)
-                # Score label
-                label = Label(
+                ### Rank label or image ###
+                if rank <= 3:
+                    rank_widget = Image(
+                        source=DICT_MEDALS[rank],
+                        size_hint=(None, 1),
+                        width=height,
+                        pos_hint={"center_y": 0.5}
+                    )
+                else:
+                    rank_widget = Label(
+                        text=str(rank),
+                        font_name=self.font_name,
+                        font_size=SUB_TEXT_FONT_SIZE * self.font_ratio,
+                        size_hint=(1, 1),
+                        halign="left",
+                        valign="middle",
+                        color=color,
+                        outline_width=1*self.font_ratio,
+                        outline_color=WHITE
+                    )
+                    rank_widget.bind(size=rank_widget.setter('text_size'))
+                relative_layout.add_widget(rank_widget)
+                
+                ### Score label ###
+                score_label = Label(
                     text=str(score),
                     font_name=self.font_name,
                     font_size=SUB_TEXT_FONT_SIZE * self.font_ratio,
@@ -182,9 +186,10 @@ class WorldRankingScreen(GeozzleScreen):
                     outline_width=1*self.font_ratio,
                     outline_color=WHITE
                 )
-                label.bind(size=label.setter('text_size'))
-                relative_layout.add_widget(label)
+                score_label.bind(size=score_label.setter('text_size'))
+                relative_layout.add_widget(score_label)
                 scrollview_layout.add_widget(relative_layout)
+
             else:
                 label = Label(
                     text="\n\n\n.\n.\n.\n\n\n",

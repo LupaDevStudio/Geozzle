@@ -11,15 +11,32 @@
         outline_width: max(SUBTITLE_OUTLINE_WIDTH* root.font_ratio,1)
         outline_color: TITLE_OUTLINE_COLOR
         color: root.continent_color
+        text_size: (self.width,None)
+        color: root.continent_color
+        halign: "center"
+        valign: "middle"
 
+    # Scroll view with all clues
+    ColoredRoundedButton:
+        background_color: (1, 1, 1, 1)
+        pos_hint: {"center_x":0.5, "y":0.025*1.5}
+        size_hint: (0.8, 0.775 - 0.025 - 0.025*3)
+        color_label: root.continent_color
+        disable_button: True
+        font_ratio: root.font_ratio
     RelativeLayout:
-        pos_hint: {"center_x": 0.5, "y": 0.025}
-        size_hint: (0.9, 0.775 - 0.025 - 0.025*2)
+        pos_hint: {"center_x": 0.5, "y": 0.025*2}
+        size_hint: (0.77, 0.775 - 0.025 - 0.025*4)
 
         CustomScrollview:
             id: scrollview
             bar_width: 0
             size_hint: (1, 1)
+            do_scroll_x: False
+            scroll_type: ["bars", "content"]
+            bar_width: 10*root.font_ratio
+            bar_inactive_color: root.continent_color
+            bar_color: root.secondary_continent_color
 
             MyScrollViewLayout:
                 id: scrollview_layout

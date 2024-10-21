@@ -31,7 +31,7 @@ from screens.custom_widgets import (
 from tools.constants import (
     TIME_CHANGE_BACKGROUND,
     MAIN_MUSIC_NAME,
-    SCREEN_ICON_LEFT_UP,
+    DICT_MEDALS,
     SCREEN_ICON_LEFT_DOWN,
     SCREEN_ICON_RIGHT_DOWN,
     SCREEN_ICON_RIGHT_UP
@@ -101,12 +101,8 @@ class HomeScreen(GeozzleScreen):
         else:
             self.ranking_label = TEXT.home["ranking"].replace(
                 "[RANK]", str(USER_DATA.db_info["ranking"]))
-            if USER_DATA.db_info["ranking"] == 1:
-                self.ids.medal_rank.source = PATH_MEDALS_IMAGES + "gold.png"
-            elif USER_DATA.db_info["ranking"] == 2:
-                self.ids.medal_rank.source = PATH_MEDALS_IMAGES + "silver.png"
-            elif USER_DATA.db_info["ranking"] == 3:
-                self.ids.medal_rank.source = PATH_MEDALS_IMAGES + "bronze.png"
+            if USER_DATA.db_info["ranking"] <= 3:
+                self.ids.medal_rank.source = DICT_MEDALS[USER_DATA.db_info["ranking"]]
             else:
                 self.ids.medal_rank.source = PATH_MEDALS_IMAGES + "no_medal.png"
 
@@ -128,7 +124,7 @@ class HomeScreen(GeozzleScreen):
             music_mixer.play(MAIN_MUSIC_NAME, loop=True)
 
         # Schedule the change of background
-        if self.previous_screen_name in ["", "gallery", "game_summary", "game_question", "game_over", "stats_continent"]:
+        if self.previous_screen_name in ["", "gallery", "game_summary", "game_question", "game_over", "stats_continent", "world_ranking"]:
             Clock.schedule_interval(
                 self.manager.change_background, TIME_CHANGE_BACKGROUND)
 
@@ -160,6 +156,8 @@ class HomeScreen(GeozzleScreen):
     #             "https://apps.apple.com/app/linconym/id6503208610", 2)
 
     def go_to_world_ranking(self):
+        Clock.unschedule(self.manager.change_background,
+            TIME_CHANGE_BACKGROUND)
         self.manager.get_screen(
             "world_ranking").previous_screen_name = self.manager.current
         self.manager.current = "world_ranking"

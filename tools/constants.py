@@ -26,7 +26,8 @@ from tools.path import (
     PATH_DICT_HINTS_INFORMATION,
     PATH_MULTIPLIERS_IMAGES,
     PATH_NEW_IMAGES,
-    PATH_SECRETS_DICT
+    PATH_SECRETS_DICT,
+    PATH_MEDALS_IMAGES
 )
 from tools.basic_tools import (
     load_json_file,
@@ -143,6 +144,11 @@ NUMBER_CREDITS = 1
 ### Scores ###
 
 SCORE_GUESSED_COUNTRY = 25
+DICT_MEDALS = {
+    1: PATH_MEDALS_IMAGES + "gold.png",
+    2: PATH_MEDALS_IMAGES + "silver.png",
+    3: PATH_MEDALS_IMAGES + "bronze.png"
+}
 
 ### Gallery ###
 
