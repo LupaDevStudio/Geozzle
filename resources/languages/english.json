@@ -132,10 +132,10 @@
         "next": "Next",
         "previous": "Previous",
         "close": "Close",
-        "int_tutorial_1": "This screen lets you choose clues to guess a country. Clues are grouped by in three categories, symbolized by the number of stars: the more stars, the more points.\nLet's start with the population!",
-        "int_tutorial_2": "Here you can see the clues we've collected.\nLet's choose another one for an easier guess: using only three stars clues can be too tough for the start!",
+        "int_tutorial_1": "This screen lets you choose clues to guess a country. Clues are grouped by in three categories, symbolized by the number of stars: the more stars, the more points.\n\nLet's start with the population!",
+        "int_tutorial_2": "Here you can see the clues we've collected.\n\nLet's choose another one for an easier guess: using only three stars clues can be too tough for the start!",
         "int_tutorial_3": "Once you've got enough clues, you can suggest a country. Let's go!",
-        "buy_background_tutorial": "With the points gathered during the game, you can buy new backgrounds.\nHere are 5000 points for your first purchase!",
+        "buy_background_tutorial": "With the points gathered during the game, you can buy new backgrounds.\n\nHere are 5000 points for your first purchase!",
         "tutorial_content": [
             [
                 "Welcome to the Geozzle tutorial!\n\nClick 'Next' to continue.",

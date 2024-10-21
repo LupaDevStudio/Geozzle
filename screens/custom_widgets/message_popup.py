@@ -28,7 +28,7 @@ from tools.geozzle import (
 
 class MessagePopup(CustomPopup):
 
-    popup_size = ObjectProperty((0.85, 0.4))
+    popup_size = ObjectProperty((0.85, 0.45))
     ok_button_label = StringProperty(TEXT.popup["close"])
     center_label_text = StringProperty()
     release_function = ObjectProperty(lambda: 1 + 1)
