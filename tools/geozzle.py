@@ -135,7 +135,7 @@ def insert_space_numbers(str_number: str, language: str) -> str:
     return new_str_number
 
 
-def format_clue(code_clue: str, value_clue: str, language: str) -> str:
+def format_clue(code_clue: str, value_clue: str, language: str, code_country: str) -> str:
     """
     Format the value of the clue to display something nice in the scrollview.
 
@@ -147,6 +147,8 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
         Value associated to the clue
     language : str
         Code of the language
+    code_country : str
+        Wikidata code of the country
 
     Returns
     -------
@@ -239,6 +241,10 @@ def format_clue(code_clue: str, value_clue: str, language: str) -> str:
             value_clue = value_clue.replace(", .", "")
     except:
         pass
+
+    # Correct the problem for the indian internet domain
+    if code_country == "Q668" and value_clue == ".":
+        value_clue = ".in"
 
     value_clue = "– " + name_key + " : " + value_clue
 

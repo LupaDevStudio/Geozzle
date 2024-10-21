@@ -214,7 +214,8 @@ class GameSummaryScreen(GeozzleScreen):
                     text = format_clue(
                         code_clue=code_clue,
                         value_clue=USER_DATA.game.dict_details_country[TEXT.language][code_clue],
-                        language=TEXT.language
+                        language=TEXT.language,
+                        code_country=USER_DATA.game.current_guess_country
                     )
 
                     label_clue = ScrollViewLabel(
