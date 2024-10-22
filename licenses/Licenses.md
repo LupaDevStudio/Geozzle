@@ -27,4 +27,4 @@ The following list includes all the references of the assets used by this applic
 - <a href="https://www.flaticon.com/free-icons/warning" title="warning icons">Warning icons created by Fathema Khanom - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/rain" title="rain icons">Rain icons created by Shashank Singh - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/copy" title="copy icons">Copy icons created by Freepik - Flaticon</a>
-- <a href="https://www.flaticon.com/free-icons/world-wide-web" title="world wide web icons">World wide web icons created by Dreamstale - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/leaderboard" title="leaderboard icons">Leaderboard icons created by Freepik - Flaticon</a>

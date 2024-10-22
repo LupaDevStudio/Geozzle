@@ -102,24 +102,49 @@ class WorldRankingScreen(GeozzleScreen):
 
         list_scores_to_display = []
 
-        MAX_NUMBER_TO_DISPLAY = 30
-        NUMBER_TO_DISPLAY_AROUND = 10
+        MAX_NUMBER_TO_DISPLAY = 40 # 40
+        NUMBER_TO_DISPLAY_AROUND = 10 # 10
 
-        # If there are less than 30 scores, display all scores
+        # If there are less than 40 scores, display all scores
         if len(USER_DATA.db_info["world_ranking"]) <= MAX_NUMBER_TO_DISPLAY or USER_DATA.db_info["ranking"] is None:
             list_scores_to_display = self.fill_list_scores_to_display(
                 list_scores_to_display=list_scores_to_display,
                 lower_bound=0,
-                upper_bound=len(USER_DATA.db_info["world_ranking"])
+                upper_bound=min(MAX_NUMBER_TO_DISPLAY, len(USER_DATA.db_info["world_ranking"]))
             )
-        # Else, display the ten firsts, then the ten above the user and the ten after the user
+        # Else, display the ten firsts, then the ten above the user and the ten after the user, and the ten last people
         else:
-            # Fill the 30 first scores if the user is in the 20 firsts
+            # Fill the 30 first scores and the 10 last ones if the user is in the 20 firsts
             if USER_DATA.db_info["ranking"] <= 2*NUMBER_TO_DISPLAY_AROUND:
+                # 30 first scores
                 list_scores_to_display = self.fill_list_scores_to_display(
                     list_scores_to_display=list_scores_to_display,
                     lower_bound=0,
-                    upper_bound=MAX_NUMBER_TO_DISPLAY
+                    upper_bound=MAX_NUMBER_TO_DISPLAY-NUMBER_TO_DISPLAY_AROUND
+                )
+                # For the three dots of separation
+                list_scores_to_display.append({})
+                # 10 last scores
+                list_scores_to_display = self.fill_list_scores_to_display(
+                    list_scores_to_display=list_scores_to_display,
+                    lower_bound=len(USER_DATA.db_info["world_ranking"])-NUMBER_TO_DISPLAY_AROUND,
+                    upper_bound=len(USER_DATA.db_info["world_ranking"])
+                )
+            # Fill the 10 first ones and the 30 last ones if the user in the 20 last ones
+            elif len(USER_DATA.db_info["world_ranking"]) - 2*NUMBER_TO_DISPLAY_AROUND <= USER_DATA.db_info["ranking"]:
+                # 10 first scores
+                list_scores_to_display = self.fill_list_scores_to_display(
+                    list_scores_to_display=list_scores_to_display,
+                    lower_bound=0,
+                    upper_bound=NUMBER_TO_DISPLAY_AROUND
+                )
+                # For the three dots of separation
+                list_scores_to_display.append({})
+                # 30 last scores
+                list_scores_to_display = self.fill_list_scores_to_display(
+                    list_scores_to_display=list_scores_to_display,
+                    lower_bound=len(USER_DATA.db_info["world_ranking"])-(MAX_NUMBER_TO_DISPLAY-NUMBER_TO_DISPLAY_AROUND),
+                    upper_bound=len(USER_DATA.db_info["world_ranking"])
                 )
             else:
                 # Fill the ten first players
@@ -135,6 +160,14 @@ class WorldRankingScreen(GeozzleScreen):
                     list_scores_to_display=list_scores_to_display,
                     lower_bound=USER_DATA.db_info["ranking"]-1-NUMBER_TO_DISPLAY_AROUND,
                     upper_bound=min(USER_DATA.db_info["ranking"]+NUMBER_TO_DISPLAY_AROUND, len(USER_DATA.db_info["world_ranking"]))
+                )
+                # For the three dots of separation
+                list_scores_to_display.append({})
+                # 10 last scores
+                list_scores_to_display = self.fill_list_scores_to_display(
+                    list_scores_to_display=list_scores_to_display,
+                    lower_bound=len(USER_DATA.db_info["world_ranking"])-NUMBER_TO_DISPLAY_AROUND,
+                    upper_bound=len(USER_DATA.db_info["world_ranking"])
                 )
 
         # Add the labels in the scrollview
@@ -159,9 +192,7 @@ class WorldRankingScreen(GeozzleScreen):
                     size_hint=(1, 1),
                     halign="left",
                     valign="middle",
-                    color=color,
-                    outline_width=1*self.font_ratio,
-                    outline_color=WHITE
+                    color=color
                 )
                 rank_label.bind(size=rank_label.setter('text_size'))
                 relative_layout.add_widget(rank_label)
@@ -186,9 +217,7 @@ class WorldRankingScreen(GeozzleScreen):
                     pos_hint={"right": 0.95},
                     halign="right",
                     valign="middle",
-                    color=color,
-                    outline_width=1*self.font_ratio,
-                    outline_color=WHITE
+                    color=color
                 )
                 score_label.bind(size=score_label.setter('text_size'))
                 relative_layout.add_widget(score_label)
@@ -206,8 +235,6 @@ class WorldRankingScreen(GeozzleScreen):
                     halign="center",
                     valign="middle",
                     color=BLACK,
-                    outline_width=1*self.font_ratio,
-                    outline_color=WHITE,
                     line_height=0.5
                 )
                 label.bind(size=label.setter('text_size'))
