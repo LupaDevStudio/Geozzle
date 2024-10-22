@@ -196,17 +196,19 @@ class WorldRankingScreen(GeozzleScreen):
                 scrollview_layout.add_widget(relative_layout)
 
             else:
+                ### Three dots separation ###
                 label = Label(
                     text=".\n.\n.",
                     font_name=self.font_name,
                     font_size=SUB_TEXT_FONT_SIZE * self.font_ratio,
                     size_hint=(1, None),
-                    height=100 * self.font_ratio,
+                    height=65*self.font_ratio,
                     halign="center",
                     valign="middle",
                     color=BLACK,
                     outline_width=1*self.font_ratio,
-                    outline_color=WHITE
+                    outline_color=WHITE,
+                    line_height=0.5
                 )
                 label.bind(size=label.setter('text_size'))
                 scrollview_layout.add_widget(label)
