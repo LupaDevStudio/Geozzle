@@ -827,11 +827,11 @@ class Game():
             clues_by_categories[current_category].append(clue)
 
         # Compute the penalty
-        penalty = 5 * len(clues_by_categories[1]) + 3 * len(
+        penalty = 7 * len(clues_by_categories[1]) + 3 * len(
             clues_by_categories[2]) + 1 * len(clues_by_categories[3])
 
         # Compute the hint score
-        hint_score = self.compute_hint_score_from_penalty(penalty)
+        hint_score = max(0, self.compute_hint_score_from_penalty(penalty))
 
         return 2 * hint_score
 
