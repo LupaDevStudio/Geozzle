@@ -78,7 +78,14 @@ class GameQuestionScreen(GeozzleScreen):
 
     def on_pre_enter(self, *args):
         super().on_pre_enter(*args)
-        # print(self.code_continent)
+        
+        # Disable the go to list of clues button if the user has selected no clues
+        if len(USER_DATA.game.dict_guessed_countries[USER_DATA.game.current_guess_country]["list_clues"]) == 0:
+            self.ids.clue_button.opacity = 0
+            self.ids.clue_button.disable_button = True
+        else:
+            self.ids.clue_button.opacity = 1
+            self.ids.clue_button.disable_button = False
 
     def on_enter(self, *args):
         super().on_enter(*args)
