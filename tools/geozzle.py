@@ -1052,6 +1052,7 @@ class UserData():
         if self.db_info == {}:
             self.db_info["user_id"] = str(uuid.uuid4())
             self.db_info["ranking"] = None
+        if "world_ranking" not in self.db_info:
             self.db_info["world_ranking"] = []
 
         # Save changes
