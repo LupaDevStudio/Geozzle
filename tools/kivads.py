@@ -116,7 +116,7 @@ if platform == "android":
             if self.full_screen_callback.dismissed:
                 return True
             else:
-                False
+                return False
 
         def get_reward_amount(self):
             return self.reward_listener.reward.getAmount()
