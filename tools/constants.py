@@ -40,7 +40,7 @@ from tools.basic_tools import (
 
 ### Version ###
 
-__version__ = "2.2.3"
+__version__ = "2.2.4"
 
 
 ### Debug ###
